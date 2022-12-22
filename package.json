@@ -1,0 +1,41 @@
+{
+  "name": "sandi-plewis-blog",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Blog website for Sandi Plewis",
+  "homepage": "https://www.sandiplewis.com",
+  "author": "Mark Plewis <mplewis1@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markplewis/sandiplewis-blog.git"
+  },
+  "license": "UNLICENSED",
+  "browserslist": "> 0.5%, last 4 versions, not IE 11, Firefox ESR, not dead",
+  "scriptsComments": {
+    "dev": "`Starts the application in development mode with hot-code reloading, error reporting, etc.",
+    "build": "Vercel CI build command: creates optimized production build of the application",
+    "lint": "Runs ESLint",
+    "prettier-check": "Runs Prettier",
+    "check": "Checks for outdated NPM packages"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "next lint",
+    "prettier-check": "prettier --check .",
+    "check": "npx npm-check -s -u"
+  },
+  "dependencies": {
+    "@next/font": "13.0.7",
+    "next": "13.0.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "eslint": "8.30.0",
+    "eslint-config-next": "13.0.7",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "2.8.1"
+  }
+}
