@@ -21,6 +21,9 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className={styles.description}>
+          <div role="heading" aria-level={1}>
+            welcome to next.js!
+          </div>
           <StyledP>
             Get started by editing&nbsp;
             <code className={styles.code}>pages/index.js</code>
