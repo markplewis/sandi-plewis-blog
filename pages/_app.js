@@ -1,4 +1,6 @@
 import { Dancing_Script, Literata, Open_Sans } from "@next/font/google";
+
+import "modern-normalize/modern-normalize.css";
 import "../styles/globals.css";
 
 // See: https://nextjs.org/docs/basic-features/font-optimization
@@ -21,9 +23,6 @@ export default function App({ Component, pageProps }) {
       <Component {...pageProps} />
     </>
   );
-  // return (
-  //   <main className={`${dancingScript.className} ${literata.className} ${openSans.className}`}>
-  //     <Component {...pageProps} />
-  //   </main>
-  // );
+  // Font classes can be applied to elements as follows:
+  // <div className={dancingScript.className}></div>
 }
