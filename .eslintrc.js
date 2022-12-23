@@ -17,6 +17,7 @@ module.exports = {
     // node: true
   },
   settings: {
+    // Recognize imports from "components/" so we don't have to write "../../components/", etc.
     "import/resolver": {
       node: {
         moduleDirectory: ["node_modules", __dirname]

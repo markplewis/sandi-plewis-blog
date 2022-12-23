@@ -1,21 +1,23 @@
-import { lazy } from "react";
 import { PreviewSuspense } from "next-sanity/preview";
+import { lazy } from "react";
 import { DocumentsCount, query } from "components/DocumentsCount";
 import { client } from "lib/sanity.client";
 
 const PreviewDocumentsCount = lazy(() => import("components/PreviewDocumentsCount"));
 
-export const getStaticProps = async ({ preview = false }) => {
+export const getStaticProps = async ({ preview = false, previewData = {} }) => {
+  if (preview && previewData?.token) {
+    return { props: { preview, token: previewData.token } };
+  }
   const data = await client.fetch(query);
-
   return { props: { preview, data } };
 };
 
-export default function IndexPage({ preview, data }) {
+export default function IndexPage({ preview, token, data }) {
   if (preview) {
     return (
-      <PreviewSuspense fallback={<DocumentsCount data={data} />}>
-        <PreviewDocumentsCount />
+      <PreviewSuspense fallback="Loading...">
+        <PreviewDocumentsCount token={token} />
       </PreviewSuspense>
     );
   }
