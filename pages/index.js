@@ -6,7 +6,9 @@ import { client } from "lib/sanity.client";
 const PreviewDocumentsCount = lazy(() => import("components/PreviewDocumentsCount"));
 
 export const getStaticProps = async ({ preview = false, previewData = {} }) => {
+  // @ts-ignore
   if (preview && previewData?.token) {
+    // @ts-ignore
     return { props: { preview, token: previewData.token } };
   }
   const data = await client.fetch(query);
