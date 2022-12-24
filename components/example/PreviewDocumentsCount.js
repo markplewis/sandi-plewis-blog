@@ -1,7 +1,7 @@
 "use client";
 
+import { query, DocumentsCount } from "components/example/DocumentsCount";
 import { usePreview } from "lib/sanity.preview";
-import { query, DocumentsCount } from "components/DocumentsCount";
 
 // See: https://github.com/sanity-io/next-sanity#custom-token-auth
 

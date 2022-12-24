@@ -1,0 +1,22 @@
+.footer {
+  margin-top: 64px;
+  padding: 32px var(--column-right-margin) 32px var(--column-left-margin);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("/images/footer-illustration.svg") repeat top left;
+  background-size: auto 250%;
+}
+.footerLink {
+  padding: 10px 16px;
+  background-color: #fff;
+  border-radius: 5px;
+  font-size: var(--font-size-5);
+  color: var(--base-font-color);
+  text-decoration-line: none;
+}
+.footerLink:hover,
+.footerLink:focus,
+.footerLink:active {
+  text-decoration-line: underline;
+}

@@ -1,0 +1,201 @@
+.header {
+  padding-left: var(--column-left-margin);
+  padding-right: var(--column-right-margin);
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: minmax(min-content, max-content) 1fr;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.nameAndTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  column-gap: 16px;
+  row-gap: 4px;
+  flex-wrap: wrap;
+  grid-column: 1 / 2;
+}
+@media (min-width: 820px) {
+  .header {
+    padding-bottom: 32px;
+    align-items: baseline;
+  }
+  .nameAndTitle {
+    flex-direction: row;
+  }
+}
+.name {
+  margin: 0;
+  line-height: 1;
+  font-family: "Dancing Script", cursive;
+  font-size: var(--font-size-0);
+  white-space: nowrap;
+}
+.nameLink {
+  text-decoration: none;
+  color: var(--base-font-color);
+}
+.title {
+  margin: 0;
+  line-height: 1;
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-4);
+  font-family: var(--base-font-family);
+}
+.navMenuButton {
+  width: 44px;
+  height: 44px;
+  margin: 22px 0 22px 22px;
+  padding: 0;
+  justify-self: end;
+  grid-column: 2 / 3;
+  transition: transform 0.25s ease-out;
+}
+.navMenuButton:hover,
+.navMenuButton:focus {
+  transform: scale3d(1.1, 1.1, 1.1);
+}
+.navMenuButton svg {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 10px;
+}
+.header > .nav {
+  margin-left: 44px;
+  justify-self: end;
+  grid-column: 2 / 3;
+}
+.header > .nav .navList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 32px;
+}
+.header > .nav .navItem {
+  padding-top: 28px;
+  border-top: 12px solid transparent;
+}
+.header > .nav .navItemActive {
+  border-top-color: var(--primaryBgHigh);
+}
+.header > .nav .navLink {
+  font-size: var(--font-size-4);
+  color: var(--base-font-color);
+  text-decoration-line: none;
+}
+.header > .nav .navLink:hover,
+.header > .nav .navLink:focus {
+  text-decoration-line: underline;
+}
+.navMenu {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  z-index: 3;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  /* Momentum touch scrolling for iOS (non-standard feature) */
+  -webkit-overflow-scrolling: touch;
+  background-color: var(--base-font-color);
+}
+.navMenuHiding {
+  animation: hideNavMenu 0.25s ease-out 0s 1 normal forwards running;
+}
+.navMenuRevealing {
+  animation: revealNavMenu 0.25s ease-out 0s 1 normal forwards running;
+}
+@keyframes hideNavMenu {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes revealNavMenu {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Inside menu */
+.navMenu .navList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.navMenu .navItem {
+  border-bottom: 2px solid #666;
+  position: relative;
+}
+.navMenu .navItemActive::before {
+  width: 8px;
+  height: 100%;
+  background-color: #666;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.navMenu .navLink {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: var(--column-left-margin);
+  padding-right: var(--column-right-margin);
+  font-size: var(--font-size-4);
+  color: #fff;
+  text-decoration-line: none;
+  display: block;
+}
+.navMenu .navLink:hover,
+.navMenu .navLink:focus {
+  text-decoration-line: underline;
+  background-color: #191919;
+}
+
+/* Twitter */
+.shareButton {
+  font-size: var(--font-size-4);
+  color: var(--base-font-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.shareButton:hover,
+.shareButton:focus {
+  text-decoration-line: underline;
+}
+.shareButton svg {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  fill: #191919;
+  flex-shrink: 0;
+}
+
+/* Twitter inside menu */
+.navMenu .shareButton {
+  width: 100%;
+  height: 70px; /* TODO: how to achieve this with padding instead? */
+  padding-left: var(--column-left-margin);
+  padding-right: var(--column-right-margin);
+  color: #fff;
+  transform: none;
+}
+.navMenu .shareButton:hover,
+.navMenu .shareButton:focus {
+  background-color: #191919;
+}
+.navMenu .shareButton svg {
+  fill: #fff;
+}

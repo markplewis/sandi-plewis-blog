@@ -1,7 +1,9 @@
 import { Dancing_Script, Literata, Open_Sans } from "@next/font/google";
+import { AppProvider } from "utils/useApp";
 
 import "modern-normalize/modern-normalize.css";
-import "../styles/globals.css";
+// import "styles/base.css";
+// import "styles/typography.css";
 
 // See: https://nextjs.org/docs/basic-features/font-optimization
 
@@ -18,9 +20,13 @@ export default function App({ Component, pageProps }) {
           --font-dancing-script: ${dancingScript.style.fontFamily};
           --font-literata: ${literata.style.fontFamily};
           --font-open-sans: ${openSans.style.fontFamily};
+          --base-font-family: ${openSans.style.fontFamily}, Verdana, sans-serif;
+          --heading-font-family: ${literata.style.fontFamily}, serif;
         }
       `}</style>
-      <Component {...pageProps} />
+      <AppProvider>
+        <Component {...pageProps} />
+      </AppProvider>
     </>
   );
   // Font classes can be applied to elements as follows:

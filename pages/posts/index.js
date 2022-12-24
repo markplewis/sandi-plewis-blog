@@ -1,0 +1,41 @@
+import { PreviewSuspense } from "next-sanity/preview";
+import { lazy } from "react";
+import { PostsPage } from "components/pages/PostsPage";
+import { client } from "lib/sanity.client";
+import { postsPageQuery } from "utils/queries/postsPageQueries";
+
+const PostsPagePreview = lazy(() => import("components/pages/PostsPagePreview"));
+
+export default function Posts({ preview, token, data }) {
+  return preview ? (
+    <PreviewSuspense fallback="Loading...">
+      <PostsPagePreview token={token} />
+    </PreviewSuspense>
+  ) : (
+    <PostsPage data={data} />
+  );
+}
+
+/**
+ * @see https://nextjs.org/docs/api-reference/data-fetching/get-static-props
+ * @param {Object} context
+ * @returns {Promise<Object>}
+ */
+export const getStaticProps = async ({ preview = false, previewData = {} }) => {
+  if (preview && previewData?.token) {
+    return {
+      props: {
+        preview,
+        token: previewData.token
+      }
+    };
+  }
+  const data = await client.fetch(postsPageQuery);
+  return {
+    props: {
+      preview,
+      data
+    },
+    revalidate: 10
+  };
+};
