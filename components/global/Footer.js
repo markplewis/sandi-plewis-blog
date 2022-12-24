@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import styles from "components/Footer.module.css";
+import styles from "components/global/Footer.module.css";
 
 export default function Footer() {
   const router = useRouter();

@@ -1,11 +1,14 @@
 import Link from "next/link";
-import Layout from "components/Layout";
+import Layout from "components/global/Layout";
 
-export function PostsPage({ data }) {
+export function PostsPage({ data, preview = false }) {
   const posts = data;
   return (
-    <Layout title="Blog posts" description="A listing of Sandi Plewis' blog posts">
-      <h1>Posts</h1>
+    <Layout
+      title="Blog posts"
+      description="A listing of Sandi Plewis' blog posts"
+      preview={preview}>
+      <h1>Posts{preview ? " (preview)" : ""}</h1>
       <ul>
         {posts.map(post => (
           <li key={`posts-${post?._id}-${post?.slug}`}>

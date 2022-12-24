@@ -1,6 +1,6 @@
 import { useApp } from "utils/useApp";
 
-import styles from "components/SkipLink.module.css";
+import styles from "components/global/SkipLink.module.css";
 
 // According to WebAIM.org: "Some browsers do not fully support in-page links. While they
 // may visually shift focus to the location of the target or named anchor for the "skip"

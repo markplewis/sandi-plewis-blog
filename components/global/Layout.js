@@ -1,17 +1,23 @@
 import PropTypes from "prop-types";
 import Head from "next/head";
 
-import Footer from "components/Footer";
-import Header from "components/Header";
-// import PreviewMessage from "components/PreviewMessage";
-import SkipLink from "components/SkipLink";
+import Footer from "components/global/Footer";
+import Header from "components/global/Header";
+import PreviewMessage from "components/global/PreviewMessage";
+import SkipLink from "components/global/SkipLink";
 
 import { DEFAULT_META_DESCRIPTION, env, envProd, SITE_TITLE } from "env/constants"; // BASE_URL
 
 import { darkGray, white } from "utils/color/tokens";
 import useDebug from "utils/useDebug";
 
-function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, className = "" }) {
+function Layout({
+  children,
+  title = "",
+  description = DEFAULT_META_DESCRIPTION,
+  className = "",
+  preview = false
+}) {
   const debug = useDebug();
   const fullTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
   debug && console.log(`env: ${env}`);
@@ -26,7 +32,7 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
         {description && <meta name="description" content={description} />}
       </Head>
       <SkipLink />
-      <Header>{/* <PreviewMessage /> */}</Header>
+      <Header>{preview ? <PreviewMessage /> : null}</Header>
       <main className={className}>
         <style jsx global>
           {`

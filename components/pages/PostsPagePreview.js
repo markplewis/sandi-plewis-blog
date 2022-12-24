@@ -6,5 +6,5 @@ import { postsPageQuery } from "utils/queries/postsPageQueries";
 
 export default function PostsPagePreview({ token }) {
   const data = usePreview(token, postsPageQuery);
-  return <PostsPage data={data} />;
+  return <PostsPage data={data} preview={true} />;
 }

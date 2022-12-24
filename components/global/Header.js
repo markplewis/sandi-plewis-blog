@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import useMediaQuery from "utils/useMediaQuery";
 import { rem } from "utils/units";
 
-import styles from "components/Header.module.css";
+import styles from "components/global/Header.module.css";
 
 export default function Header({ children }) {
   const router = useRouter();

@@ -1,13 +1,13 @@
 import Link from "next/link";
-import Layout from "components/Layout";
+import Layout from "components/global/Layout";
 
-export function HomePage({ data }) {
+export function HomePage({ data, preview = false }) {
   const { novelAndHomePage, reviews, posts, author } = data;
   const { novel, description } = novelAndHomePage;
 
   return (
-    <Layout title="" description={description} className="homePage">
-      <h1>Home page</h1>
+    <Layout title="" description={description} preview={preview} className="homePage">
+      <h1>Home page{preview ? " (preview)" : ""}</h1>
 
       <section>
         <h2>Novel: {novel?.title}</h2>
