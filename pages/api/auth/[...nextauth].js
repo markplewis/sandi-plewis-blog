@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "lib/mongodb.client";
+import clientPromise, { mongoDbUri } from "lib/mongodb.client";
 import { MongoClient } from "mongodb";
 
 // See: https://authjs.dev/getting-started/email-tutorial
@@ -26,11 +26,11 @@ export default NextAuth({
       }
       // User has submitted the sign-in form but a verification email has not yet been sent to them
       let isAllowedToSignIn = false;
-      const client = new MongoClient(process.env.MONGODB_URI);
+      const client = new MongoClient(mongoDbUri);
       try {
         // Check whether the submitted email address matches an existing user in the database
         await client.connect();
-        const database = client.db("test");
+        const database = client.db(process.env.MONGODB_DB);
         const collection = database.collection("users");
         const cursor = collection.find();
         let userEmails = [];
