@@ -41,7 +41,7 @@ const nextConfig = {
         permanent: true
       },
       {
-        source: "/manage",
+        source: "/admin",
         destination: `https://${envProd ? "admin" : "dev-admin"}.sandiplewis.com/`,
         permanent: true
       }

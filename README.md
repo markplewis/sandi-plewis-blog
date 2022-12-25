@@ -4,7 +4,7 @@ This repository contains a [Next.js](https://nextjs.org) application that serves
 
 A separate [Sanity](https://www.sanity.io)-powered CMS provides content for this application to consume, via the Sanity API.
 
-This project uses [Vercel](https://vercel.com) for continuous integration and delivery (CI/CD).
+This project uses [Vercel](https://vercel.com) for continuous integration and delivery (CI/CD), [Mailgun](https://www.mailgun.com/) for email delivery, and [MongoDB](https://www.mongodb.com/atlas/database) for user authentication.
 
 ### VSCode plugins
 

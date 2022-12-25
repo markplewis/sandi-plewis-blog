@@ -13,6 +13,6 @@ export default async function preview(req, res) {
     res.writeHead(307, { Location: "/" });
     res.end();
   } else {
-    return res.status(401).json({ message: "Invalid session" });
+    return res.status(401).json({ message: "Access denied" });
   }
 }

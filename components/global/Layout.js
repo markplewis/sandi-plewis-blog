@@ -16,7 +16,7 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
   const router = useRouter();
   const debug = useDebug();
   const fullTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
-  const noIndex = !envProd || router.pathname === "/preview";
+  const noIndex = !envProd || router.pathname === "/login";
   debug && console.log(`env: ${env}`);
 
   return (
