@@ -23,7 +23,7 @@ export default function LogInButton() {
   return (
     <>
       <p>Not signed in.</p>
-      <button onClick={() => signIn(undefined, { callbackUrl: "/api/preview" })}>Sign in</button>
+      <button onClick={() => signIn("email", { callbackUrl: "/api/preview" })}>Sign in</button>
     </>
   );
 }
