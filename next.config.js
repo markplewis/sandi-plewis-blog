@@ -1,6 +1,14 @@
-/** @type {import('next').NextConfig} */
+// TODO: the following `import `doesn't seem to work, even when I rename this file to
+// `next.config.mjs` and add `"type": "module"` to `package.json`:
+// `import { envProd } from "env/constants";`
+// See: https://nextjs.org/docs/api-reference/next.config.js/introduction
+
+const envProd =
+  process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_SANITY_DATASET === "production";
 
 // See: https://nextjs.org/docs/api-reference/next.config.js/introduction
+
+/** @type {import('next').NextConfig} */
 
 const nextConfig = {
   reactStrictMode: true,
@@ -31,12 +39,12 @@ const nextConfig = {
         source: "/short-stories",
         destination: "/writing",
         permanent: true
+      },
+      {
+        source: "/manage",
+        destination: `https://${envProd ? "admin" : "dev-admin"}.sandiplewis.com/`,
+        permanent: true
       }
-      // {
-      //   source: "/studio",
-      //   destination: `https://${envProd ? "admin" : "dev-admin"}.sandiplewis.com/`,
-      //   permanent: true
-      // }
     ];
   }
 };

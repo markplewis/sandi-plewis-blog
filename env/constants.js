@@ -8,6 +8,8 @@ const environments = {
   local: "http://localhost:3000"
 };
 
+// NODE_ENV will be one of the following: https://nextjs.org/docs/messages/non-standard-node-env
+
 export const envProd =
   process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_SANITY_DATASET === "production";
 

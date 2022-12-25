@@ -1,34 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sandi Plewis' blog
 
-## Getting Started
+This repository contains a [Next.js](https://nextjs.org) application that serves as the front-end for [www.sandiplewis.com](https://www.sandiplewis.com).
 
-First, run the development server:
+A separate [Sanity](https://www.sanity.io)-powered CMS provides content for this application to consume, via the Sanity API.
+
+This project uses [Vercel](https://vercel.com) for continuous integration and delivery (CI/CD).
+
+### VSCode plugins
+
+You'll want to install the following VSCode plugins:
+
+- [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [Sanity.io](https://marketplace.visualstudio.com/items?itemName=sanity-io.vscode-sanity)
+
+### Installation
+
+Duplicate the `.env.local.example` file and rename it to `.env.local`. Then, copy and paste the listed environment variables, tokens, IDs and secrets from your [Vercel project dashboard](https://vercel.com). See `.env.local.example` for more information.
+
+Once the environment variables are ready, run the following command to install the project dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### MongoDB Compass
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Optionally install [MongoDB Compass](https://www.mongodb.com/products/compass)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Startup
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+You can fire up the development server via:
 
-## Learn More
+```bash
+npm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+The application will run at `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Production builds
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Whenever a Vercel build is initiated, Vercel runs `npm run build`, which creates an optimized production build of the application (see the script comments in `package.json` for more information). This generates a `.next` directory, which Vercel then deploys to the production server.
 
-## Deploy on Vercel
+If you run `npm run build` locally, you'll see the statically-built HTML files, etc. in the `.next/server/pages/` directory.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### CLI documentation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Next.js: https://nextjs.org/docs/api-reference/cli

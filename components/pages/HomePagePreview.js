@@ -16,5 +16,5 @@ export default function HomePagePreview({ token }) {
     posts: usePreview(token, recentPostsQuery),
     author: usePreview(token, authorBioQuery)
   };
-  return <HomePage data={data} preview={true} />;
+  return <HomePage data={data} />;
 }

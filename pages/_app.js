@@ -1,4 +1,5 @@
 import { Dancing_Script, Literata, Open_Sans } from "@next/font/google";
+import { SessionProvider } from "next-auth/react";
 import { AppProvider } from "utils/useApp";
 
 import "modern-normalize/modern-normalize.css";
@@ -12,7 +13,7 @@ const dancingScript = Dancing_Script({ subsets: ["latin"] });
 const literata = Literata({ subsets: ["latin"] });
 const openSans = Open_Sans({ subsets: ["latin"] });
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
       <style jsx global>{`
@@ -25,7 +26,10 @@ export default function App({ Component, pageProps }) {
         }
       `}</style>
       <AppProvider>
-        <Component {...pageProps} />
+        {/* See: https://authjs.dev/getting-started/oauth-tutorial#exposing-the-session-via-provider */}
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
       </AppProvider>
     </>
   );

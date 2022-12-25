@@ -6,10 +6,10 @@ import { postPageQuery } from "utils/queries/postPageQueries";
 
 const PostPagePreview = lazy(() => import("components/pages/PostPagePreview"));
 
-export default function Post({ preview, token, data }) {
+export default function Post({ preview, token, slug, data }) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
-      <PostPagePreview token={token} />
+      <PostPagePreview token={token} slug={slug} />
     </PreviewSuspense>
   ) : (
     <PostPage data={data} />
@@ -32,7 +32,8 @@ export const getStaticProps = async ({ preview = false, previewData = {}, params
     return {
       props: {
         preview,
-        token: previewData.token
+        token: previewData.token,
+        slug: params.slug
       }
     };
   }

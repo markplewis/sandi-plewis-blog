@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import Footer from "components/global/Footer";
 import Header from "components/global/Header";
@@ -11,15 +12,11 @@ import { DEFAULT_META_DESCRIPTION, env, envProd, SITE_TITLE } from "env/constant
 import { darkGray, white } from "utils/color/tokens";
 import useDebug from "utils/useDebug";
 
-function Layout({
-  children,
-  title = "",
-  description = DEFAULT_META_DESCRIPTION,
-  className = "",
-  preview = false
-}) {
+function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, className = "" }) {
+  const router = useRouter();
   const debug = useDebug();
   const fullTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
+  const noIndex = !envProd || router.pathname === "/preview";
   debug && console.log(`env: ${env}`);
 
   return (
@@ -27,12 +24,14 @@ function Layout({
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-        {envProd ? null : <meta name="robots" content="noindex" />}
+        {noIndex ? <meta name="robots" content="noindex" /> : null}
         <title>{fullTitle}</title>
         {description && <meta name="description" content={description} />}
       </Head>
       <SkipLink />
-      <Header>{preview ? <PreviewMessage /> : null}</Header>
+      <Header>
+        <PreviewMessage />
+      </Header>
       <main className={className}>
         <style jsx global>
           {`
