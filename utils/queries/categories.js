@@ -1,6 +1,14 @@
 import groq from "groq";
 
-export const categoryPageQuery = groq`
+export const categoriesQuery = groq`
+  *[_type == "category"][] | order(title asc) {
+    _id,
+    title,
+    "slug": slug.current
+  }
+`;
+
+export const categoryQuery = groq`
   *[_type == "category" && slug.current == $slug][0] {
     _id,
     title,

@@ -2,7 +2,7 @@ import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import { CategoriesPage } from "components/pages/CategoriesPage";
 import { client } from "lib/sanity.client";
-import { categoriesPageQuery } from "utils/queries/categoriesPageQueries";
+import { categoriesQuery } from "utils/queries/categories";
 
 const CategoriesPagePreview = lazy(() => import("components/pages/CategoriesPagePreview"));
 
@@ -30,7 +30,7 @@ export const getStaticProps = async ({ preview = false, previewData = {} }) => {
       }
     };
   }
-  const data = await client.fetch(categoriesPageQuery);
+  const data = await client.fetch(categoriesQuery);
   return {
     props: {
       preview,

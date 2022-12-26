@@ -2,9 +2,9 @@
 
 import { PostPage } from "components/pages/PostPage";
 import { usePreview } from "lib/sanity.preview";
-import { postPageQuery } from "utils/queries/postPageQueries";
+import { postQuery } from "utils/queries/posts";
 
 export default function PostPagePreview({ token, slug }) {
-  const data = usePreview(token, postPageQuery, { slug });
+  const data = usePreview(token, postQuery, { slug });
   return <PostPage data={data} />;
 }

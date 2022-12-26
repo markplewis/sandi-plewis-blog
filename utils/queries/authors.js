@@ -1,9 +1,19 @@
 import groq from "groq";
 
-export const novelPageQuery = groq`
-  *[_type == "novel" && slug.current == $slug][0] {
+export const authorsQuery = groq`
+  *[_type == "author"][] | order(name asc) {
     _id,
-    title,
+    name,
+    "slug": slug.current,
+    "image": image{..., ...asset->{creditLine, description, url}},
+    description
+  }
+`;
+
+export const authorQuery = groq`
+  *[_type == "author" && slug.current == $slug][0] {
+    _id,
+    name,
     "slug": slug.current,
     colorPalette,
     primaryColor,
@@ -14,17 +24,7 @@ export const novelPageQuery = groq`
       "palette": metadata.palette,
       url
     }},
-    "overview": overview[] {
-      ...,
-      markDefs[]{
-        ...,
-        _type == "internalLink" => {
-          "type": @.reference->_type,
-          "slug": @.reference->slug
-        }
-      }
-    },
-    "body": body[] {
+    "biography": biography[] {
       ...,
       _type == "image" => {
         ...,
@@ -38,7 +38,6 @@ export const novelPageQuery = groq`
         }
       }
     },
-    description,
-    "reviews": *[_type=='review' && references(^._id)]{ _id, title, review, author }
+    description
   }
 `;

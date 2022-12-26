@@ -7,7 +7,7 @@ import {
   featuredReviewsQuery,
   recentPostsQuery,
   authorBioQuery
-} from "utils/queries/homePageQueries";
+} from "utils/queries/homePage";
 
 const HomePagePreview = lazy(() => import("components/pages/HomePagePreview"));
 

@@ -2,7 +2,7 @@ import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import { WritingPage } from "components/pages/WritingPage";
 import { client } from "lib/sanity.client";
-import { novelsQuery, shortStoriesQuery } from "utils/queries/writingPageQueries";
+import { novelsQuery, shortStoriesQuery } from "utils/queries/writing";
 
 const WritingPagePreview = lazy(() => import("components/pages/WritingPagePreview"));
 

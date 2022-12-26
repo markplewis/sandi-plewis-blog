@@ -1,9 +1,9 @@
 import groq from "groq";
 
-export const authorPageQuery = groq`
-  *[_type == "author" && slug.current == $slug][0] {
+export const shortStoryQuery = groq`
+  *[_type == "shortStory" && slug.current == $slug][0] {
     _id,
-    name,
+    title,
     "slug": slug.current,
     colorPalette,
     primaryColor,
@@ -14,7 +14,17 @@ export const authorPageQuery = groq`
       "palette": metadata.palette,
       url
     }},
-    "biography": biography[] {
+    "overview": overview[] {
+      ...,
+      markDefs[]{
+        ...,
+        _type == "internalLink" => {
+          "type": @.reference->_type,
+          "slug": @.reference->slug
+        }
+      }
+    },
+    "body": body[] {
       ...,
       _type == "image" => {
         ...,

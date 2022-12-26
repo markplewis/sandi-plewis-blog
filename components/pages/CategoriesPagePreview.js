@@ -2,9 +2,9 @@
 
 import { CategoriesPage } from "components/pages/CategoriesPage";
 import { usePreview } from "lib/sanity.preview";
-import { categoriesPageQuery } from "utils/queries/categoriesPageQueries";
+import { categoriesQuery } from "utils/queries/categories";
 
 export default function CategoriesPagePreview({ token }) {
-  const data = usePreview(token, categoriesPageQuery);
+  const data = usePreview(token, categoriesQuery);
   return <CategoriesPage data={data} />;
 }

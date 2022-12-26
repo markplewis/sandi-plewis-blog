@@ -7,7 +7,7 @@ import {
   featuredReviewsQuery,
   recentPostsQuery,
   authorBioQuery
-} from "utils/queries/homePageQueries";
+} from "utils/queries/homePage";
 
 export default function HomePagePreview({ token }) {
   const data = {
