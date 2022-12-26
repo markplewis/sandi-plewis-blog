@@ -10,7 +10,7 @@ export function PostsPage({ data }) {
         {posts.map(post => (
           <li key={`posts-${post?._id}-${post?.slug}`}>
             <Link as={`/posts/${post?.slug}`} href={`/posts/[slug]`}>
-              <h3>{post?.title || post?.name}</h3>
+              <h3>{post?.title}</h3>
               <p>{post?.date}</p>
               <p>{post?.description}</p>
             </Link>

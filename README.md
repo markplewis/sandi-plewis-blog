@@ -4,7 +4,11 @@ This repository contains a [Next.js](https://nextjs.org) application that serves
 
 A separate [Sanity](https://www.sanity.io)-powered CMS provides content for this application to consume, via the Sanity API.
 
-This project uses [Vercel](https://vercel.com) for continuous integration and delivery (CI/CD), [Mailgun](https://www.mailgun.com/) for email delivery, and [MongoDB](https://www.mongodb.com/atlas/database) for user authentication.
+This project uses:
+
+- [Vercel](https://vercel.com) for continuous integration and delivery (CI/CD)
+- [Mailgun](https://www.mailgun.com/) for email delivery
+- [MongoDB](https://www.mongodb.com/atlas/database) for user authentication
 
 ## VSCode plugins
 
@@ -13,7 +17,7 @@ You'll want to install the following VSCode plugins:
 - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [Sanity.io](https://marketplace.visualstudio.com/items?itemName=sanity-io.vscode-sanity)
+- [Sanity.io](https://marketplace.visualstudio.com/items?itemName=sanity-io.vscode-sanity) (for GROQ syntax highlighting)
 
 ## Installation
 
@@ -45,9 +49,7 @@ Whenever a Vercel build is initiated, Vercel runs `npm run build`, which creates
 
 If you run `npm run build` locally, you'll see the statically-built HTML files, etc. in the `.next/server/pages/` directory.
 
-## Next.js CLI documentation
-
-https://nextjs.org/docs/api-reference/cli
+See the [Next.js CLI documentation](https://nextjs.org/docs/api-reference/cli).
 
 ## Application details
 
@@ -56,7 +58,7 @@ https://nextjs.org/docs/api-reference/cli
 This app uses [next-sanity](https://github.com/sanity-io/next-sanity) to provide a [live, real-time preview experience](https://github.com/sanity-io/next-sanity#custom-token-auth) for authenticatd users. Here's how it works:
 
 1. Navigating to `/login` will redirect you to the Sanity Studio login page where you can manage all of the documents that the Next.js application consumes.
-2. Navigating to `/admin` (in a sepatate browser tab) will bring you to an [Auth.js](https://authjs.dev/)-powered login form.
+2. Navigating to `/admin` (in a sepatate browser tab) will bring you to an [Auth.js](https://authjs.dev/)-powered login form (a.k.a. [next-auth](https://github.com/nextauthjs/next-auth)).
 3. Upon form submission, the application will check whether the submitted email address belongs to an existing user in the [MongoDB](https://www.mongodb.com/atlas/database) database (see `pages/api/auth/[...nextauth].js`). If so, then an email containing a "magic link" will be sent to that address.
 4. Clicking the "magic link" will redirect you back to the website, where you'll be logged in (your session will be stored in the [MongoDB](https://www.mongodb.com/atlas/database) database).
 5. You'll then be immediately redirected to `/api/preview` where, via an [authentication token](https://github.com/sanity-io/next-sanity#custom-token-auth), [next-sanity](https://github.com/sanity-io/next-sanity) will setup the listeners, etc. that are required in order to start streaming the Sanity dataset to the browser.

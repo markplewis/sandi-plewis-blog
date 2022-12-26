@@ -1,3 +1,4 @@
+import groq from "groq";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import { PostPage } from "components/pages/PostPage";
@@ -64,7 +65,7 @@ export const getStaticProps = async ({ preview = false, previewData = {}, params
 export async function getStaticPaths() {
   // Pre-render only these paths at build time
   const paths = await client.fetch(
-    `*[_type == "post" && defined(slug.current)]{ "params": { "slug": slug.current } }`
+    groq`*[_type == "post" && defined(slug.current)]{ "params": { "slug": slug.current } }`
   );
   // `fallback: blocking` will server-render pages on demand if the path
   // wasn't statically pre-rendered (i.e. didn't exist at build time)
