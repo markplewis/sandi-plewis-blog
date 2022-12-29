@@ -1,6 +1,8 @@
 import { Dancing_Script, Literata, Open_Sans } from "@next/font/google";
 import { SessionProvider } from "next-auth/react";
+import PlausibleProvider from "next-plausible";
 import { AppProvider } from "utils/useApp";
+import { BASE_URL, envProd } from "env/constants";
 
 import "modern-normalize/modern-normalize.css";
 // import "styles/base.css";
@@ -14,6 +16,7 @@ const literata = Literata({ subsets: ["latin"] });
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
+  const domain = BASE_URL.split("//").pop();
   return (
     <>
       <style jsx global>{`
@@ -25,12 +28,15 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
           --heading-font-family: ${literata.style.fontFamily}, serif;
         }
       `}</style>
-      <AppProvider>
-        {/* See: https://authjs.dev/getting-started/oauth-tutorial#exposing-the-session-via-provider */}
-        <SessionProvider session={session}>
-          <Component {...pageProps} />
-        </SessionProvider>
-      </AppProvider>
+
+      <PlausibleProvider domain={domain} enabled={envProd}>
+        <AppProvider>
+          {/* See: https://authjs.dev/getting-started/oauth-tutorial#exposing-the-session-via-provider */}
+          <SessionProvider session={session}>
+            <Component {...pageProps} />
+          </SessionProvider>
+        </AppProvider>
+      </PlausibleProvider>
     </>
   );
   // Font classes can be applied to elements as follows:

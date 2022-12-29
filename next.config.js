@@ -1,3 +1,5 @@
+const { withPlausibleProxy } = require("next-plausible");
+
 // TODO: the following `import `doesn't seem to work, even when I rename this file to
 // `next.config.mjs` and add `"type": "module"` to `package.json`:
 // `import { envProd } from "env/constants";`
@@ -49,4 +51,4 @@ const nextConfig = {
   }
 };
 
-module.exports = nextConfig;
+module.exports = withPlausibleProxy()(nextConfig);
