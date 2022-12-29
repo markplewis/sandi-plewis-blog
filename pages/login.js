@@ -1,10 +1,11 @@
 import Layout from "components/global/Layout";
+import PageTitle from "components/global/PageTitle";
 import LogInButton from "components/global/LogInButton";
 
 export default function Preview() {
   return (
     <Layout title="Preview mode" description="Activate or deactivate preview mode">
-      <h1>Preview mode</h1>
+      <PageTitle>Preview mode</PageTitle>
       <LogInButton />
     </Layout>
   );

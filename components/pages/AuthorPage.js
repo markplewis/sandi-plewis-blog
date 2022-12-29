@@ -1,10 +1,11 @@
 import Layout from "components/global/Layout";
+import PageTitle from "components/global/PageTitle";
 
 export function AuthorPage({ data }) {
   const { name = "", description = "" } = data;
   return (
     <Layout title={name} description={description}>
-      <h1>{name}</h1>
+      <PageTitle>{name}</PageTitle>
       <p>{description}</p>
     </Layout>
   );

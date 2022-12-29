@@ -1,12 +1,14 @@
 import Link from "next/link";
+import Date from "components/global/Date";
 import Layout from "components/global/Layout";
+import PageTitle from "components/global/PageTitle";
 
 export function PostPage({ data }) {
   const { title = "", description = "", date = "", categories = [], author = {} } = data;
   return (
     <Layout title={title} description={description}>
-      <h1>{title}</h1>
-      <p>{date}</p>
+      <PageTitle>{title}</PageTitle>
+      <Date dateString={date} />
       <p>
         <Link as={`/authors/${author?.slug}`} href="/authors/[slug]">
           {author?.name}

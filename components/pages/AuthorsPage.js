@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Layout from "components/global/Layout";
+import PageTitle from "components/global/PageTitle";
 
 export function AuthorsPage({ data }) {
   const authors = data;
   return (
     <Layout title="Authors" description="Authors">
-      <h1>Authors</h1>
+      <PageTitle>Authors</PageTitle>
       <ul>
         {authors.map(author => (
           <li key={`authors-${author?._id}-${author?.slug}`}>

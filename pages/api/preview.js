@@ -9,6 +9,9 @@ export default async function preview(req, res) {
   const session = await getSession({ req });
 
   if (session) {
+    // By default, no expiration date is set for Preview Mode cookies,
+    // so the preview session ends when the browser is closed.
+    // https://nextjs.org/docs/advanced-features/preview-mode#clear-the-preview-mode-cookies
     res.setPreviewData({ token });
     res.writeHead(307, { Location: "/" });
     res.end();

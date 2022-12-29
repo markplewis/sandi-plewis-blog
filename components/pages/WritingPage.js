@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Layout from "components/global/Layout";
+import PageTitle from "components/global/PageTitle";
 
 export function WritingPage({ data }) {
   const { novels = [], shortStories = [] } = data;
   console.log("WritingPage", { novels, shortStories });
   return (
     <Layout title="Writing" description="A listing of Sandi Plewis' novels and short stories">
-      <h1>Writing</h1>
+      <PageTitle>Writing</PageTitle>
       <h2>Novels</h2>
       <ul>
         {novels.map(novel => (

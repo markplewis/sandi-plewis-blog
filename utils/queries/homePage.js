@@ -36,7 +36,7 @@ export const featuredReviewsQuery = groq`
 
 function getRecentPostsQuery(limit) {
   return groq`
-    *[_type == "post"] | order(publishedAt desc){title, 'slug': slug.current, image, description, _id} [0..${
+    *[_type == "post"] | order(publishedAt desc){title, 'slug': slug.current, image, description, _id, "date": publishedAt} [0..${
       limit - 1
     }]
   `;

@@ -8,12 +8,18 @@ export default function PreviewMessage() {
   const router = useRouter();
   const { status } = useSession();
 
-  const signOutButton =
-    status === "authenticated" ? (
-      <button onClick={() => signOut({ callbackUrl: "/api/exit-preview" })}>Sign out</button>
-    ) : null;
+  // Since Next.js' preview mode cookies get deleted when the browser is closed but Auth.js
+  // sessions persist, we must verify that the user has both an active session as well as the
+  // required cookies. If not, then they will be logged out.
+  // See: https://nextjs.org/docs/advanced-features/preview-mode#clear-the-preview-mode-cookies
+  if (status === "authenticated" && !router.isPreview) {
+    signOut();
+  }
 
-  return router.isPreview ? (
-    <div className={styles.previewMessage}>Preview mode {signOutButton}</div>
+  return status === "authenticated" && router.isPreview ? (
+    <div className={styles.previewMessage}>
+      Preview mode{" "}
+      <button onClick={() => signOut({ callbackUrl: "/api/exit-preview" })}>Sign out</button>
+    </div>
   ) : null;
 }

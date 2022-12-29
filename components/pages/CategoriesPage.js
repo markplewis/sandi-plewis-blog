@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Layout from "components/global/Layout";
+import PageTitle from "components/global/PageTitle";
 
 export function CategoriesPage({ data }) {
   const categories = data;
   return (
     <Layout title="Categories" description="Blog post categories">
-      <h1>Categories</h1>
+      <PageTitle>Categories</PageTitle>
       <ul>
         {categories.map(category => (
           <li key={`categories-${category?._id}-${category?.slug}`}>

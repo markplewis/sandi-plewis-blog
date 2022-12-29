@@ -1,0 +1,72 @@
+.formContainer {
+  margin: 0 calc(var(--column-right-margin) * -1); /* Negate with * -1 */
+  padding: 44px var(--column-right-margin);
+  background-color: #fff;
+}
+@media (min-width: 600px) {
+  .formContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 44px;
+    border: 4px solid #eee;
+    border-radius: 10px 0;
+  }
+}
+.fieldGroup {
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+}
+.form input[type="text"],
+.form input[type="email"],
+.form textarea {
+  padding: 8px;
+  border: 2px solid #888;
+  border-radius: 0 10px;
+}
+.form label {
+  margin-bottom: 4px;
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-bold);
+}
+.captcha {
+  margin-bottom: 44px;
+}
+.error {
+  margin: 8px 0 0 0;
+  display: flex;
+  align-items: center;
+  color: #b30000;
+}
+.error svg {
+  margin-right: 4px;
+  fill: #b30000;
+}
+/* TODO: consolidate these styles with `MoreLink.module.css` */
+.submitButton {
+  margin-left: auto;
+  padding: 8px 12px;
+  background-color: var(--base-font-color);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.submitButtonSVG {
+  transition: all 0.1s ease-out;
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+.submitButton:hover .submitButtonSVG,
+.submitButton:focus .submitButtonSVG {
+  transform: translateX(4px);
+}
+.submitButton:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+.submitButton:disabled:hover .submitButtonSVG,
+.submitButton:disabled:focus .submitButtonSVG {
+  transform: none;
+}

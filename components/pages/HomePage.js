@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Date from "components/global/Date";
 import Layout from "components/global/Layout";
+import PageTitle from "components/global/PageTitle";
 
 export function HomePage({ data }) {
   const { novelAndHomePage, reviews, posts, author } = data;
@@ -7,7 +9,7 @@ export function HomePage({ data }) {
 
   return (
     <Layout title="" description={description} className="homePage">
-      <h1>Home page</h1>
+      <PageTitle>Home page</PageTitle>
 
       <section>
         <h2>Novel: {novel?.title}</h2>
@@ -38,7 +40,7 @@ export function HomePage({ data }) {
               <Link as={`/posts/${post?.slug}`} href={`/posts/[slug]`}>
                 <div>
                   <h3>{post?.title || post?.name}</h3>
-                  <p>{post?.date}</p>
+                  <Date dateString={post?.date} />
                   <p>{post?.description}</p>
                 </div>
               </Link>
