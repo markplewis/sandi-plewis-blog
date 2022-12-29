@@ -1,0 +1,30 @@
+.figure {
+  width: 100%;
+  margin: 0 auto 22px auto;
+}
+.figure > span {
+  width: 100%;
+}
+.caption {
+  margin-top: 8px;
+  font-size: var(--font-size-5);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+@media (min-width: 800px) {
+  .align-left {
+    margin-left: -64px;
+    margin-right: 22px;
+    float: left;
+  }
+  .align-right {
+    margin-left: 22px;
+    margin-right: -64px;
+    float: right;
+  }
+  .align-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
