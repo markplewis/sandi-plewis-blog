@@ -1,0 +1,216 @@
+.gradient {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(100deg, var(--secondaryBgHigh) 0%, var(--primaryBgHigh) 100%);
+  opacity: 0.1;
+}
+.patternBlock {
+  /* Width of share tools minus column margins */
+  width: calc(100% - 176px - (var(--column-margin) * 4));
+  height: 300px;
+  content: "";
+  display: block;
+  position: absolute;
+}
+.page {
+  margin: 0 var(--column-left-margin) 0 var(--column-right-margin);
+  padding-bottom: 44px;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 64px;
+}
+.page,
+.shareToolsAbove {
+  position: relative;
+}
+.shareToolsAbove {
+  margin: 22px var(--column-right-margin) 0 var(--column-left-margin);
+}
+
+/* Page content */
+
+.novel {
+  border-radius: 10px 0;
+  background-color: var(--primaryBgHigh);
+  color: var(--primaryFgHigh);
+  margin-top: 22px;
+  padding: 44px 22px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+.novel ul,
+.novel ol {
+  line-height: 1.8;
+}
+.novel a,
+.novel a:visited,
+.novel a:hover,
+.novel a:focus,
+.novel a:active {
+  color: var(--primaryFgHigh);
+}
+.novel :focus,
+.novel :hover:focus {
+  outline-color: var(--primaryFgHigh);
+}
+.novelImage {
+  width: 188px;
+}
+.novelInfo {
+  flex: 1 1;
+}
+.novelInfo h1 {
+  margin-top: 0;
+}
+.reviews {
+  max-width: 75ch;
+  margin: 0 auto;
+}
+.posts {
+  margin: 0 auto;
+  align-self: flex-start;
+}
+.postsHeading {
+  margin-top: 0;
+  /* TODO: change all instances of 44 to 48 (divisible by 8) */
+  margin-bottom: 44px;
+}
+.bio {
+  max-width: 90ch;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 4px solid var(--primaryBgHigh);
+  padding: 22px;
+  align-self: flex-start;
+}
+.bio a,
+.bio a:visited,
+.bio a:hover,
+.bio a:focus,
+.bio a:active {
+  color: var(--base-font-color);
+}
+.bioHeading {
+  margin-top: 0;
+}
+.bioImage {
+  width: 100%;
+  margin: 0 auto 44px auto;
+  transform: translateX(8px); /* Half of the transform below */
+  background-color: var(--secondaryBgLow);
+  border-bottom-left-radius: 50px;
+}
+.bioImage > span {
+  transform: translate(-16px, 16px);
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
+}
+
+@media (min-width: 480px) {
+  .posts {
+    border-left: 4px solid var(--secondaryBgLow);
+    padding: 22px 22px 0 22px;
+  }
+}
+
+@media (min-width: 600px) {
+  .novel {
+    padding: 44px;
+  }
+  .patternBlock {
+    width: 300px;
+  }
+  .novel {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .bioImage {
+    float: right;
+    margin: 0 0 40px 40px;
+    transform: none;
+  }
+}
+
+@media (min-width: 1150px) {
+  .page {
+    grid-template-columns: 1fr 0.2fr 1fr;
+    row-gap: 88px;
+  }
+  .novel {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
+  .reviews {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+  }
+  .posts {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+  .bio {
+    grid-column: 2 / 4;
+    grid-row: 2 / 3;
+  }
+  .posts {
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 44px;
+  }
+  .bio,
+  .reviews {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .reviews {
+    margin-top: 22px;
+    padding: 22px 0 22px 22px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1280px) {
+  .page {
+    padding-top: 44px;
+    grid-template-columns: 1fr 0.1fr 1fr 88px;
+  }
+  .patternBlock {
+    margin-top: 44px;
+  }
+  .novel {
+    grid-column: 1 / 3;
+  }
+  .reviews {
+    grid-column: 3 / 4;
+  }
+  .shareToolsVertical {
+    margin-top: 22px;
+    grid-column: 4 / 5;
+    grid-row: 1 / 2;
+    justify-self: flex-end;
+  }
+  .posts {
+    grid-column: 1 / 2;
+  }
+  .bio {
+    grid-column: 2 / 5;
+  }
+  .reviews {
+    padding-left: 44px;
+  }
+  .posts {
+    padding-right: 44px;
+    padding-left: 44px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .novel {
+    padding: 44px 88px;
+  }
+}

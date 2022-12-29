@@ -2,6 +2,8 @@ import Link from "next/link";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
+// import styles from "styles/pages/contentListing.module.css";
+
 export function CategoriesPage({ data }) {
   const categories = data;
   return (

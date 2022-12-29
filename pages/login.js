@@ -2,11 +2,18 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import LogInButton from "components/global/LogInButton";
 
+import styles from "styles/pages/staticPage.module.css";
+
 export default function Preview() {
   return (
     <Layout title="Preview mode" description="Activate or deactivate preview mode">
-      <PageTitle>Preview mode</PageTitle>
-      <LogInButton />
+      <div className={styles.page}>
+        <PageTitle>Preview mode</PageTitle>
+
+        <div className={styles.pageInner}>
+          <LogInButton />
+        </div>
+      </div>
     </Layout>
   );
 }

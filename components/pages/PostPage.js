@@ -8,6 +8,8 @@ import InternalLink from "components/portableText/InternalLink";
 import LineBreak from "components/portableText/LineBreak";
 import PostBodyImage from "components/portableText/PostBodyImage";
 
+// import styles from "styles/pages/post.module.css";
+
 const portableTextComponents = {
   types: {
     image: ({ value }) => <PostBodyImage value={value} />,
@@ -19,7 +21,7 @@ const portableTextComponents = {
 };
 
 export function PostPage({ data }) {
-  const { title = "", body = "", description = "", date = "", categories = [], author = {} } = data;
+  const { title = "", body = [], description = "", date = "", categories = [], author = {} } = data;
   return (
     <Layout title={title} description={description}>
       <PageTitle>{title}</PageTitle>
@@ -30,7 +32,7 @@ export function PostPage({ data }) {
         </Link>
       </p>
 
-      <PortableText value={body} components={portableTextComponents} />
+      {body ? <PortableText value={body} components={portableTextComponents} /> : null}
 
       {categories && categories.length ? (
         <div>

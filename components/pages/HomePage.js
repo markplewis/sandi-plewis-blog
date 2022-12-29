@@ -2,6 +2,17 @@ import Link from "next/link";
 import Date from "components/global/Date";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
+import { PortableText } from "lib/sanity";
+
+import InternalLink from "components/portableText/InternalLink";
+
+// import styles from "styles/pages/home.module.css";
+
+const portableTextComponents = {
+  marks: {
+    internalLink: ({ children, value }) => <InternalLink value={value}>{children}</InternalLink>
+  }
+};
 
 export function HomePage({ data }) {
   const { novelAndHomePage, reviews, posts, author } = data;
@@ -13,6 +24,14 @@ export function HomePage({ data }) {
 
       <section>
         <h2>Novel: {novel?.title}</h2>
+
+        {novel?.overview ? (
+          <PortableText value={novel.overview} components={portableTextComponents} />
+        ) : null}
+
+        <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
+          More information
+        </Link>
       </section>
 
       <section>
@@ -54,6 +73,11 @@ export function HomePage({ data }) {
 
       <section>
         <h2>{author?.name}</h2>
+
+        {author?.shortBiography ? (
+          <PortableText value={author.shortBiography} components={portableTextComponents} />
+        ) : null}
+
         <Link as={`/authors/${author?.slug}`} href="/authors/[slug]">
           {`More about ${author?.name?.split(" ")[0]}`}
         </Link>

@@ -1,0 +1,12 @@
+.page {
+  margin: 0 var(--column-left-margin) 0 var(--column-right-margin);
+  position: relative;
+}
+.page h1 {
+  margin: 48px 0;
+  text-align: center;
+}
+.pageInner {
+  max-width: 1280px;
+  margin: 0 auto;
+}

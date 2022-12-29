@@ -4,6 +4,8 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import { useApp } from "utils/useApp";
 
+import styles from "styles/pages/contact.module.css";
+
 export default function Contact() {
   const { app } = useApp();
   const skipLinkTargetRef = app.skipLinkTargetRef;
@@ -24,9 +26,10 @@ export default function Contact() {
 
   return (
     <Layout title={pageTitle} description="Contact Sandi Plewis">
-      <div>
+      <div className={styles.page}>
         <PageTitle>{pageTitle}</PageTitle>
-        <div>
+
+        <div className={styles.pageInner}>
           <ContactForm onStateChange={onFormChange} />
         </div>
       </div>

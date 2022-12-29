@@ -1,6 +1,8 @@
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
+// import styles from "styles/pages/author.module.css";
+
 export function AuthorPage({ data }) {
   const { name = "", description = "" } = data;
   return (

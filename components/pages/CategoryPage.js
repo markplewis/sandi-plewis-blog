@@ -3,6 +3,8 @@ import Date from "components/global/Date";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
+// import styles from "styles/pages/contentListing.module.css";
+
 export function CategoryPage({ data }) {
   const { title = "", posts = [] } = data;
   return (
