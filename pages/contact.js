@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ContactForm, { FORM_ERROR, FORM_SUBMITTED } from "components/ContactForm";
+import ContactForm, { FORM_ERROR, FORM_SUBMITTED } from "components/contactForm/ContactForm";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import { useApp } from "utils/useApp";

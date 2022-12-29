@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaExclamationCircle } from "react-icons/fa";
 
-import FriendlyCaptcha from "components/FriendlyCaptcha";
-import Spinner from "components/Spinner";
+import FriendlyCaptcha from "components/contactForm/FriendlyCaptcha";
+import Spinner from "components/contactForm/Spinner";
 
 import { emailRegex } from "utils/forms";
 import useDebug from "utils/useDebug";
 
-import styles from "components/ContactForm.module.css";
+import styles from "components/contactForm/ContactForm.module.css";
 
 // Lifecycle types (in order of occurance)
 export const FORM_IDLE = "idle";

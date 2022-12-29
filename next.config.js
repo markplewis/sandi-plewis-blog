@@ -1,9 +1,9 @@
 const { withPlausibleProxy } = require("next-plausible");
 
 // TODO: the following `import `doesn't seem to work, even when I rename this file to
-// `next.config.mjs` and add `"type": "module"` to `package.json`:
+// `next.config.mjs` and add `"type": "module"` to `package.json`, so I've copied the
+// `envProd` variable into this file.
 // `import { envProd } from "env/constants";`
-// See: https://nextjs.org/docs/api-reference/next.config.js/introduction
 
 const envProd =
   process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_SANITY_DATASET === "production";
@@ -15,9 +15,9 @@ const envProd =
 const nextConfig = {
   reactStrictMode: true,
   // See: https://nextjs.org/docs/advanced-features/compiler
-  compiler: {
-    styledComponents: true
-  },
+  // compiler: {
+  //   styledComponents: true
+  // },
   eslint: {
     // See also the `lint` script in `package.json`
     dirs: ["components", "env", "lib", "pages", "utils"]
@@ -51,4 +51,5 @@ const nextConfig = {
   }
 };
 
+// See: https://github.com/4lejandrito/next-plausible#proxy-the-analytics-script
 module.exports = withPlausibleProxy()(nextConfig);

@@ -1,4 +1,4 @@
-import styles from "components/Spinner.module.css";
+import styles from "components/contactForm/Spinner.module.css";
 
 export default function Spinner() {
   return (
