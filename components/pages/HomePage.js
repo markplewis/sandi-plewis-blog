@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Date from "components/global/Date";
+import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import { PortableText } from "lib/sanity";
@@ -62,7 +62,7 @@ export function HomePage({ data }) {
                 <div>
                   <h3>{post?.title || post?.name}</h3>
                   <p>
-                    <Date dateString={post?.date} />
+                    <DisplayDate dateString={post?.date} />
                   </p>
                   <p>{post?.description}</p>
                 </div>

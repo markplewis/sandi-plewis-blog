@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Date from "components/global/Date";
+import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
@@ -16,7 +16,7 @@ export function PostsPage({ data }) {
             <Link as={`/posts/${post?.slug}`} href={`/posts/[slug]`}>
               <h3>{post?.title}</h3>
               <p>
-                <Date dateString={post?.date} />
+                <DisplayDate dateString={post?.date} />
               </p>
               <p>{post?.description}</p>
             </Link>

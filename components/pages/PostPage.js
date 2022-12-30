@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Date from "components/global/Date";
+import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import { PortableText } from "lib/sanity";
@@ -26,7 +26,7 @@ export function PostPage({ data }) {
     <Layout title={title} description={description}>
       <PageTitle>{title}</PageTitle>
       <p>
-        <Date dateString={date} />
+        <DisplayDate dateString={date} />
       </p>
       <p>
         <Link as={`/authors/${author?.slug}`} href="/authors/[slug]">
