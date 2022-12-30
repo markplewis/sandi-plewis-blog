@@ -1,4 +1,6 @@
 .header {
+  margin-left: calc(var(--column-margin-left) * -1);
+  margin-right: calc(var(--column-margin-right) * -1);
   padding-left: var(--column-margin-left);
   padding-right: var(--column-margin-right);
   background-color: #fff;
@@ -17,7 +19,7 @@
   flex-wrap: wrap;
   grid-column: 1 / 2;
 }
-@media (min-width: 820px) {
+@media (min-width: var(--bp-820)) {
   .header {
     padding-bottom: 32px;
     align-items: baseline;
@@ -29,8 +31,8 @@
 .name {
   margin: 0;
   line-height: 1;
-  font-family: "Dancing Script", cursive;
-  font-size: var(--font-size-0);
+  font-family: var(--font-dancing-script), cursive;
+  font-size: var(--font-size-40);
   white-space: nowrap;
 }
 .nameLink {
@@ -41,7 +43,7 @@
   margin: 0;
   line-height: 1;
   font-weight: var(--font-weight-normal);
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-20);
   font-family: var(--font-family-base);
 }
 .navMenuButton {
@@ -84,7 +86,7 @@
   border-top-color: var(--primaryBgHigh);
 }
 .header > .nav .navLink {
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-20);
   color: var(--font-color-base);
   text-decoration-line: none;
 }
@@ -150,7 +152,7 @@
   padding-bottom: 20px;
   padding-left: var(--column-margin-left);
   padding-right: var(--column-margin-right);
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-20);
   color: #fff;
   text-decoration-line: none;
   display: block;
@@ -163,7 +165,7 @@
 
 /* Twitter */
 .shareButton {
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-20);
   color: var(--font-color-base);
   text-decoration: none;
   display: flex;

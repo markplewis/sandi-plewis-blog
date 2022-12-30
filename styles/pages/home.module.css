@@ -110,14 +110,14 @@
   border-radius: 100%;
 }
 
-@media (min-width: 480px) {
+@media (min-width: var(--bp-480)) {
   .posts {
     border-left: 4px solid var(--secondaryBgLow);
     padding: 22px 22px 0 22px;
   }
 }
 
-@media (min-width: 600px) {
+@media (min-width: var(--bp-600)) {
   .novel {
     padding: 44px;
   }
@@ -135,7 +135,7 @@
   }
 }
 
-@media (min-width: 1150px) {
+@media (min-width: var(--bp-1150)) {
   .page {
     grid-template-columns: 1fr 0.2fr 1fr;
     row-gap: 88px;
@@ -174,7 +174,7 @@
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: var(--bp-1280)) {
   .page {
     padding-top: 44px;
     grid-template-columns: 1fr 0.1fr 1fr 88px;
@@ -209,7 +209,7 @@
   }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: var(--bp-1600)) {
   .novel {
     padding: 44px 88px;
   }

@@ -28,17 +28,19 @@
 * {
   line-height: inherit; /* Inherit value from modern-normalize.css */
 }
-html,
+/* html,
 body {
   width: 100%;
   height: 100%;
-}
+} */
 body {
   font-size: 100%; /* Default is 16px in most browsers */
   font-family: var(--font-family-base);
   line-height: 1.5;
   color: var(--font-color-base);
   background-color: var(--bg-color-base);
+  margin-left: var(--column-margin-left);
+  margin-right: var(--column-margin-right);
 }
 /* #__next {
   min-height: 100%;
@@ -75,20 +77,20 @@ h6 {
   line-height: 1.2;
 }
 h1 {
-  font-size: var(--font-size-700);
+  font-size: var(--font-size-36);
 }
 h2 {
-  font-size: var(--font-size-500);
+  font-size: var(--font-size-28);
 }
 h3 {
-  font-size: var(--font-size-400);
+  font-size: var(--font-size-24);
 }
 h4 {
-  font-size: var(--font-size-300);
+  font-size: var(--font-size-20);
 }
 h5,
 h6 {
-  font-size: var(--font-size-200);
+  font-size: var(--font-size-16);
 }
 h1,
 h2,

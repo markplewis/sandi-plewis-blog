@@ -11,7 +11,7 @@
 .heroArea {
   display: grid;
 }
-@media (min-width: 1600px) {
+@media (min-width: var(--bp-1600)) {
   .heroArea {
     margin-left: var(--column-margin-left);
     margin-right: var(--column-margin-right);
