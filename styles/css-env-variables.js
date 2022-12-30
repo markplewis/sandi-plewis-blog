@@ -1,5 +1,4 @@
-const envVars = require("styles/js-env-variables");
-const { breakpoints: bp } = envVars;
+const { breakpoints: bp } = require("./js-env-variables");
 
 /*
 Unfortunately, it isn't possible to use CSS custom properties in media queries, like this:
@@ -31,3 +30,17 @@ module.exports = {
     "--bp-1600": `${bp.w1600.rem}rem`
   }
 };
+
+// module.exports = {
+//   environmentVariables: {
+//     // Media query breakpoints
+//     "--bp-480": "30rem", // 480px
+//     "--bp-600": "37.5rem", // 600px
+//     "--bp-768": "48rem", // 768px
+//     "--bp-820": "51.25rem", // 820px
+//     "--bp-1024": "64rem", // 1024px
+//     "--bp-1150": "71.875rem", // 1150px
+//     "--bp-1280": "80rem", // 1280px
+//     "--bp-1600": "100rem" // 1600px
+//   }
+// };
