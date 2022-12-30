@@ -12,7 +12,8 @@ module.exports = {
         stage: 3,
         features: {
           "custom-properties": false
-        }
+        },
+        importFrom: ["styles/css-env-variables.js"]
       }
     ],
     // See: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-env-function
@@ -29,3 +30,5 @@ module.exports = {
     ]
   ]
 };
+
+// Issues: https://github.com/vercel/next.js/issues/11494

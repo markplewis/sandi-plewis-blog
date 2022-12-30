@@ -15,6 +15,9 @@ export default function DisplayDate({ className = "", dateString = "" }) {
     setFormattedDate(formatted);
   }, [dateString]);
 
+  // TODO: why is a `useEffect` required here, in order to avoid "Text content does
+  // not match server-rendered HTML" React errors? Why can't we do the following?
+  //
   // const date = new Date(dateString);
   // const formattedDate = new Intl.DateTimeFormat("en-US", {
   //   year: "numeric",
