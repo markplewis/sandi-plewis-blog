@@ -12,7 +12,7 @@
   flex-direction: column;
   gap: 8px;
 }
-@media (min-width: var(--bp-800)) {
+@media (min-width: env(--bp-800)) {
   .align-left {
     margin-left: -64px;
     margin-right: 22px;

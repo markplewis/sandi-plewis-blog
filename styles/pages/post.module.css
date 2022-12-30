@@ -22,7 +22,7 @@
 .shareToolsAbove {
   margin-left: 48px;
 }
-@media (min-width: var(--bp-768)) {
+@media (min-width: env(--bp-768)) {
   .titleArea {
     margin-top: 60px;
     margin-bottom: 60px;
@@ -46,18 +46,18 @@
     var(--meta-width)
     var(--column-margin-right);
 }
-@media (min-width: var(--bp-768)) {
+@media (min-width: env(--bp-768)) {
   .heroArea {
     --meta-width: 48%;
     margin-bottom: 40px;
   }
 }
-@media (min-width: var(--bp-1024)) {
+@media (min-width: env(--bp-1024)) {
   .heroArea {
     --meta-width: 42%;
   }
 }
-@media (min-width: var(--bp-1600)) {
+@media (min-width: env(--bp-1600)) {
   .heroArea {
     grid-column: 2 / -2;
     margin-left: var(--column-margin-left);

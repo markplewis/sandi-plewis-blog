@@ -15,12 +15,12 @@
   --column-margin-left: max(var(--column-margin), env(safe-area-inset-left));
   --column-margin-right: max(var(--column-margin), env(safe-area-inset-right));
 }
-@media (min-width: var(--bp-768)) {
+@media (min-width: env(--bp-768)) {
   :root {
     --column-margin: 44px;
   }
 }
-@media (min-width: var(--bp-1600)) {
+@media (min-width: env(--bp-1600)) {
   :root {
     --column-margin: 88px;
   }

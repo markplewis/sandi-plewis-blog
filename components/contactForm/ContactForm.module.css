@@ -3,7 +3,7 @@
   padding: 44px var(--column-margin-right);
   background-color: #fff;
 }
-@media (min-width: var(--bp-600)) {
+@media (min-width: env(--bp-600)) {
   .formContainer {
     max-width: 600px;
     margin: 0 auto;

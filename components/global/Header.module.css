@@ -19,7 +19,7 @@
   flex-wrap: wrap;
   grid-column: 1 / 2;
 }
-@media (min-width: var(--bp-820)) {
+@media (min-width: env(--bp-820)) {
   .header {
     padding-bottom: 32px;
     align-items: baseline;

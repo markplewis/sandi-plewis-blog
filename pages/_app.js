@@ -9,7 +9,6 @@ import { BASE_URL, envProd } from "env/constants";
 import "modern-normalize/modern-normalize.css";
 import "nprogress/nprogress.css";
 import "styles/typography.css";
-import "styles/breakpoints.css";
 import "styles/base.css";
 
 // https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/
