@@ -45,6 +45,11 @@ body {
   margin-left: var(--column-margin-left);
   margin-right: var(--column-margin-right);
 }
+@media (min-width: env(--bp-768)) {
+  body {
+    background-color: red;
+  }
+}
 /* #__next {
   min-height: 100%;
   display: grid;
