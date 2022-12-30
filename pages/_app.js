@@ -22,15 +22,15 @@ import "styles/base.css";
 // If loading a variable font, you don't need to specify the font weight
 // See: https://nextjs.org/docs/basic-features/font-optimization
 // Font classes can be applied to elements as follows:
-// <div className={dancingScript.className}></div>
+// `<div className={dancingScript.className}></div>`
 
 const dancingScript = Dancing_Script({ subsets: ["latin"] });
 const literata = Literata({ subsets: ["latin"] });
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 // Why we're using a page loading indicator bar:
-// https://vpilip.com/next-js-page-loading-indicator-improve-ux-of-next-js-app/
-// https://usabilitypost.com/2013/08/19/new-ui-pattern-website-loading-bars/
+// See: https://vpilip.com/next-js-page-loading-indicator-improve-ux-of-next-js-app/
+// See: https://usabilitypost.com/2013/08/19/new-ui-pattern-website-loading-bars/
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());

@@ -10,6 +10,11 @@ This project uses:
 - [Mailgun](https://www.mailgun.com/) for email delivery
 - [MongoDB](https://www.mongodb.com/atlas/database) for user authentication
 
+At the time of this writing, this project was using:
+
+- Node 18
+- NPM 8
+
 ## VSCode plugins
 
 You'll want to install the following VSCode plugins:

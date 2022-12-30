@@ -1,6 +1,8 @@
 .footer {
-  margin: 64px calc(var(--column-margin-right) * -1) 0 calc(var(--column-margin-left) * -1);
-  padding: 32px var(--column-margin-right) 32px var(--column-margin-left);
+  margin-top: 64px;
+  margin-bottom: 0;
+  padding-top: 32px;
+  padding-bottom: 32px;
   display: flex;
   align-items: center;
   justify-content: center;

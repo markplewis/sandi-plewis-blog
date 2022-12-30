@@ -1,19 +1,23 @@
-/* Global styles */
-/* See: https://nextjs.org/docs/basic-features/built-in-css-support */
+/*
+Global styles
+See: https://nextjs.org/docs/basic-features/built-in-css-support
 
+We're respecting viewport "safe areas" via special, predefined CSS environment variables.
+See: https://webkit.org/blog/7929/designing-websites-for-iphone-x/
+
+TODO: `viewport-fit=cover` doesn't seem to be working in Chrome for iOS:
+See: https://bugs.chromium.org/p/chromium/issues/detail?id=1150075
+See: https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe-area-inset-for-notch
+*/
 :root {
   --focus-outline-color: steelblue;
   --column-margin: 24px;
-  /*
-  See: https://webkit.org/blog/7929/designing-websites-for-iphone-x/
-  TODO: viewport-fit=cover doesn't seem to be working in Chrome for iOS:
-  https://bugs.chromium.org/p/chromium/issues/detail?id=1150075
-  https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe-area-inset-for-notch
-  */
   /* Minimum width is `env(safe-area-inset-left)` but can be up to `var(--column-margin)` */
   --column-margin-left: max(var(--column-margin), env(safe-area-inset-left));
   --column-margin-right: max(var(--column-margin), env(safe-area-inset-right));
 }
+/* It isn't possible to use CSS custom properties in media queries, however, with a little help
+from PostCSS, we can use custom CSS environment variables (see: `styles/css-env-variables.js`) */
 @media (min-width: env(--bp-768)) {
   :root {
     --column-margin: 44px;
@@ -33,7 +37,7 @@ body {
   height: 100%;
 } */
 body {
-  font-size: 100%; /* Default is 16px in most browsers */
+  font-size: 100%; /* Default is `16px` in most browsers */
   font-family: var(--font-family-base);
   line-height: 1.5;
   color: var(--font-color-base);
@@ -102,25 +106,27 @@ ul,
 ol,
 figure,
 blockquote {
+  /* See: https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/ */
   margin: 1em 0;
 }
 blockquote {
   font-style: italic;
 }
 
-/* See https://css-tricks.com/links-inline-svg-staying-target-events/ */
+/* See: https://css-tricks.com/links-inline-svg-staying-target-events/ */
 a > svg,
 button > svg {
   pointer-events: none;
 }
 
 /*
-Note: We could use "box-shadow" instead of "outline", but focus rings won't display
-correctly when an <a> wraps an <img> element, unless that <a> has "display: inline-block"
-applied. "box-shadow" is nice because it automatically follows the contours of the element's
-"border-radius", whereas "outline" does not (although there are plans to change this:
-https://bugs.chromium.org/p/chromium/issues/detail?id=81556), but we've opted to use "outline"
-in order to avoid having to apply "display: inline-block" to every <a> that wraps an <img>.
+Note: We could use `box-shadow` instead of `outline`, but focus rings won't display
+correctly when an `<a>` wraps an `<img>` element, unless that `<a>` has `display: inline-block`
+applied. `box-shadow` is nice because it automatically follows the contours of the element's
+`border-radius`, whereas `outline` does not (although there are plans to change this:
+https://bugs.chromium.org/p/chromium/issues/detail?id=81556), but we've opted to use `outline`
+in order to avoid having to apply `display: inline-block` to every `<a>` that wraps an `<img>`.
+See also: https://github.com/microsoft/fluentui/issues/6944
 */
 :focus,
 :hover:focus {
@@ -140,6 +146,13 @@ a:active {
 
 /* Utilities */
 /* TODO: move these into a separate file? */
+
+.full-width {
+  margin-left: calc(var(--column-margin-left) * -1);
+  margin-right: calc(var(--column-margin-right) * -1);
+  padding-left: var(--column-margin-left);
+  padding-right: var(--column-margin-right);
+}
 
 /*
 Controversial "fix" for sub-pixel font rendering "problems" in various browsers
@@ -170,7 +183,7 @@ Hide only visually, but have it available for screen readers.
 Warning: elements containing focusable elements (e.g. links, buttons, etc.)
 should not be hidden in this way, because sighted keyboard users will not be
 able to see the focused element.
-http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+See: http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
 */
 .u-visually-hidden {
   position: absolute;
@@ -179,14 +192,14 @@ http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
   margin: -1px;
   padding: 0;
   overflow: hidden;
-  /* TODO: Refactor this to avoid using clip, because it's deprecated */
-  /* https://developer.mozilla.org/en-US/docs/Web/CSS/clip */
+  /* TODO: Refactor this to avoid using clip, because it's deprecated
+  See: https://developer.mozilla.org/en-US/docs/Web/CSS/clip */
   clip: rect(0 0 0 0);
   border: 0;
 }
 
 .u-no-scroll--not-fixed {
-  width: 100%;
+  /* width: 100%; */
   height: 100%;
   overflow: hidden;
 }

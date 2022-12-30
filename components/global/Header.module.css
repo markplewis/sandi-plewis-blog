@@ -1,14 +1,10 @@
 .header {
-  margin-left: calc(var(--column-margin-left) * -1);
-  margin-right: calc(var(--column-margin-right) * -1);
-  padding-left: var(--column-margin-left);
-  padding-right: var(--column-margin-right);
   background-color: #fff;
   display: grid;
   grid-template-columns: minmax(min-content, max-content) 1fr;
   align-items: center;
-  position: relative;
-  z-index: 2;
+  /* position: relative;
+  z-index: 2; */
 }
 .nameAndTitle {
   display: flex;
@@ -33,6 +29,7 @@
   line-height: 1;
   font-family: var(--font-dancing-script), cursive;
   font-size: var(--font-size-40);
+  font-weight: 700;
   white-space: nowrap;
 }
 .nameLink {
