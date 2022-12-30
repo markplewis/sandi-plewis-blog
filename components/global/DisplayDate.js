@@ -1,15 +1,26 @@
 // import { isValid, parseISO, format } from "date-fns";
+import { useEffect, useState } from "react";
 
 // Param `dateString` - date in ISO 8601 format
 export default function DisplayDate({ className = "", dateString = "" }) {
-  const date = new Date(dateString);
-  const formattedDate = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  }).format(date);
+  const [formattedDate, setFormattedDate] = useState(dateString);
 
-  console.log("formattedDate", formattedDate);
+  useEffect(() => {
+    const date = new Date(dateString);
+    const formatted = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }).format(date);
+    setFormattedDate(formatted);
+  }, [dateString]);
+
+  // const date = new Date(dateString);
+  // const formattedDate = new Intl.DateTimeFormat("en-US", {
+  //   year: "numeric",
+  //   month: "long",
+  //   day: "numeric"
+  // }).format(date);
 
   return (
     <time className={className} dateTime={dateString}>

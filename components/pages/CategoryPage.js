@@ -6,7 +6,8 @@ import PageTitle from "components/global/PageTitle";
 // import styles from "styles/pages/contentListing.module.css";
 
 export function CategoryPage({ data }) {
-  const { title = "", posts = [] } = data || {};
+  const { title = "", posts = [] } = data;
+  console.log("posts", posts);
   return (
     <Layout title={`Category: ${title}`} description={`Blog posts in category: ${title}`}>
       <PageTitle>{title}</PageTitle>
