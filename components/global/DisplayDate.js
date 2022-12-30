@@ -9,6 +9,8 @@ export default function DisplayDate({ className = "", dateString = "" }) {
     day: "numeric"
   }).format(date);
 
+  console.log("formattedDate", formattedDate);
+
   return (
     <time className={className} dateTime={dateString}>
       {formattedDate}
