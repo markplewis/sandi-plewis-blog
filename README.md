@@ -63,3 +63,10 @@ This app uses [next-sanity](https://github.com/sanity-io/next-sanity) to provide
 4. Clicking the "magic link" will redirect you back to the website, where you'll be logged in (your session will be stored in the [MongoDB](https://www.mongodb.com/atlas/database) database).
 5. You'll then be immediately redirected to `/api/preview` where, via an [authentication token](https://github.com/sanity-io/next-sanity#custom-token-auth), [next-sanity](https://github.com/sanity-io/next-sanity) will setup the listeners, etc. that are required in order to start streaming the Sanity dataset to the browser.
 6. You'll then be redirected back to the home page and a "preview mode" banner will appear at the top of the page until you log out by pressing the "Sign out" button (which logs you out of your Auth.js session then makes a request to `/api/exit-preview` to terminate preview mode).
+
+## TODO
+
+- Replace some of our React hooks with these? https://github.com/streamich/react-use
+- Document how to seed the MongoDB datbase and/or create new users
+- Replace our colour contrast JavaScript functions with the new CSS [color-contrast](https://web.dev/state-of-css-2022/#color-contrast) function, when possible
+- Document our CSS methodologies and process, as per: https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/

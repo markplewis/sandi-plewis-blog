@@ -11,6 +11,7 @@ import "nprogress/nprogress.css";
 import "styles/typography.css";
 import "styles/base.css";
 
+// TODO: delete this comment block after it's been documented in README.md
 // https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/
 // Text size: rem
 // Borders: px

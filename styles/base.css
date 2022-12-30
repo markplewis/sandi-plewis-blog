@@ -10,8 +10,7 @@
   https://bugs.chromium.org/p/chromium/issues/detail?id=1150075
   https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe-area-inset-for-notch
   */
-  /* Will be `var(--column-margin)` wide unless that value is smaller than
-  `env(safe-area-inset-left)`, which is the minimum allowable width */
+  /* Minimum width is `env(safe-area-inset-left)` but can be up to `var(--column-margin)` */
   --column-margin-left: max(var(--column-margin), env(safe-area-inset-left));
   --column-margin-right: max(var(--column-margin), env(safe-area-inset-right));
 }
