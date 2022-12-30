@@ -1,6 +1,6 @@
 .page {
-  margin-left: var(--column-left-margin);
-  margin-right: var(--column-right-margin);
+  margin-left: var(--column-margin-left);
+  margin-right: var(--column-margin-right);
   position: relative;
 }
 .page h1 {

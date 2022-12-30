@@ -11,7 +11,7 @@
 /* Title area */
 
 .titleArea {
-  margin: 40px var(--column-right-margin) 40px var(--column-left-margin);
+  margin: 40px var(--column-margin-right) 40px var(--column-margin-left);
   grid-column: 2 / 3;
 }
 .title {
@@ -39,12 +39,12 @@
   grid-row: 2 / 3;
   display: grid;
   grid-template-columns:
-    minmax(var(--column-left-margin), 1fr)
+    minmax(var(--column-margin-left), 1fr)
     minmax(auto, 100px)
     minmax(auto, 400px)
     minmax(auto, 200px)
     var(--meta-width)
-    var(--column-right-margin);
+    var(--column-margin-right);
 }
 @media (min-width: 768px) {
   .heroArea {
@@ -60,8 +60,8 @@
 @media (min-width: 1600px) {
   .heroArea {
     grid-column: 2 / -2;
-    margin-left: var(--column-left-margin);
-    margin-right: var(--column-right-margin);
+    margin-left: var(--column-margin-left);
+    margin-right: var(--column-margin-right);
   }
 }
 
@@ -108,5 +108,5 @@
   background-color: #fff;
 }
 .bodyArea {
-  margin: 0 var(--column-left-margin) 0 var(--column-right-margin);
+  margin: 0 var(--column-margin-left) 0 var(--column-margin-right);
 }

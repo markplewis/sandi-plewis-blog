@@ -8,8 +8,16 @@ import { BASE_URL, envProd } from "env/constants";
 
 import "modern-normalize/modern-normalize.css";
 import "nprogress/nprogress.css";
-import "styles/base.css";
 import "styles/typography.css";
+import "styles/breakpoints.css";
+import "styles/base.css";
+
+// https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/
+// Text size: rem
+// Borders: px
+// Horizontal margin and padding: px
+// Vertical margin on text: em
+// Media queries: rem
 
 // If loading a variable font, you don't need to specify the font weight
 // See: https://nextjs.org/docs/basic-features/font-optimization
@@ -37,8 +45,8 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
           --font-dancing-script: ${dancingScript.style.fontFamily};
           --font-literata: ${literata.style.fontFamily};
           --font-open-sans: ${openSans.style.fontFamily};
-          --base-font-family: ${openSans.style.fontFamily}, Verdana, sans-serif;
-          --heading-font-family: ${literata.style.fontFamily}, serif;
+          --font-family-base: ${openSans.style.fontFamily}, Verdana, sans-serif;
+          --font-family-heading: ${literata.style.fontFamily}, serif;
         }
       `}</style>
 

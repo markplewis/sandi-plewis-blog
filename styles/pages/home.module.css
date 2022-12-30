@@ -15,7 +15,7 @@
   position: absolute;
 }
 .page {
-  margin: 0 var(--column-left-margin) 0 var(--column-right-margin);
+  margin: 0 var(--column-margin-left) 0 var(--column-margin-right);
   padding-bottom: 44px;
   display: grid;
   grid-template-columns: 1fr;
@@ -26,7 +26,7 @@
   position: relative;
 }
 .shareToolsAbove {
-  margin: 22px var(--column-right-margin) 0 var(--column-left-margin);
+  margin: 22px var(--column-margin-right) 0 var(--column-margin-left);
 }
 
 /* Page content */
@@ -92,7 +92,7 @@
 .bio a:hover,
 .bio a:focus,
 .bio a:active {
-  color: var(--base-font-color);
+  color: var(--font-color-base);
 }
 .bioHeading {
   margin-top: 0;

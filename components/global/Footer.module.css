@@ -1,6 +1,6 @@
 .footer {
   margin-top: 64px;
-  padding: 32px var(--column-right-margin) 32px var(--column-left-margin);
+  padding: 32px var(--column-margin-right) 32px var(--column-margin-left);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,7 +12,7 @@
   background-color: #fff;
   border-radius: 5px;
   font-size: var(--font-size-5);
-  color: var(--base-font-color);
+  color: var(--font-color-base);
   text-decoration-line: none;
 }
 .footerLink:hover,

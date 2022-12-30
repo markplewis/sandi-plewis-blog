@@ -1,5 +1,5 @@
 .page {
-  margin: 0 var(--column-left-margin) 0 var(--column-right-margin);
+  margin: 0 var(--column-margin-left) 0 var(--column-margin-right);
   position: relative;
 }
 .page h1 {
@@ -17,5 +17,5 @@
 .pageInner a:hover,
 .pageInner a:focus,
 .pageInner a:active {
-  color: var(--base-font-color);
+  color: var(--font-color-base);
 }

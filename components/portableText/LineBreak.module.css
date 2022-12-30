@@ -1,7 +1,7 @@
 .lineBreak {
   border: none;
   height: 1px;
-  background-color: var(--base-font-color);
+  background-color: var(--font-color-base);
   margin: 48px 0;
   overflow: hidden;
 }

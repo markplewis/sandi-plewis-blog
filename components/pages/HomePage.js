@@ -29,9 +29,11 @@ export function HomePage({ data }) {
           <PortableText value={novel.overview} components={portableTextComponents} />
         ) : null}
 
-        <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
-          More information
-        </Link>
+        <p>
+          <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
+            More information
+          </Link>
+        </p>
       </section>
 
       <section>
@@ -59,16 +61,20 @@ export function HomePage({ data }) {
               <Link as={`/posts/${post?.slug}`} href={`/posts/[slug]`}>
                 <div>
                   <h3>{post?.title || post?.name}</h3>
-                  <Date dateString={post?.date} />
+                  <p>
+                    <Date dateString={post?.date} />
+                  </p>
                   <p>{post?.description}</p>
                 </div>
               </Link>
             </li>
           ))}
         </ul>
-        <Link as={"/posts"} href="/posts">
-          More posts
-        </Link>
+        <p>
+          <Link as={"/posts"} href="/posts">
+            More posts
+          </Link>
+        </p>
       </section>
 
       <section>
@@ -78,9 +84,11 @@ export function HomePage({ data }) {
           <PortableText value={author.shortBiography} components={portableTextComponents} />
         ) : null}
 
-        <Link as={`/authors/${author?.slug}`} href="/authors/[slug]">
-          {`More about ${author?.name?.split(" ")[0]}`}
-        </Link>
+        <p>
+          <Link as={`/authors/${author?.slug}`} href="/authors/[slug]">
+            {`More about ${author?.name?.split(" ")[0]}`}
+          </Link>
+        </p>
       </section>
     </Layout>
   );

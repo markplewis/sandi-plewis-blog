@@ -19,6 +19,7 @@ export default function Document() {
         {/* https://nextjs.org/docs/basic-features/supported-browsers-features#polyfills */}
         <link rel="preconnect dns-prefetch" href="https://polyfill.io" />
         <Script src={polyfillService} strategy="beforeInteractive" />
+        <Script src="https://cdn.jsdelivr.net/npm/container-query-polyfill@1/dist/container-query-polyfill.modern.js" />
       </Head>
       <body>
         {/* SVG sprite */}

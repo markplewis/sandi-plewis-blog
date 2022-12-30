@@ -3,22 +3,24 @@
 
 :root {
   --focus-outline-color: steelblue;
-  --column-margin: 22px;
+  --column-margin: 24px;
   /*
   See: https://webkit.org/blog/7929/designing-websites-for-iphone-x/
   TODO: viewport-fit=cover doesn't seem to be working in Chrome for iOS:
   https://bugs.chromium.org/p/chromium/issues/detail?id=1150075
   https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe-area-inset-for-notch
   */
-  --column-left-margin: max(var(--column-margin), env(safe-area-inset-left));
-  --column-right-margin: max(var(--column-margin), env(safe-area-inset-right));
+  /* Will be `var(--column-margin)` wide unless that value is smaller than
+  `env(safe-area-inset-left)`, which is the minimum allowable width */
+  --column-margin-left: max(var(--column-margin), env(safe-area-inset-left));
+  --column-margin-right: max(var(--column-margin), env(safe-area-inset-right));
 }
-@media (min-width: 768px) {
+@media (min-width: var(--bp-768)) {
   :root {
     --column-margin: 44px;
   }
 }
-@media (min-width: 1600px) {
+@media (min-width: var(--bp-1600)) {
   :root {
     --column-margin: 88px;
   }
@@ -33,20 +35,19 @@ body {
 }
 body {
   font-size: 100%; /* Default is 16px in most browsers */
-  font-family: var(--base-font-family);
+  font-family: var(--font-family-base);
   line-height: 1.5;
-  color: var(--base-font-color);
-  background-color: var(--base-background-color);
+  color: var(--font-color-base);
+  background-color: var(--bg-color-base);
 }
-#__next {
+/* #__next {
   min-height: 100%;
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: auto 1fr auto;
 }
 main {
-  width: 100%; /* Delete this? */
-  /* overflow-x: hidden; */
+  width: 100%;
   overflow: hidden;
   position: relative;
 }
@@ -63,33 +64,31 @@ main::before {
 }
 main.homePage::before {
   display: none;
-}
+} */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--heading-font-family);
+  font-family: var(--font-family-heading);
   line-height: 1.2;
 }
 h1 {
-  font-size: var(--font-size-1);
+  font-size: var(--font-size-700);
 }
 h2 {
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-500);
 }
 h3 {
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-400);
 }
 h4 {
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-300);
 }
-h5 {
-  font-size: var(--font-size-5);
-}
+h5,
 h6 {
-  font-size: var(--font-size-6);
+  font-size: var(--font-size-200);
 }
 h1,
 h2,
@@ -102,7 +101,7 @@ ul,
 ol,
 figure,
 blockquote {
-  margin: 16px 0;
+  margin: 1em 0;
 }
 blockquote {
   font-style: italic;

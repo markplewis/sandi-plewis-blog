@@ -10,8 +10,8 @@
 /* Hero area - overall grid layout */
 
 .heroArea {
-  --left-width: var(--column-left-margin);
-  --right-width: var(--column-right-margin);
+  --left-width: var(--column-margin-left);
+  --right-width: var(--column-margin-right);
   --info-width: auto;
   margin-top: 44px;
   display: grid;
@@ -19,15 +19,15 @@
 }
 @media (min-width: 1024px) {
   .heroArea {
-    --left-width: minmax(var(--column-left-margin), 1fr);
-    --right-width: minmax(var(--column-right-margin), 1fr);
+    --left-width: minmax(var(--column-margin-left), 1fr);
+    --right-width: minmax(var(--column-margin-right), 1fr);
     --info-width: minmax(auto, 640px);
   }
 }
 @media (min-width: 1600px) {
   .heroArea {
-    margin-left: var(--column-left-margin);
-    margin-right: var(--column-right-margin);
+    margin-left: var(--column-margin-left);
+    margin-right: var(--column-margin-right);
   }
 }
 
@@ -121,14 +121,14 @@
   margin: 0 -22px;
   padding: 22px;
   background-color: #fff;
-  color: var(--base-font-color);
+  color: var(--font-color-base);
 }
 .infoBelow a,
 .infoBelow a:visited,
 .infoBelow a:hover,
 .infoBelow a:focus,
 .infoBelow a:active {
-  color: var(--base-font-color);
+  color: var(--font-color-base);
 }
 
 /* Body area */
@@ -137,7 +137,7 @@
   margin-bottom: 22px;
 }
 .bodyArea {
-  margin: 0 var(--column-left-margin) 0 var(--column-right-margin);
+  margin: 0 var(--column-margin-left) 0 var(--column-margin-right);
 }
 .reviewsHeading {
   margin-bottom: 44px;

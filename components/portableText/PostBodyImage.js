@@ -1,9 +1,10 @@
 import Image from "next/legacy/image";
 import { urlFor } from "lib/sanity";
-import styles from "components/portableText/PostBodyImage.module.css";
 import { processCreditLine } from "utils/strings";
 import { rem } from "utils/units";
 import useMediaQuery from "utils/useMediaQuery";
+
+import styles from "components/portableText/PostBodyImage.module.css";
 
 const PostBodyImage = ({ value }) => {
   const isMedium = useMediaQuery(`(min-width: ${rem(800)})`);

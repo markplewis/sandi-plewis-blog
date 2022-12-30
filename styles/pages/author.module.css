@@ -13,8 +13,8 @@
 }
 @media (min-width: 1600px) {
   .heroArea {
-    margin-left: var(--column-left-margin);
-    margin-right: var(--column-right-margin);
+    margin-left: var(--column-margin-left);
+    margin-right: var(--column-margin-right);
   }
 }
 
@@ -35,8 +35,8 @@
 }
 .coverImageAndTitle {
   margin: 44px 0;
-  padding-left: var(--column-left-margin);
-  padding-right: var(--column-right-margin);
+  padding-left: var(--column-margin-left);
+  padding-right: var(--column-margin-right);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,5 +62,5 @@
 /* Body area */
 
 .bodyArea {
-  margin: 0 var(--column-left-margin) 0 var(--column-right-margin);
+  margin: 0 var(--column-margin-left) 0 var(--column-margin-right);
 }

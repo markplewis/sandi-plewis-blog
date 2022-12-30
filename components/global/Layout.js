@@ -167,8 +167,8 @@ function Layout({
         <style jsx global>
           {`
             :root {
-              --base-background-color: ${white};
-              --base-font-color: ${darkGray};
+              --bg-color-base: ${white};
+              --font-color-base: ${darkGray};
               --primaryBgHigh: ${darkGray};
               --primaryBgLow: ${darkGray};
               --primaryFgHigh: ${white};

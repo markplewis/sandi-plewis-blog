@@ -15,7 +15,9 @@ export function CategoryPage({ data }) {
           <li key={`posts-${post?._id}-${post?.slug}`}>
             <Link as={`/posts/${post?.slug}`} href={`/posts/[slug]`}>
               <h3>{post?.title}</h3>
-              <Date dateString={post?.date} />
+              <p>
+                <Date dateString={post?.date} />
+              </p>
               <p>{post?.description}</p>
             </Link>
           </li>

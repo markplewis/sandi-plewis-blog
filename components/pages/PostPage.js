@@ -25,7 +25,9 @@ export function PostPage({ data }) {
   return (
     <Layout title={title} description={description}>
       <PageTitle>{title}</PageTitle>
-      <Date dateString={date} />
+      <p>
+        <Date dateString={date} />
+      </p>
       <p>
         <Link as={`/authors/${author?.slug}`} href="/authors/[slug]">
           {author?.name}
