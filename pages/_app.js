@@ -8,8 +8,7 @@ import { BASE_URL, envProd } from "env/constants";
 
 import "modern-normalize/modern-normalize.css";
 import "nprogress/nprogress.css";
-import "styles/typography.css";
-import "styles/base.css";
+import "styles/global.css";
 
 // TODO: delete this comment block after it's been documented in README.md
 // https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/
@@ -40,15 +39,17 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   const domain = BASE_URL.split("//").pop();
   return (
     <>
-      <style jsx global>{`
-        :root {
-          --font-dancing-script: ${dancingScript.style.fontFamily};
-          --font-literata: ${literata.style.fontFamily};
-          --font-open-sans: ${openSans.style.fontFamily};
-          --font-family-base: ${openSans.style.fontFamily}, Verdana, sans-serif;
-          --font-family-heading: ${literata.style.fontFamily}, serif;
-        }
-      `}</style>
+      <style jsx global>{
+        /* css */ `
+          :root {
+            --font-dancing-script: ${dancingScript.style.fontFamily};
+            --font-literata: ${literata.style.fontFamily};
+            --font-open-sans: ${openSans.style.fontFamily};
+            --font-family-base: ${openSans.style.fontFamily}, Verdana, sans-serif;
+            --font-family-heading: ${literata.style.fontFamily}, serif;
+          }
+        `
+      }</style>
 
       {/* See: https://github.com/4lejandrito/next-plausible */}
       <PlausibleProvider domain={domain} enabled={envProd}>

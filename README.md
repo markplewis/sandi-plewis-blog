@@ -21,6 +21,7 @@ You'll want to install the following VSCode plugins:
 
 - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [ES6 String HTML](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html) (for syntax highlighting within template literal strings)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [Sanity.io](https://marketplace.visualstudio.com/items?itemName=sanity-io.vscode-sanity) (for GROQ syntax highlighting)
 

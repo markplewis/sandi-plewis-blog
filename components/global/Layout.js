@@ -11,7 +11,6 @@ import SkipLink from "components/global/SkipLink";
 import { BASE_URL, DEFAULT_META_DESCRIPTION, env, envProd, SITE_TITLE } from "env/constants";
 import { urlFor } from "lib/sanity";
 
-import { darkGray, darkGrayTranslucent, white, whiteTranslucent } from "utils/color/tokens";
 import useDebug from "utils/useDebug";
 
 // See: https://nextjs.org/docs/basic-features/layouts
@@ -160,22 +159,24 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
       </Header>
       <Main>
         <style jsx global>
-          {`
-            :root {
-              --bg-color-base: ${white};
-              --font-color-base: ${darkGray};
-              --primaryBgHigh: ${darkGray};
-              --primaryBgLow: ${darkGray};
-              --primaryFgHigh: ${white};
-              --primaryFgLow: ${white};
-              --secondaryBgHigh: ${darkGray};
-              --secondaryBgLow: ${darkGray};
-              --secondaryFgHigh: ${white};
-              --secondaryFgLow: ${white};
-              --gradientBgStart: ${darkGrayTranslucent};
-              --gradientBgEnd: ${whiteTranslucent};
-            }
-          `}
+          {
+            /* css */ `
+              :root {
+                --bg-color-base: var(--color-white);
+                --font-color-base: var(--color-dark-gray);
+                --primaryBgHigh: var(--color-dark-gray);
+                --primaryBgLow: var(--color-dark-gray);
+                --primaryFgHigh: var(--color-white);
+                --primaryFgLow: var(--color-white);
+                --secondaryBgHigh: var(--color-dark-gray);
+                --secondaryBgLow: var(--color-dark-gray);
+                --secondaryFgHigh: var(--color-white);
+                --secondaryFgLow: var(--color-white);
+                --gradientBgStart: var(--color-dark-gray-translucent);
+                --gradientBgEnd: var(--color-white-translucent);
+              }
+            `
+          }
         </style>
         {children}
       </Main>
