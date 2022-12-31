@@ -1,39 +1,45 @@
-// import { isValid, parseISO, format } from "date-fns";
 import { useEffect, useState } from "react";
+
+const formatDate = (dateString, timeZone) => {
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const d = new Date(dateString);
+
+  const date = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: timeZone || userTimeZone
+  }).format(d);
+
+  const timeZoneFormat = new Intl.DateTimeFormat("en", {
+    timeZoneName: "short",
+    timeZone: timeZone || userTimeZone
+  });
+  const timeZoneFormatted = timeZoneFormat
+    .formatToParts(d)
+    .find(x => x.type === "timeZoneName").value;
+
+  // Print the UTC time zone server-side, so that it's clear to users without JavaScript enabled
+  return timeZone ? `${date} (${timeZoneFormatted})` : date;
+};
 
 // Param `dateString` - date in ISO 8601 format
 export default function DisplayDate({ className = "", dateString = "" }) {
-  const [formattedDate, setFormattedDate] = useState(dateString);
+  // In order to avoid "Text content does not match server-rendered HTML" React hydration errors,
+  // we must render the UTC date on the server side, then replace it with the user's local time
+  // zone on the client side. See: https://github.com/vercel/next.js/discussions/37877
+  // We know that most of our users will be in Ontario so we're using EST/EDT on the server.
+  const [formattedDate, setFormattedDate] = useState(formatDate(dateString, "America/New_York"));
 
   useEffect(() => {
-    const date = new Date(dateString);
-    const formatted = new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    }).format(date);
-    setFormattedDate(formatted);
+    setFormattedDate(formatDate(dateString));
   }, [dateString]);
 
-  // TODO: why is a `useEffect` required here, in order to avoid "Text content does
-  // not match server-rendered HTML" React errors? Why can't we do the following?
-  //
-  // const date = new Date(dateString);
-  // const formattedDate = new Intl.DateTimeFormat("en-US", {
-  //   year: "numeric",
-  //   month: "long",
-  //   day: "numeric"
-  // }).format(date);
+  // console.log(formattedDate);
 
   return (
     <time className={className} dateTime={dateString}>
       {formattedDate}
     </time>
   );
-  // const date = parseISO(dateString);
-  // return isValid(date) ? (
-  //   <time className={className} dateTime={dateString}>
-  //     {format(date, "LLLL d, yyyy")}
-  //   </time>
-  // ) : null;
 }
