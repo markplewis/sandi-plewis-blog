@@ -12,8 +12,8 @@ This project uses:
 
 At the time of this writing, this project was using:
 
-- Node 18
-- NPM 8
+- [Node](https://nodejs.org/) 18
+- [NPM](https://www.npmjs.com/) 8
 
 ## VSCode plugins
 
@@ -32,7 +32,11 @@ Duplicate the `.env.local.example` file and rename it to `.env.local`. Then, cop
 Once the environment variables are ready, run the following command to install the project dependencies:
 
 ```bash
+# Install project dependencies
 npm install
+
+# Install Husky pre-push Git hook (see `.husky/pre-push`)
+npm run prepare
 ```
 
 ## MongoDB Compass

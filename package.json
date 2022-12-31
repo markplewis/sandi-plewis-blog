@@ -24,7 +24,8 @@
     "test": "Runs Jest tests.",
     "test-watch": "Watches files and re-runs Jest tests when they change.",
     "prettier-check": "Runs Prettier.",
-    "check": "Checks for outdated NPM packages."
+    "check": "Checks for outdated NPM packages.",
+    "prepare": "Installs Husky"
   },
   "scripts": {
     "dev": "next dev",
@@ -34,7 +35,8 @@
     "test": "jest --cache",
     "test-watch": "jest --watch",
     "prettier-check": "prettier --check .",
-    "check": "npx npm-check -s -u"
+    "check": "npx npm-check -s -u",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.1.1",
@@ -67,6 +69,7 @@
     "eslint-plugin-jest": "^27.1.7",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-testing-library": "^5.9.1",
+    "husky": "^8.0.2",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
     "postcss-env-function": "^4.0.6",
