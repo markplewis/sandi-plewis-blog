@@ -3,7 +3,7 @@ import PageTitle from "components/global/PageTitle";
 
 // import styles from "styles/pages/author.module.css";
 
-export function AuthorPage({ data }) {
+export default function AuthorPage({ data }) {
   const { name = "", description = "" } = data;
   return (
     <Layout title={name} description={description}>

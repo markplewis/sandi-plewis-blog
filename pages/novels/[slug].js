@@ -1,7 +1,7 @@
 import groq from "groq";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import { NovelPage } from "components/pages/NovelPage";
+import NovelPage from "components/pages/NovelPage";
 import { client } from "lib/sanity.client";
 import { novelQuery } from "utils/queries/novels";
 

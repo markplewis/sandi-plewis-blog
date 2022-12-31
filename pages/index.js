@@ -1,6 +1,6 @@
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import { HomePage } from "components/pages/HomePage";
+import HomePage from "components/pages/HomePage";
 import { client } from "lib/sanity.client";
 import {
   featuredNovelAndHomePageQuery,

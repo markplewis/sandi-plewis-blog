@@ -1,7 +1,7 @@
 import groq from "groq";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import { PostPage } from "components/pages/PostPage";
+import PostPage from "components/pages/PostPage";
 import { client } from "lib/sanity.client";
 import { postQuery } from "utils/queries/posts";
 

@@ -5,7 +5,7 @@ import PageTitle from "components/global/PageTitle";
 
 // import styles from "styles/pages/contentListing.module.css";
 
-export function PostsPage({ data }) {
+export default function PostsPage({ data }) {
   const posts = data;
   return (
     <Layout title="Blog posts" description="A listing of Sandi Plewis' blog posts">

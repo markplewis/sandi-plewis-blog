@@ -1,6 +1,6 @@
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import { CategoriesPage } from "components/pages/CategoriesPage";
+import CategoriesPage from "components/pages/CategoriesPage";
 import { client } from "lib/sanity.client";
 import { categoriesQuery } from "utils/queries/categories";
 

@@ -20,7 +20,7 @@ const portableTextComponents = {
   }
 };
 
-export function PostPage({ data }) {
+export default function PostPage({ data }) {
   const { title = "", body = [], description = "", date = "", categories = [], author = {} } = data;
   return (
     <Layout title={title} description={description}>

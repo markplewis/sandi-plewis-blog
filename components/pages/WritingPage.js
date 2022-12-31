@@ -4,7 +4,7 @@ import PageTitle from "components/global/PageTitle";
 
 // import styles from "styles/pages/contentListing.module.css";
 
-export function WritingPage({ data }) {
+export default function WritingPage({ data }) {
   const { novels = [], shortStories = [] } = data;
   console.log("WritingPage", { novels, shortStories });
   return (

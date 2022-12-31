@@ -1,12 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import Home from "../pages/index";
+import HomePage from "components/pages/HomePage";
 
 describe("Home", () => {
   it("renders a heading", () => {
-    render(<Home />);
+    // TODO: how to mock Sanity client, etc.?
+    render(<HomePage data={{}} />);
 
     const heading = screen.getByRole("heading", {
-      name: /welcome to next\.js!/i
+      name: /Home page/i
     });
 
     expect(heading).toBeInTheDocument();

@@ -4,7 +4,7 @@ import PageTitle from "components/global/PageTitle";
 
 // import styles from "styles/pages/contentListing.module.css";
 
-export function AuthorsPage({ data }) {
+export default function AuthorsPage({ data }) {
   const authors = data;
   return (
     <Layout title="Authors" description="Authors">

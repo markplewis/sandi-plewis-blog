@@ -1,6 +1,6 @@
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import { WritingPage } from "components/pages/WritingPage";
+import WritingPage from "components/pages/WritingPage";
 import { client } from "lib/sanity.client";
 import { novelsQuery, shortStoriesQuery } from "utils/queries/writing";
 

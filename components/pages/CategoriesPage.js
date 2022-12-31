@@ -2,7 +2,7 @@ import Link from "next/link";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
-export function CategoriesPage({ data }) {
+export default function CategoriesPage({ data }) {
   const categories = data;
   return (
     <Layout title="Categories" description="Blog post categories">

@@ -1,6 +1,6 @@
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import { AuthorsPage } from "components/pages/AuthorsPage";
+import AuthorsPage from "components/pages/AuthorsPage";
 import { client } from "lib/sanity.client";
 import { authorsQuery } from "utils/queries/authors";
 

@@ -12,7 +12,7 @@ const portableTextComponents = {
   }
 };
 
-export function NovelPage({ data }) {
+export default function NovelPage({ data }) {
   const { title = "", description = "", overview = [] } = data;
 
   return (

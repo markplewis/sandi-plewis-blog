@@ -1,6 +1,6 @@
 "use client";
 
-import { PostPage } from "components/pages/PostPage";
+import PostPage from "components/pages/PostPage";
 import { usePreview } from "lib/sanity.preview";
 import { postQuery } from "utils/queries/posts";
 

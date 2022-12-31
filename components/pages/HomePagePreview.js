@@ -1,6 +1,6 @@
 "use client";
 
-import { HomePage } from "components/pages/HomePage";
+import HomePage from "components/pages/HomePage";
 import { usePreview } from "lib/sanity.preview";
 import {
   featuredNovelAndHomePageQuery,

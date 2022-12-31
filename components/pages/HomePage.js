@@ -14,7 +14,7 @@ const portableTextComponents = {
   }
 };
 
-export function HomePage({ data }) {
+export default function HomePage({ data }) {
   const { novelAndHomePage, reviews, posts, author } = data;
   const { novel, description } = novelAndHomePage;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthorPage } from "components/pages/AuthorPage";
+import AuthorPage from "components/pages/AuthorPage";
 import { usePreview } from "lib/sanity.preview";
 import { authorQuery } from "utils/queries/authors";
 

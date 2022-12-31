@@ -12,7 +12,7 @@ const portableTextComponents = {
   }
 };
 
-export function ShortStoryPage({ data }) {
+export default function ShortStoryPage({ data }) {
   const { title = "", description = "", overview = [] } = data;
   return (
     <Layout title={title} description={description}>
