@@ -179,8 +179,7 @@ export default function Header({ children }) {
   );
 
   return (
-    // <header className={`${styles.header} full-width`} ref={headerRef}>
-    <header className={`${styles.header} header`} ref={headerRef}>
+    <header className={styles.header} ref={headerRef}>
       {children}
       <div className={styles.nameAndTitle}>
         <p className={styles.name}>

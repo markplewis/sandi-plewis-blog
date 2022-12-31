@@ -17,12 +17,3 @@
   --font-weight-bold: 700;
   --font-weight-normal: 400;
 }
-@media (min-width: env(--bp-820)) {
-  .header {
-    padding-bottom: 32px;
-    align-items: baseline;
-  }
-  .nameAndTitle {
-    flex-direction: row;
-  }
-}
