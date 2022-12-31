@@ -1,6 +1,5 @@
 .formContainer {
-  margin: 0 calc(var(--column-margin-right) * -1); /* Negate with * -1 */
-  padding: 44px var(--column-margin-right);
+  padding: 44px 0;
   background-color: #fff;
 }
 @media (min-width: env(--bp-600)) {

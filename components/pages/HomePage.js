@@ -19,7 +19,7 @@ export function HomePage({ data }) {
   const { novel, description } = novelAndHomePage;
 
   return (
-    <Layout title="" description={description} className="homePage">
+    <Layout title="" description={description}>
       <PageTitle>Home page</PageTitle>
 
       <section>

@@ -42,8 +42,6 @@ body {
   line-height: 1.5;
   color: var(--font-color-base);
   background-color: var(--bg-color-base);
-  margin-left: var(--column-margin-left);
-  margin-right: var(--column-margin-right);
 }
 /* #__next {
   min-height: 100%;
@@ -147,12 +145,12 @@ a:active {
 /* Utilities */
 /* TODO: move these into a separate file? */
 
-.full-width {
+/* .full-width {
   margin-left: calc(var(--column-margin-left) * -1);
   margin-right: calc(var(--column-margin-right) * -1);
   padding-left: var(--column-margin-left);
   padding-right: var(--column-margin-right);
-}
+} */
 
 /*
 Controversial "fix" for sub-pixel font rendering "problems" in various browsers

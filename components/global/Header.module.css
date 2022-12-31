@@ -1,4 +1,6 @@
 .header {
+  padding-left: var(--column-margin-left);
+  padding-right: var(--column-margin-right);
   background-color: #fff;
   display: grid;
   grid-template-columns: minmax(min-content, max-content) 1fr;

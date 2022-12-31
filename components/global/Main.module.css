@@ -1,0 +1,8 @@
+.main {
+  padding-left: var(--column-margin-left);
+  padding-right: var(--column-margin-right);
+  background: linear-gradient(100deg, var(--gradientBgStart) 0%, var(--gradientBgEnd) 100%);
+  /* Prevent margins from collapsing: https://stackoverflow.com/a/42069793/1243086 */
+  display: inline-block;
+  width: 100%;
+}

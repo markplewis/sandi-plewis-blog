@@ -4,13 +4,14 @@ import { useRouter } from "next/router";
 
 import Footer from "components/global/Footer";
 import Header from "components/global/Header";
+import Main from "components/global/Main";
 import PreviewMessage from "components/global/PreviewMessage";
 import SkipLink from "components/global/SkipLink";
 
 import { BASE_URL, DEFAULT_META_DESCRIPTION, env, envProd, SITE_TITLE } from "env/constants";
 import { urlFor } from "lib/sanity";
 
-import { darkGray, white } from "utils/color/tokens";
+import { darkGray, darkGrayTranslucent, white, whiteTranslucent } from "utils/color/tokens";
 import useDebug from "utils/useDebug";
 
 // See: https://nextjs.org/docs/basic-features/layouts
@@ -45,13 +46,7 @@ const sizes = {
   }
 };
 
-function Layout({
-  children,
-  title = "",
-  description = DEFAULT_META_DESCRIPTION,
-  image = null,
-  className = ""
-}) {
+function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, image = null }) {
   const debug = useDebug();
   const router = useRouter();
   const url = `${BASE_URL}${router.asPath}`;
@@ -163,7 +158,7 @@ function Layout({
       <Header>
         <PreviewMessage />
       </Header>
-      <main className={className}>
+      <Main>
         <style jsx global>
           {`
             :root {
@@ -177,11 +172,13 @@ function Layout({
               --secondaryBgLow: ${darkGray};
               --secondaryFgHigh: ${white};
               --secondaryFgLow: ${white};
+              --gradientBgStart: ${darkGrayTranslucent};
+              --gradientBgEnd: ${whiteTranslucent};
             }
           `}
         </style>
         {children}
-      </main>
+      </Main>
       <Footer />
     </>
   );
