@@ -29,5 +29,3 @@ module.exports = {
     ]
   ]
 };
-
-// Issues: https://github.com/vercel/next.js/issues/11494
