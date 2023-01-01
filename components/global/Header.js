@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { breakpoints as bp } from "styles/js-env-variables";
+import { breakpoints } from "styles/js-env-variables";
 import { useApp } from "utils/useApp";
 import useMediaQuery from "utils/useMediaQuery";
 import { rem } from "utils/units";
@@ -16,7 +16,7 @@ export default function Header({ children }) {
   const router = useRouter();
   const pathName = router.pathname;
   const active = styles.navItemActive;
-  const isMedium = useMediaQuery(`(min-width: ${bp.w820.rem}rem)`);
+  const isMedium = useMediaQuery(`(min-width: ${breakpoints.w820}rem)`);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuHidden, setMenuHidden] = useState(true);
   const menuButtonRef = useRef(null);

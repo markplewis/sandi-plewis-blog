@@ -20,14 +20,14 @@ See: https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-env-f
 module.exports = {
   environmentVariables: {
     // Media query breakpoints
-    "--bp-480": `${bp.w480.rem}rem`,
-    "--bp-600": `${bp.w600.rem}rem`,
-    "--bp-768": `${bp.w768.rem}rem`,
-    "--bp-800": `${bp.w800.rem}rem`,
-    "--bp-820": `${bp.w820.rem}rem`,
-    "--bp-1024": `${bp.w1024.rem}rem`,
-    "--bp-1150": `${bp.w1150.rem}rem`,
-    "--bp-1280": `${bp.w1280.rem}rem`,
-    "--bp-1600": `${bp.w1600.rem}rem`
+    "--bp-480": `${bp.w480}rem`,
+    "--bp-600": `${bp.w600}rem`,
+    "--bp-768": `${bp.w768}rem`,
+    "--bp-800": `${bp.w800}rem`,
+    "--bp-820": `${bp.w820}rem`,
+    "--bp-1024": `${bp.w1024}rem`,
+    "--bp-1150": `${bp.w1150}rem`,
+    "--bp-1280": `${bp.w1280}rem`,
+    "--bp-1600": `${bp.w1600}rem`
   }
 };
