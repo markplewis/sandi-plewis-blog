@@ -168,6 +168,12 @@ a:active {
 /* Utilities */
 /* TODO: move these into a separate file? */
 
+/* See: https://nextjs.org/docs/advanced-features/codemods#before-responsive */
+.responsive-image {
+  width: 100%;
+  height: auto;
+}
+
 /* .full-width {
   margin-left: calc(var(--column-margin-left) * -1);
   margin-right: calc(var(--column-margin-right) * -1);

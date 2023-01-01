@@ -23,6 +23,7 @@ module.exports = {
     "--bp-480": `${bp.w480.rem}rem`,
     "--bp-600": `${bp.w600.rem}rem`,
     "--bp-768": `${bp.w768.rem}rem`,
+    "--bp-800": `${bp.w800.rem}rem`,
     "--bp-820": `${bp.w820.rem}rem`,
     "--bp-1024": `${bp.w1024.rem}rem`,
     "--bp-1150": `${bp.w1150.rem}rem`,

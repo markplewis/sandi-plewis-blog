@@ -21,9 +21,18 @@ const portableTextComponents = {
 };
 
 export default function PostPage({ data }) {
-  const { title = "", body = [], description = "", date = "", categories = [], author = {} } = data;
+  const {
+    title = "",
+    body = [],
+    description = "",
+    date = "",
+    categories = [],
+    author = {},
+    image = {}
+  } = data;
+
   return (
-    <Layout title={title} description={description}>
+    <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>
       <PageTitle>{title}</PageTitle>
       <p>
         <DisplayDate dateString={date} />

@@ -45,6 +45,13 @@ const sizes = {
   }
 };
 
+const LayoutPropTypes = {
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  title: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.object
+};
+
 function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, image = null }) {
   const debug = useDebug();
   const router = useRouter();
@@ -185,11 +192,5 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
   );
 }
 Layout.displayName = "Layout";
-Layout.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  title: PropTypes.string,
-  description: PropTypes.string,
-  image: PropTypes.object,
-  className: PropTypes.string
-};
+Layout.propTypes = LayoutPropTypes;
 export default Layout;

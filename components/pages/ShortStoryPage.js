@@ -13,9 +13,9 @@ const portableTextComponents = {
 };
 
 export default function ShortStoryPage({ data }) {
-  const { title = "", description = "", overview = [] } = data;
+  const { title = "", description = "", overview = [], image = {} } = data;
   return (
-    <Layout title={title} description={description}>
+    <Layout title={title} description={description} image={{ image, portrait: true, crop: false }}>
       <PageTitle>{title}</PageTitle>
       {overview ? <PortableText value={overview} components={portableTextComponents} /> : null}
     </Layout>

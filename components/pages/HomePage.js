@@ -1,8 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
-import { PortableText } from "lib/sanity";
+import { PortableText, urlFor } from "lib/sanity";
+import { breakpoints } from "styles/js-env-variables";
 
 import InternalLink from "components/portableText/InternalLink";
 
@@ -18,23 +20,50 @@ export default function HomePage({ data }) {
   const { novelAndHomePage, reviews, posts, author } = data;
   const { novel, description } = novelAndHomePage;
 
+  const novelSection = novel ? (
+    <section>
+      <h2>Novel: {novel?.title}</h2>
+
+      {novel?.image ? (
+        // Temporary inline style until layout and/or container queries are ready
+        <div style={{ maxWidth: "188px" }}>
+          <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
+            {/* See: https://nextjs.org/docs/advanced-features/codemods#before-responsive */}
+            <Image
+              src={urlFor(novel?.image).width(376).height(581).url()}
+              width={188}
+              height={290}
+              sizes={`(max-width: ${breakpoints.w800.rem}rem) 100vw, 188px`}
+              className="responsive-image"
+              alt={novel?.image?.alt}
+              placeholder="blur"
+              // Data URL generated here: https://png-pixel.com/
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8UQ8AAhUBSQV8WJQAAAAASUVORK5CYII="
+            />
+          </Link>
+        </div>
+      ) : null}
+
+      {novel?.overview ? (
+        <PortableText value={novel.overview} components={portableTextComponents} />
+      ) : null}
+
+      <p>
+        <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
+          More information
+        </Link>
+      </p>
+    </section>
+  ) : null;
+
   return (
-    <Layout title="" description={description}>
+    <Layout
+      title=""
+      description={description}
+      image={{ image: author?.image, portrait: true, crop: true }}>
       <PageTitle>Home page</PageTitle>
 
-      <section>
-        <h2>Novel: {novel?.title}</h2>
-
-        {novel?.overview ? (
-          <PortableText value={novel.overview} components={portableTextComponents} />
-        ) : null}
-
-        <p>
-          <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
-            More information
-          </Link>
-        </p>
-      </section>
+      {novelSection}
 
       <section>
         <h2>Reviews</h2>
