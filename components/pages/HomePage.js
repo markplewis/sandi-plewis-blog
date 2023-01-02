@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
+import ShareTools from "components/global/ShareTools";
 import { PortableText, urlFor } from "lib/sanity";
 import { breakpoints } from "styles/js-env-variables";
 import { imageBlurDataURL } from "utils/images";
@@ -10,7 +10,7 @@ import useMediaQuery from "utils/useMediaQuery";
 
 import InternalLink from "components/portableText/InternalLink";
 
-// import styles from "styles/pages/home.module.css";
+import styles from "styles/pages/home.module.css";
 
 const portableTextComponents = {
   marks: {
@@ -24,7 +24,7 @@ export default function HomePage({ data }) {
 
   const novelSection = novel ? (
     <section>
-      <h2>Novel: {novel?.title}</h2>
+      <PageTitle>{novel?.title}</PageTitle>
 
       {novel?.image ? (
         // Temporary inline style until layout and/or container queries are ready
@@ -85,9 +85,6 @@ export default function HomePage({ data }) {
             <Link as={`/posts/${post?.slug}`} href={`/posts/[slug]`}>
               <div>
                 <h3>{post?.title || post?.name}</h3>
-                <p>
-                  <DisplayDate dateString={post?.date} />
-                </p>
                 <p>{post?.description}</p>
               </div>
             </Link>
@@ -140,17 +137,26 @@ export default function HomePage({ data }) {
     </section>
   ) : null;
 
+  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1280}rem)`);
+
   return (
     <Layout
       title=""
       description={description}
       image={{ image: author?.image, portrait: true, crop: true }}>
-      <PageTitle>Home page</PageTitle>
+      <div className={styles.page}>
+        {isWide ? null : <ShareTools text="Sandi Plewis, Author/Editor" align="right" />}
 
-      {novelSection}
-      {reviewsSection}
-      {postsSection}
-      {authorSection}
+        <div className={styles.row1}>
+          {novelSection}
+          {reviewsSection}
+          {isWide ? <ShareTools text="Sandi Plewis, Author/Editor" position="vertical" /> : null}
+        </div>
+        <div className={styles.row2}>
+          {postsSection}
+          {authorSection}
+        </div>
+      </div>
     </Layout>
   );
 }
