@@ -1,5 +1,6 @@
 .page {
-  margin-top: 22px;
+  margin-top: 24px;
+  position: relative;
 }
 .row1 section,
 .row2 section {
@@ -12,32 +13,42 @@
   row-gap: 64px;
 }
 .row1 {
-  margin-top: 22px;
+  margin-top: 24px;
   margin-bottom: 64px;
+}
+.patternBlock {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  z-index: -1;
+  left: calc(var(--column-margin-left) * -1);
 }
 @media (min-width: env(--bp-1150)) {
   .row1 {
     grid-template-columns: 1.5fr 1fr;
-    column-gap: 22px;
-    margin-bottom: 22px;
+    column-gap: 24px;
+    margin-bottom: 24px;
   }
   .row2 {
     grid-template-columns: 0.9fr 1fr;
-    column-gap: 22px;
+    column-gap: 24px;
   }
 }
 @media (min-width: env(--bp-1280)) {
   .page {
-    margin-top: 44px;
+    margin-top: 72px;
   }
   .row1 {
     grid-template-columns: 1.4fr 1fr 44px;
-    column-gap: 44px;
+    column-gap: 48px;
     margin-top: 0;
-    margin-bottom: 44px;
+    margin-bottom: 48px;
   }
   .row2 {
     grid-template-columns: 1fr 1.15fr;
-    column-gap: 44px;
+    column-gap: 48px;
+  }
+  .patternBlock {
+    top: -24px;
   }
 }
