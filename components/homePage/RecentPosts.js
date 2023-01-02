@@ -1,13 +1,66 @@
+import Image from "next/image";
 import Link from "next/link";
+import { urlFor } from "lib/sanity";
+import { imageBlurDataURL } from "utils/images";
+import useMediaQuery from "utils/useMediaQuery";
+import { breakpoints } from "styles/js-env-variables";
+
+const sizes = {
+  mobile: {
+    width: 240,
+    // Possible heights
+    // 3:2 aspect ratio for landscape, 9:14 for portrait
+    landscape: 160,
+    portrait: 374
+  },
+  small: {
+    width: 83,
+    landscape: 55,
+    portrait: 129
+  },
+  large: {
+    width: 120,
+    landscape: 80,
+    portrait: 187
+  }
+};
 
 export default function RecentPosts({ posts }) {
+  const isNarrow = useMediaQuery(`(min-width: ${breakpoints.w480}rem)`);
+  const isMedium = useMediaQuery(
+    `(min-width: ${breakpoints.w520}rem) and (max-width: ${breakpoints.w1150 - 0.1}rem)`
+  );
+  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1280}rem)`);
+
+  const largePostImages = isMedium || isWide;
+  const imageSize = !isNarrow ? sizes.mobile : sizes[largePostImages ? "large" : "small"];
+  const imageWidth = imageSize.width;
+  const imageHeight = imageSize.landscape;
+
   return (
     <>
-      <h2>Posts</h2>
+      <h2>Recent posts</h2>
       <ul>
         {posts.map(post => (
           <li key={`posts-${post?._id}-${post?.slug}`}>
             <Link as={`/posts/${post?.slug}`} href={`/posts/[slug]`}>
+              {post?.image ? (
+                <div style={{ maxWidth: `${imageWidth}px` }}>
+                  <Image
+                    src={urlFor(post?.image)
+                      .width(imageWidth * 2)
+                      .height(imageHeight * 2)
+                      .url()}
+                    width={imageWidth}
+                    height={imageHeight}
+                    sizes={`(max-width: ${breakpoints.w800}rem) 100vw, ${imageWidth}px`}
+                    alt={post?.image?.alt}
+                    placeholder="blur"
+                    blurDataURL={imageBlurDataURL}
+                    className="responsive-image"
+                  />
+                </div>
+              ) : null}
               <div>
                 <h3>{post?.title || post?.name}</h3>
                 <p>{post?.description}</p>

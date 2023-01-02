@@ -3,6 +3,7 @@ module.exports = {
   // (pixel values converted to rems, assuming the user's default font size is 16px)
   breakpoints: {
     w480: 30,
+    w520: 32.5,
     w600: 37.5,
     w768: 48,
     w800: 50,

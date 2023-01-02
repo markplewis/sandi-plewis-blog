@@ -1,7 +1,6 @@
 export default function FeaturedNovelReviews({ reviews }) {
   return (
     <>
-      <h2>Reviews</h2>
       <ul>
         {reviews.map(review => (
           <li key={review?._id}>

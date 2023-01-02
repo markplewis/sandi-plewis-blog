@@ -2,10 +2,6 @@
   margin-top: 24px;
   position: relative;
 }
-.row1 section,
-.row2 section {
-  background-color: #ccc;
-}
 .row1,
 .row2 {
   display: grid;
@@ -15,6 +11,9 @@
 .row1 {
   margin-top: 24px;
   margin-bottom: 64px;
+}
+.item {
+  background-color: #ccc;
 }
 .patternBlock {
   width: 300px;

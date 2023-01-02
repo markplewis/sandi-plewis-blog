@@ -28,31 +28,31 @@ export default function HomePage({ data }) {
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg' fill='%23000000' fill-opacity='0.6' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'%3E%3Cpath d='M4 0h2L0 6V4l4-4zM6 4v2H4l2-2z'/%3E%3C/svg%3E")`
           }}></div>
 
-        <div className={styles.row1}>
+        <section className={styles.row1}>
           {novel ? (
-            <section>
+            <div className={styles.item}>
               <FeaturedNovel novel={novel} />
-            </section>
+            </div>
           ) : null}
 
           {reviews.length ? (
-            <section>
+            <div className={styles.item}>
               <FeaturedNovelReviews reviews={reviews} />
-            </section>
+            </div>
           ) : null}
 
           {isWide ? <ShareTools text="Sandi Plewis, Author/Editor" position="vertical" /> : null}
-        </div>
+        </section>
 
         <div className={styles.row2}>
           {posts.length ? (
-            <section>
+            <section className={styles.item}>
               <RecentPosts posts={posts} />
             </section>
           ) : null}
 
           {author ? (
-            <section>
+            <section className={styles.item}>
               <AuthorBio author={author} />
             </section>
           ) : null}

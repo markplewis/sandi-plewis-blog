@@ -21,6 +21,7 @@ module.exports = {
   environmentVariables: {
     // Media query breakpoints
     "--bp-480": `${bp.w480}rem`,
+    "--bp-520": `${bp.w520}rem`,
     "--bp-600": `${bp.w600}rem`,
     "--bp-768": `${bp.w768}rem`,
     "--bp-800": `${bp.w800}rem`,
