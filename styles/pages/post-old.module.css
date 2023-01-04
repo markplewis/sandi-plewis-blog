@@ -1,0 +1,112 @@
+/* Layer these elements over top of the gradient background and pattern blocks */
+
+.titleArea,
+.heroArea,
+.metaAbove,
+.bodyArea {
+  position: relative;
+  /* z-index: 1; */
+}
+
+/* Title area */
+
+.titleArea {
+  margin: 40px var(--column-margin-right) 40px var(--column-margin-left);
+  grid-column: 2 / 3;
+}
+.title {
+  margin: 0;
+  align-self: center;
+  justify-self: start;
+}
+.shareToolsAbove {
+  margin-left: 48px;
+}
+@media (min-width: env(--bp-768)) {
+  .titleArea {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+}
+
+/* Hero area - overall grid layout */
+
+.heroArea {
+  --meta-width: 0%;
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
+  display: grid;
+  grid-template-columns:
+    minmax(var(--column-margin-left), 1fr)
+    minmax(auto, 100px)
+    minmax(auto, 400px)
+    minmax(auto, 200px)
+    var(--meta-width)
+    var(--column-margin-right);
+}
+@media (min-width: env(--bp-768)) {
+  .heroArea {
+    --meta-width: 48%;
+    margin-bottom: 40px;
+  }
+}
+@media (min-width: env(--bp-1024)) {
+  .heroArea {
+    --meta-width: 42%;
+  }
+}
+@media (min-width: env(--bp-1600)) {
+  .heroArea {
+    grid-column: 2 / -2;
+    margin-left: var(--column-margin-left);
+    margin-right: var(--column-margin-right);
+  }
+}
+
+/* Hero area - outer elements */
+
+.patternBlock,
+.coverImage,
+.metaAbove,
+.patternBlock2 {
+  grid-row: 1 / 2;
+}
+.patternBlock {
+  margin-top: 44px;
+  content: "";
+  display: block;
+  background-color: var(--primaryBgLow);
+  grid-column: 1 / 3;
+}
+.coverImage {
+  margin: 22px 0;
+  grid-column: 2 / 5;
+}
+.metaAbove {
+  margin-top: 44px;
+  padding-left: 22px;
+  grid-column: 5 / -2;
+}
+.patternBlock2 {
+  margin-bottom: 44px;
+  content: "";
+  display: block;
+  grid-column: 4 / -1;
+  background-color: var(--secondaryBgHigh);
+}
+
+/* Body area */
+
+.shareToolsBelow {
+  margin-bottom: 22px;
+}
+.metaBelow {
+  margin: 0 -22px;
+  padding: 22px;
+  background-color: #fff;
+}
+.bodyArea {
+  margin: 0 var(--column-margin-left) 0 var(--column-margin-right);
+}

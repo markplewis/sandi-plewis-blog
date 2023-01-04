@@ -12,7 +12,7 @@ import InternalLink from "components/portableText/InternalLink";
 import LineBreak from "components/portableText/LineBreak";
 import PostBodyImage from "components/portableText/PostBodyImage";
 
-// import styles from "styles/pages/post.module.css";
+import styles from "styles/pages/post.module.css";
 
 const portableTextComponents = {
   types: {
@@ -49,45 +49,51 @@ export default function PostPage({ data }) {
     <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>
       <article>
         <PageTitle>{title}</PageTitle>
-        <div>
-          {image ? (
-            <Image
-              src={urlFor(image).width(imageSize.width).height(imageSize.height).url()}
-              width={imageSize.width}
-              height={imageSize.height}
-              sizes={`(max-width: ${breakpoints.w800}rem) 100vw, 800px`}
-              alt={image?.alt}
-              placeholder="blur"
-              blurDataURL={imageBlurDataURL}
-              className="responsive-image"
-            />
-          ) : null}
-        </div>
-        <p>
-          <DisplayDate dateString={date} />
-        </p>
-        <p>
-          <Link as={`/authors/${author?.slug}`} href="/authors/[slug]">
-            {author?.name}
-          </Link>
-        </p>
-
-        {categories && categories.length ? (
-          <div>
-            <p>{categories.length > 1 ? "Categories:" : "Category:"}</p>
-            <ul>
-              {categories.map(({ slug, title }) => (
-                <li key={slug}>
-                  <Link as={`/categories/${slug}`} href="/categories/[slug]">
-                    {title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+        <div className={styles.hero}>
+          <div className={styles.image}>
+            {image ? (
+              <Image
+                src={urlFor(image).width(imageSize.width).height(imageSize.height).url()}
+                width={imageSize.width}
+                height={imageSize.height}
+                sizes={`(max-width: ${breakpoints.w800}rem) 100vw, 800px`}
+                alt={image?.alt}
+                placeholder="blur"
+                blurDataURL={imageBlurDataURL}
+                className="responsive-image"
+              />
+            ) : null}
           </div>
-        ) : null}
+          <div className={styles.meta}>
+            <p>
+              <DisplayDate dateString={date} />
+            </p>
+            <p>
+              <Link as={`/authors/${author?.slug}`} href="/authors/[slug]">
+                {author?.name}
+              </Link>
+            </p>
 
-        {body ? <PortableText value={body} components={portableTextComponents} /> : null}
+            {categories && categories.length ? (
+              <div>
+                <p>{categories.length > 1 ? "Categories:" : "Category:"}</p>
+                <ul>
+                  {categories.map(({ slug, title }) => (
+                    <li key={slug}>
+                      <Link as={`/categories/${slug}`} href="/categories/[slug]">
+                        {title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        </div>
+
+        <div className={styles.body}>
+          {body ? <PortableText value={body} components={portableTextComponents} /> : null}
+        </div>
       </article>
     </Layout>
   );

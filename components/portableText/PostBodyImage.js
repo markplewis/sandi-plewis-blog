@@ -15,8 +15,6 @@ const PostBodyImage = ({ value }) => {
   const height = value?.asset?.metadata?.dimensions?.height ?? 0;
   const creditLine = processCreditLine(value?.asset?.creditLine);
 
-  console.log("PostBodyImage", value);
-
   let orientation = "square";
   if (width > height) {
     orientation = "landscape";
