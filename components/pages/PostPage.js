@@ -5,6 +5,7 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import { PortableText, urlFor } from "lib/sanity";
 import { imageBlurDataURL } from "utils/images";
+import { processCreditLine } from "utils/strings";
 import useMediaQuery from "utils/useMediaQuery";
 import { breakpoints } from "styles/js-env-variables";
 
@@ -44,6 +45,8 @@ export default function PostPage({ data }) {
     width: cinemaRatio ? 1240 : 1000,
     height: cinemaRatio ? 531 : 667
   };
+
+  const creditLine = processCreditLine(image?.creditLine);
 
   return (
     <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>
@@ -88,6 +91,8 @@ export default function PostPage({ data }) {
                 </ul>
               </div>
             ) : null}
+
+            {creditLine && <p dangerouslySetInnerHTML={{ __html: `Photo: ${creditLine}` }} />}
           </div>
         </div>
 
