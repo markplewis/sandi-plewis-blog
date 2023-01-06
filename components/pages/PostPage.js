@@ -3,6 +3,7 @@ import Link from "next/link";
 import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
+import ShareTools from "components/global/ShareTools";
 import { PortableText, urlFor } from "lib/sanity";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
@@ -51,7 +52,11 @@ export default function PostPage({ data }) {
   return (
     <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>
       <article>
-        <PageTitle>{title}</PageTitle>
+        <div className={styles.titleArea}>
+          <PageTitle className={styles.title}>{title}</PageTitle>
+          {isMedium && <ShareTools text={title} />}
+        </div>
+
         <div className={styles.hero}>
           <div className={styles.image}>
             {image ? (
@@ -63,10 +68,13 @@ export default function PostPage({ data }) {
                 alt={image?.alt}
                 placeholder="blur"
                 blurDataURL={imageBlurDataURL}
-                className="responsive-image"
+                className={styles.img}
               />
             ) : null}
           </div>
+
+          {!isMedium && <ShareTools text={title} align="right" />}
+
           <div className={styles.meta}>
             <p>
               <DisplayDate dateString={date} />
