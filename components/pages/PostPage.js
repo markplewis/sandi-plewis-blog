@@ -5,6 +5,7 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
 import { PortableText, urlFor } from "lib/sanity";
+// import { getDocumentColors } from "utils/color";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
 import useMediaQuery from "utils/useMediaQuery";
@@ -48,6 +49,9 @@ export default function PostPage({ data }) {
   };
 
   const creditLine = processCreditLine(image?.creditLine);
+
+  // const colors = getDocumentColors(data);
+  // console.log(colors);
 
   return (
     <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>
