@@ -63,8 +63,8 @@ body {
   font-size: 100%; /* Default is `16px` in most browsers */
   font-family: var(--font-family-base);
   line-height: 1.5;
-  color: var(--font-color-base);
-  background-color: var(--bg-color-base);
+  color: var(--color-font-base);
+  background-color: var(--color-bg-base);
 }
 /* #__next {
   min-height: 100%;
@@ -85,7 +85,7 @@ main::before {
   width: 120%;
   height: 700px;
   transform: rotate(-2deg);
-  background: linear-gradient(100deg, var(--primaryBgLow) 0%, var(--secondaryBgLow) 100%);
+  background: linear-gradient(100deg, var(--color-primary-bg) 0%, var(--color-secondary-bg) 100%);
   opacity: 0.1;
 }
 main.homePage::before {

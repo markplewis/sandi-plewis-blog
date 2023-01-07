@@ -34,7 +34,7 @@
 }
 .nameLink {
   text-decoration: none;
-  color: var(--font-color-base);
+  color: var(--color-font-base);
 }
 .title {
   margin: 0;
@@ -80,11 +80,11 @@
   border-top: 12px solid transparent;
 }
 .header > .nav .navItemActive {
-  border-top-color: var(--primaryBgHigh);
+  border-top-color: var(--color-primary-bg);
 }
 .header > .nav .navLink {
   font-size: var(--font-size-20);
-  color: var(--font-color-base);
+  color: var(--color-font-base);
   text-decoration-line: none;
 }
 .header > .nav .navLink:hover,
@@ -100,7 +100,7 @@
   overflow-y: scroll;
   /* Momentum touch scrolling for iOS (non-standard feature) */
   -webkit-overflow-scrolling: touch;
-  background-color: var(--font-color-base);
+  background-color: var(--color-font-base);
 }
 .navMenuHiding {
   animation: hideNavMenu 0.25s ease-out 0s 1 normal forwards running;
@@ -163,7 +163,7 @@
 /* Twitter */
 .shareButton {
   font-size: var(--font-size-20);
-  color: var(--font-color-base);
+  color: var(--color-font-base);
   text-decoration: none;
   display: flex;
   align-items: center;

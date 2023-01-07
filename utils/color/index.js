@@ -24,7 +24,7 @@ function colorToHSL(color) {
  * @param {number} color.b - Blue value
  * @returns {Object}
  */
-export function RGBToHSL(color) {
+function RGBToHSL(color) {
   // Make r, g, and b fractions of 1
   const r = color.r / 255;
   const g = color.g / 255;
@@ -69,12 +69,16 @@ export function RGBToHSL(color) {
   return { h, s, l };
 }
 
+function HSLToHex({ h, s, l }) {
+  return colorToHex(colorParsley(`hsl(${h}, ${s}%, ${l}%)`));
+}
+
 /**
  * Fetches color palette data from a given Sanity document
  * @param {Object} doc - A Sanity document (https://www.sanity.io/docs/document-type)
  * @returns {Object|null} in format: {primaryHex: "", secondaryHex: ""}
  */
-export function getDocumentColors(doc) {
+export function getDocumentColors(doc, targetFontSizes) {
   // See: https://www.sanity.io/docs/image-metadata#5bb0c7e96f42
   const palette = doc?.image?.palette;
   const selectedSwatchName = doc?.colorPalette ?? "darkVibrant"; // Chosen by user
@@ -106,8 +110,7 @@ export function getDocumentColors(doc) {
       secondaryHex: doc.secondaryColor.hex
     };
   }
-  // adjustColorContrast(documentColors); // TODO: delete this line later (testing now)
-  return documentColors;
+  return adjustColorContrast(documentColors, targetFontSizes);
 }
 
 // See: https://github.com/Myndex/apca-w3#new-font-size-array
@@ -143,22 +146,120 @@ export function getDocumentColors(doc) {
 //   }
 // };
 
-export function adjustColorContrast({ primaryHex, secondaryHex }) {
-  // const primaryHSL = colorToHSL(colorParsley(primaryHex));
-  // const secondaryHSL = colorToHSL(colorParsley(secondaryHex));
+// For dark text on light backgrounds, and the text is 24px or smaller, the text should be #000000
+// See: https://github.com/Myndex/SAPC-APCA/discussions/64
+const blackHSL = { h: 0, s: 0, l: 0 };
+const whiteHSL = { h: 360, s: 100, l: 100 };
 
-  const contrastValues = {
-    whiteOnPrimary: calcAPCA("#fff", primaryHex),
-    whiteOnSecondary: calcAPCA("#fff", secondaryHex),
-    blackOnPrimary: calcAPCA("#000", primaryHex),
-    blackOnSecondary: calcAPCA("#000", secondaryHex)
+function findBestColorCombo(blackFgColor, whiteFgColor) {
+  let bestColor;
+  if (
+    (whiteFgColor.limitReached && blackFgColor.limitReached) ||
+    (!whiteFgColor.limitReached && !blackFgColor.limitReached)
+  ) {
+    bestColor = whiteFgColor.iterations <= blackFgColor.iterations ? whiteFgColor : blackFgColor;
+  } else if (blackFgColor.limitReached) {
+    bestColor = whiteFgColor;
+  } else if (whiteFgColor.limitReached) {
+    bestColor = blackFgColor;
+  }
+  return bestColor;
+}
+
+function adjustColorContrast(documentColors, targetFontSizes) {
+  const { primaryHex, secondaryHex } = documentColors;
+  const primaryHSL = colorToHSL(colorParsley(primaryHex));
+  const secondaryHSL = colorToHSL(colorParsley(secondaryHex));
+
+  // TODO: determine whether white or black text has higher contrast.
+  // Or, select whichever one required fewer iterations to lighten or darken the color
+  // (i.e. the color that was less transformed)
+  const whiteOnPrimary = adjustBackgroundColor(whiteHSL, primaryHSL, true, targetFontSizes);
+  const whiteOnSecondary = adjustBackgroundColor(whiteHSL, secondaryHSL, true, targetFontSizes);
+  const blackOnPrimary = adjustBackgroundColor(blackHSL, primaryHSL, false, targetFontSizes);
+  const blackOnSecondary = adjustBackgroundColor(blackHSL, secondaryHSL, false, targetFontSizes);
+
+  console.log("contrastValues", {
+    whiteOnPrimary,
+    whiteOnSecondary,
+    blackOnPrimary,
+    blackOnSecondary
+  });
+
+  const bestPrimary = findBestColorCombo(blackOnPrimary, whiteOnPrimary);
+  const bestSecondary = findBestColorCombo(blackOnSecondary, whiteOnSecondary);
+
+  return {
+    primary: {
+      fgColor: bestPrimary.fgColor,
+      bgColor: bestPrimary.bgColor
+    },
+    secondary: {
+      fgColor: bestSecondary.fgColor,
+      bgColor: bestSecondary.bgColor
+    },
+    css: `
+      --color-primary-fg: ${bestPrimary.fgColor};
+      --color-primary-bg: ${bestPrimary.bgColor};
+      --color-secondary-fg: ${bestSecondary.fgColor};
+      --color-secondary-bg: ${bestSecondary.bgColor};
+    `
   };
-  const fontSizes = {
-    whiteOnPrimary: fontLookupAPCA(contrastValues.whiteOnPrimary),
-    whiteOnSecondary: fontLookupAPCA(contrastValues.whiteOnSecondary),
-    blackOnPrimary: fontLookupAPCA(contrastValues.blackOnPrimary),
-    blackOnSecondary: fontLookupAPCA(contrastValues.blackOnSecondary)
-  };
-  console.log("fontSizes", fontSizes); // 4 and 7
-  // fontLookupAPCA()
+}
+
+/**
+ * If light (`#FFF`) text over the background colour has higher contrast than dark (`#000`) text,
+ * keep darkening the background color until `fontLookupAPCA` returns a font size smaller than or
+ * equal to the desired size, for the desired font weight. Otherwise, keep lightening the
+ * background color until we've reached this point.
+ * @param {Object} fgColor - HSL color
+ * @param {Object} bgColor - HSL color
+ * @param {Boolean} darkenBg - Whether to progressively darken the background color or lighten it
+ */
+function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iterations = 0) {
+  const iterationCount = iterations + 1;
+  const currentLightness = parseFloat(bgColor.l);
+  let lightness;
+  let limitReached = false;
+
+  // Lighten or darken the target color
+  if (darkenBg && currentLightness - 1 >= 0) {
+    lightness = currentLightness - 1;
+  } else if (!darkenBg && currentLightness + 1 <= 100) {
+    lightness = currentLightness + 1;
+  } else {
+    // Lightness has bottomed out at zero (black) or topped out at 100 (white), so test the contrast
+    lightness = currentLightness;
+    limitReached = true;
+  }
+  // APCA reports lightness contrast as an Lc value from Lc 0 to Lc 106 for dark text on a light
+  // background, and Lc 0 to Lc -108 for light text on a dark background (dark mode). The minus
+  // sign merely indicates negative contrast, which means light text on a dark background.
+  // See: https://www.myndex.com/APCA/
+  const contrast = calcAPCA(
+    `hsl(${fgColor.h}, ${fgColor.s}%, ${fgColor.l}%)`,
+    `hsl(${bgColor.h}, ${bgColor.s}%, ${lightness}%)`
+  );
+  const fontSizes = fontLookupAPCA(contrast);
+
+  const passedContrastTest = targetFontSizes.every(size => {
+    const fontSize = fontSizes[size.weight / 100];
+    // We're assuming that the font size returned by APCA for this font weight represents
+    // a minimum value, so it's safe to use font sizes that are smaller than this. However,
+    // the https://www.myndex.com/APCA/ tool sometimes says "Usage: small body text only".
+    return fontSize <= size.size;
+  });
+
+  const newBgColor = { h: bgColor.h, s: bgColor.s, l: lightness };
+
+  if (passedContrastTest || limitReached) {
+    return {
+      fgColor: `#${HSLToHex(fgColor)}`,
+      bgColor: `#${HSLToHex(newBgColor)}`,
+      contrast,
+      iterations: iterationCount,
+      limitReached
+    };
+  }
+  return adjustBackgroundColor(fgColor, newBgColor, darkenBg, targetFontSizes, iterationCount);
 }

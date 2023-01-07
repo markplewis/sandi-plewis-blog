@@ -45,7 +45,7 @@
   margin: 22px 0;
   padding: 44px;
   border-radius: 10px 0;
-  background-color: var(--primaryBgHigh);
+  background-color: var(--color-primary-bg);
   grid-column: 2 / 4;
   grid-row: 1 / 2;
   display: flex;
@@ -55,7 +55,7 @@
 }
 .coverImageAndInfo :focus,
 .coverImageAndInfo :hover:focus {
-  outline-color: var(--primaryFgHigh);
+  outline-color: var(--color-primary-fg);
 }
 .patternBlock2 {
   height: 370px;
@@ -79,7 +79,7 @@
 .coverImage {
   width: 188px;
   transform: translate(11px, -11px);
-  background-color: var(--secondaryBgLow);
+  background-color: var(--color-secondary-bg);
   flex-shrink: 0;
 }
 .coverImage > span {
@@ -102,7 +102,7 @@
 /* Info - inside hero area */
 
 .infoAbove {
-  color: var(--primaryFgHigh);
+  color: var(--color-primary-fg);
 }
 .infoAbove > div > *:last-child {
   margin: 0;
@@ -112,7 +112,7 @@
 .infoAbove a:hover,
 .infoAbove a:focus,
 .infoAbove a:active {
-  color: var(--primaryFgHigh);
+  color: var(--color-primary-fg);
 }
 
 /* Info - below hero area */
@@ -121,14 +121,14 @@
   margin: 0 -22px;
   padding: 22px;
   background-color: #fff;
-  color: var(--font-color-base);
+  color: var(--color-font-base);
 }
 .infoBelow a,
 .infoBelow a:visited,
 .infoBelow a:hover,
 .infoBelow a:focus,
 .infoBelow a:active {
-  color: var(--font-color-base);
+  color: var(--color-font-base);
 }
 
 /* Body area */

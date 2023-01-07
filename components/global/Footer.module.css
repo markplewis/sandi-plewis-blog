@@ -16,7 +16,7 @@
   background-color: #fff;
   border-radius: 5px;
   font-size: var(--font-size-16);
-  color: var(--font-color-base);
+  color: var(--color-font-base);
   text-decoration-line: none;
 }
 .footerLink:hover,

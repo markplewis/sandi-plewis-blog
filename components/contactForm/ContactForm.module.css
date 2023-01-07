@@ -45,7 +45,7 @@
 .submitButton {
   margin-left: auto;
   padding: 8px 12px;
-  background-color: var(--font-color-base);
+  background-color: var(--color-font-base);
   color: #fff;
   display: flex;
   align-items: center;

@@ -169,18 +169,14 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
           {
             /* css */ `
               :root {
-                --bg-color-base: var(--color-white);
-                --font-color-base: var(--color-dark-gray);
-                --primaryBgHigh: var(--color-dark-gray);
-                --primaryBgLow: var(--color-dark-gray);
-                --primaryFgHigh: var(--color-white);
-                --primaryFgLow: var(--color-white);
-                --secondaryBgHigh: var(--color-dark-gray);
-                --secondaryBgLow: var(--color-dark-gray);
-                --secondaryFgHigh: var(--color-white);
-                --secondaryFgLow: var(--color-white);
-                --gradientBgStart: var(--color-dark-gray-translucent);
-                --gradientBgEnd: var(--color-white-translucent);
+                --color-bg-base: var(--color-white);
+                --color-font-base: var(--color-dark-gray);
+                --color-gradient-bg-start: var(--color-dark-gray-translucent);
+                --color-gradient-bg-end: var(--color-white-translucent);
+                --color-primary-fg: #fff;
+                --color-primary-bg: #333;
+                --color-secondary-fg: #000;
+                --color-secondary-bg: #ccc;
               }
             `
           }
