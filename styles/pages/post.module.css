@@ -7,6 +7,8 @@
 }
 .hero {
   margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
 }
 .image {
   width: 100%;
@@ -57,7 +59,6 @@
   .hero {
     margin-bottom: 64px;
     display: flex;
-    position: relative;
   }
   .hero::after {
     content: "";

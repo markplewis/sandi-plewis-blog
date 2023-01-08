@@ -169,14 +169,12 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
           {
             /* css */ `
               :root {
-                --color-bg-base: var(--color-white);
-                --color-font-base: var(--color-dark-gray);
-                --color-gradient-bg-start: var(--color-dark-gray-translucent);
-                --color-gradient-bg-end: var(--color-white-translucent);
                 --color-primary-fg: #fff;
                 --color-primary-bg: #333;
+                --color-primary-bg-translucent: var(--color-dark-gray-translucent);
                 --color-secondary-fg: #000;
                 --color-secondary-bg: #ccc;
+                --color-secondary-bg-translucent: var(--color-light-gray-translucent);
               }
             `
           }

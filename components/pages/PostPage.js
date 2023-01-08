@@ -8,6 +8,7 @@ import { PortableText, urlFor } from "lib/sanity";
 import { getDocumentColors } from "utils/color";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
+import useDebug from "utils/useDebug";
 import useMediaQuery from "utils/useMediaQuery";
 import { breakpoints } from "styles/js-env-variables";
 
@@ -38,6 +39,8 @@ export default function PostPage({ data }) {
     image = {}
   } = data;
 
+  const debug = useDebug();
+
   const isWide = useMediaQuery(`(min-width: ${breakpoints.w1024}rem)`);
   const isMedium = useMediaQuery(`(min-width: ${breakpoints.w768}rem)`);
 
@@ -63,7 +66,7 @@ export default function PostPage({ data }) {
     }
   ];
   const pageColors = getDocumentColors(data, targetFontSizes);
-  console.log("pageColors", pageColors);
+  debug && console.log("pageColors", pageColors);
 
   return (
     <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>

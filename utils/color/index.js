@@ -166,43 +166,56 @@ function findBestColorCombo(blackFgColor, whiteFgColor) {
   return bestColor;
 }
 
+function hexToRGB(color, alpha = 1) {
+  const [r, g, b] = colorParsley(color);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 function adjustColorContrast(documentColors, targetFontSizes) {
   const { primaryHex, secondaryHex } = documentColors;
   const primaryHSL = colorToHSL(colorParsley(primaryHex));
   const secondaryHSL = colorToHSL(colorParsley(secondaryHex));
 
-  // TODO: determine whether white or black text has higher contrast.
-  // Or, select whichever one required fewer iterations to lighten or darken the color
-  // (i.e. the color that was less transformed)
+  // TODO: leave colors as-is when they were manually selected within Sanity? (i.e. do not transform)
   const whiteOnPrimary = adjustBackgroundColor(whiteHSL, primaryHSL, true, targetFontSizes);
   const whiteOnSecondary = adjustBackgroundColor(whiteHSL, secondaryHSL, true, targetFontSizes);
   const blackOnPrimary = adjustBackgroundColor(blackHSL, primaryHSL, false, targetFontSizes);
   const blackOnSecondary = adjustBackgroundColor(blackHSL, secondaryHSL, false, targetFontSizes);
 
-  console.log("contrastValues", {
-    whiteOnPrimary,
-    whiteOnSecondary,
-    blackOnPrimary,
-    blackOnSecondary
-  });
+  // console.log("contrastValues", {
+  //   whiteOnPrimary,
+  //   whiteOnSecondary,
+  //   blackOnPrimary,
+  //   blackOnSecondary
+  // });
 
+  // Select whichever color required fewer iterations to lighten or darken
+  // (i.e. the color that was transformed the least)
   const bestPrimary = findBestColorCombo(blackOnPrimary, whiteOnPrimary);
-  const bestSecondary = findBestColorCombo(blackOnSecondary, whiteOnSecondary);
+  bestPrimary.bgColorTranslucent = hexToRGB(bestPrimary.bgColor, 0.1);
 
+  const bestSecondary = findBestColorCombo(blackOnSecondary, whiteOnSecondary);
+  bestSecondary.bgColorTranslucent = hexToRGB(bestSecondary.bgColor, 0.1);
+
+  // TODO: export rgba colours with a 0.1 alpha, for background gradients
   return {
     primary: {
       fgColor: bestPrimary.fgColor,
-      bgColor: bestPrimary.bgColor
+      bgColor: bestPrimary.bgColor,
+      bgColorTranslucent: bestPrimary.bgColorTranslucent
     },
     secondary: {
       fgColor: bestSecondary.fgColor,
-      bgColor: bestSecondary.bgColor
+      bgColor: bestSecondary.bgColor,
+      bgColorTranslucent: bestSecondary.bgColorTranslucent
     },
     css: `
       --color-primary-fg: ${bestPrimary.fgColor};
       --color-primary-bg: ${bestPrimary.bgColor};
+      --color-primary-bg-translucent: ${bestPrimary.bgColorTranslucent};
       --color-secondary-fg: ${bestSecondary.fgColor};
       --color-secondary-bg: ${bestSecondary.bgColor};
+      --color-secondary-bg-translucent: ${bestSecondary.bgColorTranslucent};
     `
   };
 }

@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
+import useDebug from "utils/useDebug";
 
 // import styles from "styles/pages/contentListing.module.css";
 
 export default function WritingPage({ data }) {
   const { novels = [], shortStories = [] } = data;
-  console.log("WritingPage", { novels, shortStories });
+  const debug = useDebug();
+  debug && console.log("WritingPage", { novels, shortStories });
   return (
     <Layout title="Writing" description="A listing of Sandi Plewis' novels and short stories">
       <PageTitle>Writing</PageTitle>
