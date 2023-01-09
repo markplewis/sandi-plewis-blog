@@ -51,7 +51,7 @@ const PostBodyImage = ({ value }) => {
       sizes={`(max-width: ${breakpoints.w800}rem) 100vw, ${imageWidth * 2}px`}
       alt={value?.alt}
       placeholder="blur"
-      blurDataURL={imageBlurDataURL}
+      blurDataURL={value?.asset?.metadata?.lqip || imageBlurDataURL}
       className="responsive-image"
     />
   ) : null;

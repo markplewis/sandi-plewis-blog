@@ -12,6 +12,7 @@ export const shortStoryQuery = groq`
       creditLine,
       description,
       "palette": metadata.palette,
+      "lqip": metadata.lqip,
       url
     }},
     "overview": overview[] {

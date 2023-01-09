@@ -11,7 +11,7 @@ import useWindowSize from "utils/useWindowSize";
 
 import styles from "components/global/Header.module.css";
 
-export default function Header({ children }) {
+export default function Header() {
   const { dispatchApp } = useApp();
   const router = useRouter();
   const pathName = router.pathname;
@@ -180,7 +180,6 @@ export default function Header({ children }) {
 
   return (
     <header className={styles.header} ref={headerRef}>
-      {children}
       <div className={styles.nameAndTitle}>
         <p className={styles.name}>
           <Link className={styles.nameLink} href="/">

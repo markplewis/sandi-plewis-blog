@@ -161,9 +161,8 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
         {facebookImageURL && imageAlt && <meta name="og:image:alt" content={imageAlt} />}
       </Head>
       <SkipLink />
-      <Header>
-        <PreviewMessage />
-      </Header>
+      <PreviewMessage />
+      <Header />
       <Main>
         <style jsx global>
           {

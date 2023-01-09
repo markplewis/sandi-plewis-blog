@@ -5,7 +5,7 @@ export const authorsQuery = groq`
     _id,
     name,
     "slug": slug.current,
-    "image": image{..., ...asset->{creditLine, description, url}},
+    "image": image{..., ...asset->{creditLine, description, "lqip": metadata.lqip, url}},
     description
   }
 `;
@@ -22,6 +22,7 @@ export const authorQuery = groq`
       creditLine,
       description,
       "palette": metadata.palette,
+      "lqip": metadata.lqip,
       url
     }},
     "biography": biography[] {

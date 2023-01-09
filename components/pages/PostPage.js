@@ -93,7 +93,7 @@ export default function PostPage({ data }) {
                 sizes={`(max-width: ${breakpoints.w800}rem) 100vw, 800px`}
                 alt={image?.alt}
                 placeholder="blur"
-                blurDataURL={imageBlurDataURL}
+                blurDataURL={image?.lqip || imageBlurDataURL}
                 className={styles.img}
               />
             ) : null}

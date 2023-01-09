@@ -29,7 +29,7 @@ export default function FeaturedNovel({ novel }) {
               sizes={`(max-width: ${breakpoints.w800}rem) 100vw, 188px`}
               alt={novel?.image?.alt || novel?.title}
               placeholder="blur"
-              blurDataURL={imageBlurDataURL}
+              blurDataURL={novel?.image?.lqip || imageBlurDataURL}
               className="responsive-image"
             />
           </Link>

@@ -56,7 +56,7 @@ export default function RecentPosts({ posts }) {
                     sizes={`(max-width: ${breakpoints.w800}rem) 100vw, ${imageWidth}px`}
                     alt={post?.image?.alt}
                     placeholder="blur"
-                    blurDataURL={imageBlurDataURL}
+                    blurDataURL={post?.image?.lqip || imageBlurDataURL}
                     className="responsive-image"
                   />
                 </div>

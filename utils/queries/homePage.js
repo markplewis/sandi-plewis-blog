@@ -20,6 +20,7 @@ export const featuredNovelAndHomePageQuery = groq`
         creditLine,
         description,
         "palette": metadata.palette,
+        "lqip": metadata.lqip,
         url
       }},
       colorPalette,

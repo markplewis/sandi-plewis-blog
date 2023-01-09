@@ -6,7 +6,13 @@ export const postsQuery = groq`
     title,
     "date": publishedAt,
     "slug": slug.current,
-    "image": image{..., ...asset->{creditLine, description, "palette": metadata.palette, url}},
+    "image": image{..., ...asset->{
+      creditLine,
+      description,
+      "palette": metadata.palette,
+      "lqip": metadata.lqip,
+      url
+    }},
     description
   }
 `;
@@ -24,6 +30,7 @@ export const postQuery = groq`
       creditLine,
       description,
       "palette": metadata.palette,
+      "lqip": metadata.lqip,
       url
     }},
     "author": author->{name, "slug": slug.current, "picture": image.asset->url},

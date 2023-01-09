@@ -31,7 +31,7 @@ export default function AuthorBio({ author }) {
             height={authorImageSize}
             alt={author?.image?.alt || author?.name}
             placeholder="blur"
-            blurDataURL={imageBlurDataURL}
+            blurDataURL={author?.image?.lqip || imageBlurDataURL}
             className="responsive-image"
           />
         </div>

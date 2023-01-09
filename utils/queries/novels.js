@@ -12,6 +12,7 @@ export const novelQuery = groq`
       creditLine,
       description,
       "palette": metadata.palette,
+      "lqip": metadata.lqip,
       url
     }},
     "overview": overview[] {
