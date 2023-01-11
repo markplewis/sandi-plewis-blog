@@ -81,7 +81,7 @@ function HSLToHex({ h, s, l }) {
 export function getDocumentColors(doc, targetFontSizes) {
   // See: https://www.sanity.io/docs/image-metadata#5bb0c7e96f42
   const palette = doc?.image?.palette;
-  const selectedSwatchName = doc?.colorPalette ?? "vibrant"; // Chosen by user
+  const selectedSwatchName = doc?.image?.colorPalette ?? "vibrant"; // Chosen by user
   const swatch = palette?.[selectedSwatchName];
 
   const isSanityPalette = selectedSwatchName !== "custom" && swatch?.background;

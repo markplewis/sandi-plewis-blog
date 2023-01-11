@@ -19,11 +19,11 @@ export const featuredNovelAndHomePageQuery = groq`
       "image": image{..., ...asset->{
         creditLine,
         description,
+        colorPalette,
         "palette": metadata.palette,
         "lqip": metadata.lqip,
         url
       }},
-      colorPalette,
       primaryColor,
       secondaryColor
     },

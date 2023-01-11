@@ -15,16 +15,16 @@ export const authorQuery = groq`
     _id,
     name,
     "slug": slug.current,
-    colorPalette,
-    primaryColor,
-    secondaryColor,
     "image": image{..., ...asset->{
       creditLine,
       description,
+      colorPalette,
       "palette": metadata.palette,
       "lqip": metadata.lqip,
       url
     }},
+    primaryColor,
+    secondaryColor,
     "biography": biography[] {
       ...,
       _type == "image" => {

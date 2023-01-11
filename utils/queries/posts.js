@@ -23,16 +23,16 @@ export const postQuery = groq`
     title,
     "date": publishedAt,
     "slug": slug.current,
-    colorPalette,
-    primaryColor,
-    secondaryColor,
     "image": image{..., ...asset->{
       creditLine,
       description,
+      colorPalette,
       "palette": metadata.palette,
       "lqip": metadata.lqip,
       url
     }},
+    primaryColor,
+    secondaryColor,
     "author": author->{name, "slug": slug.current, "picture": image.asset->url},
     "categories": categories[]->{title, "slug": slug.current},
     "body": body[] {

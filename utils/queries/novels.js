@@ -5,16 +5,16 @@ export const novelQuery = groq`
     _id,
     title,
     "slug": slug.current,
-    colorPalette,
-    primaryColor,
-    secondaryColor,
     "image": image{..., ...asset->{
       creditLine,
       description,
+      colorPalette,
       "palette": metadata.palette,
       "lqip": metadata.lqip,
       url
     }},
+    primaryColor,
+    secondaryColor,
     "overview": overview[] {
       ...,
       markDefs[]{
