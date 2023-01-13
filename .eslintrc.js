@@ -4,10 +4,7 @@ module.exports = {
   extends: ["eslint:recommended", "plugin:import/recommended", "next/core-web-vitals", "prettier"],
   // TODO: consider removing `eslint-plugin-prettier` and `prettier/prettier` rule
   // See: https://prettier.io/docs/en/integrating-with-linters.html#notes
-  plugins: ["jest", "testing-library", "prettier"],
-  rules: {
-    "prettier/prettier": "error"
-  },
+  plugins: ["jest", "testing-library"],
   env: {
     // See: https://www.npmjs.com/package/eslint-plugin-jest
     "jest/globals": true
