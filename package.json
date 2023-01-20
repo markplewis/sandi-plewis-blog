@@ -20,12 +20,12 @@
     "dev": "Starts the application in development mode with hot-code reloading, error reporting, etc.",
     "build": "Vercel CI build command: creates optimized production build of the application.",
     "start": "Starts the application in production mode. The application should be compiled with next build first.",
-    "lint": "Runs ESLint for all files in the pages, components, and lib directories.",
+    "lint": "Runs ESLint on all files in the speficied directories.",
     "test": "Runs Jest tests.",
     "test-watch": "Watches files and re-runs Jest tests when they change.",
     "prettier-check": "Runs Prettier.",
     "check": "Checks for outdated NPM packages.",
-    "prepare": "Installs Husky"
+    "prepare": "Installs Husky."
   },
   "scripts": {
     "dev": "next dev",
