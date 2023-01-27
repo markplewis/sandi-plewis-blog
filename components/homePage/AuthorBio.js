@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText, urlFor } from "lib/sanity";
 import InternalLink from "components/portableText/InternalLink";
-import { breakpoints } from "styles/js-env-variables";
+import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import useMediaQuery from "utils/useMediaQuery";
 
@@ -13,8 +13,11 @@ const portableTextComponents = {
 };
 
 export default function AuthorBio({ author }) {
+  const { breakpoints } = designTokens;
   const smallAuthorImage = useMediaQuery(
-    `(min-width: ${breakpoints.w1150}rem) and (max-width: ${breakpoints.w1280 - 0.1}rem)`
+    `(min-width: ${breakpoints.w1150.value}rem) and (max-width: ${
+      breakpoints.w1280.value - 0.1
+    }rem)`
   );
   const authorImageSize = smallAuthorImage ? 140 : 175;
 

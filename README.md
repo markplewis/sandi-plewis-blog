@@ -74,9 +74,42 @@ This app uses [next-sanity](https://github.com/sanity-io/next-sanity) to provide
 5. You'll then be immediately redirected to `/api/preview` where, via an [authentication token](https://github.com/sanity-io/next-sanity#custom-token-auth), [next-sanity](https://github.com/sanity-io/next-sanity) will setup the listeners, etc. that are required in order to start streaming the Sanity dataset to the browser.
 6. You'll then be redirected back to the home page and a "preview mode" banner will appear at the top of the page until you log out by pressing the "Sign out" button (which logs you out of your Auth.js session then makes a request to `/api/exit-preview` to terminate preview mode).
 
+### Variables in CSS media queries
+
+Unfortunately, it [isn't possible to use CSS custom properties in media queries](https://bholmes.dev/blog/alternative-to-css-variable-media-queries/), like this:
+
+```css
+@media (min-width: var(--bp-768)) {
+  /* styles */
+}
+```
+
+However, it may [eventually be possible to use CSS environment variables in media queries](https://drafts.csswg.org/css-env-1/), like this:
+
+```css
+@media (min-width: env(--bp-768)) {
+  /* styles */
+}
+```
+
+> Because environment variables don’t depend on the value of anything drawn from a particular
+> element, they can be used in places where there is no obvious element to draw from, such as
+> in @media rules, where the var() function would not be valid.
+
+For a while, it was possible to polyfill this functionality via PostCSS, using [postcss-env-function](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-env-function),
+however, it was [removed from `postcss-preset-env` in version 8](https://github.com/csstools/postcss-plugins/wiki/PostCSS-Preset-Env-8). See:
+
+- https://blog.logrocket.com/why-you-should-use-css-env-9ee719ce0f24/
+- https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-env-function
+
+So, this project now uses [postcss-design-tokens](https://github.com/csstools/postcss-plugins/tree/postcss-preset-env--v8/plugins/postcss-design-tokens) to achieve the same thing. It isn't quite as nice
+but it works. See:
+
+- `styles/design-tokens.json`
+- `styles/design-tokens.js`
+
 ## TODO
 
 - Replace some of our React hooks with these? https://github.com/streamich/react-use
 - Document how to seed the MongoDB datbase and/or create new users
-- Replace our colour contrast JavaScript functions with the new CSS [color-contrast](https://web.dev/state-of-css-2022/#color-contrast) function, when possible
 - Document our CSS methodologies and process, as per: https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/

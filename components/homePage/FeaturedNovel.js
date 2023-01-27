@@ -3,7 +3,7 @@ import Link from "next/link";
 import PageTitle from "components/global/PageTitle";
 import InternalLink from "components/portableText/InternalLink";
 import { PortableText, urlFor } from "lib/sanity";
-import { breakpoints } from "styles/js-env-variables";
+import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 
 const portableTextComponents = {
@@ -13,6 +13,7 @@ const portableTextComponents = {
 };
 
 export default function FeaturedNovel({ novel }) {
+  const { breakpoints } = designTokens;
   return (
     <>
       <PageTitle>{novel?.title}</PageTitle>
@@ -26,7 +27,7 @@ export default function FeaturedNovel({ novel }) {
               src={urlFor(novel?.image).width(376).height(581).url()}
               width={188}
               height={290}
-              sizes={`(max-width: ${breakpoints.w800}rem) 100vw, 188px`}
+              sizes={`(max-width: ${breakpoints.w800.value}rem) 100vw, 188px`}
               alt={novel?.image?.alt || novel?.title}
               placeholder="blur"
               blurDataURL={novel?.image?.lqip || imageBlurDataURL}

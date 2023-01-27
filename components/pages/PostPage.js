@@ -10,7 +10,7 @@ import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
 import useDebug from "utils/useDebug";
 import useMediaQuery from "utils/useMediaQuery";
-import { breakpoints } from "styles/js-env-variables";
+import designTokens from "styles/design-tokens";
 
 import InternalLink from "components/portableText/InternalLink";
 import LineBreak from "components/portableText/LineBreak";
@@ -39,10 +39,12 @@ export default function PostPage({ data }) {
     image = {}
   } = data;
 
+  const { breakpoints } = designTokens;
+
   const debug = useDebug();
 
-  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1024}rem)`);
-  const isMedium = useMediaQuery(`(min-width: ${breakpoints.w768}rem)`);
+  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1024.value}rem)`);
+  const isMedium = useMediaQuery(`(min-width: ${breakpoints.w768.value}rem)`);
 
   // 12:9 (Cinemascope) vs 3:2 (Classic Film)
   const cinemaRatio = isWide || !isMedium;
@@ -90,7 +92,7 @@ export default function PostPage({ data }) {
                 src={urlFor(image).width(imageSize.width).height(imageSize.height).url()}
                 width={imageSize.width}
                 height={imageSize.height}
-                sizes={`(max-width: ${breakpoints.w800}rem) 100vw, 800px`}
+                sizes={`(max-width: ${breakpoints.w800.value}rem) 100vw, 800px`}
                 alt={image?.alt}
                 placeholder="blur"
                 blurDataURL={image?.lqip || imageBlurDataURL}

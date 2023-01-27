@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { breakpoints } from "styles/js-env-variables";
+import designTokens from "styles/design-tokens";
 import { useApp } from "utils/useApp";
 import useMediaQuery from "utils/useMediaQuery";
 import { rem } from "utils/units";
@@ -12,11 +12,12 @@ import useWindowSize from "utils/useWindowSize";
 import styles from "components/global/Header.module.css";
 
 export default function Header() {
+  const { breakpoints } = designTokens;
   const { dispatchApp } = useApp();
   const router = useRouter();
   const pathName = router.pathname;
   const active = styles.navItemActive;
-  const isMedium = useMediaQuery(`(min-width: ${breakpoints.w820}rem)`);
+  const isMedium = useMediaQuery(`(min-width: ${breakpoints.w820.value}rem)`);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuHidden, setMenuHidden] = useState(true);
   const menuButtonRef = useRef(null);

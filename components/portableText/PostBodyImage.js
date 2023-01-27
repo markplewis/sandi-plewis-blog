@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { urlFor } from "lib/sanity";
-import { breakpoints } from "styles/js-env-variables";
+import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
 import useMediaQuery from "utils/useMediaQuery";
@@ -8,7 +8,8 @@ import useMediaQuery from "utils/useMediaQuery";
 import styles from "components/portableText/PostBodyImage.module.css";
 
 const PostBodyImage = ({ value }) => {
-  const isMedium = useMediaQuery(`(min-width: ${breakpoints.w800}rem)`);
+  const { breakpoints } = designTokens;
+  const isMedium = useMediaQuery(`(min-width: ${breakpoints.w800.value}rem)`);
   const alignment = isMedium ? value.alignment : "center";
   const alignmentClass = alignment ? `align-${alignment}` : "";
   const width = value?.asset?.metadata?.dimensions?.width ?? 0;
@@ -48,7 +49,7 @@ const PostBodyImage = ({ value }) => {
       width={imageWidth}
       height={imageHeight}
       // Media query `max-width` must match the one in `PostBodyImage.module.css`
-      sizes={`(max-width: ${breakpoints.w800}rem) 100vw, ${imageWidth * 2}px`}
+      sizes={`(max-width: ${breakpoints.w800.value}rem) 100vw, ${imageWidth * 2}px`}
       alt={value?.alt}
       placeholder="blur"
       blurDataURL={value?.asset?.metadata?.lqip || imageBlurDataURL}

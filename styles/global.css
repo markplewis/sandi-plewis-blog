@@ -1,3 +1,5 @@
+@design-tokens url("./design-tokens.json") format("style-dictionary3");
+
 /*
 Global styles
 See: https://nextjs.org/docs/basic-features/built-in-css-support
@@ -43,12 +45,12 @@ See: https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe
 }
 /* It isn't possible to use CSS custom properties in media queries, however, with a little help
 from PostCSS, we can use custom CSS environment variables (see: `styles/css-env-variables.js`) */
-@media (min-width: env(--bp-768)) {
+@media (min-width: token("breakpoints.w768" to rem)) {
   :root {
     --column-margin: 44px;
   }
 }
-@media (min-width: env(--bp-1600)) {
+@media (min-width: token("breakpoints.w1600" to rem)) {
   :root {
     --column-margin: 88px;
   }

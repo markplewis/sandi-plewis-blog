@@ -3,7 +3,7 @@ import Link from "next/link";
 import { urlFor } from "lib/sanity";
 import { imageBlurDataURL } from "utils/images";
 import useMediaQuery from "utils/useMediaQuery";
-import { breakpoints } from "styles/js-env-variables";
+import designTokens from "styles/design-tokens";
 
 const sizes = {
   mobile: {
@@ -26,11 +26,12 @@ const sizes = {
 };
 
 export default function RecentPosts({ posts }) {
-  const isNarrow = useMediaQuery(`(min-width: ${breakpoints.w480}rem)`);
+  const { breakpoints } = designTokens;
+  const isNarrow = useMediaQuery(`(min-width: ${breakpoints.w480.value}rem)`);
   const isMedium = useMediaQuery(
-    `(min-width: ${breakpoints.w520}rem) and (max-width: ${breakpoints.w1150 - 0.1}rem)`
+    `(min-width: ${breakpoints.w520.value}rem) and (max-width: ${breakpoints.w1150.value - 0.1}rem)`
   );
-  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1280}rem)`);
+  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1280.value}rem)`);
 
   const largePostImages = isMedium || isWide;
   const imageSize = !isNarrow ? sizes.mobile : sizes[largePostImages ? "large" : "small"];
@@ -53,7 +54,7 @@ export default function RecentPosts({ posts }) {
                       .url()}
                     width={imageWidth}
                     height={imageHeight}
-                    sizes={`(max-width: ${breakpoints.w800}rem) 100vw, ${imageWidth}px`}
+                    sizes={`(max-width: ${breakpoints.w800.value}rem) 100vw, ${imageWidth}px`}
                     alt={post?.image?.alt}
                     placeholder="blur"
                     blurDataURL={post?.image?.lqip || imageBlurDataURL}

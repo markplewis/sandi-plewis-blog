@@ -1,3 +1,5 @@
+@design-tokens url("../design-tokens.json") format("style-dictionary3");
+
 .titleArea {
   margin-top: 40px;
   margin-bottom: 64px;
@@ -50,7 +52,7 @@
   margin: 0 calc(var(--column-margin-left) * 2);
 }
 
-@media (min-width: env(--bp-768)) {
+@media (min-width: token("breakpoints.w768" to rem)) {
   .titleArea {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -92,7 +94,7 @@
   }
 }
 
-@media (min-width: env(--bp-1024)) {
+@media (min-width: token("breakpoints.w1024" to rem)) {
   .image {
     flex: 1;
   }
@@ -101,7 +103,7 @@
   }
 }
 
-@media (min-width: env(--bp-1150)) {
+@media (min-width: token("breakpoints.w1150" to rem)) {
   .hero {
     margin-left: 36px;
     margin-right: 36px;

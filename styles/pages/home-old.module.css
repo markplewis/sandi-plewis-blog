@@ -1,3 +1,5 @@
+@design-tokens url("../design-tokens.json") format("style-dictionary3");
+
 .gradient {
   content: "";
   position: absolute;
@@ -110,14 +112,14 @@
   border-radius: 100%;
 }
 
-@media (min-width: env(--bp-480)) {
+@media (min-width: token("breakpoints.w480" to rem)) {
   .posts {
     border-left: 4px solid var(--color-secondary-bg);
     padding: 22px 22px 0 22px;
   }
 }
 
-@media (min-width: env(--bp-600)) {
+@media (min-width: token("breakpoints.w600" to rem)) {
   .novel {
     padding: 44px;
   }
@@ -135,7 +137,7 @@
   }
 }
 
-@media (min-width: env(--bp-1150)) {
+@media (min-width: token("breakpoints.w1150" to rem)) {
   .page {
     grid-template-columns: 1fr 0.2fr 1fr;
     row-gap: 88px;
@@ -174,7 +176,7 @@
   }
 }
 
-@media (min-width: env(--bp-1280)) {
+@media (min-width: token("breakpoints.w1280" to rem)) {
   .page {
     padding-top: 44px;
     grid-template-columns: 1fr 0.1fr 1fr 88px;
@@ -209,7 +211,7 @@
   }
 }
 
-@media (min-width: env(--bp-1600)) {
+@media (min-width: token("breakpoints.w1600" to rem)) {
   .novel {
     padding: 44px 88px;
   }

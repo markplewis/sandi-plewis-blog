@@ -1,3 +1,5 @@
+@design-tokens url("../../styles/design-tokens.json") format("style-dictionary3");
+
 .header {
   padding-left: var(--column-margin-left);
   padding-right: var(--column-margin-right);
@@ -15,7 +17,7 @@
   flex-wrap: wrap;
   grid-column: 1 / 2;
 }
-@media (min-width: env(--bp-820)) {
+@media (min-width: token("breakpoints.w820" to rem)) {
   .header {
     padding-bottom: 32px;
     align-items: baseline;
@@ -205,7 +207,7 @@
 /* .header {
   container-type: inline-size;
 }
-@container (min-width: env(--bp-820)) {
+@container (min-width: token("breakpoints.w820" to rem)) {
   .nameLink {
     color: red;
   }

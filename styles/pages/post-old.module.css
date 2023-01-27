@@ -1,3 +1,5 @@
+@design-tokens url("../design-tokens.json") format("style-dictionary3");
+
 /* Layer these elements over top of the gradient background and pattern blocks */
 
 .titleArea,
@@ -22,7 +24,7 @@
 .shareToolsAbove {
   margin-left: 48px;
 }
-@media (min-width: env(--bp-768)) {
+@media (min-width: token("breakpoints.w768" to rem)) {
   .titleArea {
     margin-top: 60px;
     margin-bottom: 60px;
@@ -46,18 +48,18 @@
     var(--meta-width)
     var(--column-margin-right);
 }
-@media (min-width: env(--bp-768)) {
+@media (min-width: token("breakpoints.w768" to rem)) {
   .heroArea {
     --meta-width: 48%;
     margin-bottom: 40px;
   }
 }
-@media (min-width: env(--bp-1024)) {
+@media (min-width: token("breakpoints.w1024" to rem)) {
   .heroArea {
     --meta-width: 42%;
   }
 }
-@media (min-width: env(--bp-1600)) {
+@media (min-width: token("breakpoints.w1600" to rem)) {
   .heroArea {
     grid-column: 2 / -2;
     margin-left: var(--column-margin-left);

@@ -1,3 +1,5 @@
+@design-tokens url("../design-tokens.json") format("style-dictionary3");
+
 /* Layer these elements over top of the gradient background and pattern blocks */
 
 .heroArea,
@@ -11,7 +13,7 @@
 .heroArea {
   display: grid;
 }
-@media (min-width: env(--bp-1600)) {
+@media (min-width: token("breakpoints.w1600" to rem)) {
   .heroArea {
     margin-left: var(--column-margin-left);
     margin-right: var(--column-margin-right);

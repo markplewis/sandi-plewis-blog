@@ -4,15 +4,16 @@ import AuthorBio from "components/homePage/AuthorBio";
 import FeaturedNovel from "components/homePage/FeaturedNovel";
 import FeaturedNovelReviews from "components/homePage/FeaturedNovelReviews";
 import RecentPosts from "components/homePage/RecentPosts";
-import { breakpoints } from "styles/js-env-variables";
+import designTokens from "styles/design-tokens";
 import useMediaQuery from "utils/useMediaQuery";
 
 import styles from "styles/pages/home.module.css";
 
 export default function HomePage({ data }) {
+  const { breakpoints } = designTokens;
   const { novelAndHomePage, reviews = [], posts = [], author } = data;
   const { novel, description } = novelAndHomePage;
-  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1280}rem)`);
+  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1280.value}rem)`);
 
   return (
     <Layout

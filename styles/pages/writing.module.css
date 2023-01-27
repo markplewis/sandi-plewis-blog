@@ -1,3 +1,5 @@
+@design-tokens url("../design-tokens.json") format("style-dictionary3");
+
 /* Layer these elements over top of the gradient background and pattern blocks */
 
 .heroArea,
@@ -17,14 +19,14 @@
   display: grid;
   grid-template-columns: var(--left-width) var(--info-width) minmax(auto, 200px) var(--right-width);
 }
-@media (min-width: env(--bp-1024)) {
+@media (min-width: token("breakpoints.w1024" to rem)) {
   .heroArea {
     --left-width: minmax(var(--column-margin-left), 1fr);
     --right-width: minmax(var(--column-margin-right), 1fr);
     --info-width: minmax(auto, 640px);
   }
 }
-@media (min-width: env(--bp-1600)) {
+@media (min-width: token("breakpoints.w1600" to rem)) {
   .heroArea {
     margin-left: var(--column-margin-left);
     margin-right: var(--column-margin-right);
@@ -64,7 +66,7 @@
   grid-column: 3 / -1;
   grid-row: 1 / 2;
 }
-@media (min-width: env(--bp-768)) {
+@media (min-width: token("breakpoints.w768" to rem)) {
   .patternBlock {
     margin-top: 66px;
   }
@@ -92,7 +94,7 @@
 .info ol {
   line-height: 1.8;
 }
-@media (min-width: env(--bp-768)) {
+@media (min-width: token("breakpoints.w768" to rem)) {
   .coverImage {
     margin-bottom: 22px;
     transform: translate(11px, 0);
@@ -142,7 +144,7 @@
 .reviewsHeading {
   margin-bottom: 44px;
 }
-@media (min-width: env(--bp-768)) {
+@media (min-width: token("breakpoints.w768" to rem)) {
   .reviews {
     max-width: calc(60ch + 224px);
     margin: 0 auto;
