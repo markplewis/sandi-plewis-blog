@@ -18,13 +18,9 @@ export const authorQuery = groq`
     "image": image{..., ...asset->{
       creditLine,
       description,
-      colorPalette,
-      "palette": metadata.palette,
       "lqip": metadata.lqip,
       url
     }},
-    primaryColor,
-    secondaryColor,
     "biography": biography[] {
       ...,
       _type == "image" => {

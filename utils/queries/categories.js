@@ -21,7 +21,6 @@ export const categoryQuery = groq`
       "image": image{..., ...asset->{
         creditLine,
         description,
-        "palette": metadata.palette,
         "lqip": metadata.lqip,
         url
       }},

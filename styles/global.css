@@ -37,10 +37,10 @@ See: https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe
   --font-weight-normal: 400;
   /* Colors */
   --color-white: #fff;
-  --color-light-gray: #ccc;
-  --color-light-gray-translucent: rgba(204, 204, 204, 0.1);
-  --color-dark-gray: #333;
-  --color-dark-gray-translucent: rgba(51, 51, 51, 0.1);
+  --color-light-gray: rgb(102 102 102);
+  --color-light-gray-diluted: rgb(102 102 102 / 10%);
+  --color-dark-gray: rgb(51 51 51);
+  --color-dark-gray-diluted: rgb(51 51 51 / 10%);
   --color-font-base: var(--color-dark-gray);
 }
 /* It isn't possible to use CSS custom properties in media queries, however, with a little help
@@ -89,7 +89,7 @@ main::before {
   width: 120%;
   height: 700px;
   transform: rotate(-2deg);
-  background: linear-gradient(100deg, var(--color-primary-bg) 0%, var(--color-secondary-bg) 100%);
+  background: linear-gradient(100deg, var(--page-color-primary) 0%, var(--page-color-secondary) 100%);
   opacity: 0.1;
 }
 main.homePage::before {

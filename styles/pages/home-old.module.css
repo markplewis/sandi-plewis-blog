@@ -5,7 +5,11 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(100deg, var(--color-secondary-bg) 0%, var(--color-primary-bg) 100%);
+  background: linear-gradient(
+    100deg,
+    var(--page-color-secondary) 0%,
+    var(--page-color-primary) 100%
+  );
   opacity: 0.1;
 }
 .patternBlock {
@@ -35,8 +39,8 @@
 
 .novel {
   border-radius: 10px 0;
-  background-color: var(--color-primary-bg);
-  color: var(--color-primary-fg);
+  background-color: var(--page-color-primary);
+  color: var(--color-white);
   margin-top: 22px;
   padding: 44px 22px 22px 22px;
   display: flex;
@@ -53,11 +57,11 @@
 .novel a:hover,
 .novel a:focus,
 .novel a:active {
-  color: var(--color-primary-fg);
+  color: var(--color-white);
 }
 .novel :focus,
 .novel :hover:focus {
-  outline-color: var(--color-primary-fg);
+  outline-color: var(--color-white);
 }
 .novelImage {
   width: 188px;
@@ -85,7 +89,7 @@
   max-width: 90ch;
   margin: 0 auto;
   background-color: #fff;
-  border: 4px solid var(--color-primary-bg);
+  border: 4px solid var(--page-color-primary);
   padding: 22px;
   align-self: flex-start;
 }
@@ -103,7 +107,7 @@
   width: 100%;
   margin: 0 auto 44px auto;
   transform: translateX(8px); /* Half of the transform below */
-  background-color: var(--color-secondary-bg);
+  background-color: var(--page-color-secondary);
   border-bottom-left-radius: 50px;
 }
 .bioImage > span {
@@ -114,7 +118,7 @@
 
 @media (min-width: token("breakpoints.w480" to rem)) {
   .posts {
-    border-left: 4px solid var(--color-secondary-bg);
+    border-left: 4px solid var(--page-color-secondary);
     padding: 22px 22px 0 22px;
   }
 }

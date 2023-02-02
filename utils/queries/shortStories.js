@@ -8,13 +8,9 @@ export const shortStoryQuery = groq`
     "image": image{..., ...asset->{
       creditLine,
       description,
-      colorPalette,
-      "palette": metadata.palette,
       "lqip": metadata.lqip,
       url
     }},
-    primaryColor,
-    secondaryColor,
     "overview": overview[] {
       ...,
       markDefs[]{

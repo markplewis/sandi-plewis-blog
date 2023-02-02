@@ -5,7 +5,7 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
 import { PortableText, urlFor } from "lib/sanity";
-import { getDocumentColors } from "utils/color";
+import { getPageStyles } from "utils/color";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
 import useDebug from "utils/useDebug";
@@ -39,6 +39,7 @@ export default function PostPage({ data }) {
     image = {}
   } = data;
 
+  const { pageColors = {} } = image;
   const { breakpoints } = designTokens;
 
   const debug = useDebug();
@@ -55,30 +56,17 @@ export default function PostPage({ data }) {
 
   const creditLine = processCreditLine(image?.creditLine);
 
-  const targetFontSizes = [
-    {
-      // Meta text (Open Sans font)
-      weight: 400,
-      size: 16 // px
-    },
-    {
-      // Date text (Literata font)
-      weight: 700,
-      size: 28 // px
-    }
-  ];
-  const pageColors = getDocumentColors(data, targetFontSizes);
-  debug && console.log("pageColors", pageColors);
+  const pageStyles = getPageStyles(pageColors);
+  debug && console.log("pageColors", { pageColors, pageStyles });
 
   return (
     <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>
-      <style jsx global>
-        {`
-          body {
-            ${pageColors.css}
-          }
-        `}
-      </style>
+      {pageStyles ? (
+        <style jsx global>
+          {pageStyles}
+        </style>
+      ) : null}
+
       <article>
         <div className={styles.titleArea}>
           <PageTitle className={styles.title}>{title}</PageTitle>

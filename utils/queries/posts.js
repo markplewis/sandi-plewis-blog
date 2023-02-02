@@ -9,7 +9,6 @@ export const postsQuery = groq`
     "image": image{..., ...asset->{
       creditLine,
       description,
-      "palette": metadata.palette,
       "lqip": metadata.lqip,
       url
     }},
@@ -26,13 +25,9 @@ export const postQuery = groq`
     "image": image{..., ...asset->{
       creditLine,
       description,
-      colorPalette,
-      "palette": metadata.palette,
       "lqip": metadata.lqip,
       url
     }},
-    primaryColor,
-    secondaryColor,
     "author": author->{name, "slug": slug.current, "picture": image.asset->url},
     "categories": categories[]->{title, "slug": slug.current},
     "body": body[] {

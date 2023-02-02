@@ -103,10 +103,15 @@ however, it was [removed from `postcss-preset-env` in version 8](https://github.
 - https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-env-function
 
 So, this project now uses [postcss-design-tokens](https://github.com/csstools/postcss-plugins/tree/postcss-preset-env--v8/plugins/postcss-design-tokens) to achieve the same thing. It isn't quite as nice
-but it works. See:
+but it works (see: `styles/design-tokens.json` and `styles/design-tokens.js`). Here's an example:
 
-- `styles/design-tokens.json`
-- `styles/design-tokens.js`
+```css
+@design-tokens url("../design-tokens.json") format("style-dictionary3");
+
+@media (min-width: token("breakpoints.w768" to rem)) {
+  /* styles */
+}
+```
 
 ## TODO
 

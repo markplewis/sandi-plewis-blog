@@ -168,12 +168,10 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
           {
             /* css */ `
               :root {
-                --color-primary-fg: #fff;
-                --color-primary-bg: #333;
-                --color-primary-bg-translucent: var(--color-dark-gray-translucent);
-                --color-secondary-fg: #000;
-                --color-secondary-bg: #ccc;
-                --color-secondary-bg-translucent: var(--color-light-gray-translucent);
+                --page-color-primary: var(--color-dark-gray);
+                --page-color-primary-diluted: var(--color-dark-gray-diluted);
+                --page-color-secondary: var(--color-light-gray);
+                --page-color-secondary-diluted: var(--color-light-gray-diluted);
               }
             `
           }

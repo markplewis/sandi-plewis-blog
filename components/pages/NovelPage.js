@@ -1,6 +1,8 @@
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import { PortableText } from "lib/sanity";
+import { getPageStyles } from "utils/color";
+import useDebug from "utils/useDebug";
 
 import InternalLink from "components/portableText/InternalLink";
 
@@ -14,9 +16,48 @@ const portableTextComponents = {
 
 export default function NovelPage({ data }) {
   const { title = "", description = "", overview = [], image = {} } = data;
+  const { pageColors = {} } = image;
+
+  const debug = useDebug();
+
+  const pageStyles = getPageStyles(pageColors);
+  debug && console.log("pageColors", { pageColors, pageStyles });
+
   return (
     <Layout title={title} description={description} image={{ image, portrait: true, crop: false }}>
+      {pageStyles ? (
+        <style jsx global>
+          {pageStyles}
+        </style>
+      ) : null}
+
       <PageTitle>{title}</PageTitle>
+
+      <div
+        style={{
+          width: "40px",
+          height: "40px",
+          backgroundColor: "var(--page-color-primary)",
+          color: "white",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}>
+        Aa
+      </div>
+      <div
+        style={{
+          width: "40px",
+          height: "40px",
+          backgroundColor: "var(--page-color-secondary)",
+          color: "white",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}>
+        Aa
+      </div>
+
       {overview ? <PortableText value={overview} components={portableTextComponents} /> : null}
     </Layout>
   );
