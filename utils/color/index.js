@@ -12,7 +12,7 @@ import Color from "colorjs.io";
 
 // Mock colorjs.io instances
 const white = { hsl: { h: 0, s: 0, l: 100 } };
-// const black = { hsl: { h: 0, s: 0, l: 0 } };
+const black = { hsl: { h: 0, s: 0, l: 0 } };
 
 // Hue and saturation may be `NaN` if the color is achromatic or fully desaturated (i.e. greyscale)
 function getHue(h) {
@@ -23,21 +23,21 @@ function getSaturation(s) {
   return !s || Number.isNaN(s) ? 0 : s;
 }
 
-// function findBestColorCombo(blackFgColor, whiteFgColor) {
-//   let bestColor;
-//   if (
-//     (whiteFgColor.limitReached && blackFgColor.limitReached) ||
-//     (!whiteFgColor.limitReached && !blackFgColor.limitReached)
-//   ) {
-//     bestColor = whiteFgColor.iterations <= blackFgColor.iterations ? whiteFgColor : blackFgColor;
-//   } else if (blackFgColor.limitReached) {
-//     bestColor = whiteFgColor;
-//   } else if (whiteFgColor.limitReached) {
-//     bestColor = blackFgColor;
-//   }
-//   // console.log("bestColor", bestColor);
-//   return bestColor;
-// }
+function findBestColorCombo(blackFgColor, whiteFgColor) {
+  let bestColor;
+  if (
+    (whiteFgColor.limitReached && blackFgColor.limitReached) ||
+    (!whiteFgColor.limitReached && !blackFgColor.limitReached)
+  ) {
+    bestColor = whiteFgColor.iterations <= blackFgColor.iterations ? whiteFgColor : blackFgColor;
+  } else if (blackFgColor.limitReached) {
+    bestColor = whiteFgColor;
+  } else if (whiteFgColor.limitReached) {
+    bestColor = blackFgColor;
+  }
+  // console.log("bestColor", bestColor);
+  return bestColor;
+}
 
 /**
  * If light (`#FFF`) text over the background colour has higher contrast than dark (`#000`) text,
@@ -50,7 +50,7 @@ function getSaturation(s) {
  */
 function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iterations = 0) {
   // if (iterations === 0) {
-  //   console.log(`Initial: hsl(${bgColor.hsl.h} ${bgColor.hsl.s}% ${bgColor.hsl.l}%)`);
+  //   console.log("Initial", { h: bgColor.hsl.h, s: bgColor.hsl.s, l: bgColor.hsl.l });
   // }
   const iterationCount = iterations + 1;
   const currentLightness = parseFloat(bgColor.hsl.l);
@@ -88,17 +88,19 @@ function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iter
   });
 
   if (passedContrastTest || limitReached) {
-    // console.log(`Final: hsl(${bgColor.hsl.h} ${bgColor.hsl.s}% ${bgColor.hsl.l}%)`);
-    // console.log(`Final: rgb(${bgColor.rgb.r}, ${bgColor.rgb.g}, ${bgColor.rgb.b})`);
-    // console.log("Final:", { coords: bgColor.coords.join(", ") });
-
+    // console.log("Final", {
+    //   h: bgColor.hsl.h,
+    //   s: bgColor.hsl.s,
+    //   l: bgColor.hsl.l,
+    //   contrast,
+    //   iterationCount
+    // });
     // if (limitReached) {
     //   console.warn("Limit reached");
     // }
     return {
       fgColor,
       bgColor,
-      // bgIsDark: darkenBg,
       contrast,
       iterations: iterationCount,
       limitReached
@@ -109,46 +111,33 @@ function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iter
 
 function adjustColorContrast(colors, targetFontSizes) {
   const { primary, secondary } = colors;
+  const primary2 = new Color(primary); // Clone
+  const secondary2 = new Color(secondary); // Clone
 
-  // Darken the colour and assume the foreground text will be white
+  // White text on dark background
+  // (darken the colour and assume the foreground text will be white)
   const whiteOnPrimary = adjustBackgroundColor(white, primary, true, targetFontSizes);
   const whiteOnSecondary = adjustBackgroundColor(white, secondary, true, targetFontSizes);
 
-  // let chosenPrimary = whiteOnPrimary;
-  // let chosenSecondary = whiteOnSecondary;
+  // Black text on light background
+  // (lighten the colour and assume the foreground text will be black)
+  const blackOnPrimary = adjustBackgroundColor(black, primary2, false, targetFontSizes);
+  const blackOnSecondary = adjustBackgroundColor(black, secondary2, false, targetFontSizes);
 
-  // if (isCustomPalette) {
-  //   const primary2 = new Color(primary); // Clone
-  //   const secondary2 = new Color(secondary); // Clone
-
-  //   const blackOnPrimary = adjustBackgroundColor(
-  //     black,
-  //     primary2,
-  //     false,
-  //     targetFontSizes,
-  //   );
-  //   const blackOnSecondary = adjustBackgroundColor(
-  //     black,
-  //     secondary2,
-  //     false,
-  //     targetFontSizes,
-  //   );
-  //   // Select whichever color required fewer iterations to lighten or darken
-  //   // (i.e. the color that was transformed the least)
-  //   chosenPrimary = findBestColorCombo(blackOnPrimary, whiteOnPrimary);
-  //   chosenSecondary = findBestColorCombo(blackOnSecondary, whiteOnSecondary);
-  //   // chosenPrimary = whiteOnPrimary;
-  //   // chosenSecondary = blackOnSecondary;
-  // }
-
-  // return {
-  //   primary: chosenPrimary.bgColor,
-  //   secondary: chosenSecondary.bgColor
-  // };
+  // Select whichever color required fewer iterations to lighten or darken
+  // (i.e. the color that was transformed the least)
+  const chosenPrimary = findBestColorCombo(blackOnPrimary, whiteOnPrimary);
+  const chosenSecondary = findBestColorCombo(blackOnSecondary, whiteOnSecondary);
 
   return {
-    primary: whiteOnPrimary.bgColor,
-    secondary: whiteOnSecondary.bgColor
+    primary: {
+      color: chosenPrimary.bgColor,
+      contrast: chosenPrimary.contrast
+    },
+    secondary: {
+      color: chosenSecondary.bgColor,
+      contrast: chosenSecondary.contrast
+    }
   };
 }
 
@@ -178,15 +167,17 @@ function adjustColorContrast(colors, targetFontSizes) {
 
 /**
  * TODO
- * @param {Object} pageColors
+ * @param {Object} data
  * @returns {Object}
  */
-export function getPageColors(pageColors = {}) {
-  if (!pageColors?.primary || !pageColors?.secondary) {
+export function getPageColors(data) {
+  const pageColors = data?.image?.pageColors;
+
+  if (!pageColors || !pageColors?.primary || !pageColors?.secondary) {
     return "";
   }
   // Convert into colorjs.io instances
-  const colors = {
+  const pageColorsInitial = {
     primary: new Color(
       `rgb(${pageColors.primary.r}% ${pageColors.primary.g}% ${pageColors.primary.b}%)`
     ),
@@ -195,6 +186,7 @@ export function getPageColors(pageColors = {}) {
     )
   };
 
+  // TODO: possibly add more targets for different use cases?
   const targetFontSizes = [
     {
       // Meta text (Open Sans font)
@@ -207,40 +199,44 @@ export function getPageColors(pageColors = {}) {
       size: 28 // px
     }
   ];
-  const { primary, secondary } = adjustColorContrast(colors, targetFontSizes);
+  const { primary, secondary } = adjustColorContrast(pageColorsInitial, targetFontSizes);
 
-  const c = {
+  const pageColorsAdjusted = {
     primary: {
       // Convert colorjs.io RGB values into percentages
-      r: primary.srgb.r * 100,
-      g: primary.srgb.g * 100,
-      b: primary.srgb.b * 100
-      // h: primary.hsl.h,
-      // s: primary.hsl.s,
-      // l: primary.hsl.l
+      r: primary.color.srgb.r * 100,
+      g: primary.color.srgb.g * 100,
+      b: primary.color.srgb.b * 100,
+      contrast: primary.contrast
     },
     secondary: {
-      r: secondary.srgb.r * 100,
-      g: secondary.srgb.g * 100,
-      b: secondary.srgb.b * 100
-      // h: secondary.hsl.h,
-      // s: secondary.hsl.s,
-      // l: secondary.hsl.l
+      r: secondary.color.srgb.r * 100,
+      g: secondary.color.srgb.g * 100,
+      b: secondary.color.srgb.b * 100,
+      contrast: secondary.contrast
     }
   };
+  const p = pageColorsAdjusted.primary;
+  const s = pageColorsAdjusted.secondary;
+
   // console.log("colors", {
   //   original: pageColors,
-  //   adjusted: c
+  //   adjusted: pageColorsAdjusted
   // });
+
+  const black = "rgb(0% 0% 0%)";
+  const white = "rgb(100% 100% 100%)";
+
   return {
-    colorsOriginal: pageColors,
-    colors: c,
+    colors: pageColorsAdjusted,
     styles: `
       body {
-        --page-color-primary: rgb(${c.primary.r}% ${c.primary.g}% ${c.primary.b}%);
-        --page-color-primary-diluted: rgb(${c.primary.r}% ${c.primary.g}% ${c.primary.b}% / 10%);
-        --page-color-secondary: rgb(${c.secondary.r}% ${c.secondary.g}% ${c.secondary.b}%);
-        --page-color-secondary-diluted: rgb(${c.secondary.r}% ${c.secondary.g}% ${c.secondary.b}% / 10%);
+        --page-color-primary: rgb(${p.r}% ${p.g}% ${p.b}%);
+        --page-color-primary-diluted: rgb(${p.r}% ${p.g}% ${p.b}% / 10%);
+        --page-color-primary-text: ${p.contrast < 0 ? white : black};
+        --page-color-secondary: rgb(${s.r}% ${s.g}% ${s.b}%);
+        --page-color-secondary-diluted: rgb(${s.r}% ${s.g}% ${s.b}% / 10%);
+        --page-color-secondary-text: ${s.contrast < 0 ? white : black};
       }
     `
   };

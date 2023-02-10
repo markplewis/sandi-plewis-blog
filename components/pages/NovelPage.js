@@ -1,8 +1,7 @@
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import { PortableText } from "lib/sanity";
-import { getPageColors } from "utils/color";
-import useDebug from "utils/useDebug";
+// import useDebug from "utils/useDebug";
 
 import InternalLink from "components/portableText/InternalLink";
 
@@ -15,14 +14,11 @@ const portableTextComponents = {
 };
 
 export default function NovelPage({ data }) {
-  const { title = "", description = "", overview = [], image = {} } = data;
-  const { pageColors = {} } = image;
+  const { title = "", description = "", overview = [], image = {}, pageColors = {} } = data;
 
-  const debug = useDebug();
-
-  const colors = getPageColors(pageColors);
-  const { styles: pageStyles } = colors;
-  debug && console.log("pageColors", { pageColors, colors });
+  // const debug = useDebug();
+  const { styles: pageStyles } = pageColors;
+  // debug && console.log("pageColors", pageColors);
 
   return (
     <Layout title={title} description={description} image={{ image, portrait: true, crop: false }}>

@@ -5,10 +5,9 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
 import { PortableText, urlFor } from "lib/sanity";
-import { getPageColors } from "utils/color";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
-import useDebug from "utils/useDebug";
+// import useDebug from "utils/useDebug";
 import useMediaQuery from "utils/useMediaQuery";
 import designTokens from "styles/design-tokens";
 
@@ -36,13 +35,15 @@ export default function PostPage({ data }) {
     date = "",
     categories = [],
     author = {},
-    image = {}
+    image = {},
+    pageColors = {}
   } = data;
 
-  const { pageColors = {} } = image;
-  const { breakpoints } = designTokens;
+  // const debug = useDebug();
+  const { styles: pageStyles } = pageColors;
+  // debug && console.log("pageColors", pageColors);
 
-  const debug = useDebug();
+  const { breakpoints } = designTokens;
 
   const isWide = useMediaQuery(`(min-width: ${breakpoints.w1024.value}rem)`);
   const isMedium = useMediaQuery(`(min-width: ${breakpoints.w768.value}rem)`);
@@ -55,10 +56,6 @@ export default function PostPage({ data }) {
   };
 
   const creditLine = processCreditLine(image?.creditLine);
-
-  const colors = getPageColors(pageColors);
-  const { styles: pageStyles } = colors;
-  debug && console.log("pageColors", { pageColors, colors });
 
   return (
     <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>

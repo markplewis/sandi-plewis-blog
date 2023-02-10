@@ -170,8 +170,10 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
               :root {
                 --page-color-primary: var(--color-dark-gray);
                 --page-color-primary-diluted: var(--color-dark-gray-diluted);
+                --page-color-primary-text: var(--color-white);
                 --page-color-secondary: var(--color-light-gray);
                 --page-color-secondary-diluted: var(--color-light-gray-diluted);
+                --page-color-secondary-text: var(--color-black);
               }
             `
           }
