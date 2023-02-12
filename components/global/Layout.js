@@ -173,7 +173,7 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
                 --page-color-primary-text: var(--color-white);
                 --page-color-secondary: var(--color-light-gray);
                 --page-color-secondary-diluted: var(--color-light-gray-diluted);
-                --page-color-secondary-text: var(--color-black);
+                --page-color-secondary-text: var(--color-white);
               }
             `
           }

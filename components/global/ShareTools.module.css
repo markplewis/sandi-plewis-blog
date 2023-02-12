@@ -11,7 +11,8 @@
 .shareTool {
   width: 44px;
   height: 44px;
-  background-color: var(--page-color-secondary);
+  /* background-color: var(--page-color-secondary); */
+  background-color: var(--page-color-primary);
   border-radius: 10px 0;
   display: block;
   transition: transform 0.25s ease-out;
@@ -25,5 +26,6 @@
   height: 100%;
   margin: 0;
   padding: 10px;
-  fill: var(--page-color-secondary-text);
+  /* fill: var(--page-color-secondary-text); */
+  fill: var(--page-color-primary-text);
 }

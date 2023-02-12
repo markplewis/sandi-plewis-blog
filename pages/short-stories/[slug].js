@@ -3,6 +3,7 @@ import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import ShortStoryPage from "components/pages/ShortStoryPage";
 import { client } from "lib/sanity.client";
+import { getPageColors } from "utils/color";
 import { shortStoryQuery } from "utils/queries/shortStories";
 
 const ShortStoryPagePreview = lazy(() => import("components/pages/ShortStoryPagePreview"));
@@ -35,6 +36,10 @@ export const getStaticProps = async ({ preview = false, previewData = {}, params
   const data = await client.fetch(shortStoryQuery, {
     slug: params.slug
   });
+
+  // Append adjusted page colors
+  data.pageColors = getPageColors(data);
+
   return {
     props: {
       preview,

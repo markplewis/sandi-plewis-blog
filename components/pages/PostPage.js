@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ColorSwatches from "components/global/ColorSwatches";
 import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
@@ -119,6 +120,7 @@ export default function PostPage({ data }) {
         </div>
 
         <div className={styles.body}>
+          <ColorSwatches />
           {body ? <PortableText value={body} components={portableTextComponents} /> : null}
         </div>
       </article>

@@ -1,3 +1,4 @@
+import ColorSwatches from "components/global/ColorSwatches";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import { PortableText } from "lib/sanity";
@@ -30,30 +31,7 @@ export default function NovelPage({ data }) {
 
       <PageTitle>{title}</PageTitle>
 
-      <div
-        style={{
-          width: "40px",
-          height: "40px",
-          backgroundColor: "var(--page-color-primary)",
-          color: "white",
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center"
-        }}>
-        Aa
-      </div>
-      <div
-        style={{
-          width: "40px",
-          height: "40px",
-          backgroundColor: "var(--page-color-secondary)",
-          color: "white",
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center"
-        }}>
-        Aa
-      </div>
+      <ColorSwatches />
 
       {overview ? <PortableText value={overview} components={portableTextComponents} /> : null}
     </Layout>

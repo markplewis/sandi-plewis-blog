@@ -39,6 +39,21 @@ function findBestColorCombo(blackFgColor, whiteFgColor) {
   return bestColor;
 }
 
+function getContrast(fgColor, bgColor) {
+  return Number(
+    calcAPCA(
+      `hsl(${getHue(fgColor.hsl.h)} ${getSaturation(fgColor.hsl.s)}% ${fgColor.hsl.l}%)`,
+      `hsl(${getHue(bgColor.hsl.h)} ${getSaturation(bgColor.hsl.s)}% ${bgColor.hsl.l}%)`
+    )
+  );
+}
+
+function textContrast(color) {
+  const whiteContrast = getContrast(white, color);
+  const blackContrast = getContrast(black, color);
+  return Math.abs(whiteContrast) > Math.abs(blackContrast) ? whiteContrast : blackContrast;
+}
+
 /**
  * If light (`#FFF`) text over the background colour has higher contrast than dark (`#000`) text,
  * keep darkening the background color until `fontLookupAPCA` returns a font size smaller than or
@@ -110,24 +125,21 @@ function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iter
 }
 
 function adjustColorContrast(colors, targetFontSizes) {
+  // Only transform primary colour, since text never appears over top of secondary colour
   const { primary, secondary } = colors;
   const primary2 = new Color(primary); // Clone
-  const secondary2 = new Color(secondary); // Clone
 
   // White text on dark background
   // (darken the colour and assume the foreground text will be white)
   const whiteOnPrimary = adjustBackgroundColor(white, primary, true, targetFontSizes);
-  const whiteOnSecondary = adjustBackgroundColor(white, secondary, true, targetFontSizes);
 
   // Black text on light background
   // (lighten the colour and assume the foreground text will be black)
   const blackOnPrimary = adjustBackgroundColor(black, primary2, false, targetFontSizes);
-  const blackOnSecondary = adjustBackgroundColor(black, secondary2, false, targetFontSizes);
 
   // Select whichever color required fewer iterations to lighten or darken
   // (i.e. the color that was transformed the least)
   const chosenPrimary = findBestColorCombo(blackOnPrimary, whiteOnPrimary);
-  const chosenSecondary = findBestColorCombo(blackOnSecondary, whiteOnSecondary);
 
   return {
     primary: {
@@ -135,10 +147,40 @@ function adjustColorContrast(colors, targetFontSizes) {
       contrast: chosenPrimary.contrast
     },
     secondary: {
-      color: chosenSecondary.bgColor,
-      contrast: chosenSecondary.contrast
+      color: secondary,
+      contrast: textContrast(secondary)
     }
   };
+
+  // const { primary, secondary } = colors;
+  // const primary2 = new Color(primary); // Clone
+  // const secondary2 = new Color(secondary); // Clone
+
+  // // White text on dark background
+  // // (darken the colour and assume the foreground text will be white)
+  // const whiteOnPrimary = adjustBackgroundColor(white, primary, true, targetFontSizes);
+  // const whiteOnSecondary = adjustBackgroundColor(white, secondary, true, targetFontSizes);
+
+  // // Black text on light background
+  // // (lighten the colour and assume the foreground text will be black)
+  // const blackOnPrimary = adjustBackgroundColor(black, primary2, false, targetFontSizes);
+  // const blackOnSecondary = adjustBackgroundColor(black, secondary2, false, targetFontSizes);
+
+  // // Select whichever color required fewer iterations to lighten or darken
+  // // (i.e. the color that was transformed the least)
+  // const chosenPrimary = findBestColorCombo(blackOnPrimary, whiteOnPrimary);
+  // const chosenSecondary = findBestColorCombo(blackOnSecondary, whiteOnSecondary);
+
+  // return {
+  //   primary: {
+  //     color: chosenPrimary.bgColor,
+  //     contrast: chosenPrimary.contrast
+  //   },
+  //   secondary: {
+  //     color: chosenSecondary.bgColor,
+  //     contrast: chosenSecondary.contrast
+  //   }
+  // };
 }
 
 // TODO: return the following
@@ -185,6 +227,10 @@ export function getPageColors(data) {
       `rgb(${pageColors.secondary.r}% ${pageColors.secondary.g}% ${pageColors.secondary.b}%)`
     )
   };
+  const pageColorsInitialCloned = {
+    primary: new Color(pageColorsInitial.primary),
+    secondary: new Color(pageColorsInitial.secondary)
+  };
 
   // TODO: possibly add more targets for different use cases?
   const targetFontSizes = [
@@ -199,7 +245,7 @@ export function getPageColors(data) {
       size: 28 // px
     }
   ];
-  const { primary, secondary } = adjustColorContrast(pageColorsInitial, targetFontSizes);
+  const { primary, secondary } = adjustColorContrast(pageColorsInitialCloned, targetFontSizes);
 
   const pageColorsAdjusted = {
     primary: {
@@ -216,27 +262,42 @@ export function getPageColors(data) {
       contrast: secondary.contrast
     }
   };
+  // Adjusted colors
   const p = pageColorsAdjusted.primary;
   const s = pageColorsAdjusted.secondary;
+
+  // Original colors
+  const pO = pageColorsInitial.primary.srgb;
+  const sO = pageColorsInitial.secondary.srgb;
+  const pOContrast = textContrast(pageColorsInitial.primary);
+  const sOContrast = textContrast(pageColorsInitial.secondary);
 
   // console.log("colors", {
   //   original: pageColors,
   //   adjusted: pageColorsAdjusted
   // });
 
-  const black = "rgb(0% 0% 0%)";
-  const white = "rgb(100% 100% 100%)";
+  const blackRGB = "rgb(0% 0% 0%)";
+  const whiteRGB = "rgb(100% 100% 100%)";
 
   return {
     colors: pageColorsAdjusted,
-    styles: `
+    styles: /* css */ `
       body {
+        /* Primary */
         --page-color-primary: rgb(${p.r}% ${p.g}% ${p.b}%);
         --page-color-primary-diluted: rgb(${p.r}% ${p.g}% ${p.b}% / 10%);
-        --page-color-primary-text: ${p.contrast < 0 ? white : black};
+        --page-color-primary-text: ${p.contrast < 0 ? whiteRGB : blackRGB};
+        /* Primary original */
+        --page-color-primary-orig: rgb(${pO.r * 100}% ${pO.g * 100}% ${pO.b * 100}%);
+        --page-color-primary-orig-text: ${pOContrast < 0 ? whiteRGB : blackRGB};
+        /* Secondary */
         --page-color-secondary: rgb(${s.r}% ${s.g}% ${s.b}%);
         --page-color-secondary-diluted: rgb(${s.r}% ${s.g}% ${s.b}% / 10%);
-        --page-color-secondary-text: ${s.contrast < 0 ? white : black};
+        --page-color-secondary-text: ${s.contrast < 0 ? whiteRGB : blackRGB};
+        /* Secondary original */
+        --page-color-secondary-orig: rgb(${sO.r * 100}% ${sO.g * 100}% ${sO.b * 100}%);
+        --page-color-secondary-orig-text: ${sOContrast < 0 ? whiteRGB : blackRGB};
       }
     `
   };

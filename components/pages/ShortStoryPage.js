@@ -1,3 +1,4 @@
+import ColorSwatches from "components/global/ColorSwatches";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import { PortableText } from "lib/sanity";
@@ -13,10 +14,17 @@ const portableTextComponents = {
 };
 
 export default function ShortStoryPage({ data }) {
-  const { title = "", description = "", overview = [], image = {} } = data;
+  const { title = "", description = "", overview = [], image = {}, pageColors = {} } = data;
+  const { styles: pageStyles } = pageColors;
   return (
     <Layout title={title} description={description} image={{ image, portrait: true, crop: false }}>
+      {pageStyles ? (
+        <style jsx global>
+          {pageStyles}
+        </style>
+      ) : null}
       <PageTitle>{title}</PageTitle>
+      <ColorSwatches />
       {overview ? <PortableText value={overview} components={portableTextComponents} /> : null}
     </Layout>
   );
