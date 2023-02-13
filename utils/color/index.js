@@ -4,41 +4,71 @@
 import { calcAPCA, fontLookupAPCA } from "apca-w3";
 import Color from "colorjs.io";
 
+// Simple color transformation functions that we could use instead of colorjs.io:
 // https://css-tricks.com/converting-color-spaces-in-javascript/#hex-to-hsl
-// https://www.sarasoueidan.com/blog/hex-rgb-to-hsl/#hsl-and-color-harmonies
 
 // For dark text on light backgrounds, and the text is 24px or smaller, the text should be #000000
 // See: https://github.com/Myndex/SAPC-APCA/discussions/64
 
 // Mock colorjs.io instances
-const white = { hsl: { h: 0, s: 0, l: 100 } };
 const black = { hsl: { h: 0, s: 0, l: 0 } };
+const white = { hsl: { h: 0, s: 0, l: 100 } };
 
-// Hue and saturation may be `NaN` if the color is achromatic or fully desaturated (i.e. greyscale)
+const blackRGB = "rgb(0% 0% 0%)";
+const whiteRGB = "rgb(100% 100% 100%)";
+
+/**
+ * Utility function to safely return a color's hue value, since it may be `NaN`
+ * if the color is achromatic or fully desaturated (i.e. greyscale)
+ * @param {Number|NaN} h - Hue
+ * @returns {Number} Hue value or zero
+ */
 function getHue(h) {
   return !h || Number.isNaN(h) ? 0 : h;
 }
 
+/**
+ * Utility function to safely return a color's saturation value, since it may be `NaN`
+ * if the color is achromatic or fully desaturated (i.e. greyscale)
+ * @param {Number|NaN} s - Saturation
+ * @returns {Number} Saturation value or zero
+ */
 function getSaturation(s) {
   return !s || Number.isNaN(s) ? 0 : s;
 }
 
-function findBestColorCombo(blackFgColor, whiteFgColor) {
+/**
+ * Return whichever color required fewer iterations to lighten or darken
+ * (i.e. the color that was transformed the least)
+ * @param {Object} colorA - Adjusted color object with iteration count property, etc.
+ * @param {Object} colorB - Adjusted color object with iteration count property, etc.
+ * @returns {Object} One of the two color objects that were supplied as arguments
+ */
+function findBestAdjustedColor(colorA, colorB) {
   let bestColor;
   if (
-    (whiteFgColor.limitReached && blackFgColor.limitReached) ||
-    (!whiteFgColor.limitReached && !blackFgColor.limitReached)
+    (colorA.limitReached && colorB.limitReached) ||
+    (!colorA.limitReached && !colorB.limitReached)
   ) {
-    bestColor = whiteFgColor.iterations <= blackFgColor.iterations ? whiteFgColor : blackFgColor;
-  } else if (blackFgColor.limitReached) {
-    bestColor = whiteFgColor;
-  } else if (whiteFgColor.limitReached) {
-    bestColor = blackFgColor;
+    bestColor = colorA.iterations <= colorB.iterations ? colorA : colorB;
+  } else if (colorA.limitReached) {
+    bestColor = colorB;
+  } else if (colorB.limitReached) {
+    bestColor = colorA;
   }
-  // console.log("bestColor", bestColor);
   return bestColor;
 }
 
+/**
+ * Calculate color contrast.
+ * APCA reports lightness contrast as an Lc value from Lc 0 to Lc 106 for dark text on a light
+ * background, and Lc 0 to Lc -108 for light text on a dark background (dark mode). The minus
+ * sign merely indicates negative contrast, which means light text on a dark background.
+ * @see https://www.myndex.com/APCA/
+ * @param {Object} fgColor - colorjs.io instance or mock object with HSL properties
+ * @param {Object} bgColor - colorjs.io instance or mock object with HSL properties
+ * @returns {Number} The APCA readability contrast (Lc value)
+ */
 function getContrast(fgColor, bgColor) {
   return Number(
     calcAPCA(
@@ -48,20 +78,26 @@ function getContrast(fgColor, bgColor) {
   );
 }
 
-function textContrast(color) {
+/**
+ * Determine which foreground text color (white or black) has a higher APCA readability contrast
+ * (Lc value) against the supplied background color
+ * @param {Object} color - colorjs.io instance or mock object with HSL properties
+ * @returns {Number} The APCA readability contrast (Lc value)
+ */
+function getHighestContrast(color) {
   const whiteContrast = getContrast(white, color);
   const blackContrast = getContrast(black, color);
   return Math.abs(whiteContrast) > Math.abs(blackContrast) ? whiteContrast : blackContrast;
 }
 
 /**
- * If light (`#FFF`) text over the background colour has higher contrast than dark (`#000`) text,
- * keep darkening the background color until `fontLookupAPCA` returns a font size smaller than or
- * equal to the desired size, for the desired font weight. Otherwise, keep lightening the
- * background color until we've reached this point.
+ * If white foreground text over the provided background color has a higher APCA readability
+ * contrast (Lc value) than black text, keep darkening the background color until `fontLookupAPCA`
+ * returns a font size smaller than or equal to the desired size, for the desired font weight.
+ * Otherwise, keep lightening the background color until the desired outcome is achieved.
  * @param {Object} fgColor - colorjs.io instance or mock object with HSL properties
  * @param {Object} bgColor - colorjs.io instance or mock object with HSL properties
- * @param {Boolean} darkenBg - Whether to progressively darken the background color or lighten it
+ * @param {Boolean} darkenBg - Whether to progressively darken or lighten the background color
  */
 function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iterations = 0) {
   // if (iterations === 0) {
@@ -84,10 +120,6 @@ function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iter
   }
   bgColor.hsl.l = lightness; // Mutate the color
 
-  // APCA reports lightness contrast as an Lc value from Lc 0 to Lc 106 for dark text on a light
-  // background, and Lc 0 to Lc -108 for light text on a dark background (dark mode). The minus
-  // sign merely indicates negative contrast, which means light text on a dark background.
-  // See: https://www.myndex.com/APCA/
   const contrast = calcAPCA(
     `hsl(${getHue(fgColor.hsl.h)} ${getSaturation(fgColor.hsl.s)}% ${fgColor.hsl.l}%)`,
     `hsl(${getHue(bgColor.hsl.h)} ${getSaturation(bgColor.hsl.s)}% ${bgColor.hsl.l}%)`
@@ -124,66 +156,150 @@ function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iter
   return adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iterationCount);
 }
 
+// Criteria which must be fulfilled in order for a color to be considered accessible by APCA
+// standards. This will vary by use case, throughout different parts of the website, because:
+// |
+// | "The APCA generates a lightness/darkness contrast value based on a minimum font size and color
+// | pair, and this value is perceptually based: that is, regardless of how light or dark the two
+// | colors are, a contrast value of Lc 60 represents the same perceived readability contrast."
+// |
+// | "The APCA also has an optional lookup table to associate font size and weight to the
+// | readability contrast (Lc value)."
+// |
+// See: https://git.apcacontrast.com/documentation/WhyAPCA
+// TODO: possibly add more targets for different use cases?
+
+const targetFontSizesDefault = [
+  {
+    // Meta text (Open Sans font)
+    weight: 400,
+    size: 16 // px
+  },
+  {
+    // Date text (Literata font)
+    weight: 700,
+    size: 28 // px
+  }
+];
+
+/**
+ * Lighten/darken the primary color until it fulfills all of the provided APCA accessibility
+ * requirements. Whichever one of the generated colors required the least amount of transformation
+ * will be selected and returned. The secondary color doesn't need to be transformed because text
+ * will never be placed over top of it (a manually-enforced design constraint).
+ * @param {Object} colors - colorjs.io instances or mock objects with HSL properties
+ * @param {Array} targetFontSizes - Target font weights and sizes for APCA
+ * @returns {Object} Transformed `primary` color and non-transformed `secondary` color with contrast values
+ */
 function adjustColorContrast(colors, targetFontSizes) {
-  // Only transform primary colour, since text never appears over top of secondary colour
+  // Only transform primary color, since text never appears over top of secondary color
   const { primary, secondary } = colors;
-  const primary2 = new Color(primary); // Clone
+  const primary2 = new Color(primary); // Clone colorjs.io instance (important!)
 
   // White text on dark background
-  // (darken the colour and assume the foreground text will be white)
+  // (darken the color and assume the foreground text will be white)
   const whiteOnPrimary = adjustBackgroundColor(white, primary, true, targetFontSizes);
 
   // Black text on light background
-  // (lighten the colour and assume the foreground text will be black)
+  // (lighten the color and assume the foreground text will be black)
   const blackOnPrimary = adjustBackgroundColor(black, primary2, false, targetFontSizes);
 
   // Select whichever color required fewer iterations to lighten or darken
   // (i.e. the color that was transformed the least)
-  const chosenPrimary = findBestColorCombo(blackOnPrimary, whiteOnPrimary);
+  const bestPrimaryColor = findBestAdjustedColor(blackOnPrimary, whiteOnPrimary);
 
   return {
     primary: {
-      color: chosenPrimary.bgColor,
-      contrast: chosenPrimary.contrast
+      color: bestPrimaryColor.bgColor,
+      contrast: bestPrimaryColor.contrast
     },
     secondary: {
       color: secondary,
-      contrast: textContrast(secondary)
+      contrast: getHighestContrast(secondary)
     }
   };
-
-  // const { primary, secondary } = colors;
-  // const primary2 = new Color(primary); // Clone
-  // const secondary2 = new Color(secondary); // Clone
-
-  // // White text on dark background
-  // // (darken the colour and assume the foreground text will be white)
-  // const whiteOnPrimary = adjustBackgroundColor(white, primary, true, targetFontSizes);
-  // const whiteOnSecondary = adjustBackgroundColor(white, secondary, true, targetFontSizes);
-
-  // // Black text on light background
-  // // (lighten the colour and assume the foreground text will be black)
-  // const blackOnPrimary = adjustBackgroundColor(black, primary2, false, targetFontSizes);
-  // const blackOnSecondary = adjustBackgroundColor(black, secondary2, false, targetFontSizes);
-
-  // // Select whichever color required fewer iterations to lighten or darken
-  // // (i.e. the color that was transformed the least)
-  // const chosenPrimary = findBestColorCombo(blackOnPrimary, whiteOnPrimary);
-  // const chosenSecondary = findBestColorCombo(blackOnSecondary, whiteOnSecondary);
-
-  // return {
-  //   primary: {
-  //     color: chosenPrimary.bgColor,
-  //     contrast: chosenPrimary.contrast
-  //   },
-  //   secondary: {
-  //     color: chosenSecondary.bgColor,
-  //     contrast: chosenSecondary.contrast
-  //   }
-  // };
 }
 
-// TODO: return the following
+/**
+ * Fetch page colors from Sanity document and transform primary color until it's APCA accessible
+ * @see https://git.apcacontrast.com/documentation/WhyAPCA
+ * @param {Object} data - Sanity document
+ * @param {Array} targetFontSizes - Target font weights and sizes for APCA
+ * @returns {Object} "primary" and "secondary" page colors plus a string of CSS `body` styles
+ */
+export function getPageColors(data, targetFontSizes = targetFontSizesDefault) {
+  const pageColors = data?.image?.pageColors;
+
+  if (!pageColors || !pageColors?.primary || !pageColors?.secondary) {
+    return "";
+  }
+  // Initial colors
+  const pageColorsInitial = {
+    // Convert into colorjs.io instances
+    primary: new Color(
+      `rgb(${pageColors.primary.r}% ${pageColors.primary.g}% ${pageColors.primary.b}%)`
+    ),
+    secondary: new Color(
+      `rgb(${pageColors.secondary.r}% ${pageColors.secondary.g}% ${pageColors.secondary.b}%)`
+    )
+  };
+  // Short variable names for ease of use, below
+  const pI = pageColorsInitial.primary.srgb;
+  const sI = pageColorsInitial.secondary.srgb;
+  const pIContrast = getHighestContrast(pageColorsInitial.primary);
+  const sIContrast = getHighestContrast(pageColorsInitial.secondary);
+
+  // Adjusted colors
+  const pageColorsInitialCloned = {
+    // Clone the colorjs.io instances (important!)
+    primary: new Color(pageColorsInitial.primary),
+    secondary: new Color(pageColorsInitial.secondary)
+  };
+  const { primary, secondary } = adjustColorContrast(pageColorsInitialCloned, targetFontSizes);
+
+  const pageColorsAdjusted = {
+    primary: {
+      // Convert colorjs.io RGB values into percentages
+      r: primary.color.srgb.r * 100,
+      g: primary.color.srgb.g * 100,
+      b: primary.color.srgb.b * 100,
+      contrast: primary.contrast
+    },
+    secondary: {
+      r: secondary.color.srgb.r * 100,
+      g: secondary.color.srgb.g * 100,
+      b: secondary.color.srgb.b * 100,
+      contrast: secondary.contrast
+    }
+  };
+  // Short variable names for ease of use, below
+  const p = pageColorsAdjusted.primary;
+  const s = pageColorsAdjusted.secondary;
+
+  return {
+    colors: pageColorsAdjusted,
+    styles: /* css */ `
+      body {
+        /* Primary */
+        --page-color-primary: rgb(${p.r}% ${p.g}% ${p.b}%);
+        --page-color-primary-diluted: rgb(${p.r}% ${p.g}% ${p.b}% / 10%);
+        --page-color-primary-text: ${p.contrast < 0 ? whiteRGB : blackRGB};
+        /* Primary original */
+        --page-color-primary-orig: rgb(${pI.r * 100}% ${pI.g * 100}% ${pI.b * 100}%);
+        --page-color-primary-orig-text: ${pIContrast < 0 ? whiteRGB : blackRGB};
+        /* Secondary */
+        --page-color-secondary: rgb(${s.r}% ${s.g}% ${s.b}%);
+        --page-color-secondary-diluted: rgb(${s.r}% ${s.g}% ${s.b}% / 10%);
+        --page-color-secondary-text: ${s.contrast < 0 ? whiteRGB : blackRGB};
+        /* Secondary original */
+        --page-color-secondary-orig: rgb(${sI.r * 100}% ${sI.g * 100}% ${sI.b * 100}%);
+        --page-color-secondary-orig-text: ${sIContrast < 0 ? whiteRGB : blackRGB};
+      }
+    `
+  };
+}
+
+// TODO: return something like the following instead?
 // (see https://www.npmjs.com/package/apca-w3)
 /*
 {
@@ -206,99 +322,3 @@ function adjustColorContrast(colors, targetFontSizes) {
   secondary: {...}
 }
 */
-
-/**
- * TODO
- * @param {Object} data
- * @returns {Object}
- */
-export function getPageColors(data) {
-  const pageColors = data?.image?.pageColors;
-
-  if (!pageColors || !pageColors?.primary || !pageColors?.secondary) {
-    return "";
-  }
-  // Convert into colorjs.io instances
-  const pageColorsInitial = {
-    primary: new Color(
-      `rgb(${pageColors.primary.r}% ${pageColors.primary.g}% ${pageColors.primary.b}%)`
-    ),
-    secondary: new Color(
-      `rgb(${pageColors.secondary.r}% ${pageColors.secondary.g}% ${pageColors.secondary.b}%)`
-    )
-  };
-  const pageColorsInitialCloned = {
-    primary: new Color(pageColorsInitial.primary),
-    secondary: new Color(pageColorsInitial.secondary)
-  };
-
-  // TODO: possibly add more targets for different use cases?
-  const targetFontSizes = [
-    {
-      // Meta text (Open Sans font)
-      weight: 400,
-      size: 16 // px
-    },
-    {
-      // Date text (Literata font)
-      weight: 700,
-      size: 28 // px
-    }
-  ];
-  const { primary, secondary } = adjustColorContrast(pageColorsInitialCloned, targetFontSizes);
-
-  const pageColorsAdjusted = {
-    primary: {
-      // Convert colorjs.io RGB values into percentages
-      r: primary.color.srgb.r * 100,
-      g: primary.color.srgb.g * 100,
-      b: primary.color.srgb.b * 100,
-      contrast: primary.contrast
-    },
-    secondary: {
-      r: secondary.color.srgb.r * 100,
-      g: secondary.color.srgb.g * 100,
-      b: secondary.color.srgb.b * 100,
-      contrast: secondary.contrast
-    }
-  };
-  // Adjusted colors
-  const p = pageColorsAdjusted.primary;
-  const s = pageColorsAdjusted.secondary;
-
-  // Original colors
-  const pO = pageColorsInitial.primary.srgb;
-  const sO = pageColorsInitial.secondary.srgb;
-  const pOContrast = textContrast(pageColorsInitial.primary);
-  const sOContrast = textContrast(pageColorsInitial.secondary);
-
-  // console.log("colors", {
-  //   original: pageColors,
-  //   adjusted: pageColorsAdjusted
-  // });
-
-  const blackRGB = "rgb(0% 0% 0%)";
-  const whiteRGB = "rgb(100% 100% 100%)";
-
-  return {
-    colors: pageColorsAdjusted,
-    styles: /* css */ `
-      body {
-        /* Primary */
-        --page-color-primary: rgb(${p.r}% ${p.g}% ${p.b}%);
-        --page-color-primary-diluted: rgb(${p.r}% ${p.g}% ${p.b}% / 10%);
-        --page-color-primary-text: ${p.contrast < 0 ? whiteRGB : blackRGB};
-        /* Primary original */
-        --page-color-primary-orig: rgb(${pO.r * 100}% ${pO.g * 100}% ${pO.b * 100}%);
-        --page-color-primary-orig-text: ${pOContrast < 0 ? whiteRGB : blackRGB};
-        /* Secondary */
-        --page-color-secondary: rgb(${s.r}% ${s.g}% ${s.b}%);
-        --page-color-secondary-diluted: rgb(${s.r}% ${s.g}% ${s.b}% / 10%);
-        --page-color-secondary-text: ${s.contrast < 0 ? whiteRGB : blackRGB};
-        /* Secondary original */
-        --page-color-secondary-orig: rgb(${sO.r * 100}% ${sO.g * 100}% ${sO.b * 100}%);
-        --page-color-secondary-orig-text: ${sOContrast < 0 ? whiteRGB : blackRGB};
-      }
-    `
-  };
-}
