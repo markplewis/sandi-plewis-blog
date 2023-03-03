@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import ColorSwatches from "components/global/ColorSwatches";
 import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
@@ -43,6 +44,13 @@ export default function PostPage({ data }) {
   // const debug = useDebug();
   const { styles: pageStyles } = pageColors;
   // debug && console.log("pageColors", pageColors);
+
+  useEffect(() => {
+    // TODO: this is changing but the `<style jsx global>` block isn't applying the new styles!
+    // See: https://nextjs.org/blog/styling-next-with-styled-jsx
+    // See: https://github.com/vercel/next.js/issues/2269 (old)
+    console.log("pageStyles", pageStyles);
+  }, [pageStyles]);
 
   const { breakpoints } = designTokens;
 

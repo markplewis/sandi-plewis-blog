@@ -115,6 +115,8 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
         {noIndex ? <meta name="robots" content="noindex" /> : null}
         <title>{fullTitle}</title>
+        {/* TODO: migrate to the new metadata API: */}
+        {/* https://nextjs.org/blog/next-13-2#built-in-seo-support-with-new-metadata-api */}
         {description && <meta name="description" content={description} />}
 
         {/* Icons */}
