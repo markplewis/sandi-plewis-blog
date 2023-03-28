@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
 import ColorSwatches from "components/global/ColorSwatches";
 import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
@@ -9,7 +8,6 @@ import ShareTools from "components/global/ShareTools";
 import { PortableText, urlFor } from "lib/sanity";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
-// import useDebug from "utils/useDebug";
 import useMediaQuery from "utils/useMediaQuery";
 import designTokens from "styles/design-tokens";
 
@@ -41,19 +39,9 @@ export default function PostPage({ data }) {
     pageColors = {}
   } = data;
 
-  // const debug = useDebug();
   const { styles: pageStyles } = pageColors;
-  // debug && console.log("pageColors", pageColors);
-
-  useEffect(() => {
-    // TODO: this is changing but the `<style jsx global>` block isn't applying the new styles!
-    // See: https://nextjs.org/blog/styling-next-with-styled-jsx
-    // See: https://github.com/vercel/next.js/issues/2269 (old)
-    console.log("pageStyles", pageStyles);
-  }, [pageStyles]);
 
   const { breakpoints } = designTokens;
-
   const isWide = useMediaQuery(`(min-width: ${breakpoints.w1024.value}rem)`);
   const isMedium = useMediaQuery(`(min-width: ${breakpoints.w768.value}rem)`);
 
@@ -68,9 +56,12 @@ export default function PostPage({ data }) {
 
   return (
     <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>
+      {/* See: https://github.com/vercel/styled-jsx/issues/710 */}
       {pageStyles ? (
         <style jsx global>
-          {pageStyles}
+          {`
+            ${pageStyles}
+          `}
         </style>
       ) : null}
 

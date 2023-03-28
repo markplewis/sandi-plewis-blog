@@ -20,7 +20,9 @@ export default function ShortStoryPage({ data }) {
     <Layout title={title} description={description} image={{ image, portrait: true, crop: false }}>
       {pageStyles ? (
         <style jsx global>
-          {pageStyles}
+          {`
+            ${pageStyles}
+          `}
         </style>
       ) : null}
       <PageTitle>{title}</PageTitle>

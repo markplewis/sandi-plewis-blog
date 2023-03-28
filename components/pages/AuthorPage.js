@@ -11,7 +11,9 @@ export default function AuthorPage({ data }) {
     <Layout title={name} description={description} image={{ image, portrait: true, crop: true }}>
       {pageStyles ? (
         <style jsx global>
-          {pageStyles}
+          {`
+            ${pageStyles}
+          `}
         </style>
       ) : null}
       <PageTitle>{name}</PageTitle>

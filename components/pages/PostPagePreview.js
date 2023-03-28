@@ -7,10 +7,6 @@ import { postQuery } from "utils/queries/posts";
 
 export default function PostPagePreview({ token, slug }) {
   const data = usePreview(token, postQuery, { slug });
-
-  // Append adjusted page colors
-  // console.log("data.image.pageColors", data.image.pageColors); // Isn't changing :(
-  data.pageColors = getPageColors(data);
-
+  data.pageColors = getPageColors(data); // Append adjusted page colors
   return <PostPage data={data} />;
 }
