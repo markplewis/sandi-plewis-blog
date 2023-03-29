@@ -1,6 +1,8 @@
+import styles from "components/homePage/FeaturedNovelReviews.module.css";
+
 export default function FeaturedNovelReviews({ reviews }) {
   return (
-    <>
+    <div className={styles.featuredNovelReviews}>
       <ul>
         {reviews.map(review => (
           <li key={review?._id}>
@@ -14,6 +16,6 @@ export default function FeaturedNovelReviews({ reviews }) {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }

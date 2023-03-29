@@ -5,6 +5,8 @@ import { imageBlurDataURL } from "utils/images";
 import useMediaQuery from "utils/useMediaQuery";
 import designTokens from "styles/design-tokens";
 
+import styles from "components/homePage/RecentPosts.module.css";
+
 const sizes = {
   mobile: {
     width: 240,
@@ -39,7 +41,7 @@ export default function RecentPosts({ posts }) {
   const imageHeight = imageSize.landscape;
 
   return (
-    <>
+    <section className={styles.recentPosts}>
       <h2>Recent posts</h2>
       <ul>
         {posts.map(post => (
@@ -75,6 +77,6 @@ export default function RecentPosts({ posts }) {
           More posts
         </Link>
       </p>
-    </>
+    </section>
   );
 }

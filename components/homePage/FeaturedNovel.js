@@ -6,6 +6,8 @@ import { PortableText, urlFor } from "lib/sanity";
 import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 
+import styles from "components/homePage/FeaturedNovel.module.css";
+
 const portableTextComponents = {
   marks: {
     internalLink: ({ children, value }) => <InternalLink value={value}>{children}</InternalLink>
@@ -15,7 +17,7 @@ const portableTextComponents = {
 export default function FeaturedNovel({ novel }) {
   const { breakpoints } = designTokens;
   return (
-    <>
+    <div className={styles.featuredNovel}>
       <PageTitle>{novel?.title}</PageTitle>
 
       {novel?.image ? (
@@ -46,6 +48,6 @@ export default function FeaturedNovel({ novel }) {
           More information
         </Link>
       </p>
-    </>
+    </div>
   );
 }

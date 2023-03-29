@@ -6,6 +6,8 @@ import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import useMediaQuery from "utils/useMediaQuery";
 
+import styles from "components/homePage/AuthorBio.module.css";
+
 const portableTextComponents = {
   marks: {
     internalLink: ({ children, value }) => <InternalLink value={value}>{children}</InternalLink>
@@ -22,7 +24,7 @@ export default function AuthorBio({ author }) {
   const authorImageSize = smallAuthorImage ? 140 : 175;
 
   return (
-    <>
+    <section className={styles.authorBio}>
       {author?.image ? (
         <div style={{ maxWidth: `${authorImageSize}px` }}>
           <Image
@@ -51,6 +53,6 @@ export default function AuthorBio({ author }) {
           {`More about ${author?.name?.split(" ")[0]}`}
         </Link>
       </p>
-    </>
+    </section>
   );
 }

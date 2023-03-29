@@ -2,6 +2,7 @@ import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import HomePage from "components/pages/HomePage";
 import { client } from "lib/sanity.client";
+import { getPageColors } from "utils/color";
 import {
   featuredNovelAndHomePageQuery,
   featuredReviewsQuery,
@@ -39,6 +40,9 @@ export const getStaticProps = async ({ preview = false, previewData = {} }) => {
   const reviews = await client.fetch(featuredReviewsQuery);
   const posts = await client.fetch(recentPostsQuery);
   const author = await client.fetch(authorBioQuery);
+
+  const pageColors = getPageColors(novelAndHomePage.novel);
+
   return {
     props: {
       preview,
@@ -46,7 +50,8 @@ export const getStaticProps = async ({ preview = false, previewData = {} }) => {
         novelAndHomePage,
         reviews,
         posts,
-        author
+        author,
+        pageColors
       }
     },
     revalidate: 10

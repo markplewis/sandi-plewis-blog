@@ -1,0 +1,5 @@
+.featuredNovel {
+  /* padding: 44px 22px 22px 22px; */
+  border-radius: 10px 0;
+  background-color: var(--page-color-primary);
+}
