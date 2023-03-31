@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import MoreLink from "components/MoreLink";
 import PageTitle from "components/global/PageTitle";
 import InternalLink from "components/portableText/InternalLink";
 import { PortableText, urlFor } from "lib/sanity";
@@ -18,11 +19,9 @@ export default function FeaturedNovel({ novel }) {
   const { breakpoints } = designTokens;
   return (
     <div className={styles.featuredNovel}>
-      <PageTitle>{novel?.title}</PageTitle>
-
       {novel?.image ? (
         // Temporary inline style until layout and/or container queries are ready
-        <div style={{ maxWidth: "188px" }}>
+        <div className={styles.featuredNovelImage} style={{ maxWidth: "188px" }}>
           <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
             {/* See: https://nextjs.org/docs/advanced-features/codemods#before-responsive */}
             <Image
@@ -39,15 +38,22 @@ export default function FeaturedNovel({ novel }) {
         </div>
       ) : null}
 
-      {novel?.overview ? (
-        <PortableText value={novel?.overview} components={portableTextComponents} />
-      ) : null}
+      <div className={styles.featuredNovelInfo}>
+        <PageTitle>{novel?.title}</PageTitle>
 
-      <p>
-        <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
-          More information
-        </Link>
-      </p>
+        {novel?.overview ? (
+          <PortableText value={novel?.overview} components={portableTextComponents} />
+        ) : null}
+
+        <MoreLink
+          as={`/novels/${novel?.slug}`}
+          href="/novels/[slug]"
+          text="More information"
+          fgColor="--page-color-secondary-text"
+          bgColor="--page-color-secondary"
+          align="end"
+        />
+      </div>
     </div>
   );
 }

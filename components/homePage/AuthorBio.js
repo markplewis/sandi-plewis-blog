@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { PortableText, urlFor } from "lib/sanity";
+import MoreLink from "components/MoreLink";
 import InternalLink from "components/portableText/InternalLink";
 import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
@@ -26,7 +26,7 @@ export default function AuthorBio({ author }) {
   return (
     <section className={styles.authorBio}>
       {author?.image ? (
-        <div style={{ maxWidth: `${authorImageSize}px` }}>
+        <div className={styles.authorBioImage} style={{ maxWidth: `${authorImageSize}px` }}>
           <Image
             src={urlFor(author?.image)
               .width(authorImageSize * 2)
@@ -42,17 +42,18 @@ export default function AuthorBio({ author }) {
         </div>
       ) : null}
 
-      <h2>{author?.name}</h2>
+      <h2 className={styles.authorBioHeading}>{author?.name}</h2>
 
       {author?.shortBiography ? (
         <PortableText value={author?.shortBiography} components={portableTextComponents} />
       ) : null}
 
-      <p>
-        <Link as={`/authors/${author?.slug}`} href="/authors/[slug]">
-          {`More about ${author?.name?.split(" ")[0]}`}
-        </Link>
-      </p>
+      <MoreLink
+        as={`/authors/${author?.slug}`}
+        href="/authors/[slug]"
+        text={`More about ${author?.name?.split(" ")[0]}`}
+        align="end"
+      />
     </section>
   );
 }

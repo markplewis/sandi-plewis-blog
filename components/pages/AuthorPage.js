@@ -2,7 +2,7 @@ import ColorSwatches from "components/global/ColorSwatches";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
-// import styles from "styles/pages/author.module.css";
+// import styles from "styles/layouts/author.module.css";
 
 export default function AuthorPage({ data }) {
   const { name = "", description = "", image = {}, pageColors = {} } = data;

@@ -3,7 +3,7 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import useDebug from "utils/useDebug";
 
-// import styles from "styles/pages/contentListing.module.css";
+// import styles from "styles/layouts/contentListing.module.css";
 
 export default function WritingPage({ data }) {
   const { novels = [], shortStories = [] } = data;

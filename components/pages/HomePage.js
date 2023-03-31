@@ -2,12 +2,12 @@ import Layout from "components/global/Layout";
 import ShareTools from "components/global/ShareTools";
 import AuthorBio from "components/homePage/AuthorBio";
 import FeaturedNovel from "components/homePage/FeaturedNovel";
-import FeaturedNovelReviews from "components/homePage/FeaturedNovelReviews";
+import FeaturedReviews from "components/homePage/FeaturedReviews";
 import RecentPosts from "components/homePage/RecentPosts";
 import designTokens from "styles/design-tokens";
 import useMediaQuery from "utils/useMediaQuery";
 
-import styles from "styles/pages/home.module.css";
+import styles from "styles/layouts/home.module.css";
 
 export default function HomePage({ data }) {
   const { breakpoints } = designTokens;
@@ -42,7 +42,7 @@ export default function HomePage({ data }) {
 
         <section className={styles.row1}>
           {novel ? <FeaturedNovel novel={novel} /> : null}
-          {reviews.length ? <FeaturedNovelReviews reviews={reviews} /> : null}
+          {reviews.length ? <FeaturedReviews reviews={reviews} /> : null}
           {isWide ? <ShareTools text="Sandi Plewis, Author/Editor" position="vertical" /> : null}
         </section>
 

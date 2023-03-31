@@ -4,7 +4,7 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import { useApp } from "utils/useApp";
 
-import styles from "styles/pages/contact.module.css";
+import styles from "styles/layouts/contact.module.css";
 
 export default function Contact() {
   const { app } = useApp();

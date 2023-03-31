@@ -1,3 +1,33 @@
+@design-tokens url("../../styles/design-tokens.json") format("style-dictionary3");
+
 .recentPosts {
-  background-color: #ccc;
+  margin: 0 auto;
+  align-self: flex-start;
+}
+.recentPostsHeading {
+  margin-top: 0;
+  /* TODO: change all instances of 44 to 48 (divisible by 8) */
+  margin-bottom: 44px;
+}
+
+@media (min-width: token("breakpoints.w480" to rem)) {
+  .recentPosts {
+    border-left: 4px solid var(--page-color-secondary);
+    padding: 22px 22px 0 22px;
+  }
+}
+
+@media (min-width: token("breakpoints.w1150" to rem)) {
+  .recentPosts {
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 44px;
+  }
+}
+
+@media (min-width: token("breakpoints.w1280" to rem)) {
+  .recentPosts {
+    padding-right: 44px;
+    padding-left: 44px;
+  }
 }

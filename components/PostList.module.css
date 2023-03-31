@@ -1,0 +1,79 @@
+@design-tokens url("../styles/design-tokens.json") format("style-dictionary3");
+
+.postList {
+  list-style-type: none;
+  margin: 0 0 48px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 64px;
+}
+.postLink {
+  color: var(--color-font-base);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.postLink:hover .postTitle,
+.postLink:focus .postTitle {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+}
+.postImage {
+  width: 100%;
+}
+.postInfo {
+  flex: 1 1;
+  align-self: flex-start;
+}
+.postTitle {
+  margin: 0;
+  font-size: var(--font-size-20);
+}
+.postDate {
+  margin: 8px 0;
+}
+.postDescription {
+  margin: 8px 0 0 0;
+}
+
+@media (min-width: token("breakpoints.w480" to rem)) {
+  .postList {
+    gap: 32px;
+  }
+  .postLink {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: token("breakpoints.w600" to rem)) {
+  .postList {
+    grid-template-columns: repeat(auto-fit, minmax(53ch, 70ch));
+  }
+}
+
+/* "Padded" */
+
+/* .postListPadded {
+  justify-content: center;
+  gap: 32px;
+}
+.postListPadded .postLink {
+  height: 100%;
+  padding: 24px;
+  background-color: #fff;
+  border: 4px solid #eee;
+  border-radius: 10px 0;
+}
+.postListPadded .postImage > span {
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: token("breakpoints.w600" to rem)) {
+  .postListPadded {
+    grid-template-columns: repeat(auto-fit, minmax(53ch, 67ch));
+  }
+} */

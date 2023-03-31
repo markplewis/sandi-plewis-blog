@@ -2,7 +2,7 @@ import Link from "next/link";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
-// import styles from "styles/pages/contentListing.module.css";
+// import styles from "styles/layouts/contentListing.module.css";
 
 export default function AuthorsPage({ data }) {
   const authors = data;

@@ -2,6 +2,7 @@
 
 .page {
   margin-top: 24px;
+  margin-bottom: 48px;
   position: relative;
 }
 .row1,
@@ -9,6 +10,7 @@
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 64px;
+  align-items: start;
 }
 .row1 {
   margin-top: 24px;
@@ -21,6 +23,7 @@
   z-index: -1;
   left: calc(var(--column-margin-left) * -1);
 }
+
 @media (min-width: token("breakpoints.w1150" to rem)) {
   .row1 {
     grid-template-columns: 1.5fr 1fr;
@@ -32,6 +35,7 @@
     column-gap: 24px;
   }
 }
+
 @media (min-width: token("breakpoints.w1280" to rem)) {
   .page {
     margin-top: 72px;

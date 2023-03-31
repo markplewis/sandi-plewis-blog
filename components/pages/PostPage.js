@@ -15,7 +15,7 @@ import InternalLink from "components/portableText/InternalLink";
 import LineBreak from "components/portableText/LineBreak";
 import PostBodyImage from "components/portableText/PostBodyImage";
 
-import styles from "styles/pages/post.module.css";
+import styles from "styles/layouts/post.module.css";
 
 const portableTextComponents = {
   types: {

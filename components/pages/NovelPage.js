@@ -5,7 +5,7 @@ import { PortableText } from "lib/sanity";
 
 import InternalLink from "components/portableText/InternalLink";
 
-// import styles from "styles/pages/writing.module.css";
+// import styles from "styles/layouts/writing.module.css";
 
 const portableTextComponents = {
   marks: {

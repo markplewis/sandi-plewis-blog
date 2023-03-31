@@ -1,7 +1,7 @@
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
-import styles from "styles/pages/staticPage.module.css";
+import styles from "styles/layouts/staticPage.module.css";
 
 export default function Custom404() {
   return (

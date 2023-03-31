@@ -1,0 +1,24 @@
+@design-tokens url("../../styles/design-tokens.json") format("style-dictionary3");
+
+.featuredReviews {
+  max-width: 75ch;
+  margin: 0 auto;
+}
+
+@media (min-width: token("breakpoints.w1150" to rem)) {
+  .featuredReviews {
+    margin-top: 22px;
+    margin-left: 0;
+    margin-right: 0;
+    /* padding: 22px 0 22px 22px; */
+    padding: 22px 0;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* @media (min-width: token("breakpoints.w1280" to rem)) {
+  .featuredReviews {
+    padding-left: 44px;
+  }
+} */
