@@ -6,10 +6,10 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
 import { PortableText, urlFor } from "lib/sanity";
+import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
 import useMediaQuery from "utils/useMediaQuery";
-import designTokens from "styles/design-tokens";
 
 import InternalLink from "components/portableText/InternalLink";
 import LineBreak from "components/portableText/LineBreak";

@@ -2,11 +2,12 @@
 
 /* Layer these elements over top of the gradient background and pattern blocks */
 
-/* .heroArea,
+.heroArea,
 .coverImageAndInfo,
 .bodyArea {
   position: relative;
-} */
+  /* z-index: 1; */
+}
 
 /* Hero area - overall grid layout */
 
@@ -36,14 +37,14 @@
 
 /* Hero area - outer elements */
 
-/* .patternBlock {
+.patternBlock {
   margin-top: 55px;
   height: 322px;
   content: "";
   display: block;
   grid-column: 1 / 2;
   grid-row: 1 / 2;
-} */
+}
 .coverImageAndInfo {
   margin: 22px 0;
   padding: 44px;
@@ -60,18 +61,18 @@
 .coverImageAndInfo :hover:focus {
   outline-color: var(--color-white);
 }
-/* .patternBlock2 {
+.patternBlock2 {
   height: 370px;
   content: "";
   display: block;
   grid-column: 3 / -1;
   grid-row: 1 / 2;
-} */
+}
 
 @media (min-width: token("breakpoints.w768" to rem)) {
-  /* .patternBlock {
+  .patternBlock {
     margin-top: 66px;
-  } */
+  }
   .coverImageAndInfo {
     padding-right: 33px; /* -11px to account for image transform */
     justify-content: flex-start;
