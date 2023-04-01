@@ -1,68 +1,7 @@
-@design-tokens url("../design-tokens.json") format("style-dictionary3");
-
-/* Layer these elements over top of the gradient background and pattern blocks */
-
-.heroArea,
-.bodyArea {
-  position: relative;
-  /* z-index: 1; */
-}
-
-/* Hero area - overall grid layout */
-
-.heroArea {
-  display: grid;
-}
-@media (min-width: token("breakpoints.w1600" to rem)) {
-  .heroArea {
-    margin-left: var(--column-margin-left);
-    margin-right: var(--column-margin-right);
-  }
-}
-
-/* Hero area - outer elements */
-
-.patternBlock,
-.coverImageAndTitle {
-  width: 100%;
-  grid-row: 1 / 2;
-  grid-column: 1 / 2;
-}
 .patternBlock {
   padding: 80px 0 145px 0;
 }
 .patternBlock > div {
   width: 100%;
   height: 100%;
-}
-.coverImageAndTitle {
-  margin: 44px 0;
-  padding-left: var(--column-margin-left);
-  padding-right: var(--column-margin-right);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Hero area - inner elements */
-
-.coverImage {
-  width: 188px;
-  margin: 0 auto 22px auto;
-  transform: translate(11px, 0);
-  background-color: var(--page-color-secondary);
-  flex-shrink: 0;
-}
-.coverImage > span {
-  transform: translate(-22px, 22px);
-  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
-}
-.title {
-  margin: 8px 0 0 0;
-}
-
-/* Body area */
-
-.bodyArea {
-  margin: 0 var(--column-margin-left) 0 var(--column-margin-right);
 }

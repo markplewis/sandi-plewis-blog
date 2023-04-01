@@ -11,11 +11,13 @@ function encodeUrlParams(params = {}) {
     .join("&");
 }
 
-export default function ShareTools({ text, position = "", align = "" }) {
+export default function ShareTools({ text, position = "", align = "", color = "primary" }) {
   const router = useRouter();
   const url = `${BASE_URL}${router.asPath}`;
   const positionClass = position === "vertical" ? styles.shareToolsVertical : "";
   const alignmentClass = align === "right" ? styles.shareToolsAlignRight : "";
+  const colorClass =
+    color === "primary" ? styles.shareToolsColorPrimary : styles.shareToolsColorSecondary;
 
   // Inspiration: https://www.tunnelbear.com/blog/why-we-created-our-own-social-media-buttons-on-our-website/
   const twitterURL = `https://twitter.com/share?${encodeUrlParams({ url, text })}`;
@@ -23,7 +25,7 @@ export default function ShareTools({ text, position = "", align = "" }) {
   const emailURL = `mailto:?body=${text} - ${url}`;
 
   return (
-    <div className={`${styles.shareTools} ${positionClass} ${alignmentClass}`}>
+    <div className={`${styles.shareTools} ${positionClass} ${alignmentClass} ${colorClass}`}>
       <Link
         className={styles.shareTool}
         href={twitterURL}
