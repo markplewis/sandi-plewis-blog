@@ -9,4 +9,5 @@
   /* Prevent margins from collapsing: https://stackoverflow.com/a/42069793/1243086 */
   display: inline-block;
   width: 100%;
+  position: relative;
 }

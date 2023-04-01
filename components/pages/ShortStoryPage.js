@@ -55,6 +55,7 @@ export default function ShortStoryPage({ data }) {
         </style>
       ) : null}
 
+      {/* <div className={styles.pageWrapper}> */}
       <div className={styles.heroArea}>
         <div className={styles.coverImageAndInfo}>
           <CoverImage
@@ -79,6 +80,7 @@ export default function ShortStoryPage({ data }) {
 
         {body ? <PostBody content={body} /> : null}
       </div>
+      {/* </div> */}
     </Layout>
   );
 }

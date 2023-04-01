@@ -57,6 +57,7 @@ export default function NovelPage({ data }) {
         </style>
       ) : null}
 
+      {/* <div className={styles.pageWrapper}> */}
       <div className={styles.heroArea}>
         <div className={styles.coverImageAndInfo}>
           <CoverImage
@@ -88,6 +89,7 @@ export default function NovelPage({ data }) {
           </div>
         ) : null}
       </div>
+      {/* </div> */}
     </Layout>
   );
 }
