@@ -31,8 +31,8 @@ const PostBodyImage = ({ value }) => {
       imageHeight = alignment === "center" ? 600 : 200;
       break;
     case "portrait":
-      imageWidth = alignment === "center" ? 400 : 188;
-      imageHeight = alignment === "center" ? 622 : 292;
+      imageWidth = alignment === "center" ? 400 : 200;
+      imageHeight = alignment === "center" ? 600 : 300;
       break;
     case "landscape":
     default:

@@ -7,13 +7,14 @@
   font-size: var(--font-size-20);
 }
 .postBody > *:first-child,
+.postBody > figure:first-child + *,
 .postBodyBlock > *:first-child {
   margin-top: 0;
 }
 
 @media (min-width: token("breakpoints.w768" to rem)) {
   .postBody {
-    max-width: calc(60ch + 88px);
+    max-width: 980px;
     margin: 0 auto;
     padding: 48px;
   }
@@ -34,4 +35,10 @@
 .postBody h5,
 .postBody h6 {
   margin: 48px 0;
+}
+
+@media (min-width: token("breakpoints.w1024" to rem)) {
+  .postBody {
+    padding: 72px;
+  }
 }

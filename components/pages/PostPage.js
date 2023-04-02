@@ -5,27 +5,14 @@ import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
-import { PortableText, urlFor } from "lib/sanity";
+import { urlFor } from "lib/sanity";
+import PostBody from "components/PostBody";
 import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
 import useMediaQuery from "utils/useMediaQuery";
 
-import InternalLink from "components/portableText/InternalLink";
-import LineBreak from "components/portableText/LineBreak";
-import PostBodyImage from "components/portableText/PostBodyImage";
-
 import styles from "styles/layouts/post.module.css";
-
-const portableTextComponents = {
-  types: {
-    image: ({ value }) => <PostBodyImage value={value} />,
-    break: ({ value }) => <LineBreak value={value} />
-  },
-  marks: {
-    internalLink: ({ children, value }) => <InternalLink value={value}>{children}</InternalLink>
-  }
-};
 
 export default function PostPage({ data }) {
   const {
@@ -118,10 +105,13 @@ export default function PostPage({ data }) {
           </div>
         </div>
 
-        <div className={styles.body}>
+        {body ? (
+          <PostBody content={body}>
+            <ColorSwatches />
+          </PostBody>
+        ) : (
           <ColorSwatches />
-          {body ? <PortableText value={body} components={portableTextComponents} /> : null}
-        </div>
+        )}
       </article>
     </Layout>
   );

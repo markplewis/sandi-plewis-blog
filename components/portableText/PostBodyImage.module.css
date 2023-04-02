@@ -2,7 +2,7 @@
 
 .figure {
   width: 100%;
-  margin: 0 auto 22px auto;
+  margin: 48px auto;
 }
 .figure > span {
   width: 100%;
@@ -14,19 +14,27 @@
   flex-direction: column;
   gap: 8px;
 }
+
 @media (min-width: token("breakpoints.w800" to rem)) {
   .align-left {
-    margin-left: -64px;
-    margin-right: 22px;
+    margin-right: 24px;
     float: left;
   }
   .align-right {
-    margin-left: 22px;
-    margin-right: -64px;
+    margin-left: 24px;
     float: right;
   }
   .align-center {
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+@media (min-width: token("breakpoints.w1024" to rem)) {
+  .align-left {
+    margin-right: 48px;
+  }
+  .align-right {
+    margin-left: 48px;
   }
 }

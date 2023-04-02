@@ -1,7 +1,7 @@
 @design-tokens url("../design-tokens.json") format("style-dictionary3");
 
 .heroArea {
-  max-width: 840px;
+  max-width: 1028px;
   margin: 72px auto 0 auto;
 }
 .patternBlock1 {
@@ -26,7 +26,7 @@
 }
 
 .coverImageAndInfo {
-  margin: 24px 0;
+  margin: 24px 0 48px 0;
   padding: 48px;
   border-radius: 10px 0;
   background-color: var(--page-color-primary);
@@ -115,17 +115,16 @@
 .shareToolsBelow {
   margin-bottom: 24px;
 }
-.bodyArea {
-  margin: 0 var(--column-margin-left) 0 var(--column-margin-right);
-}
-.reviewsHeading {
-  margin-bottom: 48px;
+.reviewsHeading,
+.reviews {
+  margin: 48px 0;
 }
 
 @media (min-width: token("breakpoints.w768" to rem)) {
   .reviews {
-    max-width: calc(60ch + 224px);
-    margin: 0 auto;
+    max-width: 770px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0 48px;
   }
 }
