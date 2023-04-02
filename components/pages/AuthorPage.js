@@ -27,20 +27,28 @@ export default function AuthorPage({ data }) {
             }}></div>
         </div>
 
-        <div className={styles.coverImageAndTitle}>
-          <CoverImage
-            className={styles.coverImage}
-            image={image}
-            title={name}
-            width={376}
-            height={376}
-          />
-          <PageTitle className={styles.title}>{name}</PageTitle>
-        </div>
+        <CoverImage
+          className={styles.coverImage}
+          image={image}
+          title={name}
+          width={376}
+          height={376}
+        />
       </div>
 
-      <div className={styles.bodyArea}>{biography ? <PostBody content={biography} /> : null}</div>
-      <ColorSwatches />
+      <div className={styles.titleContainer}>
+        <PageTitle className={styles.title}>{name}</PageTitle>
+      </div>
+
+      <div className={styles.bodyArea}>
+        {biography ? (
+          <PostBody content={biography}>
+            <ColorSwatches />
+          </PostBody>
+        ) : (
+          <ColorSwatches />
+        )}
+      </div>
     </Layout>
   );
 }

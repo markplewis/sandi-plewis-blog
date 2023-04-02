@@ -90,9 +90,13 @@ export default function NovelPage({ data }) {
         )}
         {!isMedium && <div className={`${styles.info} ${styles.infoBelow}`}>{overviewItems}</div>}
 
-        {body ? <PostBody content={body} /> : null}
-
-        <ColorSwatches />
+        {body ? (
+          <PostBody content={body}>
+            <ColorSwatches />
+          </PostBody>
+        ) : (
+          <ColorSwatches />
+        )}
 
         {reviews?.length ? (
           <div className={styles.reviews}>

@@ -88,9 +88,13 @@ export default function ShortStoryPage({ data }) {
         )}
         {!isMedium && <div className={`${styles.info} ${styles.infoBelow}`}>{overviewItems}</div>}
 
-        {body ? <PostBody content={body} /> : null}
-
-        <ColorSwatches />
+        {body ? (
+          <PostBody content={body}>
+            <ColorSwatches />
+          </PostBody>
+        ) : (
+          <ColorSwatches />
+        )}
       </div>
     </Layout>
   );

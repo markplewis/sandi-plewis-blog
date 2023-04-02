@@ -15,14 +15,15 @@ const portableTextComponents = {
   }
 };
 
-export default function PostBody({ content }) {
+export default function PostBody({ content, children = null }) {
   return (
-    <div className={styles.body}>
+    <div className={styles.postBody}>
       <PortableText
-        className={styles.bodyBlock}
+        className={styles.postBodyBlock}
         value={content}
         components={portableTextComponents}
       />
+      {children}
     </div>
   );
 }
