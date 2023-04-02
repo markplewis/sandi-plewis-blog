@@ -15,6 +15,11 @@ export default function HomePage({ data }) {
   const { novel, description } = novelAndHomePage;
   const { styles: pageStyles } = pageColors;
 
+  const pageColorsSecondary = pageColors?.colors?.secondary;
+  const patternBlockFill = pageColorsSecondary
+    ? `rgb(${pageColorsSecondary.r}% ${pageColorsSecondary.g}% ${pageColorsSecondary.b}%)`
+    : "black";
+
   // TODO: refactor this to use CSS `display: none` instead of conditionally rendering
   const isWide = useMediaQuery(`(min-width: ${breakpoints.w1280.value}rem)`);
 
@@ -37,7 +42,7 @@ export default function HomePage({ data }) {
         <div
           className={styles.patternBlock}
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg' fill='rgb(${pageColors.colors.secondary.r}% ${pageColors.colors.secondary.g}% ${pageColors.colors.secondary.b}%)' fill-opacity='0.6' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'%3E%3Cpath d='M4 0h2L0 6V4l4-4zM6 4v2H4l2-2z'/%3E%3C/svg%3E")`
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg' fill='${patternBlockFill}' fill-opacity='0.6' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'%3E%3Cpath d='M4 0h2L0 6V4l4-4zM6 4v2H4l2-2z'/%3E%3C/svg%3E")`
           }}></div>
 
         <section className={styles.row1}>

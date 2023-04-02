@@ -11,6 +11,7 @@ export default function CoverImage({
   className,
   title,
   image,
+  alt = null,
   slug = null,
   width = 1240,
   height = 540
@@ -23,7 +24,7 @@ export default function CoverImage({
       width={width}
       height={height}
       sizes="(max-width: 800px) 100vw, 800px"
-      alt={image?.alt}
+      alt={alt || image?.alt}
       placeholder="blur"
       blurDataURL={image?.lqip || imageBlurDataURL}
       className="responsive-image"
