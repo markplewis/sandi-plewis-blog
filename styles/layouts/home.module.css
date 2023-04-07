@@ -23,6 +23,15 @@
   z-index: -1;
   left: calc(var(--column-margin-left) * -1);
 }
+.shareToolsAbove {
+  padding-bottom: 24px;
+}
+
+@media (min-width: token("breakpoints.w600" to rem)) {
+  .shareToolsAbove {
+    padding-bottom: 0;
+  }
+}
 
 @media (min-width: token("breakpoints.w1150" to rem)) {
   .row1 {

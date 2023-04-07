@@ -37,7 +37,11 @@ export default function HomePage({ data }) {
       ) : null}
 
       <div className={styles.page}>
-        {isWide ? null : <ShareTools text="Sandi Plewis, Author/Editor" align="right" />}
+        {isWide ? null : (
+          <div className={styles.shareToolsAbove}>
+            <ShareTools text="Sandi Plewis, Author/Editor" align="right" />
+          </div>
+        )}
 
         <div
           className={styles.patternBlock}

@@ -2,7 +2,7 @@
 
 .postBody {
   margin: 0 calc(var(--column-margin-right) * -1) 0 calc(var(--column-margin-left) * -1);
-  padding: 24px;
+  padding: 24px var(--column-margin-right) 24px var(--column-margin-left);
   background-color: var(--color-white);
   font-size: var(--font-size-20);
 }

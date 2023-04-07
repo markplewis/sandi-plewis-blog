@@ -2,8 +2,7 @@
 
 .figure {
   width: 100%;
-  /* margin: 48px auto; */
-  margin: 0 auto 36px auto;
+  margin: 48px auto;
 }
 .figure > span {
   width: 100%;
@@ -17,6 +16,10 @@
 }
 
 @media (min-width: token("breakpoints.w800" to rem)) {
+  .figure {
+    margin-top: 8px;
+    margin-bottom: 36px;
+  }
   .align-left {
     margin-right: 24px;
     float: left;

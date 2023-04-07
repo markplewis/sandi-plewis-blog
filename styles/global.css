@@ -13,7 +13,7 @@ See: https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe
 */
 :root {
   --focus-outline-color: steelblue;
-  --column-margin: 24px;
+  --column-margin: 16px;
   /* Minimum width is `env(safe-area-inset-left)` but can be up to `var(--column-margin)` */
   --column-margin-left: max(var(--column-margin), env(safe-area-inset-left));
   --column-margin-right: max(var(--column-margin), env(safe-area-inset-right));
@@ -46,6 +46,11 @@ See: https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe
 }
 /* It isn't possible to use CSS custom properties in media queries, however, with a little help
 from PostCSS, we can use custom CSS environment variables (see: `styles/css-env-variables.js`) */
+@media (min-width: token("breakpoints.w480" to rem)) {
+  :root {
+    --column-margin: 24px;
+  }
+}
 @media (min-width: token("breakpoints.w768" to rem)) {
   :root {
     --column-margin: 44px;

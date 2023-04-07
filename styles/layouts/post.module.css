@@ -1,8 +1,8 @@
 @design-tokens url("../design-tokens.json") format("style-dictionary3");
 
 .titleArea {
-  margin-top: 40px;
-  margin-bottom: 64px;
+  margin-top: 24px;
+  margin-bottom: 56px;
 }
 .title {
   margin: 0;
@@ -55,7 +55,7 @@
   /* TODO: consolidate these full-width body content styles because
   they're similar to `components/PostBody.module.css` */
   margin: 24px calc(var(--column-margin-right) * -1) 0 calc(var(--column-margin-left) * -1);
-  padding: 24px 24px 16px 24px;
+  padding: 24px var(--column-margin-right) 16px var(--column-margin-left);
   background-color: var(--color-white);
 }
 .metaBelow > div > *:first-child {
@@ -63,6 +63,13 @@
 }
 .metaBelow > div > *:last-child {
   margin-bottom: 0;
+}
+
+@media (min-width: token("breakpoints.w480" to rem)) {
+  .titleArea {
+    margin-top: 40px;
+    margin-bottom: 64px;
+  }
 }
 
 @media (min-width: token("breakpoints.w768" to rem)) {
