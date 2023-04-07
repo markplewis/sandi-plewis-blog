@@ -2,7 +2,7 @@
 
 .formContainer {
   padding: 44px 0;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 @media (min-width: token("breakpoints.w600" to rem)) {
   .formContainer {
@@ -48,7 +48,7 @@
   margin-left: auto;
   padding: 8px 12px;
   background-color: var(--color-font-base);
-  color: #fff;
+  color: var(--color-white);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -57,7 +57,7 @@
   transition: all 0.1s ease-out;
   width: 24px;
   height: 24px;
-  fill: #fff;
+  fill: var(--color-white);
 }
 .submitButton:hover .submitButtonSVG,
 .submitButton:focus .submitButtonSVG {

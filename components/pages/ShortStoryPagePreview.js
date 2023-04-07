@@ -7,9 +7,9 @@ import { shortStoryQuery } from "utils/queries/shortStories";
 
 export default function ShortStoryPagePreview({ token, slug }) {
   const data = usePreview(token, shortStoryQuery, { slug });
-
   // Append adjusted page colors
-  data.pageColors = getPageColors(data);
-
+  if (data) {
+    data.pageColors = getPageColors(data);
+  }
   return <ShortStoryPage data={data} />;
 }

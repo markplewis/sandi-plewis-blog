@@ -7,9 +7,9 @@ import { authorQuery } from "utils/queries/authors";
 
 export default function AuthorPagePreview({ token, slug }) {
   const data = usePreview(token, authorQuery, { slug });
-
   // Append adjusted page colors
-  data.pageColors = getPageColors(data);
-
+  if (data) {
+    data.pageColors = getPageColors(data);
+  }
   return <AuthorPage data={data} />;
 }

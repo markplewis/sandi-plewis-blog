@@ -7,9 +7,9 @@ import { novelQuery } from "utils/queries/novels";
 
 export default function NovelPagePreview({ token, slug }) {
   const data = usePreview(token, novelQuery, { slug });
-
   // Append adjusted page colors
-  data.pageColors = getPageColors(data);
-
+  if (data) {
+    data.pageColors = getPageColors(data);
+  }
   return <NovelPage data={data} />;
 }

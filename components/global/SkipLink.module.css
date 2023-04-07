@@ -8,7 +8,7 @@
   z-index: 5;
   padding: 10px;
   background-color: var(--color-font-base);
-  color: #fff;
+  color: var(--color-white);
 }
 .skipLink:focus,
 .skipLink:active {

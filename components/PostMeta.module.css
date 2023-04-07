@@ -1,0 +1,45 @@
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.meta > * {
+  margin: 0;
+}
+.date {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-28);
+  font-weight: bold;
+}
+.author,
+.credit a {
+  color: var(--color-font-base);
+}
+.categories {
+  display: flex;
+  align-items: baseline;
+}
+.categoriesHeading {
+  margin: 0 16px 0 0;
+}
+.category {
+  background-color: var(--color-font-base);
+  color: var(--color-white);
+}
+.metaThemed {
+  height: 100%;
+  color: var(--page-color-secondary-text);
+}
+.metaThemed .author {
+  color: var(--page-color-secondary-text);
+}
+.metaThemed .credit {
+  margin: auto 0 48px 0;
+}
+.metaThemed .credit a {
+  color: var(--page-color-secondary-text);
+}
+.metaThemed :focus,
+.metaThemed :hover:focus {
+  outline-color: var(--page-color-secondary-text);
+}

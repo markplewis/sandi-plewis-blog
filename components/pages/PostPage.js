@@ -1,12 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
 import ColorSwatches from "components/global/ColorSwatches";
-import DisplayDate from "components/global/DisplayDate";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
 import { urlFor } from "lib/sanity";
 import PostBody from "components/PostBody";
+import PostMeta from "components/PostMeta";
 import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
@@ -26,7 +25,7 @@ export default function PostPage({ data }) {
     pageColors = {}
   } = data;
 
-  const { styles: pageStyles } = pageColors;
+  const { colors: pageColorData, styles: pageStyles } = pageColors;
 
   const { breakpoints } = designTokens;
   const isWide = useMediaQuery(`(min-width: ${breakpoints.w1024.value}rem)`);
@@ -55,7 +54,10 @@ export default function PostPage({ data }) {
       <article>
         <div className={styles.titleArea}>
           <PageTitle className={styles.title}>{title}</PageTitle>
-          {isMedium && <ShareTools text={title} />}
+          {/* Visible from isMedium */}
+          <div className={styles.shareToolsAbove}>
+            <ShareTools text={title} />
+          </div>
         </div>
 
         <div className={styles.hero}>
@@ -74,35 +76,30 @@ export default function PostPage({ data }) {
             ) : null}
           </div>
 
-          {!isMedium && <ShareTools text={title} align="right" />}
-
-          <div className={styles.meta}>
-            <p>
-              <DisplayDate dateString={date} />
-            </p>
-            <p>
-              <Link as={`/authors/${author?.slug}`} href="/authors/[slug]">
-                {author?.name}
-              </Link>
-            </p>
-
-            {categories && categories.length ? (
-              <div>
-                <p>{categories.length > 1 ? "Categories:" : "Category:"}</p>
-                <ul>
-                  {categories.map(({ slug, title }) => (
-                    <li key={slug}>
-                      <Link as={`/categories/${slug}`} href="/categories/[slug]">
-                        {title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-
-            {creditLine && <p dangerouslySetInnerHTML={{ __html: `Photo: ${creditLine}` }} />}
+          {/* Visible from isMedium */}
+          <div className={styles.metaAbove}>
+            <PostMeta
+              author={author}
+              categories={categories}
+              creditLine={creditLine}
+              date={date}
+              themed={true}
+              pageColorData={pageColorData}
+            />
           </div>
+        </div>
+
+        {/* Visible until isMedium */}
+        <div className={styles.shareToolsBelow}>{<ShareTools text={title} align="right" />}</div>
+        <div className={styles.metaBelow}>
+          <PostMeta
+            author={author}
+            categories={categories}
+            creditLine={creditLine}
+            date={date}
+            themed={false}
+            pageColorData={pageColorData}
+          />
         </div>
 
         {body ? (

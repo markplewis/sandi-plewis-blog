@@ -3,7 +3,7 @@
 .header {
   padding-left: var(--column-margin-left);
   padding-right: var(--column-margin-right);
-  background-color: #fff;
+  background-color: var(--color-white);
   display: grid;
   grid-template-columns: minmax(min-content, max-content) 1fr;
   align-items: center;
@@ -152,7 +152,7 @@
   padding-left: var(--column-margin-left);
   padding-right: var(--column-margin-right);
   font-size: var(--font-size-20);
-  color: #fff;
+  color: var(--color-white);
   text-decoration-line: none;
   display: block;
 }
@@ -190,7 +190,7 @@
   height: 70px; /* TODO: how to achieve this with padding instead? */
   padding-left: var(--column-margin-left);
   padding-right: var(--column-margin-right);
-  color: #fff;
+  color: var(--color-white);
   transform: none;
 }
 .navMenu .shareButton:hover,
@@ -198,7 +198,7 @@
   background-color: #191919;
 }
 .navMenu .shareButton svg {
-  fill: #fff;
+  fill: var(--color-white);
 }
 
 /* Container query */

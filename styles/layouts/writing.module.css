@@ -26,7 +26,7 @@
 }
 
 .coverImageAndInfo {
-  margin: 24px 0 48px 0;
+  margin: 24px 0;
   padding: 48px;
   border-radius: 10px 0;
   background-color: var(--page-color-primary);
@@ -49,6 +49,12 @@
   .coverImageAndInfo {
     padding-right: 32px; /* -12px to account for image transform */
     justify-content: flex-start;
+  }
+}
+
+@media (min-width: token("breakpoints.w1024" to rem)) {
+  .coverImageAndInfo {
+    margin-bottom: 48px;
   }
 }
 
@@ -99,7 +105,7 @@
 .infoBelow {
   margin: 0 -24px;
   padding: 24px;
-  background-color: #fff;
+  background-color: var(--color-white);
   color: var(--color-font-base);
 }
 .infoBelow a,

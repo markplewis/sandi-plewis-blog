@@ -8,7 +8,6 @@
   margin: 0;
 }
 .hero {
-  margin-bottom: 40px;
   position: relative;
   z-index: 1;
 }
@@ -48,7 +47,33 @@
   background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
 }
 
+.shareToolsAbove,
+.metaAbove {
+  display: none;
+}
+.metaBelow {
+  /* TODO: consolidate these full-width body content styles because
+  they're similar to `components/PostBody.module.css` */
+  margin: 24px calc(var(--column-margin-right) * -1) 0 calc(var(--column-margin-left) * -1);
+  padding: 24px 24px 16px 24px;
+  background-color: var(--color-white);
+}
+.metaBelow > div > *:first-child {
+  margin-top: 0;
+}
+.metaBelow > div > *:last-child {
+  margin-bottom: 0;
+}
+
 @media (min-width: token("breakpoints.w768" to rem)) {
+  .shareToolsAbove,
+  .metaAbove {
+    display: block;
+  }
+  .shareToolsBelow,
+  .metaBelow {
+    display: none;
+  }
   .titleArea {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -82,10 +107,10 @@
     display: none;
   }
   .image,
-  .meta {
+  .metaAbove {
     flex: 1;
   }
-  .meta {
+  .metaAbove {
     padding-left: 24px;
   }
 }
@@ -94,7 +119,7 @@
   .image {
     flex: 1;
   }
-  .meta {
+  .metaAbove {
     flex: 0.8;
   }
 }

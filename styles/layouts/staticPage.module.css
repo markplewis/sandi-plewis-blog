@@ -10,7 +10,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 44px;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 .pageInner a,
 .pageInner a:visited,

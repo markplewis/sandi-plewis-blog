@@ -36,10 +36,10 @@ export const getStaticProps = async ({ preview = false, previewData = {}, params
   const data = await client.fetch(authorQuery, {
     slug: params.slug
   });
-
   // Append adjusted page colors
-  data.pageColors = getPageColors(data);
-
+  if (data) {
+    data.pageColors = getPageColors(data);
+  }
   return {
     props: {
       preview,

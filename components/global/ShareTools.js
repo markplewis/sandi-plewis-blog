@@ -16,8 +16,7 @@ export default function ShareTools({ text, position = "", align = "", color = "p
   const url = `${BASE_URL}${router.asPath}`;
   const positionClass = position === "vertical" ? styles.shareToolsVertical : "";
   const alignmentClass = align === "right" ? styles.shareToolsAlignRight : "";
-  const colorClass =
-    color === "primary" ? styles.shareToolsColorPrimary : styles.shareToolsColorSecondary;
+  const colorClass = color === "primary" ? "" : styles.shareToolsColorSecondary;
 
   // Inspiration: https://www.tunnelbear.com/blog/why-we-created-our-own-social-media-buttons-on-our-website/
   const twitterURL = `https://twitter.com/share?${encodeUrlParams({ url, text })}`;

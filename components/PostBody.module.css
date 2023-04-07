@@ -3,7 +3,7 @@
 .postBody {
   margin: 0 calc(var(--column-margin-right) * -1) 0 calc(var(--column-margin-left) * -1);
   padding: 24px;
-  background-color: #fff;
+  background-color: var(--color-white);
   font-size: var(--font-size-20);
 }
 .postBody > *:first-child,
@@ -27,7 +27,7 @@
 .postBody a:hover,
 .postBody a:focus,
 .postBody a:active {
-  color: var(--base-font-color);
+  color: var(--color-font-base);
 }
 .postBody h2,
 .postBody h3,

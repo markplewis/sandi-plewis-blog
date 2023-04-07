@@ -1,0 +1,35 @@
+.categoryList {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.category {
+  padding: 5px 10px 5px 6px;
+  background-color: var(--color-font-base);
+  color: var(--color-white);
+  border-radius: 0 20px 20px 0;
+  white-space: nowrap;
+  text-decoration: none;
+  text-shadow: none;
+  display: block;
+  transition: transform 0.25s ease-out;
+}
+.categoryThemed {
+  background-color: var(--page-color-primary-text);
+}
+.categoryThemedLight {
+  color: var(--color-black);
+}
+.categoryThemedDark {
+  color: var(--color-white);
+}
+.categoryListCentered {
+  justify-content: center;
+}
+.category:hover,
+.category:focus {
+  transform: scale3d(1.1, 1.1, 1.1);
+}
