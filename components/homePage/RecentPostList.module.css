@@ -1,0 +1,56 @@
+@design-tokens url("../../styles/design-tokens.json") format("style-dictionary3");
+
+.recentPostList {
+  list-style-type: none;
+  margin: 0 0 48px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 64px;
+}
+.recentPostLink {
+  color: var(--color-font-base);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.recentPostLink:hover .recentPostTitle,
+.recentPostLink:focus .recentPostTitle {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+}
+.recentPostImage {
+  width: 100%;
+}
+.recentPostInfo {
+  flex: 1 1;
+  align-self: flex-start;
+}
+.recentPostTitle {
+  margin: 0;
+  font-size: var(--font-size-20);
+}
+.recentPostDate {
+  margin: 8px 0;
+}
+.recentPostDescription {
+  margin: 8px 0 0 0;
+}
+
+@media (min-width: token("breakpoints.w480" to rem)) {
+  .recentPostList {
+    gap: 32px;
+  }
+  .recentPostLink {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: token("breakpoints.w600" to rem)) {
+  .recentPostList {
+    grid-template-columns: repeat(auto-fit, minmax(53ch, 70ch));
+  }
+}
