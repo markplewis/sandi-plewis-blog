@@ -8,7 +8,7 @@ export default function RecentPosts({ posts }) {
     <section className={styles.recentPosts}>
       <h2 className={styles.recentPostsHeading}>Recent posts</h2>
       <RecentPostList posts={posts} />
-      <MoreLink as={"/posts"} href="/posts" text="More posts" align="end" />
+      <MoreLink as="/posts" href="/posts" text="More posts" align="end" />
     </section>
   );
 }

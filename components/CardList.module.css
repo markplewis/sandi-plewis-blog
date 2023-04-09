@@ -5,12 +5,18 @@
   margin: 0 0 48px 0;
   padding: 0;
   display: grid;
+  justify-content: center;
   grid-template-columns: 1fr;
-  gap: 64px;
+  gap: 32px;
 }
 .cardLink {
-  color: var(--color-font-base);
+  height: 100%;
+  padding: 24px;
   text-decoration: none;
+  color: var(--color-font-base);
+  background-color: var(--color-white);
+  border: 4px solid #eee;
+  border-radius: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +29,9 @@
 }
 .cardImage {
   width: 100%;
+}
+.cardImage img {
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
 }
 .cardInfo {
   flex: 1 1;
@@ -40,9 +49,6 @@
 }
 
 @media (min-width: token("breakpoints.w480" to rem)) {
-  .cardList {
-    gap: 32px;
-  }
   .cardLink {
     flex-direction: row;
     align-items: flex-start;
@@ -51,29 +57,6 @@
 
 @media (min-width: token("breakpoints.w600" to rem)) {
   .cardList {
-    grid-template-columns: repeat(auto-fit, minmax(53ch, 70ch));
-  }
-}
-
-/* "Padded" */
-
-.cardListPadded {
-  justify-content: center;
-  gap: 32px;
-}
-.cardListPadded .cardLink {
-  height: 100%;
-  padding: 24px;
-  background-color: var(--color-white);
-  border: 4px solid #eee;
-  border-radius: 10px 0;
-}
-.cardListPadded .cardImage img {
-  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
-}
-
-@media (min-width: token("breakpoints.w600" to rem)) {
-  .cardListPadded {
     grid-template-columns: repeat(auto-fit, minmax(53ch, 67ch));
   }
 }

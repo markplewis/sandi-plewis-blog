@@ -6,7 +6,7 @@ export default function CategoryList({
   categories,
   themed = false,
   centered = false,
-  pageColorData
+  pageColorData = null
 }) {
   if (!categories || !categories.length) {
     return null;

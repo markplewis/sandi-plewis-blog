@@ -1,4 +1,4 @@
-import Link from "next/link";
+import CategoryList from "components/CategoryList";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
@@ -6,16 +6,8 @@ export default function CategoriesPage({ data }) {
   const categories = data;
   return (
     <Layout title="Categories" description="Blog post categories">
-      <PageTitle>Categories</PageTitle>
-      <ul>
-        {categories.map(category => (
-          <li key={`categories-${category?._id}-${category?.slug}`}>
-            <Link as={`/categories/${category?.slug}`} href={`/categories/[slug]`}>
-              <h3>{category?.title}</h3>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <PageTitle>Post categories</PageTitle>
+      <CategoryList categories={categories} themed={false} centered={true} />
     </Layout>
   );
 }

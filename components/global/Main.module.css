@@ -1,4 +1,5 @@
 .main {
+  padding-bottom: 48px;
   padding-left: var(--column-margin-left);
   padding-right: var(--column-margin-right);
   background: linear-gradient(
