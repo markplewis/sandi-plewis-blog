@@ -92,6 +92,7 @@
 /* Info - inside hero area */
 
 .infoAbove {
+  margin-top: 16px;
   color: var(--color-white);
   flex: 1;
 }
