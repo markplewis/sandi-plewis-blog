@@ -11,7 +11,9 @@
 .shareTool {
   width: 44px;
   height: 44px;
-  background-color: var(--page-color-primary);
+  /* TODO: generate a secondary color that has sufficient contrast against the primary
+  color and also when the primary color is applied to text on top of it */
+  background-color: var(--color-white);
   border-radius: 10px 0;
   display: block;
   transition: transform 0.25s ease-out;
@@ -25,8 +27,16 @@
   height: 100%;
   margin: 0;
   padding: 10px;
+  fill: var(--color-black);
+}
+
+.shareToolsColorPrimary .shareTool {
+  background-color: var(--page-color-primary);
+}
+.shareToolsColorPrimary .shareTool svg {
   fill: var(--page-color-primary-text);
 }
+
 .shareToolsColorSecondary .shareTool {
   background-color: var(--page-color-secondary);
 }

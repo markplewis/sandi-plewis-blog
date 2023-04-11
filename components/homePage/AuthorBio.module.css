@@ -22,7 +22,7 @@
   width: 100%;
   margin: 0 auto 44px auto;
   transform: translateX(8px); /* Half of the transform below */
-  background-color: var(--page-color-secondary);
+  background-color: var(--page-color-secondary-orig);
   border-bottom-left-radius: 50px;
 }
 .authorBioImage > img {

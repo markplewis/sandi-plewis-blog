@@ -43,6 +43,22 @@ See: https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe
   --color-dark-gray: rgb(51 51 51);
   --color-dark-gray-diluted: rgb(51 51 51 / 10%);
   --color-font-base: var(--color-dark-gray);
+  /* Primary page colors (transformed) */
+  --page-color-primary: var(--color-dark-gray);
+  --page-color-primary-diluted: var(--color-dark-gray-diluted);
+  --page-color-primary-text: var(--color-white);
+  /* Primary page colors (original) */
+  --page-color-primary-orig: var(--color-dark-gray);
+  --page-color-primary-orig-diluted: var(--color-dark-gray-diluted);
+  --page-color-primary-orig-text: var(--color-white);
+  /* Secondary page colors (transformed) */
+  --page-color-secondary: var(--color-light-gray);
+  --page-color-secondary-diluted: var(--color-light-gray-diluted);
+  --page-color-secondary-text: var(--color-white);
+  /* Secondary page colors (original) */
+  --page-color-secondary-orig: var(--color-light-gray);
+  --page-color-secondary-orig-diluted: var(--color-light-gray-diluted);
+  --page-color-secondary-orig-text: var(--color-white);
 }
 /* It isn't possible to use CSS custom properties in media queries, however, with a little help
 from PostCSS, we can use custom CSS environment variables (see: `styles/css-env-variables.js`) */

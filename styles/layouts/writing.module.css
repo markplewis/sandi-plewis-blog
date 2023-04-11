@@ -13,6 +13,9 @@
   height: 324px;
   margin-top: 36px; /* 48 - 12 */
   left: 0;
+  background-color: var(--page-color-secondary-orig);
+  -webkit-mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
+  mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
 }
 .patternBlock2 {
   content: "";
@@ -23,11 +26,14 @@
   height: 370px;
   top: 48px;
   right: 0;
+  background-color: var(--page-color-secondary-orig);
+  -webkit-mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
+  mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
 }
 
 .coverImageAndInfo {
   margin: 24px 0;
-  padding: 48px;
+  padding: 36px;
   border-radius: 10px 0;
   background-color: var(--page-color-primary);
   grid-column: 2 / 4;
@@ -47,7 +53,6 @@
     margin-top: 48px;
   }
   .coverImageAndInfo {
-    padding-right: 32px; /* -12px to account for image transform */
     justify-content: flex-start;
   }
 }
@@ -61,13 +66,13 @@
 /* Hero area - inner elements */
 
 .coverImage {
-  width: 188px;
-  transform: translate(12px, -12px);
-  background-color: var(--page-color-secondary);
+  width: 220px;
+  transform: translate(8px, -8px);
+  background-color: var(--page-color-secondary-orig);
   flex-shrink: 0;
 }
 .coverImage > img {
-  transform: translate(-24px, 24px);
+  transform: translate(-8px, 8px);
 }
 .title {
   margin-top: 0;
@@ -79,8 +84,8 @@
 
 @media (min-width: token("breakpoints.w768" to rem)) {
   .coverImage {
-    margin-bottom: 24px;
-    transform: translate(12px, 0);
+    margin-bottom: 8px;
+    transform: translate(8px, 0);
   }
 }
 
@@ -88,6 +93,7 @@
 
 .infoAbove {
   color: var(--color-white);
+  flex: 1;
 }
 .infoAbove > div > *:last-child {
   margin: 0;

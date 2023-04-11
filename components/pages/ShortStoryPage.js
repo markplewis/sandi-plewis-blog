@@ -29,10 +29,10 @@ export default function ShortStoryPage({ data }) {
 
   const { styles: pageStyles } = pageColors;
 
-  const pageColorsSecondary = pageColors?.colors?.secondary;
-  const patternBlockFill = pageColorsSecondary
-    ? `rgb(${pageColorsSecondary.r}% ${pageColorsSecondary.g}% ${pageColorsSecondary.b}%)`
-    : "black";
+  // const pageColorsSecondary = pageColors?.colors?.secondary;
+  // const patternBlockFill = pageColorsSecondary
+  //   ? `rgb(${pageColorsSecondary.r}% ${pageColorsSecondary.g}% ${pageColorsSecondary.b}%)`
+  //   : "black";
 
   const { breakpoints } = designTokens;
   const isWide = useMediaQuery(`(min-width: ${breakpoints.w1024.value}rem)`);
@@ -63,7 +63,7 @@ export default function ShortStoryPage({ data }) {
         <div
           className={styles.patternBlock1}
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg' fill='${patternBlockFill}' fill-opacity='0.6' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'%3E%3Cpath d='M4 0h2L0 6V4l4-4zM6 4v2H4l2-2z'/%3E%3C/svg%3E")`
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg' fill='white' fill-opacity='0.3' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'%3E%3Cpath d='M4 0h2L0 6V4l4-4zM6 4v2H4l2-2z'/%3E%3C/svg%3E")`
           }}></div>
 
         <div className={styles.coverImageAndInfo}>
@@ -71,17 +71,17 @@ export default function ShortStoryPage({ data }) {
             className={styles.coverImage}
             image={image}
             title={title}
-            width={376}
-            height={600}
+            width={440}
+            height={702}
           />
           {isMedium && <div className={`${styles.info} ${styles.infoAbove}`}>{overviewItems}</div>}
-          {isWide && <ShareTools text={title} position="vertical" color="secondary" />}
+          {isWide && <ShareTools text={title} position="vertical" color="white" />}
         </div>
 
         <div
           className={styles.patternBlock2}
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='${patternBlockFill}' fill-opacity='0.6' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E")`
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='white' fill-opacity='0.3' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E")`
           }}></div>
       </div>
 

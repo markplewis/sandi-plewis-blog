@@ -174,12 +174,13 @@ const targetFontSizesDefault = [
     // Meta text (Open Sans font)
     weight: 400,
     size: 16 // px
-  },
-  {
-    // Date text (Literata font)
-    weight: 700,
-    size: 28 // px
   }
+  // Only first size/weight is required because second one has lower contrast requirements
+  // {
+  //   // Date text (Literata font)
+  //   weight: 700,
+  //   size: 28 // px
+  // }
 ];
 
 /**
@@ -187,36 +188,30 @@ const targetFontSizesDefault = [
  * requirements. Whichever one of the generated colors required the least amount of transformation
  * will be selected and returned. The secondary color doesn't need to be transformed because text
  * will never be placed over top of it (a manually-enforced design constraint).
- * @param {Object} colors - colorjs.io instances or mock objects with HSL properties
+ * @param {Object} color - colorjs.io instance or mock object with HSL properties
  * @param {Array} targetFontSizes - Target font weights and sizes for APCA
- * @returns {Object} Transformed `primary` color and non-transformed `secondary` color with contrast values
+ * @returns {Object} Transformed color with contrast value
  */
-function adjustColorContrast(colors, targetFontSizes) {
-  // Only transform primary color, since text never appears over top of secondary color
-  const { primary, secondary } = colors;
-  const primary2 = new Color(primary); // Clone colorjs.io instance (important!)
+function adjustColorContrast(color, targetFontSizes) {
+  // Clone colorjs.io instances (important!)
+  const color1 = new Color(color);
+  const color2 = new Color(color);
 
   // White text on dark background
   // (darken the color and assume the foreground text will be white)
-  const whiteOnPrimary = adjustBackgroundColor(white, primary, true, targetFontSizes);
+  const whiteForeground = adjustBackgroundColor(white, color1, true, targetFontSizes);
 
   // Black text on light background
   // (lighten the color and assume the foreground text will be black)
-  const blackOnPrimary = adjustBackgroundColor(black, primary2, false, targetFontSizes);
+  const blackForeground = adjustBackgroundColor(black, color2, false, targetFontSizes);
 
   // Select whichever color required fewer iterations to lighten or darken
   // (i.e. the color that was transformed the least)
-  const bestPrimaryColor = findBestAdjustedColor(blackOnPrimary, whiteOnPrimary);
+  const bestColor = findBestAdjustedColor(blackForeground, whiteForeground);
 
   return {
-    primary: {
-      color: bestPrimaryColor.bgColor,
-      contrast: bestPrimaryColor.contrast
-    },
-    secondary: {
-      color: secondary,
-      contrast: getHighestContrast(secondary)
-    }
+    color: bestColor.bgColor,
+    contrast: bestColor.contrast
   };
 }
 
@@ -233,48 +228,56 @@ export function getPageColors(data, targetFontSizes = targetFontSizesDefault) {
   if (!pageColors || !pageColors?.primary || !pageColors?.secondary) {
     return "";
   }
-  // Initial colors
-  const pageColorsInitial = {
-    // Convert into colorjs.io instances
-    primary: new Color(
-      `rgb(${pageColors.primary.r}% ${pageColors.primary.g}% ${pageColors.primary.b}%)`
-    ),
-    secondary: new Color(
-      `rgb(${pageColors.secondary.r}% ${pageColors.secondary.g}% ${pageColors.secondary.b}%)`
-    )
-  };
-  // Short variable names for ease of use, below
-  const pI = pageColorsInitial.primary.srgb;
-  const sI = pageColorsInitial.secondary.srgb;
-  const pIContrast = getHighestContrast(pageColorsInitial.primary);
-  const sIContrast = getHighestContrast(pageColorsInitial.secondary);
+  // Original colors
+  const primaryOriginal = new Color(
+    `rgb(${pageColors.primary.r}% ${pageColors.primary.g}% ${pageColors.primary.b}%)`
+  );
+  const secondaryOriginal = new Color(
+    `rgb(${pageColors.secondary.r}% ${pageColors.secondary.g}% ${pageColors.secondary.b}%)`
+  );
+
+  // Clone the colorjs.io instances (important!)
+  const primaryCloned = new Color(primaryOriginal);
+  const secondarCloned = new Color(secondaryOriginal);
 
   // Adjusted colors
-  const pageColorsInitialCloned = {
-    // Clone the colorjs.io instances (important!)
-    primary: new Color(pageColorsInitial.primary),
-    secondary: new Color(pageColorsInitial.secondary)
-  };
-  const { primary, secondary } = adjustColorContrast(pageColorsInitialCloned, targetFontSizes);
+  const primaryAdjusted = adjustColorContrast(primaryCloned, targetFontSizes);
+  const secondaryAdjusted = adjustColorContrast(secondarCloned, targetFontSizes);
 
   const pageColorsAdjusted = {
     primary: {
       // Convert colorjs.io RGB values into percentages
-      r: primary.color.srgb.r * 100,
-      g: primary.color.srgb.g * 100,
-      b: primary.color.srgb.b * 100,
-      contrast: primary.contrast
+      r: primaryAdjusted.color.srgb.r * 100,
+      g: primaryAdjusted.color.srgb.g * 100,
+      b: primaryAdjusted.color.srgb.b * 100,
+      contrast: primaryAdjusted.contrast
+    },
+    primaryOriginal: {
+      r: primaryOriginal.srgb.r * 100,
+      g: primaryOriginal.srgb.g * 100,
+      b: primaryOriginal.srgb.b * 100,
+      contrast: getHighestContrast(primaryOriginal)
     },
     secondary: {
-      r: secondary.color.srgb.r * 100,
-      g: secondary.color.srgb.g * 100,
-      b: secondary.color.srgb.b * 100,
-      contrast: secondary.contrast
+      r: secondaryAdjusted.color.srgb.r * 100,
+      g: secondaryAdjusted.color.srgb.g * 100,
+      b: secondaryAdjusted.color.srgb.b * 100,
+      contrast: secondaryAdjusted.contrast
+    },
+    secondaryOriginal: {
+      r: secondaryOriginal.srgb.r * 100,
+      g: secondaryOriginal.srgb.g * 100,
+      b: secondaryOriginal.srgb.b * 100,
+      contrast: getHighestContrast(secondaryOriginal)
     }
   };
+
   // Short variable names for ease of use, below
   const p = pageColorsAdjusted.primary;
   const s = pageColorsAdjusted.secondary;
+
+  const pO = pageColorsAdjusted.primaryOriginal;
+  const sO = pageColorsAdjusted.secondaryOriginal;
 
   return {
     colors: pageColorsAdjusted,
@@ -285,15 +288,17 @@ export function getPageColors(data, targetFontSizes = targetFontSizesDefault) {
         --page-color-primary-diluted: rgb(${p.r}% ${p.g}% ${p.b}% / 10%);
         --page-color-primary-text: ${p.contrast < 0 ? whiteRGB : blackRGB};
         /* Primary original */
-        --page-color-primary-orig: rgb(${pI.r * 100}% ${pI.g * 100}% ${pI.b * 100}%);
-        --page-color-primary-orig-text: ${pIContrast < 0 ? whiteRGB : blackRGB};
+        --page-color-primary-orig: rgb(${pO.r}% ${pO.g}% ${pO.b}%);
+        --page-color-primary-orig-diluted: rgb(${pO.r}% ${pO.g}% ${pO.b}%) / 10%);
+        --page-color-primary-orig-text: ${pO.contrast < 0 ? whiteRGB : blackRGB};
         /* Secondary */
         --page-color-secondary: rgb(${s.r}% ${s.g}% ${s.b}%);
         --page-color-secondary-diluted: rgb(${s.r}% ${s.g}% ${s.b}% / 10%);
         --page-color-secondary-text: ${s.contrast < 0 ? whiteRGB : blackRGB};
         /* Secondary original */
-        --page-color-secondary-orig: rgb(${sI.r * 100}% ${sI.g * 100}% ${sI.b * 100}%);
-        --page-color-secondary-orig-text: ${sIContrast < 0 ? whiteRGB : blackRGB};
+        --page-color-secondary-orig: rgb(${sO.r}% ${sO.g}% ${sO.b}%);
+        --page-color-secondary-orig-diluted: rgb(${sO.r}% ${sO.g}% ${sO.b}% / 10%);
+        --page-color-secondary-orig-text: ${sO.contrast < 0 ? whiteRGB : blackRGB};
       }
     `
   };

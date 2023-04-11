@@ -13,7 +13,7 @@
   width: 35px;
   height: 35px;
   font-size: 100px;
-  color: var(--page-color-secondary);
+  color: var(--page-color-secondary-orig);
   display: block;
   position: absolute;
 }

@@ -49,8 +49,13 @@ export default function FeaturedNovel({ novel }) {
           as={`/novels/${novel?.slug}`}
           href="/novels/[slug]"
           text="More information"
-          fgColor="--page-color-secondary-text"
-          bgColor="--page-color-secondary"
+          // TODO: generate a secondary color that has sufficient contrast against the primary
+          // color and also when the primary color is applied to text on top of it
+          // fgColor="--color-black"
+          // bgColor="--color-white"
+          fgColor="--page-color-primary-text"
+          bgColor="--page-color-primary"
+          border={true}
           align="end"
         />
       </div>
