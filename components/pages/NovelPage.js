@@ -112,8 +112,14 @@ export default function NovelPage({ data }) {
       </div>
 
       <div className={styles.bodyArea}>
-        {!isMedium && <div className={`${styles.info} ${styles.infoBelow}`}>{overviewItems}</div>}
-
+        {!isMedium && (
+          <div className={`${styles.info} ${styles.infoBelow}`}>
+            {overviewItems}
+            <div className={styles.shareToolsBelow}>
+              <ShareTools text={title} align="right" color="primary" shadow={true} />
+            </div>
+          </div>
+        )}
         {body ? (
           <PostBody content={body}>
             <ColorSwatches />
