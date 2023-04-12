@@ -71,11 +71,35 @@ export default function ShortStoryPage({ data }) {
             className={styles.coverImage}
             image={image}
             title={title}
-            width={440}
-            height={702}
+            width={600}
+            height={957}
           />
-          {isMedium && <div className={`${styles.info} ${styles.infoAbove}`}>{overviewItems}</div>}
-          {isWide && <ShareTools text={title} position="vertical" color="white" />}
+          {isMedium && (
+            <div className={`${styles.info} ${styles.infoAbove}`}>
+              {overviewItems}
+              {!isWide && (
+                <div className={styles.shareToolsHorizontal}>
+                  <ShareTools
+                    text={title}
+                    position="horizontal"
+                    color="primary"
+                    align="right"
+                    border={true}
+                    shadow={true}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+          {isWide && (
+            <ShareTools
+              text={title}
+              position="vertical"
+              color="primary"
+              border={true}
+              shadow={true}
+            />
+          )}
         </div>
 
         <div
@@ -86,11 +110,6 @@ export default function ShortStoryPage({ data }) {
       </div>
 
       <div className={styles.bodyArea}>
-        {!isWide && (
-          <div className={styles.shareToolsBelow}>
-            <ShareTools text={title} align="right" color="secondary" />
-          </div>
-        )}
         {!isMedium && <div className={`${styles.info} ${styles.infoBelow}`}>{overviewItems}</div>}
 
         {body ? (

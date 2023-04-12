@@ -1,8 +1,8 @@
 @design-tokens url("../design-tokens.json") format("style-dictionary3");
 
 .heroArea {
-  max-width: 1028px;
-  margin: 72px auto 0 auto;
+  max-width: 1040px;
+  margin: 96px auto;
 }
 .patternBlock1 {
   content: "";
@@ -10,12 +10,27 @@
   position: absolute;
   z-index: -1;
   width: 50%;
-  height: 324px;
-  margin-top: 36px; /* 48 - 12 */
+  height: 320px;
+  margin-top: 32px;
   left: 0;
   background-color: var(--page-color-secondary-orig);
   -webkit-mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
   mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
+}
+.coverImageAndInfo {
+  margin: 64px 0;
+  border-radius: 10px 0;
+  background-color: var(--page-color-primary);
+  grid-column: 2 / 4;
+  grid-row: 1 / 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  box-shadow: 2px 2px 5px 2px rgb(0% 0% 0% / 10%);
+}
+.coverImageAndInfo :focus,
+.coverImageAndInfo :hover:focus {
+  outline-color: var(--color-white);
 }
 .patternBlock2 {
   content: "";
@@ -24,87 +39,75 @@
   z-index: -1;
   width: 35%;
   height: 370px;
-  top: 48px;
+  top: 72px;
   right: 0;
   background-color: var(--page-color-secondary-orig);
   -webkit-mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
   mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
 }
 
-.coverImageAndInfo {
-  margin: 24px 0;
-  padding: 36px;
-  border-radius: 10px 0;
-  background-color: var(--page-color-primary);
-  grid-column: 2 / 4;
-  grid-row: 1 / 2;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 48px;
-}
-.coverImageAndInfo :focus,
-.coverImageAndInfo :hover:focus {
-  outline-color: var(--color-white);
-}
-
 @media (min-width: token("breakpoints.w768" to rem)) {
-  .patternBlock1 {
-    margin-top: 48px;
+  .heroArea {
+    margin: 64px auto;
   }
   .coverImageAndInfo {
     justify-content: flex-start;
+    margin: 32px 0 32px 32px;
+    padding: 32px;
   }
-}
-
-@media (min-width: token("breakpoints.w1024" to rem)) {
-  .coverImageAndInfo {
-    margin-bottom: 48px;
+  .patternBlock2 {
+    top: 40px;
   }
 }
 
 /* Hero area - inner elements */
 
 .coverImage {
-  width: 220px;
-  transform: translate(8px, -8px);
-  background-color: var(--page-color-secondary-orig);
+  width: 300px;
   flex-shrink: 0;
 }
 .coverImage > img {
-  transform: translate(-8px, 8px);
-}
-.title {
-  margin-top: 0;
+  margin: -64px 0;
+  box-shadow: 2px 2px 5px 2px rgb(0% 0% 0% / 10%);
 }
 .info ul,
 .info ol {
   line-height: 1.8;
 }
-
+.title {
+  margin-top: 0;
+}
+.shareToolsHorizontal {
+  margin-top: 32px;
+}
 @media (min-width: token("breakpoints.w768" to rem)) {
-  .coverImage {
-    margin-bottom: 8px;
-    transform: translate(8px, 0);
+  .coverImage > img {
+    margin: -64px;
   }
 }
 
 /* Info - inside hero area */
 
 .infoAbove {
-  margin-top: 16px;
+  margin: 0 0 0 -24px;
   color: var(--color-white);
   flex: 1;
 }
-.infoAbove > div > *:last-child {
+/* TODO: what was this for? */
+/* .infoAbove > div > *:last-child {
   margin: 0;
-}
+} */
 .infoAbove a,
 .infoAbove a:visited,
 .infoAbove a:hover,
 .infoAbove a:focus,
 .infoAbove a:active {
   color: var(--color-white);
+}
+@media (min-width: token("breakpoints.w1024" to rem)) {
+  .infoAbove {
+    margin-right: 48px;
+  }
 }
 
 /* Info - below hero area */
@@ -125,9 +128,6 @@
 
 /* Body area */
 
-.shareToolsBelow {
-  margin-bottom: 24px;
-}
 .reviewsHeading,
 .reviews {
   margin: 48px 0;

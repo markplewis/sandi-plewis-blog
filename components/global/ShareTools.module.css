@@ -43,3 +43,13 @@
 .shareToolsColorSecondary .shareTool svg {
   fill: var(--page-color-secondary-text);
 }
+
+.shareToolsWithShadow .shareTool {
+  box-shadow: 2px 2px 5px 2px rgb(0% 0% 0% / 10%);
+}
+
+.shareToolsWithBorder .shareTool {
+  width: 48px;
+  height: 48px;
+  border: 2px solid rgb(100% 100% 100% / 40%);
+}
