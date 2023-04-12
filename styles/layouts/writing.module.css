@@ -80,29 +80,44 @@
 .shareToolsHorizontal {
   margin-top: 32px;
 }
+.shareToolsVertical {
+  display: none;
+}
 @media (min-width: token("breakpoints.w768" to rem)) {
   .coverImage > img {
     margin: -64px;
+  }
+}
+@media (min-width: token("breakpoints.w1024" to rem)) {
+  .shareToolsHorizontal {
+    display: none;
+  }
+  .shareToolsVertical {
+    display: block;
   }
 }
 
 /* Info - inside hero area */
 
 .infoAbove {
-  margin: 0 0 0 -24px;
-  color: var(--color-white);
-  flex: 1;
+  display: none;
 }
-/* TODO: what was this for? */
-/* .infoAbove > div > *:last-child {
-  margin: 0;
-} */
-.infoAbove a,
-.infoAbove a:visited,
-.infoAbove a:hover,
-.infoAbove a:focus,
-.infoAbove a:active {
-  color: var(--color-white);
+@media (min-width: token("breakpoints.w768" to rem)) {
+  .infoAbove {
+    margin: 0 0 0 -24px;
+    color: var(--color-white);
+    flex: 1;
+    display: block;
+  }
+  .infoAbove a,
+  .infoAbove a:visited,
+  .infoAbove a:hover,
+  .infoAbove a:focus,
+  .infoAbove a:active {
+    color: var(--color-white);
+  }
+  /* TODO: what was this for? */
+  /* .infoAbove > div > *:last-child { margin: 0; } */
 }
 @media (min-width: token("breakpoints.w1024" to rem)) {
   .infoAbove {
@@ -124,6 +139,14 @@
 .infoBelow a:focus,
 .infoBelow a:active {
   color: var(--color-font-base);
+}
+.shareToolsBelow {
+  margin-top: 24px;
+}
+@media (min-width: token("breakpoints.w768" to rem)) {
+  .infoBelow {
+    display: none;
+  }
 }
 
 /* Body area */

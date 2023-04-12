@@ -6,8 +6,6 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
 import { PortableText } from "lib/sanity";
-import designTokens from "styles/design-tokens";
-import useMediaQuery from "utils/useMediaQuery";
 
 import styles from "styles/layouts/writing.module.css";
 
@@ -28,15 +26,6 @@ export default function ShortStoryPage({ data }) {
   } = data;
 
   const { styles: pageStyles } = pageColors;
-
-  // const pageColorsSecondary = pageColors?.colors?.secondary;
-  // const patternBlockFill = pageColorsSecondary
-  //   ? `rgb(${pageColorsSecondary.r}% ${pageColorsSecondary.g}% ${pageColorsSecondary.b}%)`
-  //   : "black";
-
-  const { breakpoints } = designTokens;
-  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1024.value}rem)`);
-  const isMedium = useMediaQuery(`(min-width: ${breakpoints.w768.value}rem)`);
 
   const overviewText = overview ? (
     <PortableText value={overview} components={portableTextComponents} />
@@ -74,24 +63,22 @@ export default function ShortStoryPage({ data }) {
             width={600}
             height={957}
           />
-          {isMedium && (
-            <div className={`${styles.info} ${styles.infoAbove}`}>
-              {overviewItems}
-              {!isWide && (
-                <div className={styles.shareToolsHorizontal}>
-                  <ShareTools
-                    text={title}
-                    position="horizontal"
-                    color="primary"
-                    align="right"
-                    border={true}
-                    shadow={true}
-                  />
-                </div>
-              )}
+
+          <div className={`${styles.info} ${styles.infoAbove}`}>
+            {overviewItems}
+            <div className={styles.shareToolsHorizontal}>
+              <ShareTools
+                text={title}
+                position="horizontal"
+                color="primary"
+                align="right"
+                border={true}
+                shadow={true}
+              />
             </div>
-          )}
-          {isWide && (
+          </div>
+
+          <div className={styles.shareToolsVertical}>
             <ShareTools
               text={title}
               position="vertical"
@@ -99,7 +86,7 @@ export default function ShortStoryPage({ data }) {
               border={true}
               shadow={true}
             />
-          )}
+          </div>
         </div>
 
         <div
@@ -110,14 +97,13 @@ export default function ShortStoryPage({ data }) {
       </div>
 
       <div className={styles.bodyArea}>
-        {!isMedium && (
-          <div className={`${styles.info} ${styles.infoBelow}`}>
-            {overviewItems}
-            <div className={styles.shareToolsBelow}>
-              <ShareTools text={title} align="right" color="primary" shadow={true} />
-            </div>
+        <div className={`${styles.info} ${styles.infoBelow}`}>
+          {overviewItems}
+          <div className={styles.shareToolsBelow}>
+            <ShareTools text={title} align="right" color="primary" shadow={true} />
           </div>
-        )}
+        </div>
+
         {body ? (
           <PostBody content={body}>
             <ColorSwatches />
