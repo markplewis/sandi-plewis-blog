@@ -1,7 +1,8 @@
 @design-tokens url("../../styles/design-tokens.json") format("style-dictionary3");
 
 .formContainer {
-  padding: 44px 0;
+  margin: 0 calc(var(--column-margin-right) * -1) 0 calc(var(--column-margin-left) * -1);
+  padding: 44px var(--column-margin-right) 44px var(--column-margin-left);
   background-color: var(--color-white);
 }
 @media (min-width: token("breakpoints.w600" to rem)) {
@@ -9,7 +10,7 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 44px;
-    border: 4px solid #eee;
+    box-shadow: var(--box-shadow);
     border-radius: 10px 0;
   }
 }

@@ -68,7 +68,7 @@
 }
 .coverImage > img {
   margin: -64px 0;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--box-shadow-strong);
 }
 .info ul,
 .info ol {

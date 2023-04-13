@@ -17,6 +17,7 @@
     max-width: 980px;
     margin: 0 auto;
     padding: 48px;
+    box-shadow: var(--box-shadow);
   }
   .postBody > div > figure:first-child + *:nth-child(2) {
     margin-top: 0;

@@ -30,7 +30,7 @@
 .featuredNovelImage {
   width: 280px;
   margin: -48px -48px 0 -48px;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--box-shadow-strong);
 }
 .featuredNovelInfo {
   flex: 1 1;

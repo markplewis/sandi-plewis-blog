@@ -13,6 +13,7 @@ See: https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe
 */
 :root {
   --box-shadow: 2px 2px 5px 2px rgb(0% 0% 0% / 10%);
+  --box-shadow-strong: 0px 0px 8px 4px rgb(0% 0% 0% / 10%);
   --focus-outline-color: steelblue;
   --column-margin: 16px;
   /* Minimum width is `env(safe-area-inset-left)` but can be up to `var(--column-margin)` */
