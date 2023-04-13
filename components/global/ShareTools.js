@@ -16,8 +16,7 @@ export default function ShareTools({
   position = "",
   align = "",
   color = "primary",
-  border = false,
-  shadow = false
+  border = false
 }) {
   const router = useRouter();
   const url = `${BASE_URL}${router.asPath}`;
@@ -32,7 +31,6 @@ export default function ShareTools({
   }
 
   const borderClass = border ? styles.shareToolsWithBorder : null;
-  const shadowClass = shadow ? styles.shareToolsWithShadow : null;
 
   // Inspiration: https://www.tunnelbear.com/blog/why-we-created-our-own-social-media-buttons-on-our-website/
   const twitterURL = `https://twitter.com/share?${encodeUrlParams({ url, text })}`;
@@ -41,7 +39,7 @@ export default function ShareTools({
 
   return (
     <div
-      className={`${styles.shareTools} ${positionClass} ${alignmentClass} ${colorClass} ${borderClass} ${shadowClass}`}>
+      className={`${styles.shareTools} ${positionClass} ${alignmentClass} ${colorClass} ${borderClass}`}>
       <Link
         className={styles.shareTool}
         href={twitterURL}

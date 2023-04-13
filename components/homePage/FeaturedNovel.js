@@ -9,6 +9,9 @@ import { imageBlurDataURL } from "utils/images";
 
 import styles from "components/homePage/FeaturedNovel.module.css";
 
+const imageWidth = 280;
+const imageHeight = 433;
+
 const portableTextComponents = {
   marks: {
     internalLink: ({ children, value }) => <InternalLink value={value}>{children}</InternalLink>
@@ -21,14 +24,17 @@ export default function FeaturedNovel({ novel }) {
     <div className={styles.featuredNovel}>
       {novel?.image ? (
         // Temporary inline style until layout and/or container queries are ready
-        <div className={styles.featuredNovelImage} style={{ maxWidth: "188px" }}>
+        <div className={styles.featuredNovelImage} style={{ maxWidth: `${imageWidth}px` }}>
           <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
             {/* See: https://nextjs.org/docs/advanced-features/codemods#before-responsive */}
             <Image
-              src={urlFor(novel?.image).width(376).height(581).url()}
-              width={188}
-              height={290}
-              sizes={`(max-width: ${breakpoints.w800.value}rem) 100vw, 188px`}
+              src={urlFor(novel?.image)
+                .width(imageWidth * 2)
+                .height(imageHeight * 2)
+                .url()}
+              width={imageWidth}
+              height={imageHeight}
+              sizes={`(max-width: ${breakpoints.w800.value}rem) 100vw, ${imageWidth}px`}
               alt={novel?.image?.alt || novel?.title}
               placeholder="blur"
               blurDataURL={novel?.image?.lqip || imageBlurDataURL}

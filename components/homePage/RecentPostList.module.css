@@ -23,6 +23,7 @@
 }
 .recentPostImage {
   width: 100%;
+  box-shadow: var(--box-shadow);
 }
 .recentPostInfo {
   flex: 1 1;

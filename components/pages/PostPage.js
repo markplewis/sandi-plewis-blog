@@ -64,7 +64,10 @@ export default function PostPage({ data }) {
           <div className={styles.image}>
             {image ? (
               <Image
-                src={urlFor(image).width(imageSize.width).height(imageSize.height).url()}
+                src={urlFor(image)
+                  .width(imageSize.width * 2)
+                  .height(imageSize.height * 2)
+                  .url()}
                 width={imageSize.width}
                 height={imageSize.height}
                 sizes={`(max-width: ${breakpoints.w800.value}rem) 100vw, 800px`}

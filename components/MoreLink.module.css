@@ -13,6 +13,7 @@
 .moreLink {
   padding: 8px 12px;
   text-decoration: none;
+  box-shadow: var(--box-shadow);
   display: inline-flex;
   gap: 12px;
 }

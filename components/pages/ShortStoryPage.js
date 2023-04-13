@@ -73,19 +73,12 @@ export default function ShortStoryPage({ data }) {
                 color="primary"
                 align="right"
                 border={true}
-                shadow={true}
               />
             </div>
           </div>
 
           <div className={styles.shareToolsVertical}>
-            <ShareTools
-              text={title}
-              position="vertical"
-              color="primary"
-              border={true}
-              shadow={true}
-            />
+            <ShareTools text={title} position="vertical" color="primary" border={true} />
           </div>
         </div>
 
@@ -100,7 +93,7 @@ export default function ShortStoryPage({ data }) {
         <div className={`${styles.info} ${styles.infoBelow}`}>
           {overviewItems}
           <div className={styles.shareToolsBelow}>
-            <ShareTools text={title} align="right" color="primary" shadow={true} />
+            <ShareTools text={title} align="right" color="primary" />
           </div>
         </div>
 

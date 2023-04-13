@@ -4,24 +4,13 @@ import AuthorBio from "components/homePage/AuthorBio";
 import FeaturedNovel from "components/homePage/FeaturedNovel";
 import FeaturedReviews from "components/homePage/FeaturedReviews";
 import RecentPosts from "components/homePage/RecentPosts";
-import designTokens from "styles/design-tokens";
-import useMediaQuery from "utils/useMediaQuery";
 
 import styles from "styles/layouts/home.module.css";
 
 export default function HomePage({ data }) {
-  const { breakpoints } = designTokens;
   const { novelAndHomePage, reviews = [], posts = [], author, pageColors = {} } = data;
   const { novel, description } = novelAndHomePage;
   const { styles: pageStyles } = pageColors;
-
-  // const pageColorsSecondary = pageColors?.colors?.secondaryOriginal;
-  // const patternBlockFill = pageColorsSecondary
-  //   ? `rgb(${pageColorsSecondary.r}% ${pageColorsSecondary.g}% ${pageColorsSecondary.b}%)`
-  //   : "black";
-
-  // TODO: refactor this to use CSS `display: none` instead of conditionally rendering
-  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1280.value}rem)`);
 
   return (
     <Layout
@@ -37,11 +26,10 @@ export default function HomePage({ data }) {
       ) : null}
 
       <div className={styles.page}>
-        {isWide ? null : (
-          <div className={styles.shareToolsAbove}>
-            <ShareTools text="Sandi Plewis, Author/Editor" align="right" />
-          </div>
-        )}
+        {/* Until 1400 */}
+        <div className={styles.shareToolsHorizontal}>
+          <ShareTools text="Sandi Plewis, Author/Editor" align="right" />
+        </div>
 
         <div
           className={styles.patternBlock}
@@ -52,7 +40,10 @@ export default function HomePage({ data }) {
         <section className={styles.row1}>
           {novel ? <FeaturedNovel novel={novel} /> : null}
           {reviews.length ? <FeaturedReviews reviews={reviews} /> : null}
-          {isWide ? <ShareTools text="Sandi Plewis, Author/Editor" position="vertical" /> : null}
+          {/* From 1400 */}
+          <div className={styles.shareToolsVertical}>
+            <ShareTools text="Sandi Plewis, Author/Editor" position="vertical" />
+          </div>
         </section>
 
         <div className={styles.row2}>

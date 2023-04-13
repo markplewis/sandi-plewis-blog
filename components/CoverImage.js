@@ -20,7 +20,10 @@ export default function CoverImage({
   // Can't produce <picture> elements (no art direction)
   const img = image ? (
     <Image
-      src={urlFor(image).width(width).height(height).url()}
+      src={urlFor(image)
+        .width(width * 2)
+        .height(height * 2)
+        .url()}
       width={width}
       height={height}
       sizes="(max-width: 800px) 100vw, 800px"

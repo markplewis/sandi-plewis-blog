@@ -14,6 +14,7 @@
   /* TODO: generate a secondary color that has sufficient contrast against the primary
   color and also when the primary color is applied to text on top of it */
   background-color: var(--color-white);
+  box-shadow: var(--box-shadow);
   border-radius: 10px 0;
   display: block;
   transition: transform 0.25s ease-out;
@@ -42,10 +43,6 @@
 }
 .shareToolsColorSecondary .shareTool svg {
   fill: var(--page-color-secondary-text);
-}
-
-.shareToolsWithShadow .shareTool {
-  box-shadow: 2px 2px 5px 2px rgb(0% 0% 0% / 10%);
 }
 
 .shareToolsWithBorder .shareTool {

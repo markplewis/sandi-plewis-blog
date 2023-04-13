@@ -7,18 +7,11 @@
 
 @media (min-width: token("breakpoints.w1150" to rem)) {
   .featuredReviews {
-    margin-top: 22px;
+    margin-top: 24px;
     margin-left: 0;
     margin-right: 0;
-    /* padding: 22px 0 22px 22px; */
-    padding: 22px 0;
+    padding: 24px 0;
     display: flex;
     align-items: center;
   }
 }
-
-/* @media (min-width: token("breakpoints.w1280" to rem)) {
-  .featuredReviews {
-    padding-left: 44px;
-  }
-} */
