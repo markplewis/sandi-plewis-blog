@@ -26,7 +26,7 @@ export default function HomePage({ data }) {
       ) : null}
 
       <div className={styles.page}>
-        {/* Until 1400 */}
+        {/* From 600 until 1400 */}
         <div className={styles.shareToolsHorizontal}>
           <ShareTools text="Sandi Plewis, Author/Editor" align="right" />
         </div>
@@ -38,8 +38,18 @@ export default function HomePage({ data }) {
           }}></div>
 
         <section className={styles.row1}>
-          {novel ? <FeaturedNovel novel={novel} /> : null}
+          {novel ? (
+            <div>
+              <FeaturedNovel novel={novel} />
+              {/* Until 600 */}
+              <div className={styles.shareToolsFeaturedNovel}>
+                <ShareTools text="Sandi Plewis, Author/Editor" align="center" />
+              </div>
+            </div>
+          ) : null}
+
           {reviews.length ? <FeaturedReviews reviews={reviews} /> : null}
+
           {/* From 1400 */}
           <div className={styles.shareToolsVertical}>
             <ShareTools text="Sandi Plewis, Author/Editor" position="vertical" />

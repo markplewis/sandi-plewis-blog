@@ -21,7 +21,13 @@ export default function ShareTools({
   const router = useRouter();
   const url = `${BASE_URL}${router.asPath}`;
   const positionClass = position === "vertical" ? styles.shareToolsVertical : "";
-  const alignmentClass = align === "right" ? styles.shareToolsAlignRight : "";
+
+  let alignmentClass = styles.shareToolsAlignLeft;
+  if (align === "right") {
+    alignmentClass = styles.shareToolsAlignRight;
+  } else if (align === "center") {
+    alignmentClass = styles.shareToolsAlignCenter;
+  }
 
   let colorClass = "";
   if (color === "primary") {

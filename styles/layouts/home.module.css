@@ -12,14 +12,14 @@
   align-items: start;
 }
 .row1 {
-  margin-top: 24px;
+  margin-top: 48px;
   margin-bottom: 72px;
 }
 .patternBlock {
-  width: 300px;
+  width: 60%;
   height: 300px;
   position: absolute;
-  top: 116px; /* 44px share tool height + 72px */
+  top: -24px;
   z-index: -1;
   left: calc(var(--column-margin-left) * -1);
   background-color: var(--page-color-secondary-orig);
@@ -29,13 +29,26 @@
 .shareToolsVertical {
   display: none;
 }
+.shareToolsHorizontal {
+  display: none;
+}
+.shareToolsFeaturedNovel {
+  margin-top: 24px;
+}
 
 @media (min-width: token("breakpoints.w600" to rem)) {
   .row1 {
     margin-top: 0;
   }
   .patternBlock {
-    top: 68px; /* 44px share tool height + 24px */
+    width: 300px;
+    top: 20px; /* 44px share tool height - 24px */
+  }
+  .shareToolsHorizontal {
+    display: block;
+  }
+  .shareToolsFeaturedNovel {
+    display: none;
   }
 }
 
@@ -58,13 +71,13 @@
 
 @media (min-width: token("breakpoints.w1400" to rem)) {
   .page {
-    margin-top: 48px;
+    margin-top: 64px;
   }
   .row1 {
     grid-template-columns: 1.8fr 1fr 44px;
   }
   .patternBlock {
-    top: 24px;
+    top: -24px;
   }
   .shareToolsHorizontal {
     display: none;

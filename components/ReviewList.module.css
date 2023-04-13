@@ -1,3 +1,5 @@
+@design-tokens url("../styles/design-tokens.json") format("style-dictionary3");
+
 .reviewList {
   list-style-type: none;
   margin: 0;
@@ -9,6 +11,7 @@
 
 .reviewTitleWrapper {
   display: flex;
+  justify-content: center;
   gap: 12px;
 }
 .reviewTitleWrapper::before,
@@ -36,6 +39,9 @@
 .reviewCaption {
   margin-bottom: 0;
 }
+.reviewFigure {
+  text-align: center;
+}
 .reviewFigure,
 .reviewQuote {
   margin: 0;
@@ -46,4 +52,13 @@
 .reviewQuote > p,
 .reviewCaption {
   padding: 0 44px; /* 32 + 12 */
+}
+
+@media (min-width: token("breakpoints.w600" to rem)) {
+  .reviewFigure {
+    text-align: left;
+  }
+  .reviewTitleWrapper {
+    justify-content: flex-start;
+  }
 }

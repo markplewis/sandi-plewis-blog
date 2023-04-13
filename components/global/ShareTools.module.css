@@ -2,8 +2,14 @@
   display: flex;
   gap: 22px;
 }
+.shareToolsAlignLeft {
+  justify-content: flex-start;
+}
 .shareToolsAlignRight {
   justify-content: flex-end;
+}
+.shareToolsAlignCenter {
+  justify-content: center;
 }
 .shareToolsVertical {
   flex-direction: column;
