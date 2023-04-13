@@ -8,8 +8,10 @@ export default function ReviewList({ reviews, as = "h2" }) {
         <li className={styles.reviewItem} key={review?._id}>
           <figure className={styles.reviewFigure}>
             <blockquote className={styles.reviewQuote}>
-              {/* @ts-ignore */}
-              <HeadingTagName className={styles.reviewTitle}>{review?.title}</HeadingTagName>
+              <div className={styles.reviewTitleWrapper}>
+                {/* @ts-ignore */}
+                <HeadingTagName className={styles.reviewTitle}>{review?.title}</HeadingTagName>
+              </div>
               <p>{review?.review}</p>
             </blockquote>
             <figcaption className={styles.reviewCaption}>— {review?.author}</figcaption>

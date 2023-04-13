@@ -41,8 +41,8 @@
 
 @media (min-width: token("breakpoints.w1150" to rem)) {
   .row1 {
-    grid-template-columns: 1.75fr 1fr;
-    column-gap: 24px;
+    grid-template-columns: 1.8fr 1fr;
+    column-gap: 32px;
   }
   .row2 {
     grid-template-columns: 0.9fr 1fr;
@@ -51,12 +51,8 @@
 }
 
 @media (min-width: token("breakpoints.w1280" to rem)) {
-  .row1 {
-    column-gap: 48px;
-  }
   .row2 {
     grid-template-columns: 1fr 1.15fr;
-    column-gap: 48px;
   }
 }
 
@@ -65,7 +61,7 @@
     margin-top: 48px;
   }
   .row1 {
-    grid-template-columns: 1.75fr 1fr 44px;
+    grid-template-columns: 1.8fr 1fr 44px;
   }
   .patternBlock {
     top: 24px;
