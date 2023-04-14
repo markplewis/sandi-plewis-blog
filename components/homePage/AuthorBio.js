@@ -1,10 +1,7 @@
-import Image from "next/image";
-import { PortableText, urlFor } from "lib/sanity";
+import { PortableText } from "lib/sanity";
+import AuthorImage from "components/AuthorImage";
 import MoreLink from "components/MoreLink";
 import InternalLink from "components/portableText/InternalLink";
-import designTokens from "styles/design-tokens";
-import { imageBlurDataURL } from "utils/images";
-import useMediaQuery from "utils/useMediaQuery";
 
 import styles from "components/homePage/AuthorBio.module.css";
 
@@ -15,31 +12,29 @@ const portableTextComponents = {
 };
 
 export default function AuthorBio({ author }) {
-  const { breakpoints } = designTokens;
-  const smallAuthorImage = useMediaQuery(
-    `(min-width: ${breakpoints.w1150.value}rem) and (max-width: ${
-      breakpoints.w1280.value - 0.1
-    }rem)`
-  );
-  const authorImageSize = smallAuthorImage ? 140 : 175;
+  const authorImageUrl = author?.image;
+  const authorImageAlt = author?.image?.alt || author?.name;
+  const authorImageBlur = author?.image?.lqip;
 
   return (
     <section className={styles.authorBio}>
-      {author?.image ? (
-        <div className={styles.authorBioImage} style={{ maxWidth: `${authorImageSize}px` }}>
-          <Image
-            src={urlFor(author?.image)
-              .width(authorImageSize * 2)
-              .height(authorImageSize * 2)
-              .url()}
-            width={authorImageSize}
-            height={authorImageSize}
-            alt={author?.image?.alt || author?.name}
-            placeholder="blur"
-            blurDataURL={author?.image?.lqip || imageBlurDataURL}
-            className="responsive-image"
+      {authorImageUrl ? (
+        <>
+          <AuthorImage
+            className={`${styles.authorBioImage} ${styles.authorBioImageSmall}`}
+            url={authorImageUrl}
+            width={140}
+            alt={authorImageAlt}
+            blur={authorImageBlur}
           />
-        </div>
+          <AuthorImage
+            className={`${styles.authorBioImage} ${styles.authorBioImageLarge}`}
+            url={authorImageUrl}
+            width={175}
+            alt={authorImageAlt}
+            blur={authorImageBlur}
+          />
+        </>
       ) : null}
 
       <h2 className={styles.authorBioHeading}>{author?.name}</h2>

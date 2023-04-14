@@ -55,3 +55,39 @@
     grid-template-columns: repeat(auto-fit, minmax(53ch, 70ch));
   }
 }
+
+/*********************
+/* Image
+/*********************
+
+/* "Mobile" image */
+
+.recentPostImageSmall,
+.recentPostImageLarge {
+  display: none;
+}
+
+/* "Small" image (480 until 519, 1150 until 1279) */
+
+@media (min-width: token("breakpoints.w480" to rem)) {
+  .recentPostImageSmall {
+    display: block;
+  }
+  .recentPostImageMobile,
+  .recentPostImageLarge {
+    display: none;
+  }
+}
+
+/* "Large" image (520 until 1149, 1280 and up) */
+
+@media (min-width: token("breakpoints.w520" to rem)) and (max-width: token("breakpoints.w1149" to rem)),
+  (min-width: token("breakpoints.w1280" to rem)) {
+  .recentPostImageMobile,
+  .recentPostImageSmall {
+    display: none;
+  }
+  .recentPostImageLarge {
+    display: block;
+  }
+}

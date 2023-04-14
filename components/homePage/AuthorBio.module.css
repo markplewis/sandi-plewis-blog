@@ -46,3 +46,18 @@
     margin-right: 0;
   }
 }
+
+.authorBioImageSmall {
+  display: none;
+}
+.authorBioImageLarge {
+  display: block;
+}
+@media (min-width: token("breakpoints.w1150" to rem)) and (max-width: token("breakpoints.w1279" to rem)) {
+  .authorBioImageSmall {
+    display: block;
+  }
+  .authorBioImageLarge {
+    display: none;
+  }
+}
