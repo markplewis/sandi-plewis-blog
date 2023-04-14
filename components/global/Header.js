@@ -46,7 +46,7 @@ export default function Header() {
     [dispatchApp]
   );
 
-  // Lock scrolling while menu is open
+  // Lock scrolling while mobile nav menu is open
   useEffect(() => {
     dispatchApp({ bodyScrollLocked: menuOpen && !isMedium });
   }, [dispatchApp, isMedium, menuOpen]);
@@ -95,88 +95,89 @@ export default function Header() {
   };
 
   const navLinks = (
-    <nav className={styles.nav}>
-      <ul className={styles.navList}>
-        <li className={`${styles.navItem} ${pathName === "/" ? active : ""}`}>
-          <Link className={styles.navLink} href="/">
-            Home
-          </Link>
-        </li>
-        <li
-          className={`${styles.navItem} ${
-            pathName.startsWith("/writing") ||
-            pathName.startsWith("/novels") ||
-            pathName.startsWith("/short-stories")
-              ? active
-              : ""
-          }`}>
-          <Link className={styles.navLink} href="/writing">
-            Writing
-          </Link>
-        </li>
-        <li
-          className={`${styles.navItem} ${
-            pathName.startsWith("/posts") || pathName.startsWith("/categories") ? active : ""
-          }`}>
-          <Link className={styles.navLink} href="/posts">
-            Blog
-          </Link>
-        </li>
-        <li className={`${styles.navItem} ${pathName === "/contact" ? active : ""}`}>
-          <Link className={styles.navLink} href="/contact">
-            Contact
-          </Link>
-        </li>
-        <li className={styles.navItem}>
-          <Link
-            className={styles.shareButton}
-            href="https://twitter.com/SandiPlewis"
-            aria-label="Follow Sandi on Twitter"
-            target="_blank"
-            rel="noopener noreferrer">
-            {isMedium && <span>Follow</span>}
-            <svg role="img" aria-hidden={true} focusable={false} pointerEvents="none">
-              <use xlinkHref="#icon-twitter" />
-            </svg>
-            {!isMedium && <span>Follow Sandi on Twitter</span>}
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <ul className={styles.navList}>
+      <li className={`${styles.navItem} ${pathName === "/" ? active : ""}`}>
+        <Link className={styles.navLink} href="/">
+          Home
+        </Link>
+      </li>
+      <li
+        className={`${styles.navItem} ${
+          pathName.startsWith("/writing") ||
+          pathName.startsWith("/novels") ||
+          pathName.startsWith("/short-stories")
+            ? active
+            : ""
+        }`}>
+        <Link className={styles.navLink} href="/writing">
+          Writing
+        </Link>
+      </li>
+      <li
+        className={`${styles.navItem} ${
+          pathName.startsWith("/posts") || pathName.startsWith("/categories") ? active : ""
+        }`}>
+        <Link className={styles.navLink} href="/posts">
+          Blog
+        </Link>
+      </li>
+      <li className={`${styles.navItem} ${pathName === "/contact" ? active : ""}`}>
+        <Link className={styles.navLink} href="/contact">
+          Contact
+        </Link>
+      </li>
+      <li className={styles.navItem}>
+        <Link
+          className={styles.navLinkTwitter}
+          href="https://twitter.com/SandiPlewis"
+          aria-label="Follow Sandi on Twitter"
+          target="_blank"
+          rel="noopener noreferrer">
+          <span className={styles.navLinkTwitterTextDesktop}>Follow</span>
+          <svg role="img" aria-hidden={true} focusable={false} pointerEvents="none">
+            <use xlinkHref="#icon-twitter" />
+          </svg>
+          <span className={styles.navLinkTwitterTextMobile}>Follow Sandi on Twitter</span>
+        </Link>
+      </li>
+    </ul>
   );
 
-  const navMenu = (
-    <div
-      id="nav-menu"
-      ref={menuRef}
-      className={`${styles.navMenu} ${menuOpen ? styles.navMenuRevealing : styles.navMenuHiding}`}
-      style={menuInlineStyles}
-      hidden={menuHidden}
-      onAnimationEnd={() => {
-        if (!menuOpen) {
-          setMenuHidden(true);
-        } else {
-          setContentHidden(true);
-        }
-      }}>
-      {navLinks}
-    </div>
-  );
+  const desktopNav = <nav className={styles.navDesktop}>{navLinks}</nav>;
 
-  const navMenuButton = (
-    <button
-      type="button"
-      id="nav-menu-button"
-      ref={menuButtonRef}
-      onClick={handleMenuButtonClick}
-      className={`${styles.navMenuButton} u-button-appearance-none`}
-      aria-label={`${menuOpen ? "Close" : "Open"} navigation menu`}
-      aria-controls="nav-menu"
-      aria-expanded={menuOpen}>
-      <svg role="img" aria-hidden={true} focusable={false} pointerEvents="none">
-        <use xlinkHref="#icon-menu" />
-      </svg>
-    </button>
+  const mobileNav = (
+    <>
+      <button
+        type="button"
+        id="nav-menu-mobile-button"
+        ref={menuButtonRef}
+        onClick={handleMenuButtonClick}
+        className={`${styles.navMobileButton} u-button-appearance-none`}
+        aria-label={`${menuOpen ? "Close" : "Open"} navigation menu`}
+        aria-controls="nav-menu-mobile"
+        aria-expanded={menuOpen}>
+        <svg role="img" aria-hidden={true} focusable={false} pointerEvents="none">
+          <use xlinkHref="#icon-menu" />
+        </svg>
+      </button>
+      <div
+        id="nav-menu-mobile"
+        ref={menuRef}
+        className={`${styles.navMobile} ${
+          menuOpen ? styles.navMobileRevealing : styles.navMobileHiding
+        }`}
+        style={menuInlineStyles}
+        hidden={menuHidden}
+        onAnimationEnd={() => {
+          if (!menuOpen) {
+            setMenuHidden(true);
+          } else {
+            setContentHidden(true);
+          }
+        }}>
+        <nav>{navLinks}</nav>
+      </div>
+    </>
   );
 
   return (
@@ -189,14 +190,8 @@ export default function Header() {
         </p>
         <p className={styles.title}>Author/editor</p>
       </div>
-      {isMedium ? (
-        navLinks
-      ) : (
-        <>
-          {navMenuButton}
-          {navMenu}
-        </>
-      )}
+      {desktopNav}
+      {mobileNav}
     </header>
   );
 }

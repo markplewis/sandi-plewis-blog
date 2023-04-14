@@ -51,19 +51,21 @@ export default function FeaturedNovel({ novel }) {
           <PortableText value={novel?.overview} components={portableTextComponents} />
         ) : null}
 
-        <MoreLink
-          as={`/novels/${novel?.slug}`}
-          href="/novels/[slug]"
-          text="More information"
-          // TODO: generate a secondary color that has sufficient contrast against the primary
-          // color and also when the primary color is applied to text on top of it
-          // fgColor="--color-black"
-          // bgColor="--color-white"
-          fgColor="--page-color-primary-text"
-          bgColor="--page-color-primary"
-          border={true}
-          align="end"
-        />
+        <div className={styles.featuredNoveMoreLink}>
+          <MoreLink
+            as={`/novels/${novel?.slug}`}
+            href="/novels/[slug]"
+            text="More information"
+            // TODO: generate a secondary color that has sufficient contrast against the primary
+            // color and also when the primary color is applied to text on top of it
+            // fgColor="--color-black"
+            // bgColor="--color-white"
+            fgColor="--page-color-primary-text"
+            bgColor="--page-color-primary"
+            border={true}
+            align="end"
+          />
+        </div>
       </div>
     </div>
   );

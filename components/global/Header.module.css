@@ -26,6 +26,7 @@
     flex-direction: row;
   }
 }
+/* "Sandi Plewis" */
 .name {
   margin: 0;
   line-height: 1;
@@ -38,6 +39,7 @@
   text-decoration: none;
   color: var(--color-font-base);
 }
+/* "Author/editor" */
 .title {
   margin: 0;
   line-height: 1;
@@ -45,7 +47,47 @@
   font-size: var(--font-size-20);
   font-family: var(--font-family-base);
 }
-.navMenuButton {
+
+/* Twitter nav link */
+
+.navLinkTwitter {
+  font-size: var(--font-size-20);
+  color: var(--color-font-base);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.navLinkTwitter:hover,
+.navLinkTwitter:focus {
+  text-decoration-line: underline;
+}
+.navLinkTwitter svg {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  fill: var(--color-font-base);
+  flex-shrink: 0;
+}
+
+/* Twitter nav link text */
+
+.navLinkTwitterTextDesktop {
+  display: none;
+}
+@media (min-width: token("breakpoints.w820" to rem)) {
+  .navLinkTwitterTextMobile {
+    display: none;
+  }
+  .navLinkTwitterTextDesktop {
+    display: block;
+  }
+}
+
+/* Mobile nav menu button */
+
+.navMobileButton {
   width: 44px;
   height: 44px;
   margin: 22px 0 22px 22px;
@@ -54,46 +96,20 @@
   grid-column: 2 / 3;
   transition: transform 0.25s ease-out;
 }
-.navMenuButton:hover,
-.navMenuButton:focus {
+.navMobileButton:hover,
+.navMobileButton:focus {
   transform: scale3d(1.1, 1.1, 1.1);
 }
-.navMenuButton svg {
+.navMobileButton svg {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 10px;
 }
-.header > .nav {
-  margin-left: 44px;
-  justify-self: end;
-  grid-column: 2 / 3;
-}
-.header > .nav .navList {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 32px;
-}
-.header > .nav .navItem {
-  padding-top: 28px;
-  border-top: 12px solid transparent;
-}
-.header > .nav .navItemActive {
-  border-top-color: var(--page-color-primary);
-}
-.header > .nav .navLink {
-  font-size: var(--font-size-20);
-  color: var(--color-font-base);
-  text-decoration-line: none;
-}
-.header > .nav .navLink:hover,
-.header > .nav .navLink:focus {
-  text-decoration-line: underline;
-}
-.navMenu {
+
+/* Mobile nav menu */
+
+.navMobile {
   width: 100%;
   position: fixed;
   left: 0;
@@ -104,10 +120,10 @@
   -webkit-overflow-scrolling: touch;
   background-color: var(--color-font-base);
 }
-.navMenuHiding {
+.navMobileHiding {
   animation: hideNavMenu 0.25s ease-out 0s 1 normal forwards running;
 }
-.navMenuRevealing {
+.navMobileRevealing {
   animation: revealNavMenu 0.25s ease-out 0s 1 normal forwards running;
 }
 @keyframes hideNavMenu {
@@ -127,17 +143,18 @@
   }
 }
 
-/* Inside menu */
-.navMenu .navList {
+/* Mobile nav links */
+
+.navMobile .navList {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.navMenu .navItem {
+.navMobile .navItem {
   border-bottom: 2px solid #666;
   position: relative;
 }
-.navMenu .navItemActive::before {
+.navMobile .navItemActive::before {
   width: 8px;
   height: 100%;
   background-color: #666;
@@ -146,7 +163,7 @@
   top: 0;
   left: 0;
 }
-.navMenu .navLink {
+.navMobile .navLink {
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: var(--column-margin-left);
@@ -156,36 +173,15 @@
   text-decoration-line: none;
   display: block;
 }
-.navMenu .navLink:hover,
-.navMenu .navLink:focus {
+.navMobile .navLink:hover,
+.navMobile .navLink:focus {
   text-decoration-line: underline;
-  background-color: #191919;
+  background-color: var(--color-darkest-gray);
 }
 
-/* Twitter */
-.shareButton {
-  font-size: var(--font-size-20);
-  color: var(--color-font-base);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.shareButton:hover,
-.shareButton:focus {
-  text-decoration-line: underline;
-}
-.shareButton svg {
-  width: 30px;
-  height: 30px;
-  margin: 0;
-  padding: 0;
-  fill: #191919;
-  flex-shrink: 0;
-}
+/* Mobile nav Twitter link */
 
-/* Twitter inside menu */
-.navMenu .shareButton {
+.navMobile .navLinkTwitter {
   width: 100%;
   height: 70px; /* TODO: how to achieve this with padding instead? */
   padding-left: var(--column-margin-left);
@@ -193,22 +189,55 @@
   color: var(--color-white);
   transform: none;
 }
-.navMenu .shareButton:hover,
-.navMenu .shareButton:focus {
-  background-color: #191919;
+.navMobile .navLinkTwitter:hover,
+.navMobile .navLinkTwitter:focus {
+  background-color: var(--color-darkest-gray);
 }
-.navMenu .shareButton svg {
+.navMobile .navLinkTwitter svg {
   fill: var(--color-white);
 }
 
-/* Container query */
-/* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Container_Queries */
+/* Desktop nav */
 
-/* .header {
-  container-type: inline-size;
+.navDesktop {
+  margin-left: 44px;
+  justify-self: end;
+  grid-column: 2 / 3;
+  display: none;
 }
-@container (min-width: token("breakpoints.w820" to rem)) {
-  .nameLink {
-    color: red;
+.navDesktop .navList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 32px;
+}
+.navDesktop .navItem {
+  padding-top: 28px;
+  border-top: 12px solid transparent;
+}
+.navDesktop .navItemActive {
+  border-top-color: var(--page-color-primary);
+}
+.navDesktop .navLink {
+  font-size: var(--font-size-20);
+  color: var(--color-font-base);
+  text-decoration-line: none;
+}
+.navDesktop .navLink:hover,
+.navDesktop .navLink:focus {
+  text-decoration-line: underline;
+}
+
+/* Toggle mobile vs desktop navs */
+
+@media (min-width: token("breakpoints.w820" to rem)) {
+  .navMobileButton,
+  .navMobile {
+    display: none;
   }
-} */
+  .navDesktop {
+    display: block;
+  }
+}

@@ -38,6 +38,9 @@
 .featuredNovelInfo h1 {
   margin-top: 0;
 }
+.featuredNoveMoreLink {
+  margin-top: 36px;
+}
 
 @media (min-width: token("breakpoints.w400" to rem)) {
   .featuredNovel {
