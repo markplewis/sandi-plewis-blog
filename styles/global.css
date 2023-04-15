@@ -194,15 +194,14 @@ a:active {
   text-decoration-thickness: 2px;
 }
 
-/* Utilities */
-/* TODO: move these into a separate file? */
-
-/* See: https://nextjs.org/docs/advanced-features/codemods#before-responsive */
-.responsive-image {
+img {
   width: 100%;
   height: auto;
   display: block;
 }
+
+/* Utilities */
+/* TODO: move these into a separate file? */
 
 /* .full-width {
   margin-left: calc(var(--column-margin-left) * -1);

@@ -4,13 +4,9 @@ import MoreLink from "components/MoreLink";
 import PageTitle from "components/global/PageTitle";
 import InternalLink from "components/portableText/InternalLink";
 import { PortableText, urlFor } from "lib/sanity";
-import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 
 import styles from "components/homePage/FeaturedNovel.module.css";
-
-const imageWidth = 280;
-const imageHeight = 433;
 
 const portableTextComponents = {
   marks: {
@@ -18,27 +14,28 @@ const portableTextComponents = {
   }
 };
 
+// 0.65:1 aspect ratio
+const imageWidth = 280;
+const imageHeight = 430;
+
 export default function FeaturedNovel({ novel }) {
-  const { breakpoints } = designTokens;
+  const imageUrl = novel?.image;
+
   return (
     <div className={styles.featuredNovel}>
-      {novel?.image ? (
-        // Temporary inline style until layout and/or container queries are ready
-        <div className={styles.featuredNovelImage} style={{ maxWidth: `${imageWidth}px` }}>
+      {imageUrl ? (
+        <div className={styles.featuredNovelImage}>
           <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
-            {/* See: https://nextjs.org/docs/advanced-features/codemods#before-responsive */}
             <Image
-              src={urlFor(novel?.image)
+              src={urlFor(imageUrl)
                 .width(imageWidth * 2)
                 .height(imageHeight * 2)
                 .url()}
               width={imageWidth}
               height={imageHeight}
-              sizes={`(max-width: ${breakpoints.w800.value}rem) 100vw, ${imageWidth}px`}
               alt={novel?.image?.alt || novel?.title}
               placeholder="blur"
               blurDataURL={novel?.image?.lqip || imageBlurDataURL}
-              className="responsive-image"
             />
           </Link>
         </div>

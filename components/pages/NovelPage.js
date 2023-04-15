@@ -62,8 +62,9 @@ export default function NovelPage({ data }) {
             className={styles.coverImage}
             image={image}
             title={title}
-            width={600}
-            height={957}
+            // 0.65:1 aspect ratio
+            width={300}
+            height={461}
           />
 
           <div className={`${styles.info} ${styles.infoAbove}`}>

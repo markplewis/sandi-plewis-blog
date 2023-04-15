@@ -21,10 +21,6 @@
   text-decoration-line: underline;
   text-decoration-thickness: 2px;
 }
-.recentPostImage {
-  width: 100%;
-  box-shadow: var(--box-shadow);
-}
 .recentPostInfo {
   flex: 1 1;
   align-self: flex-start;
@@ -56,38 +52,29 @@
   }
 }
 
-/*********************
-/* Image
-/*********************
+/* Responsive image styles */
 
-/* "Mobile" image */
+/* "Mobile" (until 479) */
 
-.recentPostImageSmall,
-.recentPostImageLarge {
-  display: none;
+.recentPostImage {
+  max-width: 240px; /* Height: 160 */
+  aspect-ratio: 3 / 2;
+  box-shadow: var(--box-shadow);
 }
 
-/* "Small" image (480 until 519, 1150 until 1279) */
+/* "Small" (480 until 519, 1150 until 1279) */
 
 @media (min-width: token("breakpoints.w480" to rem)) {
-  .recentPostImageSmall {
-    display: block;
-  }
-  .recentPostImageMobile,
-  .recentPostImageLarge {
-    display: none;
+  .recentPostImage {
+    max-width: 83px; /* Height: 55 */
   }
 }
 
-/* "Large" image (520 until 1149, 1280 and up) */
+/* "Large" (520 until 1149, 1280 and up) */
 
 @media (min-width: token("breakpoints.w520" to rem)) and (max-width: token("breakpoints.w1149" to rem)),
   (min-width: token("breakpoints.w1280" to rem)) {
-  .recentPostImageMobile,
-  .recentPostImageSmall {
-    display: none;
-  }
-  .recentPostImageLarge {
-    display: block;
+  .recentPostImage {
+    max-width: 120px; /* Height: 80 */
   }
 }

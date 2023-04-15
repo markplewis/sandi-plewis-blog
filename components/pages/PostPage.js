@@ -27,6 +27,7 @@ export default function PostPage({ data }) {
 
   const { colors: pageColorData, styles: pageStyles } = pageColors;
 
+  // TODO: replace these matchMedia queries with CSS media queries
   const { breakpoints } = designTokens;
   const isWide = useMediaQuery(`(min-width: ${breakpoints.w1024.value}rem)`);
   const isMedium = useMediaQuery(`(min-width: ${breakpoints.w768.value}rem)`);

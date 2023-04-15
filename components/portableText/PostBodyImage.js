@@ -8,6 +8,7 @@ import useMediaQuery from "utils/useMediaQuery";
 import styles from "components/portableText/PostBodyImage.module.css";
 
 const PostBodyImage = ({ value }) => {
+  // TODO: replace these matchMedia queries with CSS media queries
   const { breakpoints } = designTokens;
   const isMedium = useMediaQuery(`(min-width: ${breakpoints.w800.value}rem)`);
   const alignment = isMedium ? value.alignment : "center";
@@ -53,7 +54,6 @@ const PostBodyImage = ({ value }) => {
       alt={value?.alt}
       placeholder="blur"
       blurDataURL={value?.asset?.metadata?.lqip || imageBlurDataURL}
-      className="responsive-image"
     />
   ) : null;
 

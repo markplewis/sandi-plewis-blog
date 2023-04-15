@@ -42,7 +42,6 @@ export default function CardList({
                   alt={item?.image?.alt}
                   placeholder="blur"
                   blurDataURL={item?.image?.lqip || imageBlurDataURL}
-                  className="responsive-image"
                 />
               </div>
             ) : null}

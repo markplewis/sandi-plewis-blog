@@ -20,7 +20,6 @@
   margin-top: 0;
 }
 .authorBioImage {
-  width: 100%;
   margin: 0 auto 44px auto;
   transform: translateX(8px); /* Half of the transform below */
   background-color: var(--page-color-secondary-orig);
@@ -47,17 +46,16 @@
   }
 }
 
-.authorBioImageSmall {
-  display: none;
+/* Responsive image styles */
+.authorBioImage {
+  width: 100%;
+  max-width: 175px;
 }
-.authorBioImageLarge {
-  display: block;
+.authorBioImage > img {
+  aspect-ratio: 1 / 1;
 }
 @media (min-width: token("breakpoints.w1150" to rem)) and (max-width: token("breakpoints.w1279" to rem)) {
-  .authorBioImageSmall {
-    display: block;
-  }
-  .authorBioImageLarge {
-    display: none;
+  .authorBioImage {
+    max-width: 140px;
   }
 }

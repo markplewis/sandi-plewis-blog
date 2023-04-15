@@ -38,6 +38,7 @@ export default function AuthorPage({ data }) {
           image={image}
           title={name}
           alt={image?.alt || name}
+          // 1:1 aspect ratio
           width={376}
           height={376}
         />

@@ -1,28 +1,14 @@
+import Image from "next/image";
 import Link from "next/link";
-import RecentPostImage from "components/homePage/RecentPostImage";
+import { urlFor } from "lib/sanity";
 import designTokens from "styles/design-tokens";
+import { imageBlurDataURL } from "utils/images";
 
 import styles from "components/homePage/RecentPostList.module.css";
 
-const sizes = {
-  mobile: {
-    width: 240,
-    // Possible heights
-    // 3:2 aspect ratio for landscape, 9:14 for portrait
-    landscape: 160
-    // portrait: 374 (not used)
-  },
-  small: {
-    width: 83,
-    landscape: 55
-    // portrait: 129 (not used)
-  },
-  large: {
-    width: 120,
-    landscape: 80
-    // portrait: 187 (not used)
-  }
-};
+// 3:2 aspect ratio
+const imageWidth = 240;
+const imageHeight = 160;
 
 export default function RecentPostsList({ posts }) {
   const { breakpoints } = designTokens;
@@ -31,9 +17,6 @@ export default function RecentPostsList({ posts }) {
     <ul className={styles.recentPostList}>
       {posts.map(post => {
         const imageUrl = post?.image;
-        const imageAlt = post?.image?.alt;
-        const imageBlur = post?.image?.lqip;
-        const imageBreakpoint = breakpoints.w800.value;
 
         return (
           <li key={`posts-${post?._id}-${post?.slug}`}>
@@ -41,36 +24,31 @@ export default function RecentPostsList({ posts }) {
               className={styles.recentPostLink}
               as={`/posts/${post?.slug}`}
               href={`/posts/[slug]`}>
-              {post?.image ? (
-                <>
-                  <RecentPostImage
-                    className={`${styles.recentPostImage} ${styles.recentPostImageMobile}`}
-                    url={imageUrl}
-                    width={sizes.mobile.width}
-                    height={sizes.mobile.landscape}
-                    sizes={`(max-width: ${imageBreakpoint}rem) 100vw, ${sizes.mobile.width}px`}
-                    alt={imageAlt}
-                    blur={imageBlur}
-                  />
-                  <RecentPostImage
-                    className={`${styles.recentPostImage} ${styles.recentPostImageSmall}`}
-                    url={imageUrl}
-                    width={sizes.small.width}
-                    height={sizes.small.landscape}
-                    sizes={`(max-width: ${imageBreakpoint}rem) 100vw, ${sizes.small.width}px`}
-                    alt={imageAlt}
-                    blur={imageBlur}
-                  />
-                  <RecentPostImage
-                    className={`${styles.recentPostImage} ${styles.recentPostImageLarge}`}
-                    url={imageUrl}
-                    width={sizes.large.width}
-                    height={sizes.large.landscape}
-                    sizes={`(max-width: ${imageBreakpoint}rem) 100vw, ${sizes.large.width}px`}
-                    alt={imageAlt}
-                    blur={imageBlur}
-                  />
-                </>
+              {imageUrl ? (
+                <Image
+                  // Largest image size that we'll need
+                  src={urlFor(imageUrl)
+                    .width(imageWidth * 2)
+                    .height(imageHeight * 2)
+                    .url()}
+                  // `Image` component requires width and height to calculate aspect ratio,
+                  // but we're also defining a CSS `aspect-ratio`
+                  width={imageWidth}
+                  height={imageHeight}
+                  // The following media queries match the ones in the CSS file.
+                  // Note: "The browser ignores everything after the first matching condition,
+                  // so be careful how you order the media conditions."
+                  // https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
+                  sizes={[
+                    `(min-width: ${breakpoints.w520.value}rem) and (max-width: ${breakpoints.w1149.value}rem) 120px`,
+                    `(min-width: ${breakpoints.w480.value}rem) 83px`,
+                    "240px"
+                  ].join(",")}
+                  alt={post?.image?.alt}
+                  placeholder="blur"
+                  blurDataURL={post?.image?.lqip || imageBlurDataURL}
+                  className={styles.recentPostImage}
+                />
               ) : null}
               <div className={styles.recentPostInfo}>
                 <h3 className={styles.recentPostTitle}>{post?.title || post?.name}</h3>

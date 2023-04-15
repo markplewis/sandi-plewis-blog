@@ -15,6 +15,7 @@ export default function CoverImage({
   slug = null,
   width = 1240,
   height = 540
+  // sizes = []
 }) {
   // See: https://nextjs.org/docs/api-reference/next/image
   // Can't produce <picture> elements (no art direction)
@@ -26,11 +27,10 @@ export default function CoverImage({
         .url()}
       width={width}
       height={height}
-      sizes="(max-width: 800px) 100vw, 800px"
+      // sizes={sizes.length ? sizes.join(",") : undefined}
       alt={alt || image?.alt}
       placeholder="blur"
       blurDataURL={image?.lqip || imageBlurDataURL}
-      className="responsive-image"
     />
   ) : null;
 

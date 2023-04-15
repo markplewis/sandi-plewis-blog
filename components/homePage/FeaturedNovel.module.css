@@ -28,9 +28,13 @@
   outline-color: var(--page-color-primary-text);
 }
 .featuredNovelImage {
-  width: 280px;
   margin-top: -48px;
   box-shadow: var(--box-shadow-strong);
+}
+/* Responsive image styles */
+.featuredNovelImage img {
+  max-width: 280px;
+  aspect-ratio: 0.65 / 1;
 }
 .featuredNovelInfo {
   flex: 1 1;
