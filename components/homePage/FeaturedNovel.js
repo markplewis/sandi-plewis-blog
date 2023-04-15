@@ -36,6 +36,7 @@ export default function FeaturedNovel({ novel }) {
               alt={novel?.image?.alt || novel?.title}
               placeholder="blur"
               blurDataURL={novel?.image?.lqip || imageBlurDataURL}
+              priority={true} // LCP image
             />
           </Link>
         </div>

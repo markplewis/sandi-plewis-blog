@@ -81,6 +81,7 @@ export default function PostPage({ data }) {
                   placeholder="blur"
                   blurDataURL={image?.lqip || imageBlurDataURL}
                   className={styles.img}
+                  priority={true} // LCP image
                 />
               ) : null}
             </div>
