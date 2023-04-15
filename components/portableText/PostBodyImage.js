@@ -23,20 +23,22 @@ const PostBodyImage = ({ value }) => {
   } else if (height > width) {
     orientation = "portrait";
   }
-  // 9:14 aspect ratio for portrait, 3:2 for landscape
   let imageWidth;
   let imageHeight;
+
   switch (orientation) {
     case "square":
       imageWidth = alignment === "center" ? 600 : 200;
       imageHeight = alignment === "center" ? 600 : 200;
       break;
     case "portrait":
+      // 9:14 aspect ratio
       imageWidth = alignment === "center" ? 400 : 200;
-      imageHeight = alignment === "center" ? 600 : 300;
+      imageHeight = alignment === "center" ? 622 : 311;
       break;
     case "landscape":
     default:
+      // 3:2 aspect ratio
       imageWidth = alignment === "center" ? 600 : 300;
       imageHeight = alignment === "center" ? 400 : 200;
       break;

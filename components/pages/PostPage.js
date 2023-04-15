@@ -9,7 +9,6 @@ import PostMeta from "components/PostMeta";
 import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
-import useMediaQuery from "utils/useMediaQuery";
 
 import styles from "styles/layouts/post.module.css";
 
@@ -25,21 +24,13 @@ export default function PostPage({ data }) {
     pageColors = {}
   } = data;
 
-  const { colors: pageColorData, styles: pageStyles } = pageColors;
-
-  // TODO: replace these matchMedia queries with CSS media queries
   const { breakpoints } = designTokens;
-  const isWide = useMediaQuery(`(min-width: ${breakpoints.w1024.value}rem)`);
-  const isMedium = useMediaQuery(`(min-width: ${breakpoints.w768.value}rem)`);
-
-  // 12:9 (Cinemascope) vs 3:2 (Classic Film)
-  const cinemaRatio = isWide || !isMedium;
-  const imageSize = {
-    width: cinemaRatio ? 1240 : 1000,
-    height: cinemaRatio ? 531 : 667
-  };
-
+  const { colors: pageColorData, styles: pageStyles } = pageColors;
   const creditLine = processCreditLine(image?.creditLine);
+
+  // 12:9 "Cinemascope" aspect ratio
+  const imageWidth = 1240;
+  const imageHeight = 531;
 
   return (
     <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>
@@ -63,21 +54,36 @@ export default function PostPage({ data }) {
 
         <div className={styles.hero}>
           <div className={styles.image}>
-            {image ? (
-              <Image
-                src={urlFor(image)
-                  .width(imageSize.width * 2)
-                  .height(imageSize.height * 2)
-                  .url()}
-                width={imageSize.width}
-                height={imageSize.height}
-                sizes={`(max-width: ${breakpoints.w800.value}rem) 100vw, 800px`}
-                alt={image?.alt}
-                placeholder="blur"
-                blurDataURL={image?.lqip || imageBlurDataURL}
-                className={styles.img}
-              />
-            ) : null}
+            <div className={styles.imageInner}>
+              {image ? (
+                // Ideally, I'd use a `<picture>` element with a dedicated `<source>` for each
+                // image ratio (2.5:1 vs 3:2). Unfortunately, Next.js' `Image` component isn't
+                // able to render `<picture>` elements and doesn't support art direction use cases
+                // (see: https://github.com/vercel/next.js/discussions/25393). I could use a native
+                // HTML `<picture>` element instead, but then I'd have to generate all of the
+                // `srcset` images myself and I'd miss out on the optimizations that the `Image`
+                // component provides. So, since it doesn't matter too much if part of the image
+                // gets cropped off, and I'm using `object-fit: cover` with the `Image` component's
+                // `fill` prop, I've decided to render only one image ratio and allow the browser
+                // to scale the image to fit its container.
+                <Image
+                  src={urlFor(image)
+                    .width(imageWidth * 2)
+                    .height(imageHeight * 2)
+                    .url()}
+                  fill={true}
+                  sizes={[
+                    `(min-width: ${breakpoints.w1024.value}rem) 700px`, // 502px - 700px
+                    `(min-width: ${breakpoints.w768.value}rem) 450px`, // 324px - 451px
+                    "90vw"
+                  ].join(",")}
+                  alt={image?.alt}
+                  placeholder="blur"
+                  blurDataURL={image?.lqip || imageBlurDataURL}
+                  className={styles.img}
+                />
+              ) : null}
+            </div>
           </div>
 
           {/* Visible from isMedium */}

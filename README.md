@@ -113,6 +113,13 @@ but it works (see: `styles/design-tokens.json` and `styles/design-tokens.js`). H
 }
 ```
 
+## Image aspect ratios
+
+- Novel covers: 9:14 (portrait)
+- Author headshots: 1:1 (square)
+- Blog post body photos: 3:4 (portrait) or 4:3 (landscape)
+- Blog post hero images: 2.5:1 or 3:2 (depending on the breakpoint)
+
 ## TODO
 
 - Replace some of our React hooks with these? https://github.com/streamich/react-use

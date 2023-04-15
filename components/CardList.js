@@ -10,8 +10,9 @@ import styles from "components/CardList.module.css";
 const imageWidth = 120;
 
 // Possible heights (3:2 aspect ratio for landscape, 9:14 for portrait)
+
 const imageHeights = {
-  landscape: 80,
+  landscape: 77,
   portrait: 187
 };
 

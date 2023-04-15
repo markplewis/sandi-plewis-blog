@@ -14,9 +14,9 @@ const portableTextComponents = {
   }
 };
 
-// 0.65:1 aspect ratio
+// 9:14 aspect ratio
 const imageWidth = 280;
-const imageHeight = 430;
+const imageHeight = 436;
 
 export default function FeaturedNovel({ novel }) {
   const imageUrl = novel?.image;

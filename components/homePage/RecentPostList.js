@@ -31,8 +31,8 @@ export default function RecentPostsList({ posts }) {
                     .width(imageWidth * 2)
                     .height(imageHeight * 2)
                     .url()}
-                  // `Image` component requires width and height to calculate aspect ratio,
-                  // but we're also defining a CSS `aspect-ratio`
+                  // `Image` component requires width and height to calculate aspect ratio.
+                  // Because we're supplying these values, a CSS `aspect-ratio` isn't needed.
                   width={imageWidth}
                   height={imageHeight}
                   // The following media queries match the ones in the CSS file.

@@ -11,17 +11,37 @@
   position: relative;
   z-index: 1;
 }
+
+/* Flex item container that governs the image's width */
 .image {
   width: 100%;
   margin-bottom: 24px;
+}
+/* Padding hack to define the image's aspect ratio, since this changes at different breakpoints */
+.imageInner {
+  width: 100%;
+  padding-top: 40%; /* 2.5:1 aspect ratio (280 / 700 * 100) */
   position: relative;
 }
+/* Actual `<img>` element */
 .img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  position: absolute;
 }
+@media (min-width: token("breakpoints.w768" to rem)) {
+  .imageInner {
+    padding-top: 66.75%; /* 1.5:1 (3:2) aspect ratio (267 / 400 * 100) */
+  }
+}
+@media (min-width: token("breakpoints.w1024" to rem)) {
+  .imageInner {
+    padding-top: 40%; /* Back to the original aspect ratio (see above) */
+  }
+}
+
 .image::before {
   content: "";
   display: block;
