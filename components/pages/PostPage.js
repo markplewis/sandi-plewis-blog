@@ -74,7 +74,9 @@ export default function PostPage({ data }) {
                   src={urlFor(image)
                     .width(imageWidth * 2)
                     .height(imageHeight * 2)
+                    .quality(90)
                     .url()}
+                  quality={90}
                   fill={true}
                   sizes={[
                     `(min-width: ${breakpoints.w1024.value}rem) 700px`, // 502px to 700px wide

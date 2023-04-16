@@ -74,6 +74,7 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
       twitterImageURL = urlFor(image.image)
         .width(sizes.twitter.portrait.width)
         .height(sizes.twitter.portrait.height)
+        .quality(90)
         // .fit("crop") // This is the default?
         .url();
     } else {
@@ -82,6 +83,7 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
         .ignoreImageParams() // Workaround for https://github.com/sanity-io/sanity/issues/524
         .width(sizes.twitter.portrait.width)
         .height(sizes.twitter.portrait.height)
+        .quality(90)
         .fit("fill")
         .bg(image?.image?.palette?.vibrant?.background?.replace("#", "") ?? "666") // TODO: not working
         .url();
@@ -90,6 +92,7 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
     twitterImageURL = urlFor(image.image)
       .width(sizes.twitter.landscape.width)
       .height(sizes.twitter.landscape.height)
+      .quality(90)
       .url();
   }
 
@@ -98,11 +101,13 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
     facebookImageURL = urlFor(image.image)
       .width(sizes.facebook.portrait.width)
       .height(sizes.facebook.portrait.height)
+      .quality(90)
       .url();
   } else if (imageOrientation === "landscape") {
     facebookImageURL = urlFor(image.image)
       .width(sizes.facebook.landscape.width)
       .height(sizes.facebook.landscape.height)
+      .quality(90)
       .url();
   }
 

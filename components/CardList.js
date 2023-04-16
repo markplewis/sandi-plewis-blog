@@ -27,9 +27,11 @@ export default function CardList({ items = [], path = "posts", showDate = true }
                     src={urlFor(image)
                       .width(imageWidth * 2)
                       .height(imageHeight * 2)
+                      .quality(90)
                       .url()}
                     width={imageWidth}
                     height={imageHeight}
+                    quality={90}
                     alt={image?.alt}
                     placeholder="blur"
                     blurDataURL={image?.lqip || imageBlurDataURL}

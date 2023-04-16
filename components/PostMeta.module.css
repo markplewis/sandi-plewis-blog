@@ -9,7 +9,7 @@
 .date {
   font-family: var(--font-family-heading);
   font-size: var(--font-size-28);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
 .author,
 .credit a {

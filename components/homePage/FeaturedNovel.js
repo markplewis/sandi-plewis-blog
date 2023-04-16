@@ -30,9 +30,11 @@ export default function FeaturedNovel({ novel }) {
               src={urlFor(image)
                 .width(imageWidth * 2)
                 .height(imageHeight * 2)
+                .quality(90)
                 .url()}
               width={imageWidth}
               height={imageHeight}
+              quality={90}
               alt={image?.alt || novel?.title}
               placeholder="blur"
               blurDataURL={image?.lqip || imageBlurDataURL}

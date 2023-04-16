@@ -29,9 +29,11 @@ export default function AuthorBio({ author }) {
             src={urlFor(image)
               .width(imageWidth * 2)
               .height(imageHeight * 2)
+              .quality(90)
               .url()}
             width={imageWidth}
             height={imageHeight}
+            quality={90}
             sizes={[
               `(min-width: ${breakpoints.w1150.value}rem) and (max-width: ${breakpoints.w1279.value}rem) 140px`,
               "175px"

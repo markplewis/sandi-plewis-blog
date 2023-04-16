@@ -30,11 +30,13 @@ export default function RecentPostsList({ posts }) {
                   src={urlFor(image)
                     .width(imageWidth * 2)
                     .height(imageHeight * 2)
+                    .quality(90)
                     .url()}
                   // `Image` component requires width and height to calculate aspect ratio.
                   // Because we're supplying these values, a CSS `aspect-ratio` isn't needed.
                   width={imageWidth}
                   height={imageHeight}
+                  quality={90}
                   // The following media queries match the ones in the CSS file.
                   // Note: "The browser ignores everything after the first matching condition,
                   // so be careful how you order the media conditions."

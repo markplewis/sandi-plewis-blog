@@ -70,9 +70,11 @@ const PostBodyImage = ({ value }) => {
           src={urlFor(value.asset)
             .width(imageWidth * 2)
             .height(imageHeight * 2)
+            .quality(90)
             .url()}
           width={imageWidth}
           height={imageHeight}
+          quality={90}
           sizes={sizes.join(",")}
           alt={value?.alt}
           placeholder="blur"

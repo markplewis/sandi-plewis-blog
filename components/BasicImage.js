@@ -18,9 +18,11 @@ export default function BasicImage({
       src={urlFor(image)
         .width(width * 2)
         .height(height * 2)
+        .quality(90)
         .url()}
       width={width}
       height={height}
+      quality={90}
       alt={alt}
       placeholder="blur"
       blurDataURL={blur || imageBlurDataURL}
