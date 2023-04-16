@@ -1,12 +1,14 @@
 import groq from "groq";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import ShortStoryPage from "components/pages/ShortStoryPage";
+import ShortStoryPage from "components/pages/shortStories/ShortStoryPage";
 import { client } from "lib/sanity.client";
 import { getPageColors } from "utils/color";
 import { shortStoryQuery } from "utils/queries/shortStories";
 
-const ShortStoryPagePreview = lazy(() => import("components/pages/ShortStoryPagePreview"));
+const ShortStoryPagePreview = lazy(() =>
+  import("components/pages/shortStories/ShortStoryPagePreview")
+);
 
 export default function ShortStory({ preview, token, slug, data }) {
   return preview ? (

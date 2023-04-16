@@ -1,10 +1,12 @@
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import CategoriesPage from "components/pages/CategoriesPage";
+import CategoriesPage from "components/pages/categories/CategoriesPage";
 import { client } from "lib/sanity.client";
 import { categoriesQuery } from "utils/queries/categories";
 
-const CategoriesPagePreview = lazy(() => import("components/pages/CategoriesPagePreview"));
+const CategoriesPagePreview = lazy(() =>
+  import("components/pages/categories/CategoriesPagePreview")
+);
 
 export default function Categories({ preview, token, data }) {
   return preview ? (

@@ -4,10 +4,10 @@ import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
 import InternalLink from "components/portableText/InternalLink";
 import PostBody from "components/PostBody";
-import ReviewList from "components/ReviewList";
 import { PortableText } from "lib/sanity";
 
-import styles from "components/pages/NovelOrShortStoryPage.module.css";
+// Shared styles
+import styles from "components/pages/novels/NovelPage.module.css";
 
 const portableTextComponents = {
   marks: {
@@ -15,15 +15,14 @@ const portableTextComponents = {
   }
 };
 
-export default function NovelPage({ data }) {
+export default function ShortStoryPage({ data }) {
   const {
     title = "",
     description = "",
     overview = [],
     body = [],
     image = {},
-    pageColors = {},
-    reviews = []
+    pageColors = {}
   } = data;
 
   const { styles: pageStyles } = pageColors;
@@ -102,13 +101,6 @@ export default function NovelPage({ data }) {
         </div>
 
         {body ? <PostBody content={body} /> : null}
-
-        {reviews?.length ? (
-          <div className={styles.reviews}>
-            <h2 className={styles.reviewsHeading}>Reviews</h2>
-            <ReviewList reviews={reviews} as="h3" />
-          </div>
-        ) : null}
       </div>
     </Layout>
   );

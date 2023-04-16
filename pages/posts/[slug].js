@@ -1,12 +1,12 @@
 import groq from "groq";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import PostPage from "components/pages/PostPage";
+import PostPage from "components/pages/posts/PostPage";
 import { client } from "lib/sanity.client";
 import { getPageColors } from "utils/color";
 import { postQuery } from "utils/queries/posts";
 
-const PostPagePreview = lazy(() => import("components/pages/PostPagePreview"));
+const PostPagePreview = lazy(() => import("components/pages/posts/PostPagePreview"));
 
 export default function Post({ preview, token, slug, data }) {
   return preview ? (

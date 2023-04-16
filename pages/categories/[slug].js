@@ -1,11 +1,11 @@
 import groq from "groq";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import CategoryPage from "components/pages/CategoryPage";
+import CategoryPage from "components/pages/categories/CategoryPage";
 import { client } from "lib/sanity.client";
 import { categoryQuery } from "utils/queries/categories";
 
-const CategoryPagePreview = lazy(() => import("components/pages/CategoryPagePreview"));
+const CategoryPagePreview = lazy(() => import("components/pages/categories/CategoryPagePreview"));
 
 export default function Category({ preview, token, slug, data }) {
   return preview ? (

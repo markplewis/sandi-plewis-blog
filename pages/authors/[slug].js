@@ -1,12 +1,12 @@
 import groq from "groq";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import AuthorPage from "components/pages/AuthorPage";
+import AuthorPage from "components/pages/authors/AuthorPage";
 import { client } from "lib/sanity.client";
 import { getPageColors } from "utils/color";
 import { authorQuery } from "utils/queries/authors";
 
-const AuthorPagePreview = lazy(() => import("components/pages/AuthorPagePreview"));
+const AuthorPagePreview = lazy(() => import("components/pages/authors/AuthorPagePreview"));
 
 export default function Author({ preview, token, slug, data }) {
   return preview ? (

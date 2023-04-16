@@ -1,12 +1,12 @@
 import groq from "groq";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import NovelPage from "components/pages/NovelPage";
+import NovelPage from "components/pages/novels/NovelPage";
 import { client } from "lib/sanity.client";
 import { getPageColors } from "utils/color";
 import { novelQuery } from "utils/queries/novels";
 
-const NovelPagePreview = lazy(() => import("components/pages/NovelPagePreview"));
+const NovelPagePreview = lazy(() => import("components/pages/novels/NovelPagePreview"));
 
 export default function Novel({ preview, token, slug, data }) {
   return preview ? (

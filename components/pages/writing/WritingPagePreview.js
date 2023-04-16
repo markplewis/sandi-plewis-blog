@@ -1,6 +1,6 @@
 "use client";
 
-import WritingPage from "components/pages/WritingPage";
+import WritingPage from "components/pages/writing/WritingPage";
 import { usePreview } from "lib/sanity.preview";
 import { novelsQuery, shortStoriesQuery } from "utils/queries/writing";
 

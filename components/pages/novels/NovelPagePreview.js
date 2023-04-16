@@ -1,6 +1,6 @@
 "use client";
 
-import NovelPage from "components/pages/NovelPage";
+import NovelPage from "components/pages/novels/NovelPage";
 import { usePreview } from "lib/sanity.preview";
 import { getPageColors } from "utils/color";
 import { novelQuery } from "utils/queries/novels";

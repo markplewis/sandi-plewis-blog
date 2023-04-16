@@ -1,6 +1,6 @@
 "use client";
 
-import ShortStoryPage from "components/pages/ShortStoryPage";
+import ShortStoryPage from "components/pages/shortStories/ShortStoryPage";
 import { usePreview } from "lib/sanity.preview";
 import { getPageColors } from "utils/color";
 import { shortStoryQuery } from "utils/queries/shortStories";

@@ -1,6 +1,6 @@
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import HomePage from "components/pages/HomePage";
+import HomePage from "components/pages/home/HomePage";
 import { client } from "lib/sanity.client";
 import { getPageColors } from "utils/color";
 import {
@@ -10,7 +10,7 @@ import {
   authorBioQuery
 } from "utils/queries/homePage";
 
-const HomePagePreview = lazy(() => import("components/pages/HomePagePreview"));
+const HomePagePreview = lazy(() => import("components/pages/home/HomePagePreview"));
 
 export default function Home({ preview, token, data }) {
   return preview ? (

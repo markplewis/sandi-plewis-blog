@@ -1,6 +1,6 @@
 "use client";
 
-import CategoriesPage from "components/pages/CategoriesPage";
+import CategoriesPage from "components/pages/categories/CategoriesPage";
 import { usePreview } from "lib/sanity.preview";
 import { categoriesQuery } from "utils/queries/categories";
 

@@ -3,7 +3,7 @@ import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import PostBody from "components/PostBody";
 
-import styles from "components/pages/AuthorPage.module.css";
+import styles from "components/pages/authors/AuthorPage.module.css";
 
 export default function AuthorPage({ data }) {
   const { name = "", description = "", biography = "", image = {}, pageColors = {} } = data;

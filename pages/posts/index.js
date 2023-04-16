@@ -1,10 +1,10 @@
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import PostsPage from "components/pages/PostsPage";
+import PostsPage from "components/pages/posts/PostsPage";
 import { client } from "lib/sanity.client";
 import { postsQuery } from "utils/queries/posts";
 
-const PostsPagePreview = lazy(() => import("components/pages/PostsPagePreview"));
+const PostsPagePreview = lazy(() => import("components/pages/posts/PostsPagePreview"));
 
 export default function Posts({ preview, token, data }) {
   return preview ? (

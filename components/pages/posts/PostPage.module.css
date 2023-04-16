@@ -1,4 +1,4 @@
-@design-tokens url("../../styles/design-tokens.json") format("style-dictionary3");
+@design-tokens url("../../../styles/design-tokens.json") format("style-dictionary3");
 
 .titleArea {
   margin-top: 24px;

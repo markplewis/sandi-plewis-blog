@@ -1,10 +1,10 @@
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import WritingPage from "components/pages/WritingPage";
+import WritingPage from "components/pages/writing/WritingPage";
 import { client } from "lib/sanity.client";
 import { novelsQuery, shortStoriesQuery } from "utils/queries/writing";
 
-const WritingPagePreview = lazy(() => import("components/pages/WritingPagePreview"));
+const WritingPagePreview = lazy(() => import("components/pages/writing/WritingPagePreview"));
 
 export default function Writing({ preview, token, data }) {
   return preview ? (

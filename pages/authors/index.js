@@ -1,10 +1,10 @@
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import AuthorsPage from "components/pages/AuthorsPage";
+import AuthorsPage from "components/pages/authors/AuthorsPage";
 import { client } from "lib/sanity.client";
 import { authorsQuery } from "utils/queries/authors";
 
-const AuthorsPagePreview = lazy(() => import("components/pages/AuthorsPagePreview"));
+const AuthorsPagePreview = lazy(() => import("components/pages/authors/AuthorsPagePreview"));
 
 export default function Authors({ preview, token, data }) {
   return preview ? (

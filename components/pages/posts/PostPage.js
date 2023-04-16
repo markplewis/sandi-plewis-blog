@@ -9,7 +9,7 @@ import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
 
-import styles from "components/pages/PostPage.module.css";
+import styles from "components/pages/posts/PostPage.module.css";
 
 export default function PostPage({ data }) {
   const {
