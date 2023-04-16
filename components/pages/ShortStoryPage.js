@@ -1,10 +1,10 @@
-import CoverImage from "components/CoverImage";
-import InternalLink from "components/portableText/InternalLink";
-import PostBody from "components/PostBody";
+import BasicImage from "components/BasicImage";
 import ColorSwatches from "components/global/ColorSwatches";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
+import InternalLink from "components/portableText/InternalLink";
+import PostBody from "components/PostBody";
 import { PortableText } from "lib/sanity";
 
 import styles from "styles/layouts/writing.module.css";
@@ -56,14 +56,16 @@ export default function ShortStoryPage({ data }) {
           }}></div>
 
         <div className={styles.coverImageAndInfo}>
-          <CoverImage
-            className={styles.coverImage}
-            image={image}
-            title={title}
-            // 0.65:1 aspect ratio
-            width={300}
-            height={461}
-          />
+          <div className={styles.coverImage}>
+            <BasicImage
+              image={image}
+              // 9:14 aspect ratio
+              width={300}
+              height={467}
+              alt={image?.alt}
+              blur={image?.lqip}
+            />
+          </div>
 
           <div className={`${styles.info} ${styles.infoAbove}`}>
             {overviewItems}

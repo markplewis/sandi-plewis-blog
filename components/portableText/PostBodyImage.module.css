@@ -15,6 +15,15 @@
   gap: 8px;
 }
 
+/* All images are centered by default */
+.square,
+.portrait {
+  max-width: 300px;
+}
+.landscape {
+  max-width: 450px;
+}
+
 @media (min-width: token("breakpoints.w800" to rem)) {
   .figure {
     margin-top: 8px;
@@ -31,6 +40,22 @@
   .align-center {
     margin-left: auto;
     margin-right: auto;
+  }
+  /* Max-widths for `align-left` and `align-right` floated images */
+  .square,
+  .portrait {
+    max-width: 200px;
+  }
+  .landscape {
+    max-width: 300px;
+  }
+  /* Max-widths for centered images */
+  .align-center.square,
+  .align-center.portrait {
+    max-width: 400px;
+  }
+  .align-center.landscape {
+    max-width: 600px;
   }
 }
 

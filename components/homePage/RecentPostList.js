@@ -16,7 +16,7 @@ export default function RecentPostsList({ posts }) {
   return (
     <ul className={styles.recentPostList}>
       {posts.map(post => {
-        const imageUrl = post?.image;
+        const image = post?.image;
 
         return (
           <li key={`posts-${post?._id}-${post?.slug}`}>
@@ -24,10 +24,10 @@ export default function RecentPostsList({ posts }) {
               className={styles.recentPostLink}
               as={`/posts/${post?.slug}`}
               href={`/posts/[slug]`}>
-              {imageUrl ? (
+              {image ? (
                 <Image
                   // Largest image size that we'll need
-                  src={urlFor(imageUrl)
+                  src={urlFor(image)
                     .width(imageWidth * 2)
                     .height(imageHeight * 2)
                     .url()}
@@ -44,9 +44,9 @@ export default function RecentPostsList({ posts }) {
                     `(min-width: ${breakpoints.w480.value}rem) 83px`,
                     "240px"
                   ].join(",")}
-                  alt={post?.image?.alt}
+                  alt={image?.alt}
                   placeholder="blur"
-                  blurDataURL={post?.image?.lqip || imageBlurDataURL}
+                  blurDataURL={image?.lqip || imageBlurDataURL}
                   className={styles.recentPostImage}
                 />
               ) : null}

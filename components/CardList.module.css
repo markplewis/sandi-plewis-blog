@@ -29,6 +29,7 @@
 }
 .cardImage {
   width: 100%;
+  max-width: 120px;
 }
 .cardImage img {
   box-shadow: var(--box-shadow);

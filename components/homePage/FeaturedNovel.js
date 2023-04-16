@@ -19,23 +19,23 @@ const imageWidth = 280;
 const imageHeight = 436;
 
 export default function FeaturedNovel({ novel }) {
-  const imageUrl = novel?.image;
+  const image = novel?.image;
 
   return (
     <div className={styles.featuredNovel}>
-      {imageUrl ? (
+      {image ? (
         <div className={styles.featuredNovelImage}>
           <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
             <Image
-              src={urlFor(imageUrl)
+              src={urlFor(image)
                 .width(imageWidth * 2)
                 .height(imageHeight * 2)
                 .url()}
               width={imageWidth}
               height={imageHeight}
-              alt={novel?.image?.alt || novel?.title}
+              alt={image?.alt || novel?.title}
               placeholder="blur"
-              blurDataURL={novel?.image?.lqip || imageBlurDataURL}
+              blurDataURL={image?.lqip || imageBlurDataURL}
               priority={true} // LCP image
             />
           </Link>

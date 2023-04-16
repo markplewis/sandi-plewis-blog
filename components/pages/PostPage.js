@@ -28,9 +28,9 @@ export default function PostPage({ data }) {
   const { colors: pageColorData, styles: pageStyles } = pageColors;
   const creditLine = processCreditLine(image?.creditLine);
 
-  // 12:9 "Cinemascope" aspect ratio
+  // 5:2 aspect ratio
   const imageWidth = 1240;
-  const imageHeight = 531;
+  const imageHeight = 496;
 
   return (
     <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>
@@ -46,7 +46,8 @@ export default function PostPage({ data }) {
       <article>
         <div className={styles.titleArea}>
           <PageTitle className={styles.title}>{title}</PageTitle>
-          {/* Visible from isMedium */}
+
+          {/* Hidden at some breakpoints */}
           <div className={styles.shareToolsAbove}>
             <ShareTools text={title} />
           </div>
@@ -57,15 +58,18 @@ export default function PostPage({ data }) {
             <div className={styles.imageInner}>
               {image ? (
                 // Ideally, I'd use a `<picture>` element with a dedicated `<source>` for each
-                // image ratio (2.5:1 vs 3:2). Unfortunately, Next.js' `Image` component isn't
+                // image ratio (5:2 vs 3:2). Unfortunately, Next.js' `Image` component isn't
                 // able to render `<picture>` elements and doesn't support art direction use cases
                 // (see: https://github.com/vercel/next.js/discussions/25393). I could use a native
                 // HTML `<picture>` element instead, but then I'd have to generate all of the
-                // `srcset` images myself and I'd miss out on the optimizations that the `Image`
-                // component provides. So, since it doesn't matter too much if part of the image
-                // gets cropped off, and I'm using `object-fit: cover` with the `Image` component's
-                // `fill` prop, I've decided to render only one image ratio and allow the browser
-                // to scale the image to fit its container.
+                // `srcset` images manually (via `urlFor()`) and I'd miss out on the optimizations
+                // that the `Image` component provides. Alternatively, I could render two separate
+                // `Image` components and hide one via CSS, but then the browser may end up
+                // downloading both of them when only one will appear. This is increasingly likely
+                // given that I'm using the `Image` component's `priority' prop. So, since I'm using
+                // `object-fit: cover` with the `Image` component's `fill` prop, and it doesn't
+                // matter too much if part of the image gets cropped off in some cases, I've decided
+                // to render only one image and allow the browser to scale it to fill its container.
                 <Image
                   src={urlFor(image)
                     .width(imageWidth * 2)
@@ -73,8 +77,8 @@ export default function PostPage({ data }) {
                     .url()}
                   fill={true}
                   sizes={[
-                    `(min-width: ${breakpoints.w1024.value}rem) 700px`, // 502px - 700px
-                    `(min-width: ${breakpoints.w768.value}rem) 450px`, // 324px - 451px
+                    `(min-width: ${breakpoints.w1024.value}rem) 700px`, // 502px to 700px wide
+                    `(min-width: ${breakpoints.w768.value}rem) 450px`, // 324px to 451px wide
                     "90vw"
                   ].join(",")}
                   alt={image?.alt}
@@ -87,7 +91,7 @@ export default function PostPage({ data }) {
             </div>
           </div>
 
-          {/* Visible from isMedium */}
+          {/* Hidden at some breakpoints */}
           <div className={styles.metaAbove}>
             <PostMeta
               author={author}
@@ -100,7 +104,7 @@ export default function PostPage({ data }) {
           </div>
         </div>
 
-        {/* Visible until isMedium */}
+        {/* Hidden at some breakpoints */}
         <div className={styles.shareToolsBelow}>{<ShareTools text={title} align="right" />}</div>
         <div className={styles.metaBelow}>
           <PostMeta

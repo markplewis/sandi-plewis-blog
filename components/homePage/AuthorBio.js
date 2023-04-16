@@ -19,16 +19,14 @@ const imageHeight = imageWidth;
 
 export default function AuthorBio({ author }) {
   const { breakpoints } = designTokens;
-  const imageUrl = author?.image;
-  const imageAlt = author?.image?.alt || author?.name;
-  const imageBlur = author?.image?.lqip;
+  const image = author?.image;
 
   return (
     <section className={styles.authorBio}>
-      {imageUrl ? (
+      {image ? (
         <div className={styles.authorBioImage}>
           <Image
-            src={urlFor(imageUrl)
+            src={urlFor(image)
               .width(imageWidth * 2)
               .height(imageHeight * 2)
               .url()}
@@ -38,9 +36,9 @@ export default function AuthorBio({ author }) {
               `(min-width: ${breakpoints.w1150.value}rem) and (max-width: ${breakpoints.w1279.value}rem) 140px`,
               "175px"
             ].join(",")}
-            alt={imageAlt}
+            alt={image?.alt || author?.name}
             placeholder="blur"
-            blurDataURL={imageBlur || imageBlurDataURL}
+            blurDataURL={image?.lqip || imageBlurDataURL}
           />
         </div>
       ) : null}

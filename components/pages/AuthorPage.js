@@ -1,8 +1,8 @@
-import CoverImage from "components/CoverImage";
+import BasicImage from "components/BasicImage";
 import ColorSwatches from "components/global/ColorSwatches";
-import PostBody from "components/PostBody";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
+import PostBody from "components/PostBody";
 
 import styles from "styles/layouts/author.module.css";
 
@@ -33,15 +33,16 @@ export default function AuthorPage({ data }) {
             }}></div>
         </div>
 
-        <CoverImage
-          className={styles.coverImage}
-          image={image}
-          title={name}
-          alt={image?.alt || name}
-          // 1:1 aspect ratio
-          width={376}
-          height={376}
-        />
+        <div className={styles.coverImage}>
+          <BasicImage
+            image={image}
+            // 1:1 aspect ratio
+            width={376}
+            height={376}
+            alt={image?.alt || name}
+            blur={image?.lqip}
+          />
+        </div>
       </div>
 
       <div className={styles.titleContainer}>
