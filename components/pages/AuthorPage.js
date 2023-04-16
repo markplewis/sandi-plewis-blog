@@ -1,10 +1,9 @@
 import BasicImage from "components/BasicImage";
-import ColorSwatches from "components/global/ColorSwatches";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import PostBody from "components/PostBody";
 
-import styles from "styles/layouts/author.module.css";
+import styles from "components/pages/AuthorPage.module.css";
 
 export default function AuthorPage({ data }) {
   const { name = "", description = "", biography = "", image = {}, pageColors = {} } = data;
@@ -49,15 +48,7 @@ export default function AuthorPage({ data }) {
         <PageTitle className={styles.title}>{name}</PageTitle>
       </div>
 
-      <div className={styles.bodyArea}>
-        {biography ? (
-          <PostBody content={biography}>
-            <ColorSwatches />
-          </PostBody>
-        ) : (
-          <ColorSwatches />
-        )}
-      </div>
+      <div className={styles.bodyArea}>{biography ? <PostBody content={biography} /> : null}</div>
     </Layout>
   );
 }

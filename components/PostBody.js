@@ -1,3 +1,4 @@
+import ColorSwatches from "components/global/ColorSwatches";
 import InternalLink from "components/portableText/InternalLink";
 import LineBreak from "components/portableText/LineBreak";
 import PostBodyImage from "components/portableText/PostBodyImage";
@@ -18,12 +19,14 @@ const portableTextComponents = {
 export default function PostBody({ content, children = null }) {
   return (
     <div className={styles.postBody}>
+      {children}
       <PortableText
         className={styles.postBodyBlock}
         value={content}
         components={portableTextComponents}
       />
-      {children}
+      {/* TODO: delete this before launch */}
+      <ColorSwatches />
     </div>
   );
 }

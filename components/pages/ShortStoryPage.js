@@ -1,5 +1,4 @@
 import BasicImage from "components/BasicImage";
-import ColorSwatches from "components/global/ColorSwatches";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
@@ -7,7 +6,7 @@ import InternalLink from "components/portableText/InternalLink";
 import PostBody from "components/PostBody";
 import { PortableText } from "lib/sanity";
 
-import styles from "styles/layouts/writing.module.css";
+import styles from "components/pages/NovelOrShortStoryPage.module.css";
 
 const portableTextComponents = {
   marks: {
@@ -100,13 +99,7 @@ export default function ShortStoryPage({ data }) {
           </div>
         </div>
 
-        {body ? (
-          <PostBody content={body}>
-            <ColorSwatches />
-          </PostBody>
-        ) : (
-          <ColorSwatches />
-        )}
+        {body ? <PostBody content={body} /> : null}
       </div>
     </Layout>
   );

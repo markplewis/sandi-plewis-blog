@@ -5,7 +5,7 @@ import FeaturedNovel from "components/homePage/FeaturedNovel";
 import FeaturedReviews from "components/homePage/FeaturedReviews";
 import RecentPosts from "components/homePage/RecentPosts";
 
-import styles from "styles/layouts/home.module.css";
+import styles from "components/pages/HomePage.module.css";
 
 export default function HomePage({ data }) {
   const { novelAndHomePage, reviews = [], posts = [], author, pageColors = {} } = data;

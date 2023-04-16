@@ -3,6 +3,8 @@ import MoreLink from "components/MoreLink";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
+// import styles from "components/pages/ContentListingPage.module.css";
+
 export default function CategoryPage({ data }) {
   const { title = "", posts = [] } = data;
   return (

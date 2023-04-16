@@ -1,5 +1,4 @@
 import BasicImage from "components/BasicImage";
-import ColorSwatches from "components/global/ColorSwatches";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
@@ -8,7 +7,7 @@ import PostBody from "components/PostBody";
 import ReviewList from "components/ReviewList";
 import { PortableText } from "lib/sanity";
 
-import styles from "styles/layouts/writing.module.css";
+import styles from "components/pages/NovelOrShortStoryPage.module.css";
 
 const portableTextComponents = {
   marks: {
@@ -102,13 +101,7 @@ export default function NovelPage({ data }) {
           </div>
         </div>
 
-        {body ? (
-          <PostBody content={body}>
-            <ColorSwatches />
-          </PostBody>
-        ) : (
-          <ColorSwatches />
-        )}
+        {body ? <PostBody content={body} /> : null}
 
         {reviews?.length ? (
           <div className={styles.reviews}>

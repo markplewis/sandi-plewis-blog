@@ -1,8 +1,6 @@
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 
-import styles from "styles/layouts/staticPage.module.css";
-
 // Information:
 // - https://www.gravityforms.com/privacy-policy-wordpress-website/
 // - https://termly.io/resources/articles/blog-privacy-policy/
@@ -15,10 +13,9 @@ import styles from "styles/layouts/staticPage.module.css";
 export default function PrivacyPolicy() {
   return (
     <Layout title="Privacy policy" description="Privacy policy">
-      <div className={styles.page}>
+      <div>
         <PageTitle>Privacy Policy</PageTitle>
-
-        <div className={styles.pageInner}>
+        <div>
           <p>Last updated: November 1, 2021</p>
           <p>
             This website uses a privacy-friendly Google Analytics alternative called{" "}

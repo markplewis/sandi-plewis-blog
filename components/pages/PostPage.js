@@ -1,5 +1,4 @@
 import Image from "next/image";
-import ColorSwatches from "components/global/ColorSwatches";
 import Layout from "components/global/Layout";
 import PageTitle from "components/global/PageTitle";
 import ShareTools from "components/global/ShareTools";
@@ -10,7 +9,7 @@ import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
 
-import styles from "styles/layouts/post.module.css";
+import styles from "components/pages/PostPage.module.css";
 
 export default function PostPage({ data }) {
   const {
@@ -119,13 +118,7 @@ export default function PostPage({ data }) {
           />
         </div>
 
-        {body ? (
-          <PostBody content={body}>
-            <ColorSwatches />
-          </PostBody>
-        ) : (
-          <ColorSwatches />
-        )}
+        {body ? <PostBody content={body} /> : null}
       </article>
     </Layout>
   );
