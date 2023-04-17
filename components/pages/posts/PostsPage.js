@@ -6,7 +6,7 @@ export default function PostsPage({ data }) {
   const posts = data;
   return (
     <Layout title="Blog posts" description="A listing of Sandi Plewis' blog posts">
-      <PageTitle>Posts</PageTitle>
+      <PageTitle centered={true}>Blog posts</PageTitle>
       <CardList items={posts} path="posts" showDate={true} />
     </Layout>
   );

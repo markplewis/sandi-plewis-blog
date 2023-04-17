@@ -6,7 +6,7 @@ export default function AuthorsPage({ data }) {
   const authors = data;
   return (
     <Layout title="Authors" description="Authors">
-      <PageTitle>Authors</PageTitle>
+      <PageTitle centered={true}>Authors</PageTitle>
       <CardList items={authors} path="authors" showDate={false} />
     </Layout>
   );

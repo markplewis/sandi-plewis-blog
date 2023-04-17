@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useApp } from "utils/useApp";
 
-export default function PageTitle({ className = "", children }) {
+import styles from "components/global/PageTitle.module.css";
+
+export default function PageTitle({ className = "", centered = false, children }) {
   const { dispatchApp } = useApp();
   const skipLinkTargetRef = useRef(null);
 
@@ -9,13 +11,10 @@ export default function PageTitle({ className = "", children }) {
     dispatchApp({ skipLinkTargetRef });
   }, [dispatchApp]);
 
+  const classNames = [className, centered ? styles.centered : ""].filter(c => c).join(" ");
+
   return (
-    <h1
-      id="skip-link-target"
-      className={className}
-      // style={{ textAlign: "center" }}
-      tabIndex={-1}
-      ref={skipLinkTargetRef}>
+    <h1 id="skip-link-target" className={classNames} tabIndex={-1} ref={skipLinkTargetRef}>
       {children}
     </h1>
   );

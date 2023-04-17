@@ -25,7 +25,7 @@ export default function Contact() {
   return (
     <Layout title={pageTitle} description="Contact Sandi Plewis">
       <div>
-        <PageTitle>{pageTitle}</PageTitle>
+        <PageTitle centered={true}>{pageTitle}</PageTitle>
         <div>
           <ContactForm onStateChange={onFormChange} />
         </div>

@@ -6,7 +6,7 @@ export default function CategoriesPage({ data }) {
   const categories = data;
   return (
     <Layout title="Categories" description="Blog post categories">
-      <PageTitle>Post categories</PageTitle>
+      <PageTitle centered={true}>Post categories</PageTitle>
       <CategoryList categories={categories} themed={false} centered={true} />
     </Layout>
   );
