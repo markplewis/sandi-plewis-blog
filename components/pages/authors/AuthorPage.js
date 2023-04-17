@@ -48,7 +48,9 @@ export default function AuthorPage({ data }) {
         <PageTitle className={styles.title}>{name}</PageTitle>
       </div>
 
-      <div className={styles.bodyArea}>{biography ? <PostBody content={biography} /> : null}</div>
+      <div className={styles.bodyArea}>
+        {biography ? <PostBody content={biography} pageColors={pageColors} /> : null}
+      </div>
     </Layout>
   );
 }

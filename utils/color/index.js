@@ -252,23 +252,25 @@ export function getPageColors(data, targetFontSizes = targetFontSizesDefault) {
       b: primaryAdjusted.color.srgb.b * 100,
       contrast: primaryAdjusted.contrast
     },
+    secondary: {
+      r: secondaryOriginal.srgb.r * 100,
+      g: secondaryOriginal.srgb.g * 100,
+      b: secondaryOriginal.srgb.b * 100,
+      contrast: getHighestContrast(secondaryOriginal)
+    },
+    // TODO: delete these later, since they won't be used
+    // (currently only used by the `ColorSwatches` component)
     primaryOriginal: {
       r: primaryOriginal.srgb.r * 100,
       g: primaryOriginal.srgb.g * 100,
       b: primaryOriginal.srgb.b * 100,
       contrast: getHighestContrast(primaryOriginal)
     },
-    secondary: {
+    secondaryAdjusted: {
       r: secondaryAdjusted.color.srgb.r * 100,
       g: secondaryAdjusted.color.srgb.g * 100,
       b: secondaryAdjusted.color.srgb.b * 100,
       contrast: secondaryAdjusted.contrast
-    },
-    secondaryOriginal: {
-      r: secondaryOriginal.srgb.r * 100,
-      g: secondaryOriginal.srgb.g * 100,
-      b: secondaryOriginal.srgb.b * 100,
-      contrast: getHighestContrast(secondaryOriginal)
     }
   };
 
@@ -276,29 +278,20 @@ export function getPageColors(data, targetFontSizes = targetFontSizesDefault) {
   const p = pageColorsAdjusted.primary;
   const s = pageColorsAdjusted.secondary;
 
-  const pO = pageColorsAdjusted.primaryOriginal;
-  const sO = pageColorsAdjusted.secondaryOriginal;
+  // Raw RGB string allows us to dynamically set opacity: `rgb(var(--page-color-primary-rgb) / 10%)`
+  const primaryRGB = `${p.r}% ${p.g}% ${p.b}%`;
+  const secondaryRGB = `${s.r}% ${s.g}% ${s.b}%`;
 
   return {
     colors: pageColorsAdjusted,
     styles: /* css */ `
       body {
-        /* Primary */
-        --page-color-primary: rgb(${p.r}% ${p.g}% ${p.b}%);
-        --page-color-primary-diluted: rgb(${p.r}% ${p.g}% ${p.b}% / 10%);
+        --page-color-primary: rgb(${primaryRGB});
+        --page-color-primary-rgb: ${primaryRGB};
         --page-color-primary-text: ${p.contrast < 0 ? whiteRGB : blackRGB};
-        /* Primary original */
-        --page-color-primary-orig: rgb(${pO.r}% ${pO.g}% ${pO.b}%);
-        --page-color-primary-orig-diluted: rgb(${pO.r}% ${pO.g}% ${pO.b}%) / 10%);
-        --page-color-primary-orig-text: ${pO.contrast < 0 ? whiteRGB : blackRGB};
-        /* Secondary */
-        --page-color-secondary: rgb(${s.r}% ${s.g}% ${s.b}%);
-        --page-color-secondary-diluted: rgb(${s.r}% ${s.g}% ${s.b}% / 10%);
+        --page-color-secondary: rgb(${secondaryRGB});
+        --page-color-secondary-rgb: ${secondaryRGB};
         --page-color-secondary-text: ${s.contrast < 0 ? whiteRGB : blackRGB};
-        /* Secondary original */
-        --page-color-secondary-orig: rgb(${sO.r}% ${sO.g}% ${sO.b}%);
-        --page-color-secondary-orig-diluted: rgb(${sO.r}% ${sO.g}% ${sO.b}% / 10%);
-        --page-color-secondary-orig-text: ${sO.contrast < 0 ? whiteRGB : blackRGB};
       }
     `
   };

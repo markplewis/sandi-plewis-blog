@@ -11,7 +11,7 @@
 
 @media (min-width: token("breakpoints.w480" to rem)) {
   .recentPosts {
-    border-left: 4px solid var(--page-color-secondary-orig);
+    border-left: 4px solid var(--page-color-secondary);
     padding: 24px 24px 0 24px;
   }
 }

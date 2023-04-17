@@ -118,7 +118,7 @@ export default function PostPage({ data }) {
           />
         </div>
 
-        {body ? <PostBody content={body} /> : null}
+        {body ? <PostBody content={body} pageColors={pageColors} /> : null}
       </article>
     </Layout>
   );

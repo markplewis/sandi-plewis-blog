@@ -101,7 +101,7 @@ export default function NovelPage({ data }) {
           </div>
         </div>
 
-        {body ? <PostBody content={body} /> : null}
+        {body ? <PostBody content={body} pageColors={pageColors} /> : null}
 
         {reviews?.length ? (
           <div className={styles.reviews}>

@@ -16,7 +16,7 @@ const portableTextComponents = {
   }
 };
 
-export default function PostBody({ content, children = null }) {
+export default function PostBody({ content, pageColors, children = null }) {
   return (
     <div className={styles.postBody}>
       {children}
@@ -26,7 +26,7 @@ export default function PostBody({ content, children = null }) {
         components={portableTextComponents}
       />
       {/* TODO: delete this before launch */}
-      <ColorSwatches />
+      <ColorSwatches pageColors={pageColors} />
     </div>
   );
 }

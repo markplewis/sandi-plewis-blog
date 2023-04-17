@@ -100,7 +100,7 @@ export default function ShortStoryPage({ data }) {
           </div>
         </div>
 
-        {body ? <PostBody content={body} /> : null}
+        {body ? <PostBody content={body} pageColors={pageColors} /> : null}
       </div>
     </Layout>
   );

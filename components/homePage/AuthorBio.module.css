@@ -22,7 +22,7 @@
 .authorBioImage {
   margin: 0 auto 48px auto;
   transform: translateX(8px); /* Half of the transform below */
-  background-color: var(--page-color-secondary-orig);
+  background-color: var(--page-color-secondary);
   border-bottom-left-radius: 50px;
 }
 .authorBioImage > img {

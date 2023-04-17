@@ -21,7 +21,7 @@
   font-size: 88px;
   font-style: normal;
   line-height: 0.67;
-  color: var(--page-color-secondary-orig);
+  color: var(--page-color-secondary);
 }
 .reviewTitleWrapper::before {
   content: "“";

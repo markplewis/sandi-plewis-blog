@@ -4,8 +4,8 @@
   padding-right: var(--column-margin-right);
   background: linear-gradient(
     100deg,
-    var(--page-color-primary-diluted) 0%,
-    var(--page-color-secondary-diluted) 100%
+    rgb(var(--page-color-primary-rgb) / 10%) 0%,
+    rgb(var(--page-color-secondary-rgb) / 10%) 100%
   );
   /* Prevent margins from collapsing: https://stackoverflow.com/a/42069793/1243086 */
   display: inline-block;
