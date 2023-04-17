@@ -55,7 +55,11 @@ const LayoutPropTypes = {
 function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, image = null }) {
   const debug = useDebug();
   const router = useRouter();
-  const url = `${BASE_URL}${router.asPath}`;
+  const asPath = router.asPath;
+  // There's a bug where the home page's `asPath` doesn't seem to change from
+  // `/index` to `/` quickly enough, so Facebook scrapes the wrong value.
+  // See: https://github.com/vercel/next.js/issues/35345
+  const url = `${BASE_URL}${asPath === "/index" ? "/" : asPath}`;
   const fullTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
   const noIndex = !envProd || router.pathname === "/login";
 
