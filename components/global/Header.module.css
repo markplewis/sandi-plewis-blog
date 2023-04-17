@@ -90,7 +90,7 @@
 .navMobileButton {
   width: 44px;
   height: 44px;
-  margin: 22px 0 22px 22px;
+  margin: 22px 0 22px 22px; /* 22 + 44 + 22 = 88 (header height) */
   padding: 0;
   justify-self: end;
   grid-column: 2 / 3;
@@ -200,7 +200,7 @@
 /* Desktop nav */
 
 .navDesktop {
-  margin-left: 44px;
+  margin-left: 48px;
   justify-self: end;
   grid-column: 2 / 3;
   display: none;

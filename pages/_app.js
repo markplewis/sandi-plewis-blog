@@ -10,14 +10,6 @@ import "modern-normalize/modern-normalize.css";
 import "nprogress/nprogress.css";
 import "styles/global.css";
 
-// TODO: delete this comment block after it's been documented in README.md
-// https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/
-// Text size: rem
-// Borders: px
-// Horizontal margin and padding: px
-// Vertical margin on text: em
-// Media queries: rem
-
 // If loading a variable font, you don't need to specify the font weight
 // See: https://nextjs.org/docs/basic-features/font-optimization
 // Font classes can be applied to elements as follows:

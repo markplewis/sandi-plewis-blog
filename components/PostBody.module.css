@@ -15,7 +15,8 @@
 
 @media (min-width: token("breakpoints.w768" to rem)) {
   .postBody {
-    max-width: 980px;
+    /* max-width: 980px; */
+    max-width: 61.25rem;
     margin: 0 auto;
     padding: 48px;
     box-shadow: var(--box-shadow);
@@ -31,13 +32,13 @@
 .postBody a:active {
   color: var(--color-font-base);
 }
-.postBody h2,
+/* .postBody h2,
 .postBody h3,
 .postBody h4,
 .postBody h5,
 .postBody h6 {
   margin: 48px 0;
-}
+} */
 
 @media (min-width: token("breakpoints.w1024" to rem)) {
   .postBody {

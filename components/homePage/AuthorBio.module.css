@@ -6,7 +6,7 @@
   background-color: var(--color-white);
   border: 4px solid var(--page-color-primary);
   box-shadow: var(--box-shadow);
-  padding: 22px;
+  padding: 24px;
   align-self: flex-start;
 }
 .authorBio a,
@@ -20,7 +20,7 @@
   margin-top: 0;
 }
 .authorBioImage {
-  margin: 0 auto 44px auto;
+  margin: 0 auto 48px auto;
   transform: translateX(8px); /* Half of the transform below */
   background-color: var(--page-color-secondary-orig);
   border-bottom-left-radius: 50px;

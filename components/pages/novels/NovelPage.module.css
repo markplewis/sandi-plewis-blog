@@ -1,7 +1,8 @@
 @design-tokens url("../../../styles/design-tokens.json") format("style-dictionary3");
 
 .heroArea {
-  max-width: 1040px;
+  /* max-width: 1040px; */
+  max-width: 65rem;
   margin: 96px auto;
 }
 .patternBlock1 {
@@ -67,7 +68,6 @@
   flex-shrink: 0;
 }
 .coverImage > img {
-  /* aspect-ratio: 0.65 / 1; */
   margin: -64px 0;
   box-shadow: var(--box-shadow-strong);
 }
@@ -159,7 +159,8 @@
 
 @media (min-width: token("breakpoints.w768" to rem)) {
   .reviews {
-    max-width: 770px;
+    /* max-width: 770px; */
+    max-width: 48.125rem;
     margin-left: auto;
     margin-right: auto;
     padding: 0 48px;

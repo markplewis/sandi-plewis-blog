@@ -56,7 +56,6 @@
 
 .recentPostImage {
   max-width: 240px; /* Height: 160 */
-  /* aspect-ratio: 3 / 2; */
   box-shadow: var(--box-shadow);
 }
 

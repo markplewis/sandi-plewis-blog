@@ -15,11 +15,12 @@ See: https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe
   --box-shadow: 2px 2px 5px 2px rgb(0% 0% 0% / 10%);
   --box-shadow-strong: 0px 0px 8px 4px rgb(0% 0% 0% / 10%);
   --focus-outline-color: steelblue;
+  /* Horizontal page margins */
   --column-margin: 16px;
   /* Minimum width is `env(safe-area-inset-left)` but can be up to `var(--column-margin)` */
   --column-margin-left: max(var(--column-margin), env(safe-area-inset-left));
   --column-margin-right: max(var(--column-margin), env(safe-area-inset-right));
-  /* Typography */
+  /* Font sizes */
   --font-size-12: 0.75rem;
   --font-size-16: 1rem;
   --font-size-20: 1.25rem;
@@ -28,13 +29,7 @@ See: https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe
   --font-size-32: 2rem;
   --font-size-36: 2.25rem;
   --font-size-40: 2.5rem;
-  /* --font-size-0: 40.5px; */
-  /* --font-size-1: 36px; */
-  /* --font-size-2: 27px; */
-  /* --font-size-3: 24px; */
-  /* --font-size-4: 20px; */
-  /* --font-size-5: 16px; */
-  /* --font-size-6: 16px; */
+  /* Font weights and styles */
   --font-weight-bold: 700;
   --font-weight-normal: 400;
   /* Colors */
@@ -72,7 +67,7 @@ from PostCSS, we can use custom CSS environment variables (see: `styles/css-env-
 }
 @media (min-width: token("breakpoints.w768" to rem)) {
   :root {
-    --column-margin: 44px;
+    --column-margin: 48px;
   }
 }
 @media (min-width: token("breakpoints.w1600" to rem)) {
@@ -83,11 +78,6 @@ from PostCSS, we can use custom CSS environment variables (see: `styles/css-env-
 * {
   line-height: inherit; /* Inherit value from modern-normalize.css */
 }
-/* html,
-body {
-  width: 100%;
-  height: 100%;
-} */
 body {
   font-size: 100%; /* Default is `16px` in most browsers */
   font-family: var(--font-family-base);
@@ -95,31 +85,6 @@ body {
   color: var(--color-font-base);
   background-color: var(--color-white);
 }
-/* #__next {
-  min-height: 100%;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: auto 1fr auto;
-}
-main {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-}
-main::before {
-  content: "";
-  position: absolute;
-  top: -50px;
-  left: -10%;
-  width: 120%;
-  height: 700px;
-  transform: rotate(-2deg);
-  background: linear-gradient(100deg, var(--page-color-primary) 0%, var(--page-color-secondary) 100%);
-  opacity: 0.1;
-}
-main.homePage::before {
-  display: none;
-} */
 h1,
 h2,
 h3,
@@ -194,6 +159,7 @@ a:active {
   text-decoration-thickness: 2px;
 }
 
+/* Responsive images */
 img {
   width: 100%;
   height: auto;
