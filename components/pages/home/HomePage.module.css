@@ -60,6 +60,7 @@
   .row2 {
     grid-template-columns: 0.9fr 1fr;
     column-gap: 24px;
+    justify-items: center;
   }
 }
 

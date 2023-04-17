@@ -59,12 +59,12 @@ from PostCSS, we can use custom CSS environment variables (see: `styles/css-env-
 }
 @media (min-width: token("breakpoints.w768" to rem)) {
   :root {
-    --column-margin: 48px;
+    --column-margin: 32px;
   }
 }
 @media (min-width: token("breakpoints.w1600" to rem)) {
   :root {
-    --column-margin: 88px;
+    --column-margin: 64px;
   }
 }
 * {
