@@ -41,7 +41,7 @@ export const getStaticProps = async ({ preview = false, previewData = {} }) => {
   const posts = await client.fetch(recentPostsQuery);
   const author = await client.fetch(authorBioQuery);
 
-  const pageColors = getPageColors(novelAndHomePage.novel);
+  const pageColors = getPageColors(novelAndHomePage?.novel);
 
   return {
     props: {
