@@ -20,7 +20,7 @@
 /* Padding hack to define the image's aspect ratio, since this changes at different breakpoints */
 .imageInner {
   width: 100%;
-  padding-top: 40%; /* 5:2 aspect ratio (280 / 700 * 100) */
+  padding-top: 66.75%; /* 3:2 aspect ratio (300 / 450 * 100) */
   position: relative;
 }
 /* Actual `<img>` element */
@@ -31,14 +31,19 @@
   display: block;
   position: absolute;
 }
+@media (min-width: token("breakpoints.w520" to rem)) {
+  .imageInner {
+    padding-top: 40%; /* 5:2 aspect ratio (280 / 700 * 100) */
+  }
+}
 @media (min-width: token("breakpoints.w768" to rem)) {
   .imageInner {
-    padding-top: 66.75%; /* 3:2 aspect ratio (300 / 450 * 100) */
+    padding-top: 66.75%;
   }
 }
 @media (min-width: token("breakpoints.w1024" to rem)) {
   .imageInner {
-    padding-top: 40%; /* Back to the original aspect ratio (see above) */
+    padding-top: 40%;
   }
 }
 

@@ -106,7 +106,7 @@ export default function PostPage({ data }) {
         </div>
 
         {/* Hidden at some breakpoints */}
-        <div className={styles.shareToolsBelow}>{<ShareTools text={title} align="right" />}</div>
+        <div className={styles.shareToolsBelow}>{<ShareTools text={title} align="center" />}</div>
         <div className={styles.metaBelow}>
           <PostMeta
             author={author}

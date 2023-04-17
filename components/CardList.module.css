@@ -29,7 +29,7 @@
 }
 .cardImage {
   width: 100%;
-  max-width: 120px;
+  max-width: 240px;
 }
 .cardImage img {
   box-shadow: var(--box-shadow);
@@ -53,6 +53,9 @@
   .cardLink {
     flex-direction: row;
     align-items: flex-start;
+  }
+  .cardImage {
+    max-width: 160px;
   }
 }
 

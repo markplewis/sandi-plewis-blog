@@ -2,15 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import DisplayDate from "components/global/DisplayDate";
 import { urlFor } from "lib/sanity";
+import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
-
 import styles from "components/CardList.module.css";
 
 // 2:3 aspect ratio
-const imageWidth = 120;
-const imageHeight = 180;
+const imageWidth = 240;
+const imageHeight = 360;
 
 export default function CardList({ items = [], path = "posts", showDate = true }) {
+  const { breakpoints } = designTokens;
+
   return (
     <ul className={styles.cardList}>
       {items.map(item => {
@@ -31,6 +33,7 @@ export default function CardList({ items = [], path = "posts", showDate = true }
                       .url()}
                     width={imageWidth}
                     height={imageHeight}
+                    sizes={[`(min-width: ${breakpoints.w480.value}rem) 160px`, "90vw"].join(",")}
                     quality={90}
                     alt={image?.alt}
                     placeholder="blur"
