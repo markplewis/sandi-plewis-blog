@@ -1,10 +1,10 @@
 import BasicImage from "components/BasicImage";
-import Layout from "components/global/Layout";
-import PageTitle from "components/global/PageTitle";
-import ShareTools from "components/global/ShareTools";
+import Layout from "components/Layout";
+import PageTitle from "components/PageTitle";
 import InternalLink from "components/portableText/InternalLink";
 import PostBody from "components/PostBody";
 import ReviewList from "components/ReviewList";
+import ShareTools from "components/ShareTools";
 import { PortableText } from "lib/sanity";
 
 import styles from "components/pages/novels/NovelPage.module.css";

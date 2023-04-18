@@ -1,13 +1,11 @@
 import PropTypes from "prop-types";
 import Head from "next/head";
 import { useRouter } from "next/router";
-
-import Footer from "components/global/Footer";
-import Header from "components/global/Header";
-import Main from "components/global/Main";
-import PreviewMessage from "components/global/PreviewMessage";
-import SkipLink from "components/global/SkipLink";
-
+import Footer from "components/Footer";
+import Header from "components/Header";
+import Main from "components/Main";
+import PreviewMessage from "components/PreviewMessage";
+import SkipLink from "components/SkipLink";
 import { BASE_URL, DEFAULT_META_DESCRIPTION, env, envProd, SITE_TITLE } from "env/constants";
 import { urlFor } from "lib/sanity";
 
@@ -124,8 +122,6 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
         {noIndex ? <meta name="robots" content="noindex" /> : null}
         <title>{fullTitle}</title>
-        {/* TODO: migrate to the new metadata API: */}
-        {/* https://nextjs.org/blog/next-13-2#built-in-seo-support-with-new-metadata-api */}
         {description && <meta name="description" content={description} />}
 
         {/* Icons */}

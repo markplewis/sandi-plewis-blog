@@ -1,6 +1,6 @@
 import CardList from "components/CardList";
-import Layout from "components/global/Layout";
-import PageTitle from "components/global/PageTitle";
+import Layout from "components/Layout";
+import PageTitle from "components/PageTitle";
 
 export default function PostsPage({ data }) {
   const posts = data;

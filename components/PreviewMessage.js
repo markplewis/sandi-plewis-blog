@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useSession, signOut } from "next-auth/react";
 
-import styles from "components/global/PreviewMessage.module.css";
+import styles from "components/PreviewMessage.module.css";
 
 // See: https://nextjs.org/docs/advanced-features/preview-mode
 

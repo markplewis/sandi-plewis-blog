@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useApp } from "utils/useApp";
 
-import styles from "components/global/PageTitle.module.css";
+import styles from "components/PageTitle.module.css";
 
 export default function PageTitle({ className = "", centered = false, children }) {
   const { dispatchApp } = useApp();

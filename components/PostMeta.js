@@ -1,6 +1,6 @@
 import Link from "next/link";
 import CategoryList from "components/CategoryList";
-import DisplayDate from "components/global/DisplayDate";
+import DisplayDate from "components/DisplayDate";
 
 import styles from "components/PostMeta.module.css";
 

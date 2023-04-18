@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ContactForm, { FORM_ERROR, FORM_SUBMITTED } from "components/contactForm/ContactForm";
-import Layout from "components/global/Layout";
-import PageTitle from "components/global/PageTitle";
+import Layout from "components/Layout";
+import PageTitle from "components/PageTitle";
 import { useApp } from "utils/useApp";
 
 export default function Contact() {

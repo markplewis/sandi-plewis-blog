@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import styles from "components/ShareTools.module.css";
 import { BASE_URL } from "env/constants";
-
-import styles from "components/global/ShareTools.module.css";
 
 function encodeUrlParams(params = {}) {
   return Object.keys(params)

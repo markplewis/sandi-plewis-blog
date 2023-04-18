@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import DisplayDate from "components/global/DisplayDate";
+import DisplayDate from "components/DisplayDate";
 import { urlFor } from "lib/sanity";
 import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";

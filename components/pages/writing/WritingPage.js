@@ -1,7 +1,7 @@
 import CardList from "components/CardList";
-import Layout from "components/global/Layout";
-import PageTitle from "components/global/PageTitle";
-import SubTitle from "components/global/SubTitle";
+import Layout from "components/Layout";
+import PageTitle from "components/PageTitle";
+import SubTitle from "components/SubTitle";
 
 export default function WritingPage({ data }) {
   const { novels = [], shortStories = [] } = data;

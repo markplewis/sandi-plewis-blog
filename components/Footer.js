@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import styles from "components/global/Footer.module.css";
+import styles from "components/Footer.module.css";
 
 export default function Footer() {
   return (

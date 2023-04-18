@@ -1,8 +1,8 @@
 import CardList from "components/CardList";
+import Layout from "components/Layout";
 import MoreLink from "components/MoreLink";
-import Layout from "components/global/Layout";
-import PageTitle from "components/global/PageTitle";
-import SubTitle from "components/global/SubTitle";
+import PageTitle from "components/PageTitle";
+import SubTitle from "components/SubTitle";
 
 export default function CategoryPage({ data }) {
   const { title = "", posts = [] } = data;

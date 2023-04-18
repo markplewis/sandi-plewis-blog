@@ -1,4 +1,4 @@
-import styles from "components/global/SubTitle.module.css";
+import styles from "components/SubTitle.module.css";
 
 export default function SubTitle({ children, as = "h2" }) {
   const ElementType = as;

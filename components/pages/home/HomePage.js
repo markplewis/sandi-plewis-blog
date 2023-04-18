@@ -1,5 +1,5 @@
-import Layout from "components/global/Layout";
-import ShareTools from "components/global/ShareTools";
+import Layout from "components/Layout";
+import ShareTools from "components/ShareTools";
 import AuthorBio from "components/homePage/AuthorBio";
 import FeaturedNovel from "components/homePage/FeaturedNovel";
 import FeaturedReviews from "components/homePage/FeaturedReviews";

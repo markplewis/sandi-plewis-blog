@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Layout from "components/global/Layout";
-import PageTitle from "components/global/PageTitle";
-import ShareTools from "components/global/ShareTools";
-import { urlFor } from "lib/sanity";
+import Layout from "components/Layout";
+import PageTitle from "components/PageTitle";
 import PostBody from "components/PostBody";
 import PostMeta from "components/PostMeta";
+import ShareTools from "components/ShareTools";
+import { urlFor } from "lib/sanity";
 import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";

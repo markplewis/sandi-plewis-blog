@@ -1,6 +1,6 @@
-import Layout from "components/global/Layout";
-import PageTitle from "components/global/PageTitle";
-import LogInButton from "components/global/LogInButton";
+import Layout from "components/Layout";
+import LogInButton from "components/LogInButton";
+import PageTitle from "components/PageTitle";
 
 export default function Preview() {
   return (

@@ -1,4 +1,4 @@
-import ColorSwatches from "components/global/ColorSwatches";
+import ColorSwatches from "components/ColorSwatches";
 import InternalLink from "components/portableText/InternalLink";
 import LineBreak from "components/portableText/LineBreak";
 import PostBodyImage from "components/portableText/PostBodyImage";

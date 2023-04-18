@@ -1,5 +1,5 @@
-import Layout from "components/global/Layout";
-import PageTitle from "components/global/PageTitle";
+import Layout from "components/Layout";
+import PageTitle from "components/PageTitle";
 
 // Information:
 // - https://www.gravityforms.com/privacy-policy-wordpress-website/

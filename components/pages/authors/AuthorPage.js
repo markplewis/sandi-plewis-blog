@@ -1,6 +1,6 @@
 import BasicImage from "components/BasicImage";
-import Layout from "components/global/Layout";
-import PageTitle from "components/global/PageTitle";
+import Layout from "components/Layout";
+import PageTitle from "components/PageTitle";
 import PostBody from "components/PostBody";
 
 import styles from "components/pages/authors/AuthorPage.module.css";

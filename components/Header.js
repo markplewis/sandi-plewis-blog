@@ -9,7 +9,7 @@ import useEscapeKey from "utils/useEscapeKey";
 import useOnClickOutside from "utils/useOnClickOutside";
 import useWindowSize from "utils/useWindowSize";
 
-import styles from "components/global/Header.module.css";
+import styles from "components/Header.module.css";
 
 export default function Header() {
   const { breakpoints } = designTokens;

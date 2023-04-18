@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import MoreLink from "components/MoreLink";
-import PageTitle from "components/global/PageTitle";
+import PageTitle from "components/PageTitle";
 import InternalLink from "components/portableText/InternalLink";
 import { PortableText, urlFor } from "lib/sanity";
 import { imageBlurDataURL } from "utils/images";
