@@ -1,6 +1,8 @@
 @design-tokens url("../../../styles/design-tokens.json") format("style-dictionary3");
 
 .page {
+  /* max-width: 1848px;
+  margin: 24px auto 0 auto; */
   margin-top: 24px;
   position: relative;
 }
@@ -75,7 +77,7 @@
     margin-top: 64px;
   }
   .row1 {
-    grid-template-columns: 1.8fr 1fr 44px;
+    grid-template-columns: minmax(min-content, 1000px) auto 44px;
   }
   .patternBlock {
     top: -24px;

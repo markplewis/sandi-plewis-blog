@@ -67,6 +67,11 @@ from PostCSS, we can use custom CSS environment variables (see: `styles/css-env-
     --column-margin: 64px;
   }
 }
+@media (min-width: token("breakpoints.w1976" to rem)) {
+  /* 64 + 1848 + 64 = 1976 */
+  /* TODO: set `max-width 1848px` on inner-column elements (which I'll need to create), so that
+  header and page body can be horizontally centered while still having full-width background colors */
+}
 * {
   line-height: inherit; /* Inherit value from modern-normalize.css */
 }
