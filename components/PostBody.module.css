@@ -1,11 +1,12 @@
 @design-tokens url("../styles/design-tokens.json") format("style-dictionary3");
 
 .postBody {
-  /* Full-width */
-  margin: 0 calc(var(--column-margin-right) * -1) 0 calc(var(--column-margin-left) * -1);
-  padding: 24px var(--column-margin-right) 24px var(--column-margin-left);
-  background-color: var(--color-white);
+  padding: 24px 0;
   font-size: var(--font-size-20);
+  background-color: var(--color-white);
+  /* Full-width (https://www.youtube.com/watch?v=81pnuZFarRw) */
+  box-shadow: 0 0 0 100vmax var(--color-white);
+  clip-path: inset(0 -100vmax);
 }
 .postBody > *:first-child,
 .postBody > figure:first-child + *,
@@ -20,6 +21,7 @@
     margin: 0 auto;
     padding: 48px;
     box-shadow: var(--box-shadow);
+    clip-path: none;
   }
   .postBody > div > figure:first-child + *:nth-child(2) {
     margin-top: 0;
@@ -32,13 +34,6 @@
 .postBody a:active {
   color: var(--color-font-base);
 }
-/* .postBody h2,
-.postBody h3,
-.postBody h4,
-.postBody h5,
-.postBody h6 {
-  margin: 48px 0;
-} */
 
 @media (min-width: token("breakpoints.w1024" to rem)) {
   .postBody {

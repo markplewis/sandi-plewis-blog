@@ -81,11 +81,12 @@
   display: none;
 }
 .metaBelow {
-  /* TODO: consolidate these full-width body content styles because
-  they're similar to `components/PostBody.module.css` */
-  margin: 24px calc(var(--column-margin-right) * -1) 0 calc(var(--column-margin-left) * -1);
-  padding: 24px var(--column-margin-right) 16px var(--column-margin-left);
+  margin-top: 24px;
+  padding: 24px 0 16px 0;
   background-color: var(--color-white);
+  /* Full-width (https://www.youtube.com/watch?v=81pnuZFarRw) */
+  box-shadow: 0 0 0 100vmax var(--color-white);
+  clip-path: inset(0 -100vmax);
 }
 .metaBelow > div > *:first-child {
   margin-top: 0;

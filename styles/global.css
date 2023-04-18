@@ -70,6 +70,12 @@ from PostCSS, we can use custom CSS environment variables (see: `styles/css-env-
 * {
   line-height: inherit; /* Inherit value from modern-normalize.css */
 }
+html,
+body {
+  width: 100%;
+  /* TODO: what is causing overflow on the Novel page? */
+  overflow-x: hidden;
+}
 body {
   font-size: 100%; /* Default is `16px` in most browsers */
   font-family: var(--font-family-base);
@@ -161,11 +167,10 @@ img {
 /* Utilities */
 /* TODO: move these into a separate file? */
 
+/* https://www.youtube.com/watch?v=81pnuZFarRw */
 /* .full-width {
-  margin-left: calc(var(--column-margin-left) * -1);
-  margin-right: calc(var(--column-margin-right) * -1);
-  padding-left: var(--column-margin-left);
-  padding-right: var(--column-margin-right);
+  box-shadow: 0 0 0 100vmax var(--color-white);
+  clip-path: inset(0 -100vmax);
 } */
 
 /*
