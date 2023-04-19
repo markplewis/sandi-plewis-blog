@@ -1,11 +1,14 @@
 .footer {
-  margin-bottom: 0;
+  background: url("/images/footer-illustration.svg") repeat top left;
+  background-size: auto 250%;
+}
+.inner {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
   padding: 32px var(--column-margin-right) 32px var(--column-margin-left);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("/images/footer-illustration.svg") repeat top left;
-  background-size: auto 250%;
 }
 .footerLink {
   padding: 10px 16px;

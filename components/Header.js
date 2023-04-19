@@ -182,16 +182,18 @@ export default function Header() {
 
   return (
     <header className={styles.header} ref={headerRef}>
-      <div className={styles.nameAndTitle}>
-        <p className={styles.name}>
-          <Link className={styles.nameLink} href="/">
-            Sandi Plewis
-          </Link>
-        </p>
-        <p className={styles.title}>Author/editor</p>
+      <div className={styles.inner}>
+        <div className={styles.nameAndTitle}>
+          <p className={styles.name}>
+            <Link className={styles.nameLink} href="/">
+              Sandi Plewis
+            </Link>
+          </p>
+          <p className={styles.title}>Author/editor</p>
+        </div>
+        {desktopNav}
+        {mobileNav}
       </div>
-      {desktopNav}
-      {mobileNav}
     </header>
   );
 }

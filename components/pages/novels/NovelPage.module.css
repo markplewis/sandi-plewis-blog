@@ -64,7 +64,8 @@
 /* Hero area - inner elements */
 
 .coverImage {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   flex-shrink: 0;
 }
 .coverImage > img {

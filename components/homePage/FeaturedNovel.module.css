@@ -3,15 +3,17 @@
 .featuredNovel {
   color: var(--page-color-primary-text);
   margin-top: 24px;
-  padding: 24px 0;
+  /* padding: 24px 0; */
+  padding: 24px;
+  border-radius: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
   background-color: var(--page-color-primary);
   /* Full-width (https://www.youtube.com/watch?v=81pnuZFarRw) */
-  box-shadow: 0 0 0 100vmax var(--page-color-primary);
-  clip-path: inset(0 -100vmax);
+  /* box-shadow: 0 0 0 100vmax var(--page-color-primary);
+  clip-path: inset(0 -100vmax); */
 }
 .featuredNovel ul,
 .featuredNovel ol {
@@ -29,7 +31,8 @@
   outline-color: var(--page-color-primary-text);
 }
 .featuredNovelImage {
-  width: 280px;
+  width: 100%;
+  max-width: 280px;
   margin-top: -48px;
   box-shadow: var(--box-shadow-strong);
 }
@@ -46,10 +49,10 @@
 @media (min-width: token("breakpoints.w400" to rem)) {
   .featuredNovel {
     margin: 24px 0 0 0;
-    padding: 24px;
-    border-radius: 10px 0;
+    /* padding: 24px; */
+    /* border-radius: 10px 0; */
     box-shadow: var(--box-shadow);
-    clip-path: none;
+    /* clip-path: none; */
   }
 }
 
@@ -59,6 +62,7 @@
     align-items: flex-start;
   }
   .featuredNovelImage {
+    width: 38%;
     margin-bottom: -48px;
   }
 }
