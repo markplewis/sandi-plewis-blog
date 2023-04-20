@@ -78,8 +78,8 @@ export default function PostPage({ data }) {
                   quality={90}
                   fill={true}
                   sizes={[
-                    `(min-width: ${breakpoints.w1024.value}rem) 700px`, // 502px to 700px wide
-                    `(min-width: ${breakpoints.w768.value}rem) 450px`, // 324px to 451px wide
+                    `(min-width: ${breakpoints.w1792.value}rem) 694px`,
+                    `(min-width: ${breakpoints.w768.value}rem) 40vw`,
                     "90vw"
                   ].join(",")}
                   alt={image?.alt}

@@ -41,7 +41,7 @@
     padding-top: 66.75%;
   }
 }
-@media (min-width: token("breakpoints.w1024" to rem)) {
+@media (min-width: token("breakpoints.w1150" to rem)) {
   .imageInner {
     padding-top: 40%;
   }

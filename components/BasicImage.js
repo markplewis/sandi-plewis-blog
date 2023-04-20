@@ -10,6 +10,7 @@ export default function BasicImage({
   image = undefined,
   width = 300,
   height = 400,
+  sizes = undefined,
   alt = undefined,
   blur = undefined
 }) {
@@ -22,6 +23,7 @@ export default function BasicImage({
         .url()}
       width={width}
       height={height}
+      sizes={sizes}
       quality={90}
       alt={alt}
       placeholder="blur"

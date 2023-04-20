@@ -1,5 +1,6 @@
 {
   "breakpoints": {
+    "w340": { "value": 21.25 },
     "w400": { "value": 25 },
     "w480": { "value": 30 },
     "w520": { "value": 32.5 },

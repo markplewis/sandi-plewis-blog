@@ -6,6 +6,7 @@ import PostBody from "components/PostBody";
 import ReviewList from "components/ReviewList";
 import ShareTools from "components/ShareTools";
 import { PortableText } from "lib/sanity";
+import designTokens from "styles/design-tokens";
 
 import styles from "components/pages/novels/NovelPage.module.css";
 
@@ -27,6 +28,7 @@ export default function NovelPage({ data }) {
   } = data;
 
   const { styles: pageStyles } = pageColors;
+  const { breakpoints } = designTokens;
 
   const overviewText = overview ? (
     <PortableText value={overview} components={portableTextComponents} />
@@ -63,6 +65,7 @@ export default function NovelPage({ data }) {
               // 9:14 aspect ratio
               width={300}
               height={467}
+              sizes={[`(min-width: ${breakpoints.w340.value}rem) 300px`, "90vw"].join(",")}
               alt={image?.alt}
               blur={image?.lqip}
             />

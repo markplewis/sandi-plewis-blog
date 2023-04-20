@@ -4,6 +4,7 @@ import MoreLink from "components/MoreLink";
 import PageTitle from "components/PageTitle";
 import InternalLink from "components/portableText/InternalLink";
 import { PortableText, urlFor } from "lib/sanity";
+import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 
 import styles from "components/homePage/FeaturedNovel.module.css";
@@ -20,6 +21,7 @@ const imageHeight = 436;
 
 export default function FeaturedNovel({ novel }) {
   const image = novel?.image;
+  const { breakpoints } = designTokens;
 
   return (
     <div className={styles.featuredNovel}>
@@ -34,6 +36,13 @@ export default function FeaturedNovel({ novel }) {
                 .url()}
               width={imageWidth}
               height={imageHeight}
+              sizes={[
+                `(min-width: ${breakpoints.w1280.value}rem) 280px`,
+                `(min-width: ${breakpoints.w1150.value}rem) 20vw`,
+                `(min-width: ${breakpoints.w820.value}rem) 280px`,
+                `(min-width: ${breakpoints.w600.value}rem) 32vw`,
+                "90vw"
+              ].join(",")}
               quality={90}
               alt={image?.alt || novel?.title}
               placeholder="blur"
