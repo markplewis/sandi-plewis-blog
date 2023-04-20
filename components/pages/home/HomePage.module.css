@@ -8,8 +8,8 @@
   left: 0;
   z-index: -1;
   background-color: var(--page-color-secondary);
-  -webkit-mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
-  mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
+  -webkit-mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 60%), rgb(0% 0% 0% / 0%));
+  mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 60%), rgb(0% 0% 0% / 0%));
 }
 .page {
   margin-top: 24px;
