@@ -25,23 +25,21 @@ export default function HomePage({ data }) {
         </style>
       ) : null}
 
+      <div
+        className={styles.patternBlock}
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg' fill='white' fill-opacity='0.3' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'%3E%3Cpath d='M4 0h2L0 6V4l4-4zM6 4v2H4l2-2z'/%3E%3C/svg%3E")`
+        }}></div>
+
       <div className={styles.page}>
-        {/* From 600 until 1400 */}
         <div className={styles.shareToolsHorizontal}>
           <ShareTools text="Sandi Plewis, Author/Editor" align="right" />
         </div>
-
-        <div
-          className={styles.patternBlock}
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg' fill='white' fill-opacity='0.3' fill-rule='evenodd' clip-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2'%3E%3Cpath d='M4 0h2L0 6V4l4-4zM6 4v2H4l2-2z'/%3E%3C/svg%3E")`
-          }}></div>
 
         <section className={styles.row1}>
           {novel ? (
             <div>
               <FeaturedNovel novel={novel} />
-              {/* Until 600 */}
               <div className={styles.shareToolsFeaturedNovel}>
                 <ShareTools text="Sandi Plewis, Author/Editor" align="center" />
               </div>
@@ -50,7 +48,6 @@ export default function HomePage({ data }) {
 
           {reviews.length ? <FeaturedReviews reviews={reviews} /> : null}
 
-          {/* From 1400 */}
           <div className={styles.shareToolsVertical}>
             <ShareTools text="Sandi Plewis, Author/Editor" position="vertical" />
           </div>

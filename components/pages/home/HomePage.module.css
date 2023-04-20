@@ -1,8 +1,17 @@
 @design-tokens url("../../../styles/design-tokens.json") format("style-dictionary3");
 
+.patternBlock {
+  width: 60%;
+  height: 300px;
+  position: absolute;
+  top: 24px;
+  left: 0;
+  z-index: -1;
+  background-color: var(--page-color-secondary);
+  -webkit-mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
+  mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
+}
 .page {
-  /* max-width: 1848px;
-  margin: 24px auto 0 auto; */
   margin-top: 24px;
   position: relative;
 }
@@ -17,17 +26,6 @@
   margin-top: 48px;
   margin-bottom: 72px;
 }
-.patternBlock {
-  width: 60%;
-  height: 300px;
-  position: absolute;
-  top: -24px;
-  z-index: -1;
-  left: calc(var(--column-margin-left) * -1);
-  background-color: var(--page-color-secondary);
-  -webkit-mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
-  mask-image: linear-gradient(180deg, rgb(0% 0% 0% / 90%), rgb(0% 0% 0% / 0%));
-}
 .shareToolsVertical {
   display: none;
 }
@@ -39,12 +37,12 @@
 }
 
 @media (min-width: token("breakpoints.w600" to rem)) {
+  .patternBlock {
+    width: 35%;
+    top: 40px;
+  }
   .row1 {
     margin-top: 0;
-  }
-  .patternBlock {
-    width: 300px;
-    top: 20px; /* 44px share tool height - 24px */
   }
   .shareToolsHorizontal {
     display: block;
@@ -54,7 +52,16 @@
   }
 }
 
+@media (min-width: token("breakpoints.w820" to rem)) {
+  .patternBlock {
+    width: 300px;
+  }
+}
+
 @media (min-width: token("breakpoints.w1150" to rem)) {
+  .patternBlock {
+    width: 23%;
+  }
   .row1 {
     grid-template-columns: 1.8fr 1fr;
     column-gap: 32px;
@@ -67,6 +74,9 @@
 }
 
 @media (min-width: token("breakpoints.w1280" to rem)) {
+  .patternBlock {
+    width: 300px;
+  }
   .row2 {
     grid-template-columns: 1fr 1.15fr;
   }
@@ -79,14 +89,22 @@
   .row1 {
     grid-template-columns: 1.7fr 1fr 44px;
   }
-  .patternBlock {
-    top: -24px;
-  }
   .shareToolsHorizontal {
     display: none;
   }
   .shareToolsVertical {
     margin-top: 24px;
     display: block;
+  }
+}
+
+/* Max page width */
+@media (min-width: token("breakpoints.w1792" to rem)) {
+  .patternBlock {
+    /*
+    Left edge of viewport until start of centered page content:
+    100% - 1792px (width of visible centered page content) / 2
+    */
+    width: calc((100% - 1792px) / 2 + 312px); /* Plus 312px extra */
   }
 }
