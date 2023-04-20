@@ -99,12 +99,12 @@
 }
 
 /* Max page width */
-@media (min-width: token("breakpoints.w1792" to rem)) {
+@media (min-width: token("breakpoints.w1720" to rem)) {
   .patternBlock {
     /*
     Left edge of viewport until start of centered page content:
-    100% - 1792px (width of visible centered page content) / 2
+    100% - 1720px (width of centered page content, including padding) / 2
     */
-    width: calc((100% - 1792px) / 2 + 312px); /* Plus 312px extra */
+    width: calc((100% - 1720px) / 2 + 312px); /* Plus 312px extra */
   }
 }

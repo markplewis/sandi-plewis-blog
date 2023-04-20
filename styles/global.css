@@ -22,7 +22,7 @@ See: https://stackoverflow.com/questions/61527166/ios-chrome-not-respecting-safe
   --column-margin-left: max(var(--column-margin), env(safe-area-inset-left));
   --column-margin-right: max(var(--column-margin), env(safe-area-inset-right));
   /* Page max width */
-  --page-max-width: 1792px;
+  --page-max-width: 1720px;
   /* Font sizes */
   --font-size-12: 0.75rem;
   --font-size-16: 1rem;
