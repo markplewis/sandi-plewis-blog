@@ -25,7 +25,10 @@ export default function FeaturedNovel({ novel }) {
     <div className={styles.featuredNovel}>
       {image ? (
         <div className={styles.featuredNovelImage}>
-          <Link as={`/novels/${novel?.slug}`} href="/novels/[slug]">
+          <Link
+            className={styles.featuredNovelImageLink}
+            as={`/novels/${novel?.slug}`}
+            href="/novels/[slug]">
             <Image
               src={urlFor(image)
                 .width(imageWidth * 2)

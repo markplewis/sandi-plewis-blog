@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { PortableText, urlFor } from "lib/sanity";
 import MoreLink from "components/MoreLink";
 import InternalLink from "components/portableText/InternalLink";
@@ -25,23 +26,30 @@ export default function AuthorBio({ author }) {
     <section className={styles.authorBio}>
       {image ? (
         <div className={styles.authorBioImage}>
-          <Image
-            src={urlFor(image)
-              .width(imageWidth * 2)
-              .height(imageHeight * 2)
-              .quality(90)
-              .url()}
-            width={imageWidth}
-            height={imageHeight}
-            quality={90}
-            sizes={[
-              `(min-width: ${breakpoints.w1150.value}rem) and (max-width: ${breakpoints.w1279.value}rem) 140px`,
-              "175px"
-            ].join(",")}
-            alt={image?.alt || author?.name}
-            placeholder="blur"
-            blurDataURL={image?.lqip || imageBlurDataURL}
-          />
+          <div className={styles.authorBioImageInner}>
+            <Link
+              className={styles.authorBioImageLink}
+              as={`/authors/${author?.slug}`}
+              href="/authors/[slug]">
+              <Image
+                src={urlFor(image)
+                  .width(imageWidth * 2)
+                  .height(imageHeight * 2)
+                  .quality(90)
+                  .url()}
+                width={imageWidth}
+                height={imageHeight}
+                quality={90}
+                sizes={[
+                  `(min-width: ${breakpoints.w1150.value}rem) and (max-width: ${breakpoints.w1279.value}rem) 140px`,
+                  "175px"
+                ].join(",")}
+                alt={image?.alt || author?.name}
+                placeholder="blur"
+                blurDataURL={image?.lqip || imageBlurDataURL}
+              />
+            </Link>
+          </div>
         </div>
       ) : null}
 
