@@ -11,41 +11,21 @@ const PostBodyImage = ({ value }) => {
   const creditLine = processCreditLine(value?.asset?.creditLine);
   const width = value?.asset?.metadata?.dimensions?.width ?? 0;
   const height = value?.asset?.metadata?.dimensions?.height ?? 0;
+  const aspectRatio = value?.asset?.metadata?.dimensions?.aspectRatio ?? 1;
+  const alignment = value.alignment;
 
   let orientation = "square";
-  if (width > height) {
-    orientation = "landscape";
-  } else if (height > width) {
-    orientation = "portrait";
-  }
-  const alignment = value.alignment;
-  let imageWidth;
+  let imageWidth = 400;
   let imageHeight;
 
-  switch (orientation) {
-    case "square":
-      // 1:1 aspect ratio
-      imageWidth = 400;
-      imageHeight = 400;
-      break;
-    case "portrait":
-      // 3:4 aspect ratio
-      imageWidth = 400;
-      imageHeight = 533;
-      break;
-    case "landscape":
-    default:
-      // 3:2 aspect ratio
-      imageWidth = 600;
-      imageHeight = 400;
-      break;
+  if (width > height) {
+    orientation = "landscape";
+    imageWidth = 600;
+  } else if (height > width) {
+    orientation = "portrait";
+    imageWidth = 400;
   }
-
-  const classNames = [
-    styles.figure,
-    alignment ? styles[`align-${alignment}`] : "",
-    orientation ? styles[orientation] : ""
-  ].join(" ");
+  imageHeight = Math.round(imageWidth / aspectRatio);
 
   let sizes = [];
 
@@ -62,6 +42,12 @@ const PostBodyImage = ({ value }) => {
       sizes = [`(min-width: ${breakpoints.w800.value}rem) 600px`, "450px"];
     }
   }
+
+  const classNames = [
+    styles.figure,
+    alignment ? styles[`align-${alignment}`] : "",
+    orientation ? styles[orientation] : ""
+  ].join(" ");
 
   return (
     <figure className={classNames}>
