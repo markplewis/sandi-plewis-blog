@@ -5,6 +5,10 @@ import PostBody from "components/PostBody";
 
 import styles from "components/pages/authors/AuthorPage.module.css";
 
+// Fixed 1:1 aspect ratio
+const imageWidth = 376;
+const imageHeight = imageWidth;
+
 export default function AuthorPage({ data }) {
   const { name = "", description = "", biography = "", image = {}, pageColors = {} } = data;
   const { styles: pageStyles } = pageColors;
@@ -35,9 +39,8 @@ export default function AuthorPage({ data }) {
         <div className={styles.coverImage}>
           <BasicImage
             image={image}
-            // 1:1 aspect ratio
-            width={376}
-            height={376}
+            width={imageWidth}
+            height={imageHeight}
             alt={image?.alt || name}
             blur={image?.lqip}
           />

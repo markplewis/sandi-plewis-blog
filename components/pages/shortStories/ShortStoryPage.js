@@ -5,6 +5,7 @@ import InternalLink from "components/portableText/InternalLink";
 import PostBody from "components/PostBody";
 import ShareTools from "components/ShareTools";
 import { PortableText } from "lib/sanity";
+import designTokens from "styles/design-tokens";
 
 // Shared styles
 import styles from "components/pages/novels/NovelPage.module.css";
@@ -26,6 +27,7 @@ export default function ShortStoryPage({ data }) {
   } = data;
 
   const { styles: pageStyles } = pageColors;
+  const { breakpoints } = designTokens;
 
   const overviewText = overview ? (
     <PortableText value={overview} components={portableTextComponents} />
@@ -37,6 +39,9 @@ export default function ShortStoryPage({ data }) {
       {overviewText}
     </>
   );
+
+  const imageWidth = 300;
+  const imageHeight = image?.aspectRatio ? Math.round(imageWidth / image.aspectRatio) : imageWidth;
 
   return (
     <Layout title={title} description={description} image={{ image, portrait: true, crop: false }}>
@@ -59,9 +64,9 @@ export default function ShortStoryPage({ data }) {
           <div className={styles.coverImage}>
             <BasicImage
               image={image}
-              // 9:14 aspect ratio
-              width={300}
-              height={467}
+              width={imageWidth}
+              height={imageHeight}
+              sizes={[`(min-width: ${breakpoints.w340.value}rem) 300px`, "90vw"].join(",")}
               alt={image?.alt}
               blur={image?.lqip}
             />

@@ -9,6 +9,9 @@ export const postsQuery = groq`
     "image": image{..., ...asset->{
       creditLine,
       description,
+      "width": metadata.dimensions.width,
+      "height": metadata.dimensions.height,
+      "aspectRatio": metadata.dimensions.aspectRatio,
       "lqip": metadata.lqip,
       url
     }},
@@ -25,6 +28,9 @@ export const postQuery = groq`
     "image": image{..., ...asset->{
       creditLine,
       description,
+      "width": metadata.dimensions.width,
+      "height": metadata.dimensions.height,
+      "aspectRatio": metadata.dimensions.aspectRatio,
       "lqip": metadata.lqip,
       url
     }},

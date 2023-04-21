@@ -15,13 +15,11 @@ const portableTextComponents = {
   }
 };
 
-// 9:14 aspect ratio
-const imageWidth = 280;
-const imageHeight = 436;
-
 export default function FeaturedNovel({ novel }) {
-  const image = novel?.image;
   const { breakpoints } = designTokens;
+  const image = novel?.image;
+  const imageWidth = 280;
+  const imageHeight = image?.aspectRatio ? Math.round(imageWidth / image.aspectRatio) : imageWidth;
 
   return (
     <div className={styles.featuredNovel}>

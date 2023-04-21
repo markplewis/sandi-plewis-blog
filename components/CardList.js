@@ -6,7 +6,7 @@ import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import styles from "components/CardList.module.css";
 
-// 2:3 aspect ratio
+// Fixed 2:3 aspect ratio
 const imageWidth = 240;
 const imageHeight = 360;
 

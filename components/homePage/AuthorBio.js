@@ -13,7 +13,7 @@ const portableTextComponents = {
   }
 };
 
-// 1:1 aspect ratio
+// Fixed 1:1 aspect ratio
 const imageWidth = 175;
 const imageHeight = imageWidth;
 

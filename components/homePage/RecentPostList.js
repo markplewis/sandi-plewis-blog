@@ -6,7 +6,7 @@ import { imageBlurDataURL } from "utils/images";
 
 import styles from "components/homePage/RecentPostList.module.css";
 
-// 3:2 aspect ratio
+// Fixed 3:2 aspect ratio
 const imageWidth = 240;
 const imageHeight = 160;
 

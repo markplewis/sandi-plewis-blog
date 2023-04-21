@@ -21,6 +21,9 @@ export const categoryQuery = groq`
       "image": image{..., ...asset->{
         creditLine,
         description,
+        "width": metadata.dimensions.width,
+        "height": metadata.dimensions.height,
+        "aspectRatio": metadata.dimensions.aspectRatio,
         "lqip": metadata.lqip,
         url
       }},

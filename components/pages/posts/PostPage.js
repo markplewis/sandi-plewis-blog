@@ -27,7 +27,7 @@ export default function PostPage({ data }) {
   const { colors: pageColorData, styles: pageStyles } = pageColors;
   const creditLine = processCreditLine(image?.creditLine);
 
-  // 5:2 aspect ratio
+  // Fixed 5:2 aspect ratio
   const imageWidth = 1240;
   const imageHeight = 496;
 
