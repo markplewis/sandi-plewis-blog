@@ -23,7 +23,7 @@ export default function CardList({ items = [], path = "posts", showDate = true }
         return (
           <li key={`${path}-${item?._id}-${slug}`}>
             <Link className={styles.cardLink} as={`/${path}/${slug}`} href={`/${path}/[slug]`}>
-              {image ? (
+              {image?.asset ? (
                 <div className={styles.cardImage}>
                   <Image
                     src={urlFor(image)

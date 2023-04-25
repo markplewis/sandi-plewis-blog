@@ -14,7 +14,7 @@ export default function BasicImage({
   alt = undefined,
   blur = undefined
 }) {
-  return image ? (
+  return image?.asset ? (
     <Image
       src={urlFor(image)
         .width(width * 2)

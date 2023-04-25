@@ -39,6 +39,8 @@ export const novelQuery = groq`
       }
     },
     description,
-    "reviews": *[_type=='review' && references(^._id)]{ _id, title, review, author }
+    "reviews": *[_type=="review" && references(^._id)] | order(_createdAt desc) {
+      _id, title, review, author
+    }
   }
 `;

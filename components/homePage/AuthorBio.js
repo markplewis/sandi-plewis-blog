@@ -24,7 +24,7 @@ export default function AuthorBio({ author }) {
 
   return (
     <section className={styles.authorBio}>
-      {image ? (
+      {image?.asset ? (
         <div className={styles.authorBioImage}>
           <div className={styles.authorBioImageInner}>
             <Link

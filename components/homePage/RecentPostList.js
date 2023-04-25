@@ -24,7 +24,7 @@ export default function RecentPostsList({ posts }) {
               className={styles.recentPostLink}
               as={`/posts/${post?.slug}`}
               href={`/posts/[slug]`}>
-              {image ? (
+              {image?.asset ? (
                 <Image
                   // Largest image size that we'll need
                   src={urlFor(image)

@@ -5,7 +5,7 @@ export const featuredNovelAndHomePageQuery = groq`
     "novel": novel->{
       _id,
       title,
-      'slug': slug.current,
+      "slug": slug.current,
       "overview": overview[] {
         ...,
         markDefs[]{
@@ -36,9 +36,14 @@ export const featuredReviewsQuery = groq`
 
 function getRecentPostsQuery(limit) {
   return groq`
-    *[_type == "post"] | order(publishedAt desc){title, 'slug': slug.current, image, description, _id, "date": publishedAt} [0..${
-      limit - 1
-    }]
+    *[_type == "post"] | order(publishedAt desc) {
+      title,
+      "slug": slug.current,
+      image,
+      description,
+      _id,
+      "date": publishedAt
+    } [0..${limit - 1}]
   `;
 }
 export const recentPostsQuery = getRecentPostsQuery(3);
@@ -47,7 +52,7 @@ export const authorBioQuery = groq`
   *[_type == "homePage"][0].author->{
     name,
     image,
-    'slug': slug.current, _id,
+    "slug": slug.current, _id,
     shortBiography[]{
       ...,
       markDefs[]{

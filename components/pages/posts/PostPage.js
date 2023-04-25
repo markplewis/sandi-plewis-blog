@@ -55,7 +55,7 @@ export default function PostPage({ data }) {
         <div className={styles.hero}>
           <div className={styles.image}>
             <div className={styles.imageInner}>
-              {image ? (
+              {image?.asset ? (
                 // Ideally, I'd use a `<picture>` element with a dedicated `<source>` for each
                 // image ratio (5:2 vs 3:2). Unfortunately, Next.js' `Image` component isn't
                 // able to render `<picture>` elements and doesn't support art direction use cases

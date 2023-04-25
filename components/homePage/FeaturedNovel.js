@@ -23,7 +23,7 @@ export default function FeaturedNovel({ novel }) {
 
   return (
     <div className={styles.featuredNovel}>
-      {image ? (
+      {image?.asset ? (
         <div className={styles.featuredNovelImage}>
           <Link
             className={styles.featuredNovelImageLink}
