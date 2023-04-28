@@ -1,15 +1,15 @@
 import ColorSwatches from "components/ColorSwatches";
 import InternalLink from "components/portableText/InternalLink";
 import LineBreak from "components/portableText/LineBreak";
-import PostBodyImage from "components/portableText/PostBodyImage";
+import PageBodyImage from "components/portableText/PageBodyImage";
 import { PortableText } from "lib/sanity";
 import useDebug from "utils/useDebug";
 
-import styles from "components/PostBody.module.css";
+import styles from "components/PageBody.module.css";
 
 const portableTextComponents = {
   types: {
-    image: ({ value }) => <PostBodyImage value={value} />,
+    image: ({ value }) => <PageBodyImage value={value} />,
     break: ({ value }) => <LineBreak value={value} />
   },
   marks: {
@@ -17,14 +17,14 @@ const portableTextComponents = {
   }
 };
 
-export default function PostBody({ content, pageColors, children = null }) {
+export default function PageBody({ content, pageColors, children = null }) {
   const debug = useDebug();
 
   return (
-    <div className={styles.postBody}>
+    <div className={styles.pageBody}>
       {children}
       <PortableText
-        className={styles.postBodyBlock}
+        className={styles.pageBodyBlock}
         value={content}
         components={portableTextComponents}
       />

@@ -2,7 +2,7 @@ import BasicImage from "components/BasicImage";
 import Layout from "components/Layout";
 import PageTitle from "components/PageTitle";
 import InternalLink from "components/portableText/InternalLink";
-import PostBody from "components/PostBody";
+import PageBody from "components/PageBody";
 import ReviewList from "components/ReviewList";
 import ShareTools from "components/ShareTools";
 import { PortableText } from "lib/sanity";
@@ -106,7 +106,7 @@ export default function NovelPage({ data }) {
           </div>
         </div>
 
-        {body ? <PostBody content={body} pageColors={pageColors} /> : null}
+        {body ? <PageBody content={body} pageColors={pageColors} /> : null}
 
         {reviews?.length ? (
           <div className={styles.reviews}>

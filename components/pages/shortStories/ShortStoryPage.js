@@ -2,7 +2,7 @@ import BasicImage from "components/BasicImage";
 import Layout from "components/Layout";
 import PageTitle from "components/PageTitle";
 import InternalLink from "components/portableText/InternalLink";
-import PostBody from "components/PostBody";
+import PageBody from "components/PageBody";
 import ShareTools from "components/ShareTools";
 import { PortableText } from "lib/sanity";
 import designTokens from "styles/design-tokens";
@@ -105,7 +105,7 @@ export default function ShortStoryPage({ data }) {
           </div>
         </div>
 
-        {body ? <PostBody content={body} pageColors={pageColors} /> : null}
+        {body ? <PageBody content={body} pageColors={pageColors} /> : null}
       </div>
     </Layout>
   );

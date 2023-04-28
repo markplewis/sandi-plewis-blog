@@ -1,16 +1,15 @@
 import Layout from "components/Layout";
 import LogInButton from "components/LogInButton";
+import PageBodyStatic from "components/PageBodyStatic";
 import PageTitle from "components/PageTitle";
 
 export default function Preview() {
   return (
     <Layout title="Preview mode" description="Activate or deactivate preview mode">
-      <div>
+      <PageBodyStatic>
         <PageTitle>Preview mode</PageTitle>
-        <div>
-          <LogInButton />
-        </div>
-      </div>
+        <LogInButton />
+      </PageBodyStatic>
     </Layout>
   );
 }

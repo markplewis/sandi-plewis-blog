@@ -1,7 +1,7 @@
 import BasicImage from "components/BasicImage";
 import Layout from "components/Layout";
 import PageTitle from "components/PageTitle";
-import PostBody from "components/PostBody";
+import PageBody from "components/PageBody";
 
 import styles from "components/pages/authors/AuthorPage.module.css";
 
@@ -52,7 +52,7 @@ export default function AuthorPage({ data }) {
       </div>
 
       <div className={styles.bodyArea}>
-        {biography ? <PostBody content={biography} pageColors={pageColors} /> : null}
+        {biography ? <PageBody content={biography} pageColors={pageColors} /> : null}
       </div>
     </Layout>
   );

@@ -4,9 +4,9 @@ import designTokens from "styles/design-tokens";
 import { imageBlurDataURL } from "utils/images";
 import { processCreditLine } from "utils/strings";
 
-import styles from "components/portableText/PostBodyImage.module.css";
+import styles from "components/portableText/PageBodyImage.module.css";
 
-const PostBodyImage = ({ value }) => {
+const PageBodyImage = ({ value }) => {
   const { breakpoints } = designTokens;
   const creditLine = processCreditLine(value?.asset?.creditLine);
   const width = value?.asset?.metadata?.dimensions?.width ?? 0;
@@ -76,4 +76,4 @@ const PostBodyImage = ({ value }) => {
   );
 };
 
-export default PostBodyImage;
+export default PageBodyImage;

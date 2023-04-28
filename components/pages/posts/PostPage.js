@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Layout from "components/Layout";
 import PageTitle from "components/PageTitle";
-import PostBody from "components/PostBody";
+import PageBody from "components/PageBody";
 import PostMeta from "components/PostMeta";
 import ShareTools from "components/ShareTools";
 import { urlFor } from "lib/sanity";
@@ -118,7 +118,7 @@ export default function PostPage({ data }) {
           />
         </div>
 
-        {body ? <PostBody content={body} pageColors={pageColors} /> : null}
+        {body ? <PageBody content={body} pageColors={pageColors} /> : null}
       </article>
     </Layout>
   );
