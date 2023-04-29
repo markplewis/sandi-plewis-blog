@@ -1,17 +1,20 @@
+// @ts-check
+
 const { withPlausibleProxy } = require("next-plausible");
 
 // TODO: the following `import `doesn't seem to work, even when I rename this file to
 // `next.config.mjs` and add `"type": "module"` to `package.json`, so I've copied the
 // `envProd` variable into this file.
-// `import { envProd } from "env/constants";`
+// `import { envProd } from "~/env/constants";`
 
 const envProd =
   process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_SANITY_DATASET === "production";
 
 // See: https://nextjs.org/docs/api-reference/next.config.js/introduction
 
-/** @type {import('next').NextConfig} */
-
+/**
+ * @type {import('next').NextConfig}
+ **/
 const nextConfig = {
   reactStrictMode: true,
   // See: https://nextjs.org/docs/advanced-features/compiler

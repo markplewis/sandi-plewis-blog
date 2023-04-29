@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "checkJs": true,
-    "resolveJsonModule": true,
-    "jsx": "react-jsx"
-  },
-  "exclude": ["node_modules", ".next", "build"]
-}
