@@ -1,5 +1,3 @@
-// @ts-check
-
 const { withPlausibleProxy } = require("next-plausible");
 
 // TODO: the following `import `doesn't seem to work, even when I rename this file to

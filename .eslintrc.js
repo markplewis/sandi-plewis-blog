@@ -1,4 +1,3 @@
-/* eslint-env node */
 module.exports = {
   // See: https://nextjs.org/docs/basic-features/eslint
   root: true,
@@ -13,6 +12,9 @@ module.exports = {
     "prettier"
   ],
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: "./tsconfig.json"
+  },
   plugins: [
     "@typescript-eslint",
     // "import",
