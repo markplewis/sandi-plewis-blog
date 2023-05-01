@@ -1,5 +1,6 @@
+import { SanityDocument } from "@sanity/client";
 import groq from "groq";
-import { GetStaticProps, GetStaticPaths } from 'next'
+import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import CategoryPage from "~/components/pages/categories/CategoryPage";
@@ -8,10 +9,17 @@ import { categoryQuery } from "~/utils/queries/categories";
 
 const CategoryPagePreview = lazy(() => import("~/components/pages/categories/CategoryPagePreview"));
 
-export default function Category({ preview, token, slug, data }) {
+type CategoryPageProps = {
+  preview: boolean;
+  previewData: string;
+  slug: string;
+  data: SanityDocument;
+};
+
+export default function Category({ preview, previewData, slug, data }: CategoryPageProps) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
-      <CategoryPagePreview token={token} slug={slug} />
+      <CategoryPagePreview token={previewData} slug={slug} />
     </PreviewSuspense>
   ) : (
     <CategoryPage data={data} />
@@ -23,12 +31,16 @@ export default function Category({ preview, token, slug, data }) {
  * @param {Object} context
  * @returns {Promise<Object>}
  */
-export const getStaticProps: GetStaticProps = async ({ preview = false, previewData = {}, params = {} }) => {
-  if (preview && previewData?.token) {
+export const getStaticProps: GetStaticProps = async ({
+  preview = false,
+  previewData = {},
+  params = {}
+}) => {
+  if (preview && previewData) {
     return {
       props: {
         preview,
-        token: previewData.token,
+        previewData,
         slug: params.slug
       }
     };
@@ -54,4 +66,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths,
     fallback: "blocking"
   };
-}
+};

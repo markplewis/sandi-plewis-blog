@@ -1,5 +1,6 @@
+import { SanityDocument } from "@sanity/client";
 import groq from "groq";
-import { GetStaticProps, GetStaticPaths } from 'next'
+import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import NovelPage from "~/components/pages/novels/NovelPage";
@@ -9,10 +10,17 @@ import { novelQuery } from "~/utils/queries/novels";
 
 const NovelPagePreview = lazy(() => import("~/components/pages/novels/NovelPagePreview"));
 
-export default function Novel({ preview, token, slug, data }) {
+type NovelPageProps = {
+  preview: boolean;
+  previewData: string;
+  slug: string;
+  data: SanityDocument;
+};
+
+export default function Novel({ preview, previewData, slug, data }: NovelPageProps) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
-      <NovelPagePreview token={token} slug={slug} />
+      <NovelPagePreview token={previewData} slug={slug} />
     </PreviewSuspense>
   ) : (
     <NovelPage data={data} />
@@ -24,12 +32,16 @@ export default function Novel({ preview, token, slug, data }) {
  * @param {Object} context
  * @returns {Promise<Object>}
  */
-export const getStaticProps: GetStaticProps = async ({ preview = false, previewData = {}, params = {} }) => {
-  if (preview && previewData?.token) {
+export const getStaticProps: GetStaticProps = async ({
+  preview = false,
+  previewData = {},
+  params = {}
+}) => {
+  if (preview && previewData) {
     return {
       props: {
         preview,
-        token: previewData.token,
+        previewData,
         slug: params.slug
       }
     };
@@ -60,4 +72,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths,
     fallback: "blocking"
   };
-}
+};

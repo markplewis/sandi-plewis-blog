@@ -1,4 +1,5 @@
-import { GetStaticProps } from 'next'
+import { SanityDocument } from "@sanity/client";
+import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import WritingPage from "~/components/pages/writing/WritingPage";
@@ -7,10 +8,16 @@ import { novelsQuery, shortStoriesQuery } from "~/utils/queries/writing";
 
 const WritingPagePreview = lazy(() => import("~/components/pages/writing/WritingPagePreview"));
 
-export default function Writing({ preview, token, data }) {
+type WritingPageProps = {
+  preview: boolean;
+  previewData: string;
+  data: SanityDocument;
+};
+
+export default function Writing({ preview, previewData, data }: WritingPageProps) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
-      <WritingPagePreview token={token} />
+      <WritingPagePreview token={previewData} />
     </PreviewSuspense>
   ) : (
     <WritingPage data={data} />
@@ -23,11 +30,11 @@ export default function Writing({ preview, token, data }) {
  * @returns {Promise<Object>}
  */
 export const getStaticProps: GetStaticProps = async ({ preview = false, previewData = {} }) => {
-  if (preview && previewData?.token) {
+  if (preview && previewData) {
     return {
       props: {
         preview,
-        token: previewData.token
+        previewData
       }
     };
   }

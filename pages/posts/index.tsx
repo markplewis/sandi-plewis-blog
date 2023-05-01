@@ -1,4 +1,5 @@
-import { GetStaticProps } from 'next'
+import { SanityDocument } from "@sanity/client";
+import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import PostsPage from "~/components/pages/posts/PostsPage";
@@ -7,10 +8,16 @@ import { postsQuery } from "~/utils/queries/posts";
 
 const PostsPagePreview = lazy(() => import("~/components/pages/posts/PostsPagePreview"));
 
-export default function Posts({ preview, token, data }) {
+type PostsPageProps = {
+  preview: boolean;
+  previewData: string;
+  data: SanityDocument;
+};
+
+export default function Posts({ preview, previewData, data }: PostsPageProps) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
-      <PostsPagePreview token={token} />
+      <PostsPagePreview token={previewData} />
     </PreviewSuspense>
   ) : (
     <PostsPage data={data} />
@@ -23,11 +30,11 @@ export default function Posts({ preview, token, data }) {
  * @returns {Promise<Object>}
  */
 export const getStaticProps: GetStaticProps = async ({ preview = false, previewData = {} }) => {
-  if (preview && previewData?.token) {
+  if (preview && previewData) {
     return {
       props: {
         preview,
-        token: previewData.token
+        previewData
       }
     };
   }

@@ -1,4 +1,5 @@
-import { GetStaticProps } from 'next'
+import { SanityDocument } from "@sanity/client";
+import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import HomePage from "~/components/pages/home/HomePage";
@@ -13,10 +14,16 @@ import {
 
 const HomePagePreview = lazy(() => import("~/components/pages/home/HomePagePreview"));
 
-export default function Home({ preview, token, data }) {
+type HomePageProps = {
+  preview: boolean;
+  previewData: string;
+  data: SanityDocument;
+};
+
+export default function Home({ preview, previewData, data }: HomePageProps) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
-      <HomePagePreview token={token} />
+      <HomePagePreview token={previewData} />
     </PreviewSuspense>
   ) : (
     <HomePage data={data} />
@@ -29,11 +36,11 @@ export default function Home({ preview, token, data }) {
  * @returns {Promise<Object>}
  */
 export const getStaticProps: GetStaticProps = async ({ preview = false, previewData = {} }) => {
-  if (preview && previewData?.token) {
+  if (preview && previewData) {
     return {
       props: {
         preview,
-        token: previewData.token
+        previewData
       }
     };
   }

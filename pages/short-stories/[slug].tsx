@@ -1,5 +1,6 @@
+import { SanityDocument } from "@sanity/client";
 import groq from "groq";
-import { GetStaticProps, GetStaticPaths } from 'next'
+import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import ShortStoryPage from "~/components/pages/shortStories/ShortStoryPage";
@@ -7,14 +8,21 @@ import { client } from "~/lib/sanity.client";
 import { getPageColors } from "~/utils/color";
 import { shortStoryQuery } from "~/utils/queries/shortStories";
 
-const ShortStoryPagePreview = lazy(() =>
-  import("~/components/pages/shortStories/ShortStoryPagePreview")
+const ShortStoryPagePreview = lazy(
+  () => import("~/components/pages/shortStories/ShortStoryPagePreview")
 );
 
-export default function ShortStory({ preview, token, slug, data }) {
+type ShortStoryPageProps = {
+  preview: boolean;
+  previewData: string;
+  slug: string;
+  data: SanityDocument;
+};
+
+export default function ShortStory({ preview, previewData, slug, data }: ShortStoryPageProps) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
-      <ShortStoryPagePreview token={token} slug={slug} />
+      <ShortStoryPagePreview token={previewData} slug={slug} />
     </PreviewSuspense>
   ) : (
     <ShortStoryPage data={data} />
@@ -26,12 +34,16 @@ export default function ShortStory({ preview, token, slug, data }) {
  * @param {Object} context
  * @returns {Promise<Object>}
  */
-export const getStaticProps: GetStaticProps = async ({ preview = false, previewData = {}, params = {} }) => {
-  if (preview && previewData?.token) {
+export const getStaticProps: GetStaticProps = async ({
+  preview = false,
+  previewData = {},
+  params = {}
+}) => {
+  if (preview && previewData) {
     return {
       props: {
         preview,
-        token: previewData.token,
+        previewData,
         slug: params.slug
       }
     };
@@ -61,4 +73,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths,
     fallback: "blocking"
   };
-}
+};

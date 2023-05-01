@@ -1,3 +1,4 @@
+import { SanityDocument } from "@sanity/client";
 import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
@@ -11,10 +12,17 @@ const PostPagePreview = lazy(() => import("~/components/pages/posts/PostPagePrev
 
 // See: https://www.sanity.io/guides/nextjs-live-preview
 
-export default function Post({ preview, token, slug, data }) {
+type PostPageProps = {
+  preview: boolean;
+  previewData: string;
+  slug: string;
+  data: SanityDocument;
+};
+
+export default function Post({ preview, previewData, slug, data }: PostPageProps) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
-      <PostPagePreview token={token} slug={slug} />
+      <PostPagePreview token={previewData} slug={slug} />
     </PreviewSuspense>
   ) : (
     <PostPage data={data} />
@@ -40,11 +48,11 @@ export const getStaticProps: GetStaticProps = async ({
   previewData = {},
   params = {}
 }) => {
-  if (preview && previewData?.token) {
+  if (preview && previewData) {
     return {
       props: {
         preview,
-        token: previewData.token,
+        previewData,
         slug: params.slug
       }
     };

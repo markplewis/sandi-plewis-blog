@@ -1,18 +1,25 @@
-import { GetStaticProps } from 'next'
+import { SanityDocument } from "@sanity/client";
+import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import CategoriesPage from "~/components/pages/categories/CategoriesPage";
 import { client } from "~/lib/sanity.client";
 import { categoriesQuery } from "~/utils/queries/categories";
 
-const CategoriesPagePreview = lazy(() =>
-  import("~/components/pages/categories/CategoriesPagePreview")
+const CategoriesPagePreview = lazy(
+  () => import("~/components/pages/categories/CategoriesPagePreview")
 );
 
-export default function Categories({ preview, token, data }) {
+type CategoriesPageProps = {
+  preview: boolean;
+  previewData: string;
+  data: SanityDocument;
+};
+
+export default function Categories({ preview, previewData, data }: CategoriesPageProps) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
-      <CategoriesPagePreview token={token} />
+      <CategoriesPagePreview token={previewData} />
     </PreviewSuspense>
   ) : (
     <CategoriesPage data={data} />
@@ -25,11 +32,11 @@ export default function Categories({ preview, token, data }) {
  * @returns {Promise<Object>}
  */
 export const getStaticProps: GetStaticProps = async ({ preview = false, previewData = {} }) => {
-  if (preview && previewData?.token) {
+  if (preview && previewData) {
     return {
       props: {
         preview,
-        token: previewData.token
+        previewData
       }
     };
   }
