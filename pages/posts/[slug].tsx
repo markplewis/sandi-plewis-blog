@@ -1,5 +1,5 @@
 import groq from "groq";
-import { GetStaticProps, GetStaticPaths } from 'next'
+import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import PostPage from "~/components/pages/posts/PostPage";
@@ -8,6 +8,8 @@ import { getPageColors } from "~/utils/color";
 import { postQuery } from "~/utils/queries/posts";
 
 const PostPagePreview = lazy(() => import("~/components/pages/posts/PostPagePreview"));
+
+// See: https://www.sanity.io/guides/nextjs-live-preview
 
 export default function Post({ preview, token, slug, data }) {
   return preview ? (
@@ -25,12 +27,19 @@ export default function Post({ preview, token, slug, data }) {
 // https://nextjs.org/docs/basic-features/data-fetching/get-static-props
 // https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration
 
+// If the preview mode cookies are set, then this function will be called at request time instead of
+// build time: https://nextjs.org/docs/advanced-features/preview-mode#step-2-update-getstaticprops
+
 /**
  * @see https://nextjs.org/docs/api-reference/data-fetching/get-static-props
  * @param {Object} context
  * @returns {Promise<Object>}
  */
-export const getStaticProps: GetStaticProps = async ({ preview = false, previewData = {}, params = {} }) => {
+export const getStaticProps: GetStaticProps = async ({
+  preview = false,
+  previewData = {},
+  params = {}
+}) => {
   if (preview && previewData?.token) {
     return {
       props: {
@@ -81,7 +90,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths,
     fallback: "blocking"
   };
-}
+};
 
 // More information about CSR (Client-Side Rendering), SSR (Server-Side Rendering),
 // SSG (Static-Site Generation), and ISR (Incremental Static Regeneration):

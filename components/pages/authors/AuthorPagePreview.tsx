@@ -5,7 +5,7 @@ import { usePreview } from "~/lib/sanity.preview";
 import { getPageColors } from "~/utils/color";
 import { authorQuery } from "~/utils/queries/authors";
 
-export default function AuthorPagePreview({ token, slug }) {
+export default function AuthorPagePreview({ token, slug }: { token: string; slug: string }) {
   const data = usePreview(token, authorQuery, { slug });
   // Append adjusted page colors
   if (data) {

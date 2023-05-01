@@ -1,3 +1,4 @@
+import { SanityDocument } from "@sanity/client";
 import BasicImage from "~/components/BasicImage";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
@@ -9,7 +10,7 @@ import styles from "~/components/pages/authors/AuthorPage.module.css";
 const imageWidth = 376;
 const imageHeight = imageWidth;
 
-export default function AuthorPage({ data }) {
+export default function AuthorPage({ data }: { data: SanityDocument }) {
   const { name = "", description = "", biography = "", image = {}, pageColors = {} } = data;
   const { styles: pageStyles } = pageColors;
 
