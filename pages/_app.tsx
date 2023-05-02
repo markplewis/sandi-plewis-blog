@@ -30,7 +30,7 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const domain = BASE_URL.split("//").pop();
+  const domain = BASE_URL.split("//").pop() || "";
   return (
     <>
       <style jsx global>{

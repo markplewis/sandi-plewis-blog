@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
 
 // See: https://github.com/sanity-io/next-sanity#custom-token-auth
 

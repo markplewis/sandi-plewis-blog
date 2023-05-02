@@ -33,11 +33,12 @@ export default NextAuth({
         const database = client.db(process.env.MONGODB_DB);
         const collection = database.collection("users");
         const cursor = collection.find();
-        const userEmails = [];
-        await cursor.forEach(user => {
-          userEmails.push(user.email);
-        });
-        if (userEmails.includes(user.email)) {
+        const userEmails: string[] = [];
+
+        for await (const userDoc of cursor) {
+          userEmails.push(userDoc.email);
+        }
+        if (user.email && userEmails.includes(user.email)) {
           isAllowedToSignIn = true;
         }
       } catch (e) {

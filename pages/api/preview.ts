@@ -4,8 +4,7 @@ import { getSession } from "next-auth/react";
 // See: https://github.com/sanity-io/next-sanity#custom-token-auth
 // See: https://authjs.dev/getting-started/oauth-tutorial#protecting-api-routes
 
-// TODO: declare global env types in `environment.d.ts`? https://stackoverflow.com/a/53981706/1243086
-const token: string = process.env.SANITY_API_PREVIEW_READ_TOKEN || "";
+const token = process.env.SANITY_API_PREVIEW_READ_TOKEN;
 
 export default async function preview(req: NextApiRequest, res: NextApiResponse) {
   const session = await getSession({ req });
