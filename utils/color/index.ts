@@ -1,7 +1,63 @@
-// TODO: why am I getting the following error when this export does exist?
-// Module '"apca-w3"' has no exported member 'fontLookupAPCA'.
+// TODO: delete this declaration when someone adds a TypeScript definition for this function
+// - https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/apca-w3
+// - https://github.com/Myndex/apca-w3#new-font-size-array
+// - https://github.com/Myndex/apca-w3/blob/master/src/apca-w3.js#L449
+declare module "apca-w3" {
+  function fontLookupAPCA(contrast: number, places?: number): number[];
+}
 import { calcAPCA, fontLookupAPCA } from "apca-w3";
 import Color from "colorjs.io";
+import { SanityDocument } from "@sanity/client";
+
+type PageColor = {
+  r: number;
+  g: number;
+  b: number;
+  h: number;
+  s: number;
+  l: number;
+};
+
+type PageColorWithContrast = PageColor & {
+  contrast: number;
+};
+
+type PageColors = {
+  primary: PageColor;
+  secondary: PageColor;
+};
+
+type PageColorsWithContrast = {
+  primary: PageColorWithContrast;
+  secondary: PageColorWithContrast;
+  primaryOriginal: PageColorWithContrast;
+  secondaryAdjusted: PageColorWithContrast;
+};
+
+export type PageColorsAndStyles = {
+  colors: PageColorsWithContrast;
+  styles: string;
+};
+
+type ColorIteration = {
+  fgColor: Color;
+  bgColor: Color;
+  contrast: number;
+  iterations: number;
+  limitReached: boolean;
+};
+
+type ColorWithContrast = {
+  color: Color;
+  contrast: number;
+};
+
+type TargetFontSize = {
+  weight: number;
+  size: number;
+};
+
+type TargetFontSizes = TargetFontSize[];
 
 // Simple color transformation functions that we could use instead of colorjs.io:
 // https://css-tricks.com/converting-color-spaces-in-javascript/#hex-to-hsl
@@ -9,12 +65,11 @@ import Color from "colorjs.io";
 // For dark text on light backgrounds, and the text is 24px or smaller, the text should be #000000
 // See: https://github.com/Myndex/SAPC-APCA/discussions/64
 
-// Mock colorjs.io instances
-const black = { hsl: { h: 0, s: 0, l: 0 } };
-const white = { hsl: { h: 0, s: 0, l: 100 } };
-
 const blackRGB = "rgb(0% 0% 0%)";
 const whiteRGB = "rgb(100% 100% 100%)";
+
+const black = new Color(blackRGB);
+const white = new Color(whiteRGB);
 
 /**
  * Utility function to safely return a color's hue value, since it may be `NaN`
@@ -22,7 +77,9 @@ const whiteRGB = "rgb(100% 100% 100%)";
  * @param {Number|NaN} h - Hue
  * @returns {Number} Hue value or zero
  */
-function getHue(h) {
+function getHue(h: number): number {
+  // This function's argument could be `NaN`, but TypeScript doesn't currently have a `NaN` type:
+  // https://github.com/Microsoft/TypeScript/issues/28682
   return !h || Number.isNaN(h) ? 0 : h;
 }
 
@@ -32,7 +89,7 @@ function getHue(h) {
  * @param {Number|NaN} s - Saturation
  * @returns {Number} Saturation value or zero
  */
-function getSaturation(s) {
+function getSaturation(s: number): number {
   return !s || Number.isNaN(s) ? 0 : s;
 }
 
@@ -43,8 +100,8 @@ function getSaturation(s) {
  * @param {Object} colorB - Adjusted color object with iteration count property, etc.
  * @returns {Object} One of the two color objects that were supplied as arguments
  */
-function findBestAdjustedColor(colorA, colorB) {
-  let bestColor;
+function findBestAdjustedColor(colorA: ColorIteration, colorB: ColorIteration): ColorIteration {
+  let bestColor = colorA;
   if (
     (colorA.limitReached && colorB.limitReached) ||
     (!colorA.limitReached && !colorB.limitReached)
@@ -68,7 +125,7 @@ function findBestAdjustedColor(colorA, colorB) {
  * @param {Object} bgColor - colorjs.io instance or mock object with HSL properties
  * @returns {Number} The APCA readability contrast (Lc value)
  */
-function getContrast(fgColor, bgColor) {
+function getContrast(fgColor: Color, bgColor: Color): number {
   return Number(
     calcAPCA(
       `hsl(${getHue(fgColor.hsl.h)} ${getSaturation(fgColor.hsl.s)}% ${fgColor.hsl.l}%)`,
@@ -83,7 +140,7 @@ function getContrast(fgColor, bgColor) {
  * @param {Object} color - colorjs.io instance or mock object with HSL properties
  * @returns {Number} The APCA readability contrast (Lc value)
  */
-function getHighestContrast(color) {
+function getHighestContrast(color: Color): number {
   const whiteContrast = getContrast(white, color);
   const blackContrast = getContrast(black, color);
   return Math.abs(whiteContrast) > Math.abs(blackContrast) ? whiteContrast : blackContrast;
@@ -98,13 +155,22 @@ function getHighestContrast(color) {
  * @param {Object} bgColor - colorjs.io instance or mock object with HSL properties
  * @param {Boolean} darkenBg - Whether to progressively darken or lighten the background color
  */
-function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iterations = 0) {
+function adjustBackgroundColor(
+  fgColor: Color,
+  bgColor: Color,
+  darkenBg: boolean,
+  targetFontSizes: TargetFontSizes,
+  iterations = 0
+): ColorIteration {
+  // Clone colorjs.io instance (important!)
+  const bgColorCloned = bgColor.clone();
+
   // if (iterations === 0) {
-  //   console.log("Initial", { h: bgColor.hsl.h, s: bgColor.hsl.s, l: bgColor.hsl.l });
+  //   console.log("Initial", { h: bgColorCloned.hsl.h, s: bgColorCloned.hsl.s, l: bgColorCloned.hsl.l });
   // }
   const iterationCount = iterations + 1;
-  const currentLightness = parseFloat(bgColor.hsl.l);
-  let lightness;
+  const currentLightness = bgColorCloned.hsl.l; // parseFloat(bgColorCloned.hsl.l)
+  let lightness = currentLightness;
   let limitReached = false;
 
   // Lighten or darken the target color
@@ -117,12 +183,9 @@ function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iter
     lightness = currentLightness;
     limitReached = true;
   }
-  bgColor.hsl.l = lightness; // Mutate the color
+  bgColorCloned.hsl.l = lightness;
 
-  const contrast = calcAPCA(
-    `hsl(${getHue(fgColor.hsl.h)} ${getSaturation(fgColor.hsl.s)}% ${fgColor.hsl.l}%)`,
-    `hsl(${getHue(bgColor.hsl.h)} ${getSaturation(bgColor.hsl.s)}% ${bgColor.hsl.l}%)`
-  );
+  const contrast = getContrast(fgColor, bgColorCloned);
   const fontSizes = fontLookupAPCA(contrast);
 
   const passedContrastTest = targetFontSizes.every(size => {
@@ -135,24 +198,25 @@ function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iter
 
   if (passedContrastTest || limitReached) {
     // console.log("Final", {
-    //   h: bgColor.hsl.h,
-    //   s: bgColor.hsl.s,
-    //   l: bgColor.hsl.l,
+    //   h: bgColorCloned.hsl.h,
+    //   s: bgColorCloned.hsl.s,
+    //   l: bgColorCloned.hsl.l,
     //   contrast,
     //   iterationCount
     // });
     // if (limitReached) {
     //   console.warn("Limit reached");
     // }
-    return {
+    const finalColor: ColorIteration = {
       fgColor,
-      bgColor,
+      bgColor: bgColorCloned,
       contrast,
       iterations: iterationCount,
       limitReached
     };
+    return finalColor;
   }
-  return adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iterationCount);
+  return adjustBackgroundColor(fgColor, bgColorCloned, darkenBg, targetFontSizes, iterationCount);
 }
 
 // Criteria which must be fulfilled in order for a color to be considered accessible by APCA
@@ -168,7 +232,7 @@ function adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iter
 // See: https://git.apcacontrast.com/documentation/WhyAPCA
 // TODO: possibly add more targets for different use cases?
 
-const targetFontSizesDefault = [
+const targetFontSizesDefault: TargetFontSizes = [
   {
     // Meta text (Open Sans font)
     weight: 400,
@@ -191,10 +255,10 @@ const targetFontSizesDefault = [
  * @param {Array} targetFontSizes - Target font weights and sizes for APCA
  * @returns {Object} Transformed color with contrast value
  */
-function adjustColorContrast(color, targetFontSizes) {
+function adjustColorContrast(color: Color, targetFontSizes: TargetFontSizes): ColorWithContrast {
   // Clone colorjs.io instances (important!)
-  const color1 = new Color(color);
-  const color2 = new Color(color);
+  const color1 = color.clone();
+  const color2 = color.clone();
 
   // White text on dark background
   // (darken the color and assume the foreground text will be white)
@@ -221,11 +285,14 @@ function adjustColorContrast(color, targetFontSizes) {
  * @param {Array} targetFontSizes - Target font weights and sizes for APCA
  * @returns {Object} "primary" and "secondary" page colors plus a string of CSS `body` styles
  */
-export function getPageColors(data, targetFontSizes = targetFontSizesDefault) {
-  const pageColors = data?.image?.pageColors;
+export function getPageColors(
+  data: SanityDocument,
+  targetFontSizes = targetFontSizesDefault
+): PageColorsAndStyles | null {
+  const pageColors: PageColors = data?.image?.pageColors;
 
   if (!pageColors || !pageColors?.primary || !pageColors?.secondary) {
-    return "";
+    return null; // TODO: return a default `PageColorsAndStyles` instead of `null`
   }
   // Original colors
   const primaryOriginal = new Color(
@@ -234,27 +301,28 @@ export function getPageColors(data, targetFontSizes = targetFontSizesDefault) {
   const secondaryOriginal = new Color(
     `rgb(${pageColors.secondary.r}% ${pageColors.secondary.g}% ${pageColors.secondary.b}%)`
   );
-
-  // Clone the colorjs.io instances (important!)
-  const primaryCloned = new Color(primaryOriginal);
-  const secondarCloned = new Color(secondaryOriginal);
-
   // Adjusted colors
-  const primaryAdjusted = adjustColorContrast(primaryCloned, targetFontSizes);
-  const secondaryAdjusted = adjustColorContrast(secondarCloned, targetFontSizes);
+  const primaryAdjusted = adjustColorContrast(primaryOriginal, targetFontSizes);
+  const secondaryAdjusted = adjustColorContrast(secondaryOriginal, targetFontSizes);
 
-  const pageColorsAdjusted = {
+  const pageColorsAdjusted: PageColorsWithContrast = {
     primary: {
       // Convert colorjs.io RGB values into percentages
       r: primaryAdjusted.color.srgb.r * 100,
       g: primaryAdjusted.color.srgb.g * 100,
       b: primaryAdjusted.color.srgb.b * 100,
+      h: primaryAdjusted.color.hsl.h,
+      s: primaryAdjusted.color.hsl.s,
+      l: primaryAdjusted.color.hsl.l,
       contrast: primaryAdjusted.contrast
     },
     secondary: {
       r: secondaryOriginal.srgb.r * 100,
       g: secondaryOriginal.srgb.g * 100,
       b: secondaryOriginal.srgb.b * 100,
+      h: secondaryOriginal.hsl.h,
+      s: secondaryOriginal.hsl.s,
+      l: secondaryOriginal.hsl.l,
       contrast: getHighestContrast(secondaryOriginal)
     },
     // TODO: delete these later, since they won't be used
@@ -263,12 +331,18 @@ export function getPageColors(data, targetFontSizes = targetFontSizesDefault) {
       r: primaryOriginal.srgb.r * 100,
       g: primaryOriginal.srgb.g * 100,
       b: primaryOriginal.srgb.b * 100,
+      h: primaryOriginal.hsl.h,
+      s: primaryOriginal.hsl.s,
+      l: primaryOriginal.hsl.l,
       contrast: getHighestContrast(primaryOriginal)
     },
     secondaryAdjusted: {
       r: secondaryAdjusted.color.srgb.r * 100,
       g: secondaryAdjusted.color.srgb.g * 100,
       b: secondaryAdjusted.color.srgb.b * 100,
+      h: secondaryAdjusted.color.hsl.h,
+      s: secondaryAdjusted.color.hsl.s,
+      l: secondaryAdjusted.color.hsl.l,
       contrast: secondaryAdjusted.contrast
     }
   };
