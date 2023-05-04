@@ -1,14 +1,16 @@
 import { useEffect, useRef } from "react";
-import { useApp } from "~/utils/useApp";
+import { useApp, SET_SKIP_LINK_TARGET } from "~/utils/useApp";
 
 import styles from "~/components/PageTitle.module.css";
 
-export default function PageTitle({ className = "", centered = false, children }) {
+// Defining `ref` types: https://www.robinwieruch.de/typescript-react-useref/
+
+export default function PageTitle({ className = "", centered = false, children = "" }) {
   const { dispatchApp } = useApp();
-  const skipLinkTargetRef = useRef(null);
+  const skipLinkTargetRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    dispatchApp({ skipLinkTargetRef });
+    dispatchApp({ type: SET_SKIP_LINK_TARGET, payload: skipLinkTargetRef });
   }, [dispatchApp]);
 
   const classNames = [className, centered ? styles.centered : ""].filter(c => c).join(" ");

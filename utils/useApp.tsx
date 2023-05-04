@@ -1,26 +1,82 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  type Dispatch,
+  type RefObject
+} from "react";
 
-// https://reactjs.org/docs/hooks-reference.html#usecontext
-// https://reactjs.org/docs/context.html
+// https://react.dev/reference/react/useContext
+// https://react.dev/learn/scaling-up-with-reducer-and-context
+// https://www.fabiobiondi.dev/blog/2023-01/how-to-safely-type-usereducer-in-react-and-typescript
+// https://www.robinwieruch.de/react-usereducer-vs-usestate
+// https://www.robinwieruch.de/react-state-usereducer-usestate-usecontext
 
-const defaultState = {
+// State
+type AppState = {
+  skipLinkTargetRef: RefObject<HTMLHeadingElement> | null;
+  bodyScrollLocked: boolean;
+  bodyContentHidden: boolean;
+};
+
+const initialState: AppState = {
   skipLinkTargetRef: null,
   bodyScrollLocked: false,
   bodyContentHidden: false
 };
 
-const AppContext = createContext({ app: defaultState, dispatchApp: null });
+// Context
+// Defining `Dispatch` type: https://stackoverflow.com/a/72281820/1243086
+const AppContext = createContext(initialState);
+const AppDispatchContext = createContext((() => undefined) as Dispatch<AppActions>);
 
-AppContext.displayName = "AppContext"; // For React dev tools
+// Actions
+export const SET_SKIP_LINK_TARGET = "setSkipLinkTarget";
+export const LOCK_BODY_SCROLL = "lockBodyScroll";
+export const HIDE_BODY_CONTENT = "hideBodyContent";
 
-// Returns the current context value for `AppContext`, which is determined by the `value`
-// prop of the nearest `<AppContext.Provider>` above the calling component in the tree
-export function useApp() {
-  return useContext(AppContext);
+type SetSkipLinkTarget = {
+  type: typeof SET_SKIP_LINK_TARGET;
+  payload: RefObject<HTMLHeadingElement>;
+};
+type LockBodyScroll = {
+  type: typeof LOCK_BODY_SCROLL;
+  payload: boolean;
+};
+type HideBodyContent = {
+  type: typeof HIDE_BODY_CONTENT;
+  payload: boolean;
+};
+type AppActions = SetSkipLinkTarget | LockBodyScroll | HideBodyContent;
+
+// Reducer
+function appReducer(state: AppState, action: AppActions) {
+  switch (action.type) {
+    case SET_SKIP_LINK_TARGET:
+      return {
+        ...state,
+        skipLinkTargetRef: action.payload
+      };
+    case LOCK_BODY_SCROLL:
+      return {
+        ...state,
+        bodyScrollLocked: action.payload
+      };
+    case HIDE_BODY_CONTENT:
+      return {
+        ...state,
+        bodyContentHidden: action.payload
+      };
+    default:
+      throw Error("Unknown action");
+  }
 }
 
-export function AppProvider({ children }) {
-  const [app, dispatchApp] = useReducer(appReducer, defaultState);
+// Provider
+// Defining `children` types: https://blog.logrocket.com/using-react-children-prop-with-typescript/
+export function AppProvider({ children }: { children: JSX.Element | JSX.Element[] }) {
+  const [app, dispatchApp] = useReducer(appReducer, initialState);
 
   useEffect(() => {
     document.body.classList[app.bodyScrollLocked ? "add" : "remove"]("u-no-scroll--not-fixed");
@@ -36,33 +92,14 @@ export function AppProvider({ children }) {
     };
   }, [app.bodyContentHidden]);
 
-  const value = { app, dispatchApp };
-
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={app}>
+      <AppDispatchContext.Provider value={dispatchApp}>{children}</AppDispatchContext.Provider>
+    </AppContext.Provider>
+  );
 }
 
-const appReducer = (state, payload) => {
-  return { ...state, ...payload };
-};
-
-/**
- * TODO: replace the above with the following if and when we need this context to perform
- * more complex state transitions. The difference in usage would look like this:
- *
- * `dispatchApp({ bodyContentHidden: true });`
- * vs
- * `dispatchApp({ type: "UPDATE", payload: { bodyContentHidden: hidden } });`
- *
- * "Keeping all state transitions neatly organized into one reducer function":
- * https://www.robinwieruch.de/react-usereducer-vs-usestate
- * https://www.robinwieruch.de/react-state-usereducer-usestate-usecontext
- */
-// const appReducer = (state, action) => {
-//   switch (action.type) {
-//     case "UPDATE":
-//       return { ...state, ...action.payload };
-//     default:
-//       console.warn(`Invalid appReducer action type: ${action.type}`);
-//       return state;
-//   }
-// };
+// Convenience wrapper
+export function useApp() {
+  return { app: useContext(AppContext), dispatchApp: useContext(AppDispatchContext) };
+}

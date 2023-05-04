@@ -121,8 +121,8 @@ function findBestAdjustedColor(colorA: ColorIteration, colorB: ColorIteration): 
  * background, and Lc 0 to Lc -108 for light text on a dark background (dark mode). The minus
  * sign merely indicates negative contrast, which means light text on a dark background.
  * @see https://www.myndex.com/APCA/
- * @param {Object} fgColor - colorjs.io instance or mock object with HSL properties
- * @param {Object} bgColor - colorjs.io instance or mock object with HSL properties
+ * @param {Object} fgColor - colorjs.io instance
+ * @param {Object} bgColor - colorjs.io instance
  * @returns {Number} The APCA readability contrast (Lc value)
  */
 function getContrast(fgColor: Color, bgColor: Color): number {
@@ -137,7 +137,7 @@ function getContrast(fgColor: Color, bgColor: Color): number {
 /**
  * Determine which foreground text color (white or black) has a higher APCA readability contrast
  * (Lc value) against the supplied background color
- * @param {Object} color - colorjs.io instance or mock object with HSL properties
+ * @param {Object} color - colorjs.io instance
  * @returns {Number} The APCA readability contrast (Lc value)
  */
 function getHighestContrast(color: Color): number {
@@ -151,25 +151,22 @@ function getHighestContrast(color: Color): number {
  * contrast (Lc value) than black text, keep darkening the background color until `fontLookupAPCA`
  * returns a font size smaller than or equal to the desired size, for the desired font weight.
  * Otherwise, keep lightening the background color until the desired outcome is achieved.
- * @param {Object} fgColor - colorjs.io instance or mock object with HSL properties
- * @param {Object} bgColor - colorjs.io instance or mock object with HSL properties
+ * @param {Object} fgColor - colorjs.io instance, which will be mutated!
+ * @param {Object} bgColor - colorjs.io instance
  * @param {Boolean} darkenBg - Whether to progressively darken or lighten the background color
  */
 function adjustBackgroundColor(
   fgColor: Color,
-  bgColor: Color,
+  bgColor: Color, // Will be mutated, not cloned!
   darkenBg: boolean,
   targetFontSizes: TargetFontSizes,
   iterations = 0
 ): ColorIteration {
-  // Clone colorjs.io instance (important!)
-  const bgColorCloned = bgColor.clone();
-
   // if (iterations === 0) {
-  //   console.log("Initial", { h: bgColorCloned.hsl.h, s: bgColorCloned.hsl.s, l: bgColorCloned.hsl.l });
+  //   console.log("Initial", { h: bgColor.hsl.h, s: bgColor.hsl.s, l: bgColor.hsl.l });
   // }
   const iterationCount = iterations + 1;
-  const currentLightness = bgColorCloned.hsl.l; // parseFloat(bgColorCloned.hsl.l)
+  const currentLightness = bgColor.hsl.l;
   let lightness = currentLightness;
   let limitReached = false;
 
@@ -183,9 +180,10 @@ function adjustBackgroundColor(
     lightness = currentLightness;
     limitReached = true;
   }
-  bgColorCloned.hsl.l = lightness;
+  // Danger! We're mutating the `Color` instance without cloning it first, for faster performance.
+  bgColor.hsl.l = lightness;
 
-  const contrast = getContrast(fgColor, bgColorCloned);
+  const contrast = getContrast(fgColor, bgColor);
   const fontSizes = fontLookupAPCA(contrast);
 
   const passedContrastTest = targetFontSizes.every(size => {
@@ -198,9 +196,9 @@ function adjustBackgroundColor(
 
   if (passedContrastTest || limitReached) {
     // console.log("Final", {
-    //   h: bgColorCloned.hsl.h,
-    //   s: bgColorCloned.hsl.s,
-    //   l: bgColorCloned.hsl.l,
+    //   h: bgColor.hsl.h,
+    //   s: bgColor.hsl.s,
+    //   l: bgColor.hsl.l,
     //   contrast,
     //   iterationCount
     // });
@@ -209,14 +207,14 @@ function adjustBackgroundColor(
     // }
     const finalColor: ColorIteration = {
       fgColor,
-      bgColor: bgColorCloned,
+      bgColor: bgColor,
       contrast,
       iterations: iterationCount,
       limitReached
     };
     return finalColor;
   }
-  return adjustBackgroundColor(fgColor, bgColorCloned, darkenBg, targetFontSizes, iterationCount);
+  return adjustBackgroundColor(fgColor, bgColor, darkenBg, targetFontSizes, iterationCount);
 }
 
 // Criteria which must be fulfilled in order for a color to be considered accessible by APCA
@@ -251,7 +249,7 @@ const targetFontSizesDefault: TargetFontSizes = [
  * requirements. Whichever one of the generated colors required the least amount of transformation
  * will be selected and returned. The secondary color doesn't need to be transformed because text
  * will never be placed over top of it (a manually-enforced design constraint).
- * @param {Object} color - colorjs.io instance or mock object with HSL properties
+ * @param {Object} color - colorjs.io instance
  * @param {Array} targetFontSizes - Target font weights and sizes for APCA
  * @returns {Object} Transformed color with contrast value
  */

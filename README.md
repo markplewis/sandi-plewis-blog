@@ -122,7 +122,6 @@ but it works (see: `styles/design-tokens.json` and `styles/design-tokens.js`). H
 
 ## TODO
 
-- Replace some of our React hooks with these? https://github.com/streamich/react-use
 - Document how to seed the MongoDB datbase and/or create new users
 - Document our CSS methodologies and process, as per: https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/
 

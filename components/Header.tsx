@@ -1,13 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useClickAway, useKeyPressEvent, useMedia, useWindowSize } from "react-use";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import designTokens from "~/styles/design-tokens";
-import { useApp } from "~/utils/useApp";
-import useMediaQuery from "~/utils/useMediaQuery";
+import { useApp, HIDE_BODY_CONTENT, LOCK_BODY_SCROLL } from "~/utils/useApp";
 import { rem } from "~/utils/units";
-import useEscapeKey from "~/utils/useEscapeKey";
-import useOnClickOutside from "~/utils/useOnClickOutside";
-import useWindowSize from "~/utils/useWindowSize";
 
 import styles from "~/components/Header.module.css";
 
@@ -17,7 +14,7 @@ export default function Header() {
   const router = useRouter();
   const pathName = router.pathname;
   const active = styles.navItemActive;
-  const isMedium = useMediaQuery(`(min-width: ${breakpoints.w820.value}rem)`);
+  const isMedium = useMedia(`(min-width: ${breakpoints.w820.value}rem)`);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuHidden, setMenuHidden] = useState(true);
   const menuButtonRef = useRef(null);
@@ -37,18 +34,20 @@ export default function Header() {
     header && setHeaderHeight(header.offsetHeight);
   }, []);
 
-  useWindowSize(adjustMenuHeight, 500);
+  const { width } = useWindowSize();
+
+  useEffect(() => adjustMenuHeight(), [adjustMenuHeight, width]);
 
   const setContentHidden = useCallback(
-    hidden => {
-      dispatchApp({ bodyContentHidden: hidden });
+    (hidden: boolean) => {
+      dispatchApp({ type: HIDE_BODY_CONTENT, payload: hidden });
     },
     [dispatchApp]
   );
 
   // Lock scrolling while mobile nav menu is open
   useEffect(() => {
-    dispatchApp({ bodyScrollLocked: menuOpen && !isMedium });
+    dispatchApp({ type: LOCK_BODY_SCROLL, payload: menuOpen && !isMedium });
   }, [dispatchApp, isMedium, menuOpen]);
 
   const openMenu = () => {
@@ -85,10 +84,10 @@ export default function Header() {
   }, [closeMenu, router.events]);
 
   // Close menu when user presses Escape key
-  useEscapeKey(closeMenu);
+  useKeyPressEvent("Escape", closeMenu);
 
   // Close menu when user clicks/taps outside of it
-  useOnClickOutside(menuRef, handleMenuClickOutside);
+  useClickAway(menuRef, handleMenuClickOutside);
 
   const handleMenuButtonClick = () => {
     !menuOpen ? openMenu() : closeMenu();

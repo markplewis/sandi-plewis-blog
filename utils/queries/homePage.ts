@@ -34,7 +34,7 @@ export const featuredReviewsQuery = groq`
   *[_type == "homePage"][0].reviews[]->{review, author, title, _id}
 `;
 
-function getRecentPostsQuery(limit) {
+function getRecentPostsQuery(limit: number) {
   return groq`
     *[_type == "post"] | order(publishedAt desc) {
       title,
