@@ -4,10 +4,11 @@ import AuthorBio from "~/components/homePage/AuthorBio";
 import FeaturedNovel from "~/components/homePage/FeaturedNovel";
 import FeaturedReviews from "~/components/homePage/FeaturedReviews";
 import RecentPosts from "~/components/homePage/RecentPosts";
+import { SPPages } from "~/typings/pages.d";
 
 import styles from "~/components/pages/home/HomePage.module.css";
 
-export default function HomePage({ data }) {
+export default function HomePage({ data }: { data: SPPages.HomePage }) {
   const { novelAndHomePage, reviews = [], posts = [], author, pageColors = {} } = data;
   const { novel, description } = novelAndHomePage;
   const { styles: pageStyles } = pageColors;

@@ -1,22 +1,15 @@
-import { SanityDocument } from "@sanity/client";
 import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import CategoryPage from "~/components/pages/categories/CategoryPage";
 import { client } from "~/lib/sanity.client";
+import { SPPages } from "~/typings/pages.d";
 import { categoryQuery } from "~/utils/queries/categories";
 
 const CategoryPagePreview = lazy(() => import("~/components/pages/categories/CategoryPagePreview"));
 
-type CategoryPageProps = {
-  preview: boolean;
-  previewData: string;
-  slug: string;
-  data: SanityDocument;
-};
-
-export default function Category({ preview, previewData, slug, data }: CategoryPageProps) {
+export default function Category({ preview, previewData, slug, data }: SPPages.LeafPage) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <CategoryPagePreview token={previewData} slug={slug} />

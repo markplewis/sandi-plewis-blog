@@ -1,7 +1,9 @@
 "use client";
 
+import { SanityDocument } from "@sanity/client";
 import HomePage from "~/components/pages/home/HomePage";
 import { usePreview } from "~/lib/sanity.preview";
+import { SPPages } from "~/typings/pages.d";
 import { getPageColors } from "~/utils/color";
 import {
   featuredNovelAndHomePageQuery,
@@ -10,16 +12,15 @@ import {
   authorBioQuery
 } from "~/utils/queries/homePage";
 
-export default function HomePagePreview({ token }) {
-  const data = {
-    novelAndHomePage: usePreview(token, featuredNovelAndHomePageQuery),
+export default function HomePagePreview({ token }: { token: string }) {
+  const novelAndHomePage: SanityDocument = usePreview(token, featuredNovelAndHomePageQuery);
+
+  const data: SPPages.HomePage = {
+    novelAndHomePage,
     reviews: usePreview(token, featuredReviewsQuery),
     posts: usePreview(token, recentPostsQuery),
-    author: usePreview(token, authorBioQuery)
+    author: usePreview(token, authorBioQuery),
+    pageColors: getPageColors(novelAndHomePage?.novel)
   };
-  // Append adjusted page colors
-  if (data?.novelAndHomePage) {
-    data.pageColors = getPageColors(data.novelAndHomePage?.novel);
-  }
   return <HomePage data={data} />;
 }

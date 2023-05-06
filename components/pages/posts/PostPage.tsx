@@ -1,3 +1,4 @@
+import { SanityDocument } from "@sanity/client";
 import Image from "next/image";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
@@ -11,7 +12,7 @@ import { processCreditLine } from "~/utils/strings";
 
 import styles from "~/components/pages/posts/PostPage.module.css";
 
-export default function PostPage({ data }) {
+export default function PostPage({ data }: { data: SanityDocument }) {
   const {
     title = "",
     body = [],

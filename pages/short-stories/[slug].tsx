@@ -1,10 +1,10 @@
-import { SanityDocument } from "@sanity/client";
 import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import ShortStoryPage from "~/components/pages/shortStories/ShortStoryPage";
 import { client } from "~/lib/sanity.client";
+import { SPPages } from "~/typings/pages.d";
 import { getPageColors } from "~/utils/color";
 import { shortStoryQuery } from "~/utils/queries/shortStories";
 
@@ -12,14 +12,7 @@ const ShortStoryPagePreview = lazy(
   () => import("~/components/pages/shortStories/ShortStoryPagePreview")
 );
 
-type ShortStoryPageProps = {
-  preview: boolean;
-  previewData: string;
-  slug: string;
-  data: SanityDocument;
-};
-
-export default function ShortStory({ preview, previewData, slug, data }: ShortStoryPageProps) {
+export default function ShortStory({ preview, previewData, slug, data }: SPPages.LeafPage) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <ShortStoryPagePreview token={previewData} slug={slug} />

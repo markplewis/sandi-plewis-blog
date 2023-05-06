@@ -1,23 +1,16 @@
-import { SanityDocument } from "@sanity/client";
 import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import NovelPage from "~/components/pages/novels/NovelPage";
 import { client } from "~/lib/sanity.client";
+import { SPPages } from "~/typings/pages.d";
 import { getPageColors } from "~/utils/color";
 import { novelQuery } from "~/utils/queries/novels";
 
 const NovelPagePreview = lazy(() => import("~/components/pages/novels/NovelPagePreview"));
 
-type NovelPageProps = {
-  preview: boolean;
-  previewData: string;
-  slug: string;
-  data: SanityDocument;
-};
-
-export default function Novel({ preview, previewData, slug, data }: NovelPageProps) {
+export default function Novel({ preview, previewData, slug, data }: SPPages.LeafPage) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <NovelPagePreview token={previewData} slug={slug} />

@@ -1,24 +1,17 @@
-import { SanityDocument } from "@sanity/client";
 import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next"; // NextPage
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import AuthorPage from "~/components/pages/authors/AuthorPage";
 import { client } from "~/lib/sanity.client";
+import { SPPages } from "~/typings/pages.d";
 import { getPageColors } from "~/utils/color";
 import { authorQuery } from "~/utils/queries/authors";
 
 const AuthorPagePreview = lazy(() => import("~/components/pages/authors/AuthorPagePreview"));
 
-type AuthorPageProps = {
-  preview: boolean;
-  previewData: string;
-  slug: string;
-  data: SanityDocument;
-};
-
 // const Author: NextPage<AuthorPageProps> = ({ preview, previewData, slug, data }) => {
-const Author = ({ preview, previewData, slug, data }: AuthorPageProps) => {
+const Author = ({ preview, previewData, slug, data }: SPPages.LeafPage) => {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <AuthorPagePreview token={previewData} slug={slug} />

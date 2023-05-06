@@ -1,22 +1,16 @@
-import { SanityDocument } from "@sanity/client";
 import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import CategoriesPage from "~/components/pages/categories/CategoriesPage";
 import { client } from "~/lib/sanity.client";
+import { SPPages } from "~/typings/pages.d";
 import { categoriesQuery } from "~/utils/queries/categories";
 
 const CategoriesPagePreview = lazy(
   () => import("~/components/pages/categories/CategoriesPagePreview")
 );
 
-type CategoriesPageProps = {
-  preview: boolean;
-  previewData: string;
-  data: SanityDocument;
-};
-
-export default function Categories({ preview, previewData, data }: CategoriesPageProps) {
+export default function Categories({ preview, previewData, data }: SPPages.DirectoryPage) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <CategoriesPagePreview token={previewData} />

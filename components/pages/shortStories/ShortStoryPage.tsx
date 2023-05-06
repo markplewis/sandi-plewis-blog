@@ -1,3 +1,4 @@
+import { SanityDocument } from "@sanity/client";
 import BasicImage from "~/components/BasicImage";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
@@ -16,7 +17,7 @@ const portableTextComponents = {
   }
 };
 
-export default function ShortStoryPage({ data }) {
+export default function ShortStoryPage({ data }: { data: SanityDocument }) {
   const {
     title = "",
     description = "",

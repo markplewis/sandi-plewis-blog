@@ -8,56 +8,7 @@ declare module "apca-w3" {
 import { calcAPCA, fontLookupAPCA } from "apca-w3";
 import Color from "colorjs.io";
 import { SanityDocument } from "@sanity/client";
-
-type PageColor = {
-  r: number;
-  g: number;
-  b: number;
-  h: number;
-  s: number;
-  l: number;
-};
-
-type PageColorWithContrast = PageColor & {
-  contrast: number;
-};
-
-type PageColors = {
-  primary: PageColor;
-  secondary: PageColor;
-};
-
-type PageColorsWithContrast = {
-  primary: PageColorWithContrast;
-  secondary: PageColorWithContrast;
-  primaryOriginal: PageColorWithContrast;
-  secondaryAdjusted: PageColorWithContrast;
-};
-
-export type PageColorsAndStyles = {
-  colors: PageColorsWithContrast;
-  styles: string;
-};
-
-type ColorIteration = {
-  fgColor: Color;
-  bgColor: Color;
-  contrast: number;
-  iterations: number;
-  limitReached: boolean;
-};
-
-type ColorWithContrast = {
-  color: Color;
-  contrast: number;
-};
-
-type TargetFontSize = {
-  weight: number;
-  size: number;
-};
-
-type TargetFontSizes = TargetFontSize[];
+import { SPColors } from "~/typings/color.d";
 
 // Simple color transformation functions that we could use instead of colorjs.io:
 // https://css-tricks.com/converting-color-spaces-in-javascript/#hex-to-hsl
@@ -100,7 +51,10 @@ function getSaturation(s: number): number {
  * @param {Object} colorB - Adjusted color object with iteration count property, etc.
  * @returns {Object} One of the two color objects that were supplied as arguments
  */
-function findBestAdjustedColor(colorA: ColorIteration, colorB: ColorIteration): ColorIteration {
+function findBestAdjustedColor(
+  colorA: SPColors.ColorIteration,
+  colorB: SPColors.ColorIteration
+): SPColors.ColorIteration {
   let bestColor = colorA;
   if (
     (colorA.limitReached && colorB.limitReached) ||
@@ -159,9 +113,9 @@ function adjustBackgroundColor(
   fgColor: Color,
   bgColor: Color, // Will be mutated, not cloned!
   darkenBg: boolean,
-  targetFontSizes: TargetFontSizes,
+  targetFontSizes: SPColors.TargetFontSizes,
   iterations = 0
-): ColorIteration {
+): SPColors.ColorIteration {
   // if (iterations === 0) {
   //   console.log("Initial", { h: bgColor.hsl.h, s: bgColor.hsl.s, l: bgColor.hsl.l });
   // }
@@ -205,7 +159,7 @@ function adjustBackgroundColor(
     // if (limitReached) {
     //   console.warn("Limit reached");
     // }
-    const finalColor: ColorIteration = {
+    const finalColor: SPColors.ColorIteration = {
       fgColor,
       bgColor: bgColor,
       contrast,
@@ -230,7 +184,7 @@ function adjustBackgroundColor(
 // See: https://git.apcacontrast.com/documentation/WhyAPCA
 // TODO: possibly add more targets for different use cases?
 
-const targetFontSizesDefault: TargetFontSizes = [
+const targetFontSizesDefault: SPColors.TargetFontSizes = [
   {
     // Meta text (Open Sans font)
     weight: 400,
@@ -253,7 +207,10 @@ const targetFontSizesDefault: TargetFontSizes = [
  * @param {Array} targetFontSizes - Target font weights and sizes for APCA
  * @returns {Object} Transformed color with contrast value
  */
-function adjustColorContrast(color: Color, targetFontSizes: TargetFontSizes): ColorWithContrast {
+function adjustColorContrast(
+  color: Color,
+  targetFontSizes: SPColors.TargetFontSizes
+): SPColors.ColorWithContrast {
   // Clone colorjs.io instances (important!)
   const color1 = color.clone();
   const color2 = color.clone();
@@ -286,8 +243,8 @@ function adjustColorContrast(color: Color, targetFontSizes: TargetFontSizes): Co
 export function getPageColors(
   data: SanityDocument,
   targetFontSizes = targetFontSizesDefault
-): PageColorsAndStyles | null {
-  const pageColors: PageColors = data?.image?.pageColors;
+): SPColors.PageColorsAndStyles | null {
+  const pageColors: SPColors.PageColors = data?.image?.pageColors;
 
   if (!pageColors || !pageColors?.primary || !pageColors?.secondary) {
     return null; // TODO: return a default `PageColorsAndStyles` instead of `null`
@@ -303,7 +260,7 @@ export function getPageColors(
   const primaryAdjusted = adjustColorContrast(primaryOriginal, targetFontSizes);
   const secondaryAdjusted = adjustColorContrast(secondaryOriginal, targetFontSizes);
 
-  const pageColorsAdjusted: PageColorsWithContrast = {
+  const pageColorsAdjusted: SPColors.PageColorsWithContrast = {
     primary: {
       // Convert colorjs.io RGB values into percentages
       r: primaryAdjusted.color.srgb.r * 100,

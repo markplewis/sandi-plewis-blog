@@ -1,8 +1,9 @@
+import { SanityDocument } from "@sanity/client";
 import CardList from "~/components/CardList";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
 
-export default function PostsPage({ data }) {
+export default function PostsPage({ data }: { data: SanityDocument }) {
   const posts = data;
   return (
     <Layout title="Blog posts" description="A listing of Sandi Plewis' blog posts">

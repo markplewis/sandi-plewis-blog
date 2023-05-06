@@ -3,7 +3,7 @@ const urlRegex = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:
 // Convert: `by Alex Kozlov · url: https://www.pexels.com/@alex-kozlov-3442124`
 // to this: `by Alex Kozlov · <a href="https://www.pexels.com/@alex-kozlov-3442124">Pexels</a>`
 
-export function processCreditLine(creditLine) {
+export function processCreditLine(creditLine: string) {
   let credit = creditLine;
   if (creditLine && creditLine.includes("pexels.com") && urlRegex.test(creditLine)) {
     credit = creditLine

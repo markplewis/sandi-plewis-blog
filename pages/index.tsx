@@ -1,8 +1,8 @@
-import { SanityDocument } from "@sanity/client";
 import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import HomePage from "~/components/pages/home/HomePage";
+import { SPPages } from "~/typings/pages.d";
 import { client } from "~/lib/sanity.client";
 import { getPageColors } from "~/utils/color";
 import {
@@ -14,13 +14,7 @@ import {
 
 const HomePagePreview = lazy(() => import("~/components/pages/home/HomePagePreview"));
 
-type HomePageProps = {
-  preview: boolean;
-  previewData: string;
-  data: SanityDocument;
-};
-
-export default function Home({ preview, previewData, data }: HomePageProps) {
+export default function Home({ preview, previewData, data }: SPPages.DirectoryPage) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <HomePagePreview token={previewData} />
