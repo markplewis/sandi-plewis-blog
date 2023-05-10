@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+
 import { Dancing_Script, Literata, Open_Sans } from "next/font/google";
 import Router from "next/router";
 import { SessionProvider } from "next-auth/react";

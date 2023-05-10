@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+
 import { getSession } from "next-auth/react";
 
 // See: https://github.com/sanity-io/next-sanity#custom-token-auth

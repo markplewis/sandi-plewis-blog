@@ -1,4 +1,5 @@
-import { SanityDocument } from "@sanity/client";
+import type { SanityDocument } from "@sanity/client";
+
 import Image from "next/image";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";

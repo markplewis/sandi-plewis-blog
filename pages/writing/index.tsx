@@ -1,8 +1,9 @@
+import type { SPPages } from "~/types/pages.d";
+
 import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import WritingPage from "~/components/pages/writing/WritingPage";
-import { SPPages } from "~/typings/pages.d";
 import { client } from "~/lib/sanity.client";
 import { novelsQuery, shortStoriesQuery } from "~/utils/queries/writing";
 

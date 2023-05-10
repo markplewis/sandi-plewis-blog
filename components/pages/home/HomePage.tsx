@@ -1,10 +1,11 @@
+import type { SPPages } from "~/types/pages.d";
+
 import Layout from "~/components/Layout";
 import ShareTools from "~/components/ShareTools";
 import AuthorBio from "~/components/homePage/AuthorBio";
 import FeaturedNovel from "~/components/homePage/FeaturedNovel";
 import FeaturedReviews from "~/components/homePage/FeaturedReviews";
 import RecentPosts from "~/components/homePage/RecentPosts";
-import { SPPages } from "~/typings/pages.d";
 
 import styles from "~/components/pages/home/HomePage.module.css";
 

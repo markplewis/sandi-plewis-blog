@@ -5,10 +5,10 @@
 declare module "apca-w3" {
   function fontLookupAPCA(contrast: number, places?: number): number[];
 }
+import type { SPColors } from "~/types/color.d";
+
 import { calcAPCA, fontLookupAPCA } from "apca-w3";
 import Color from "colorjs.io";
-import { SanityDocument } from "@sanity/client";
-import { SPColors } from "~/typings/color.d";
 
 // Simple color transformation functions that we could use instead of colorjs.io:
 // https://css-tricks.com/converting-color-spaces-in-javascript/#hex-to-hsl
@@ -241,10 +241,10 @@ function adjustColorContrast(
  * @returns {Object} "primary" and "secondary" page colors plus a string of CSS `body` styles
  */
 export function getPageColors(
-  data: SanityDocument,
+  pageColors: SPColors.PageColors,
   targetFontSizes = targetFontSizesDefault
 ): SPColors.PageColorsAndStyles | null {
-  const pageColors: SPColors.PageColors = data?.image?.pageColors;
+  // const pageColors: SPColors.PageColors = data?.image?.pageColors;
 
   if (!pageColors || !pageColors?.primary || !pageColors?.secondary) {
     return null; // TODO: return a default `PageColorsAndStyles` instead of `null`

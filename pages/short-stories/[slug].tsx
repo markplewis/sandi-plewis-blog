@@ -4,7 +4,7 @@ import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import ShortStoryPage from "~/components/pages/shortStories/ShortStoryPage";
 import { client } from "~/lib/sanity.client";
-import { SPPages } from "~/typings/pages.d";
+import type { SPPages } from "~/types/pages.d";
 import { getPageColors } from "~/utils/color";
 import { shortStoryQuery } from "~/utils/queries/shortStories";
 

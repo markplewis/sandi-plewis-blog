@@ -1,4 +1,5 @@
-import { createClient } from "next-sanity";
+import { makeSafeQueryRunner } from "groqd";
+import { createClient, type ClientConfig } from "next-sanity";
 
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
@@ -12,5 +13,17 @@ export const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION;
 // See: https://nextjs.org/docs/basic-features/data-fetching/overview
 const useCdn = typeof document !== "undefined";
 
+const config: ClientConfig = {
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn
+};
+
 // See: https://github.com/sanity-io/client
-export const client = createClient({ projectId, dataset, apiVersion, useCdn });
+export const client = createClient(config);
+
+// Wrap `sanityClient.fetch` (see: https://formidable.com/open-source/groqd/utility-methods)
+export const runQuery = makeSafeQueryRunner((query, params: Record<string, unknown> = {}) =>
+  client.fetch(query, params)
+);

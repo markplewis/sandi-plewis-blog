@@ -1,8 +1,8 @@
-import { SanityDocument } from "@sanity/client";
 import BasicImage from "~/components/BasicImage";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
 import PageBody from "~/components/PageBody";
+import type { Author } from "~/utils/queries/authors";
 
 import styles from "~/components/pages/authors/AuthorPage.module.css";
 
@@ -10,8 +10,8 @@ import styles from "~/components/pages/authors/AuthorPage.module.css";
 const imageWidth = 376;
 const imageHeight = imageWidth;
 
-export default function AuthorPage({ data }: { data: SanityDocument }) {
-  const { name = "", description = "", biography = "", image = {}, pageColors = {} } = data;
+export default function AuthorPage({ data }: { data: Author }) {
+  const { name, description, biography, image, pageColors } = data;
   const { styles: pageStyles } = pageColors;
 
   const pageColorsSecondary = pageColors?.colors?.secondary;
@@ -19,8 +19,13 @@ export default function AuthorPage({ data }: { data: SanityDocument }) {
     ? `rgb(${pageColorsSecondary.r}% ${pageColorsSecondary.g}% ${pageColorsSecondary.b}%)`
     : "black";
 
+  console.log("AuthorPage:image", image);
+
   return (
-    <Layout title={name} description={description} image={{ image, portrait: true, crop: true }}>
+    <Layout
+      title={name}
+      description={description}
+      image={{ image, pageColors: pageColors?.colors, portrait: true, crop: true }}>
       {pageStyles ? (
         <style jsx global>
           {`

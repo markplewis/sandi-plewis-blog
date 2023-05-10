@@ -8,12 +8,24 @@ import PreviewMessage from "~/components/PreviewMessage";
 import SkipLink from "~/components/SkipLink";
 import { BASE_URL, DEFAULT_META_DESCRIPTION, env, envProd, SITE_TITLE } from "~/env/constants";
 import { urlFor } from "~/lib/sanity";
+import type { Image, PageColors } from "~/utils/queries/shared";
 
 import useDebug from "~/utils/useDebug";
 
 // See: https://nextjs.org/docs/basic-features/layouts
 
-const sizes = {
+// Allow bracket notation object property access
+// https://stackoverflow.com/questions/34727936/typescript-bracket-notation-property-access
+interface IndexableSizes {
+  [key: string]: {
+    [key: string]: {
+      width: number;
+      height: number;
+    };
+  };
+}
+
+const sizes: IndexableSizes = {
   twitter: {
     // "Summary Card with Large Image": aspect ratio of 2:1 with minimum dimensions of 300 x 157
     // https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/summary-card-with-large-image
@@ -50,7 +62,23 @@ const LayoutPropTypes = {
   image: PropTypes.object
 };
 
-function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, image = null }) {
+function Layout({
+  children,
+  title = "",
+  description = DEFAULT_META_DESCRIPTION,
+  // pageColors
+  image = null
+}: {
+  children: JSX.Element | JSX.Element[];
+  title: string;
+  description: string;
+  pageColors: PageColors;
+  image: {
+    image: Image;
+    portrait: boolean;
+    crop: boolean;
+  } | null;
+}) {
   const debug = useDebug();
   const router = useRouter();
   const asPath = router.asPath;
@@ -61,56 +89,65 @@ function Layout({ children, title = "", description = DEFAULT_META_DESCRIPTION, 
   const fullTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
   const noIndex = !envProd || router.pathname === "/login";
 
-  const imageAlt = image?.image?.alt;
-  const imageOrientation =
-    image?.image && image?.portrait
-      ? "portrait"
-      : image?.image && !image?.portrait
-      ? "landscape"
-      : null;
-
+  let imageAlt;
+  let imageOrientation;
   let twitterImageURL;
-  if (imageOrientation === "portrait") {
-    if (image.crop) {
-      // Crop portrait images into a square shape
+  let facebookImageURL;
+
+  if (image?.image) {
+    imageAlt = image?.image?.alt;
+    imageOrientation =
+      image?.image && image?.portrait
+        ? "portrait"
+        : image?.image && !image?.portrait
+        ? "landscape"
+        : null;
+
+    // Twitter
+    if (imageOrientation === "portrait") {
+      if (image?.crop) {
+        // Crop portrait images into a square shape
+        twitterImageURL = urlFor(image.image)
+          .width(sizes.twitter.portrait.width)
+          .height(sizes.twitter.portrait.height)
+          .quality(90)
+          // .fit("crop") // This is the default?
+          .url();
+      } else {
+        // Fit portrait images into a square shape by filling in the background with a solid color
+        twitterImageURL = urlFor(image.image)
+          .ignoreImageParams() // Workaround for https://github.com/sanity-io/sanity/issues/524
+          .width(sizes.twitter.portrait.width)
+          .height(sizes.twitter.portrait.height)
+          .quality(90)
+          .fit("fill")
+          // TODO: add a `hex` property to `pageColors` (I guess?)
+          .bg("666")
+          // .bg(image.image.pageColors?.primary.hex.replace("#", "") ?? "666"))
+          //.bg(image?.image?.palette?.vibrant?.background?.replace("#", "") ?? "666") // TODO: not working
+          .url();
+      }
+    } else if (imageOrientation === "landscape") {
       twitterImageURL = urlFor(image.image)
-        .width(sizes.twitter.portrait.width)
-        .height(sizes.twitter.portrait.height)
+        .width(sizes.twitter.landscape.width)
+        .height(sizes.twitter.landscape.height)
         .quality(90)
-        // .fit("crop") // This is the default?
-        .url();
-    } else {
-      // Fit portrait images into a square shape by filling in the background with a solid color
-      twitterImageURL = urlFor(image.image)
-        .ignoreImageParams() // Workaround for https://github.com/sanity-io/sanity/issues/524
-        .width(sizes.twitter.portrait.width)
-        .height(sizes.twitter.portrait.height)
-        .quality(90)
-        .fit("fill")
-        .bg(image?.image?.palette?.vibrant?.background?.replace("#", "") ?? "666") // TODO: not working
         .url();
     }
-  } else if (imageOrientation === "landscape") {
-    twitterImageURL = urlFor(image.image)
-      .width(sizes.twitter.landscape.width)
-      .height(sizes.twitter.landscape.height)
-      .quality(90)
-      .url();
-  }
-
-  let facebookImageURL;
-  if (imageOrientation === "portrait") {
-    facebookImageURL = urlFor(image.image)
-      .width(sizes.facebook.portrait.width)
-      .height(sizes.facebook.portrait.height)
-      .quality(90)
-      .url();
-  } else if (imageOrientation === "landscape") {
-    facebookImageURL = urlFor(image.image)
-      .width(sizes.facebook.landscape.width)
-      .height(sizes.facebook.landscape.height)
-      .quality(90)
-      .url();
+    // Facebook
+    if (imageOrientation === "portrait") {
+      facebookImageURL = urlFor(image.image)
+        .width(sizes.facebook.portrait.width)
+        .height(sizes.facebook.portrait.height)
+        .quality(90)
+        .url();
+    } else if (imageOrientation === "landscape") {
+      facebookImageURL = urlFor(image.image)
+        .width(sizes.facebook.landscape.width)
+        .height(sizes.facebook.landscape.height)
+        .quality(90)
+        .url();
+    }
   }
 
   debug && console.log(`env: ${env}`);

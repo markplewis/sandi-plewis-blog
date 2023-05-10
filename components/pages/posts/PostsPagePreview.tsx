@@ -1,6 +1,7 @@
 "use client";
 
-import { SanityDocument } from "@sanity/client";
+import type { SanityDocument } from "@sanity/client";
+
 import PostsPage from "~/components/pages/posts/PostsPage";
 import { usePreview } from "~/lib/sanity.preview";
 import { postsQuery } from "~/utils/queries/posts";

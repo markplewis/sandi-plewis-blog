@@ -1,5 +1,5 @@
-import { SanityDocument } from "@sanity/client";
-import { SPColors } from "~/typings/color.d";
+import type { SanityDocument } from "@sanity/client";
+import type { SPColors } from "~/types/color.d";
 
 declare namespace SPPages {
   export interface DirectoryPage {

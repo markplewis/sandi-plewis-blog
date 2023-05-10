@@ -9,9 +9,12 @@ import styles from "~/components/portableText/PageBodyImage.module.css";
 const PageBodyImage = ({ value }) => {
   const { breakpoints } = designTokens;
   const creditLine = processCreditLine(value?.asset?.creditLine);
-  const width = value?.asset?.metadata?.dimensions?.width ?? 0;
-  const height = value?.asset?.metadata?.dimensions?.height ?? 0;
-  const aspectRatio = value?.asset?.metadata?.dimensions?.aspectRatio ?? 1;
+  // const width = value?.asset?.metadata?.dimensions?.width ?? 0;
+  // const height = value?.asset?.metadata?.dimensions?.height ?? 0;
+  // const aspectRatio = value?.asset?.metadata?.dimensions?.aspectRatio ?? 1;
+  const width = value?.asset?.width ?? 0;
+  const height = value?.asset?.height ?? 0;
+  const aspectRatio = value?.asset?.aspectRatio ?? 1;
   const alignment = value.alignment;
 
   let orientation = "square";
@@ -52,7 +55,8 @@ const PageBodyImage = ({ value }) => {
     <figure className={classNames}>
       {value.asset ? (
         <Image
-          src={urlFor(value.asset)
+          src={urlFor(value)
+            // src={urlFor(value.asset)
             .width(imageWidth * 2)
             .height(imageHeight * 2)
             .quality(90)

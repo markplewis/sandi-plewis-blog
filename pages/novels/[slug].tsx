@@ -1,10 +1,11 @@
+import type { SPPages } from "~/types/pages.d";
+
 import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import NovelPage from "~/components/pages/novels/NovelPage";
 import { client } from "~/lib/sanity.client";
-import { SPPages } from "~/typings/pages.d";
 import { getPageColors } from "~/utils/color";
 import { novelQuery } from "~/utils/queries/novels";
 

@@ -122,6 +122,7 @@ but it works (see: `styles/design-tokens.json` and `styles/design-tokens.js`). H
 
 ## TODO
 
+- Reeplace all GROQ queries with [GROQD](https://formidable.com/open-source/groqd/), then eventually replace GROQD with whatever "typed GROQ" solution that Sanity comes up with: https://github.com/sanity-io/client/issues/89#issuecomment-1497614581
 - Document how to seed the MongoDB datbase and/or create new users
 - Document our CSS methodologies and process, as per: https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/
 

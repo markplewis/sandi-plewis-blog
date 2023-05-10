@@ -2,15 +2,22 @@ import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import CategoriesPage from "~/components/pages/categories/CategoriesPage";
-import { client } from "~/lib/sanity.client";
-import { SPPages } from "~/typings/pages.d";
-import { categoriesQuery } from "~/utils/queries/categories";
+import { runQuery } from "~/lib/sanity.client";
+import { categoriesQuery, type Categories } from "~/utils/queries/categories";
 
 const CategoriesPagePreview = lazy(
   () => import("~/components/pages/categories/CategoriesPagePreview")
 );
 
-export default function Categories({ preview, previewData, data }: SPPages.DirectoryPage) {
+export default function Categories({
+  preview = false,
+  previewData,
+  data
+}: {
+  preview: boolean;
+  previewData: string;
+  data: Categories;
+}) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <CategoriesPagePreview token={previewData} />
@@ -34,7 +41,14 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
       }
     };
   }
-  const data = await client.fetch(categoriesQuery);
+  // "Don't add a try{} catch(){} in getStaticProps" - https://stackoverflow.com/a/71129752/1243086
+  // let data = null;
+  // try {
+  //   data = categoriesQuery.schema.parse(await runQuery(categoriesQuery));
+  // } catch (e) {
+  //   console.error("Error:", e);
+  // }
+  const data = categoriesQuery.schema.parse(await runQuery(categoriesQuery));
   return {
     props: {
       preview,

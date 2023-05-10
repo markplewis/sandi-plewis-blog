@@ -1,9 +1,10 @@
 "use client";
 
-import { SanityDocument } from "@sanity/client";
+import type { SanityDocument } from "@sanity/client";
+import type { SPPages } from "~/types/pages.d";
+
 import HomePage from "~/components/pages/home/HomePage";
 import { usePreview } from "~/lib/sanity.preview";
-import { SPPages } from "~/typings/pages.d";
 import { getPageColors } from "~/utils/color";
 import {
   featuredNovelAndHomePageQuery,

@@ -3,7 +3,10 @@
 // See: https://www.sanity.io/guides/portable-text-internal-and-external-links
 
 const InternalLink = ({ value, children }) => {
-  const { slug = {}, type } = value;
+  // console.log(value.slug);
+  // const { slug = {}, type } = value;
+  const { type } = value;
+  const slug = value?.slug?.current || value?.slug;
   let path;
   switch (type) {
     case "post":
@@ -16,7 +19,8 @@ const InternalLink = ({ value, children }) => {
       path = "short-stories";
       break;
   }
-  const href = `/${path}/${slug.current}`;
+  // const href = `/${path}/${slug.current}`;
+  const href = `/${path}/${slug}`;
   return <a href={href}>{children}</a>;
 };
 

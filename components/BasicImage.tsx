@@ -1,3 +1,5 @@
+import type { ImageUrlBuilderOptionsWithAsset } from "@sanity/image-url/lib/types/types";
+
 import Image from "next/image";
 import { urlFor } from "~/lib/sanity";
 import { imageBlurDataURL } from "~/utils/images";
@@ -7,12 +9,19 @@ import { imageBlurDataURL } from "~/utils/images";
 // https://nextjs.org/docs/api-reference/next/image
 
 export default function BasicImage({
-  image = undefined,
+  image,
   width = 300,
   height = 400,
-  sizes = undefined,
-  alt = undefined,
-  blur = undefined
+  sizes = "",
+  alt = "",
+  blur = ""
+}: {
+  image: ImageUrlBuilderOptionsWithAsset;
+  width: number;
+  height: number;
+  sizes: string;
+  alt: string;
+  blur: string;
 }) {
   return image?.asset ? (
     <Image

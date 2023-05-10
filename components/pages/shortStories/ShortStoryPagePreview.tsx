@@ -1,6 +1,7 @@
 "use client";
 
-import { SanityDocument } from "@sanity/client";
+import type { SanityDocument } from "@sanity/client";
+
 import ShortStoryPage from "~/components/pages/shortStories/ShortStoryPage";
 import { usePreview } from "~/lib/sanity.preview";
 import { getPageColors } from "~/utils/color";

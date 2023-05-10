@@ -1,11 +1,11 @@
-import { SanityDocument } from "@sanity/client";
 import CardList from "~/components/CardList";
 import Layout from "~/components/Layout";
 import MoreLink from "~/components/MoreLink";
 import PageTitle from "~/components/PageTitle";
 import SubTitle from "~/components/SubTitle";
+import type { Category } from "~/utils/queries/categories";
 
-export default function CategoryPage({ data }: { data: SanityDocument }) {
+export default function CategoryPage({ data }: { data: Category }) {
   const { title = "", posts = [] } = data;
   return (
     <Layout title={`Category: ${title}`} description={`Blog posts in category: ${title}`}>

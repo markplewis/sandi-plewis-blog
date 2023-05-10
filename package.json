@@ -49,6 +49,7 @@
     "colorparsley": "^0.1.8",
     "dompurify": "^3.0.3",
     "friendly-challenge": "^0.9.11",
+    "groqd": "^0.15.4",
     "mailgun.js": "^8.2.1",
     "modern-normalize": "^1.1.0",
     "mongodb": "^5.4.0",

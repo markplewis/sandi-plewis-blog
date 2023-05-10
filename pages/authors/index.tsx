@@ -2,13 +2,20 @@ import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import AuthorsPage from "~/components/pages/authors/AuthorsPage";
-import { SPPages } from "~/typings/pages.d";
-import { client } from "~/lib/sanity.client";
-import { authorsQuery } from "~/utils/queries/authors";
+import { runQuery } from "~/lib/sanity.client";
+import { authorsQuery, type Authors } from "~/utils/queries/authors";
 
 const AuthorsPagePreview = lazy(() => import("~/components/pages/authors/AuthorsPagePreview"));
 
-export default function Authors({ preview, previewData, data }: SPPages.DirectoryPage) {
+export default function Authors({
+  preview = false,
+  previewData,
+  data
+}: {
+  preview: boolean;
+  previewData: string;
+  data: Authors;
+}) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <AuthorsPagePreview token={previewData} />
@@ -32,7 +39,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
       }
     };
   }
-  const data = await client.fetch(authorsQuery);
+  const data = authorsQuery.schema.parse(await runQuery(authorsQuery));
   return {
     props: {
       preview,

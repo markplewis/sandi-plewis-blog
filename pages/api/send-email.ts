@@ -1,4 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
+
 import formData from "form-data";
 import Mailgun from "mailgun.js";
 

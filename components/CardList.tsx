@@ -6,11 +6,22 @@ import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
 import styles from "~/components/CardList.module.css";
 
+import type { Authors } from "~/utils/queries/authors";
+import type { Categories } from "~/utils/queries/categories";
+
 // Fixed 2:3 aspect ratio
 const imageWidth = 240;
 const imageHeight = 360;
 
-export default function CardList({ items = [], path = "posts", showDate = true }) {
+export default function CardList({
+  items = [],
+  path = "posts",
+  showDate = true
+}: {
+  items: Authors | Categories;
+  path: string;
+  showDate: boolean;
+}) {
   const { breakpoints } = designTokens;
 
   return (

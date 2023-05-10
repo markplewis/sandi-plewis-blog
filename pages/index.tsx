@@ -1,8 +1,9 @@
+import type { SPPages } from "~/types/pages.d";
+
 import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
 import HomePage from "~/components/pages/home/HomePage";
-import { SPPages } from "~/typings/pages.d";
 import { client } from "~/lib/sanity.client";
 import { getPageColors } from "~/utils/color";
 import {

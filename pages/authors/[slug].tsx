@@ -2,16 +2,25 @@ import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next"; // NextPage
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
+// import util from "util";
 import AuthorPage from "~/components/pages/authors/AuthorPage";
-import { client } from "~/lib/sanity.client";
-import { SPPages } from "~/typings/pages.d";
+import { client, runQuery } from "~/lib/sanity.client";
 import { getPageColors } from "~/utils/color";
-import { authorQuery } from "~/utils/queries/authors";
+import { authorQuery, type Author } from "~/utils/queries/authors";
 
 const AuthorPagePreview = lazy(() => import("~/components/pages/authors/AuthorPagePreview"));
 
-// const Author: NextPage<AuthorPageProps> = ({ preview, previewData, slug, data }) => {
-const Author = ({ preview, previewData, slug, data }: SPPages.LeafPage) => {
+export default function Author({
+  preview,
+  previewData,
+  slug,
+  data
+}: {
+  preview: boolean;
+  previewData: string;
+  slug: string;
+  data: Author;
+}) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <AuthorPagePreview token={previewData} slug={slug} />
@@ -19,16 +28,18 @@ const Author = ({ preview, previewData, slug, data }: SPPages.LeafPage) => {
   ) : (
     <AuthorPage data={data} />
   );
-};
+}
 
 /**
  * @see https://nextjs.org/docs/api-reference/data-fetching/get-static-props
  * @param {Object} context
  * @returns {Promise<Object>}
  */
-export const getStaticProps: GetStaticProps = async context => {
-  const { preview = false, previewData, params } = context;
-
+export const getStaticProps: GetStaticProps = async ({
+  preview = false,
+  previewData = {},
+  params = {}
+}) => {
   if (preview && previewData) {
     return {
       props: {
@@ -38,12 +49,13 @@ export const getStaticProps: GetStaticProps = async context => {
       }
     };
   }
-  const data = await client.fetch(authorQuery, {
-    slug: params?.slug
-  });
-  // Append adjusted page colors
-  if (data) {
-    data.pageColors = getPageColors(data);
+  const data = authorQuery.schema.parse(await runQuery(authorQuery, { slug: params.slug }));
+  // console.log("authorQuery", util.inspect(data, false, 5));
+  // const data = await client.fetch(authorQuery, {
+  //   slug: params.slug
+  // });
+  if (data?.image?.pageColors) {
+    data.pageColors = getPageColors(data.image.pageColors); // Append adjusted page colors
   }
   return {
     props: {
@@ -64,5 +76,3 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: "blocking"
   };
 };
-
-export default Author;
