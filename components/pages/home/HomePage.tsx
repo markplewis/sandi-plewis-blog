@@ -1,32 +1,32 @@
-import type { SPPages } from "~/types/pages.d";
-
 import Layout from "~/components/Layout";
 import ShareTools from "~/components/ShareTools";
 import AuthorBio from "~/components/homePage/AuthorBio";
 import FeaturedNovel from "~/components/homePage/FeaturedNovel";
 import FeaturedReviews from "~/components/homePage/FeaturedReviews";
 import RecentPosts from "~/components/homePage/RecentPosts";
+import type { HomePageData } from "~/utils/queries/homePage";
+import type { Review } from "~/utils/queries/reviews";
+import type { PageColorsAndStyles } from "~/utils/queries/shared";
 
 import styles from "~/components/pages/home/HomePage.module.css";
 
-export default function HomePage({ data }: { data: SPPages.HomePage }) {
-  const { novelAndHomePage, reviews = [], posts = [], author, pageColors = {} } = data;
-  const { novel, description } = novelAndHomePage;
-  const { styles: pageStyles } = pageColors;
+export default function HomePage({ data }: { data: HomePageData }) {
+  const { homePage, posts = [] } = data;
+  const { author, novel, description, pageColorsAndStyles } = homePage;
+  const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
+  const reviews: Review[] = homePage?.reviews;
 
   return (
     <Layout
       title=""
       description={description}
-      image={{ image: author?.image, portrait: true, crop: true }}>
-      {pageStyles ? (
-        <style jsx global>
-          {`
-            ${pageStyles}
-          `}
-        </style>
-      ) : null}
-
+      pageColors={pageColors}
+      imageProps={{ image: author?.image, portrait: true, crop: true }}>
+      <style jsx global>
+        {`
+          ${pageStyles}
+        `}
+      </style>
       <div
         className={styles.patternBlock}
         style={{

@@ -10,7 +10,7 @@ export default function PostMeta({
   creditLine,
   date,
   themed = false,
-  pageColorData
+  pageColors
 }) {
   return (
     <div className={`${styles.meta} ${themed && styles.metaThemed}`}>
@@ -26,7 +26,7 @@ export default function PostMeta({
           <p className={styles.categoriesHeading}>
             {categories.length > 1 ? "Categories:" : "Category:"}
           </p>
-          <CategoryList categories={categories} themed={themed} pageColorData={pageColorData} />
+          <CategoryList categories={categories} themed={themed} pageColors={pageColors} />
         </div>
       ) : null}
 

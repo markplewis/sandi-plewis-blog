@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { SPColors } from "~/types/color.d";
-import type { Categories } from "~/utils/queries/categories";
+import type { Category } from "~/utils/queries/categories";
 
 import styles from "~/components/CategoryList.module.css";
 
@@ -8,17 +8,17 @@ export default function CategoryList({
   categories,
   themed = false,
   centered = false,
-  pageColorData
+  pageColors
 }: {
-  categories: Categories;
+  categories: Category[];
   themed: boolean;
   centered: boolean;
-  pageColorData?: SPColors.PageColorsWithContrast;
+  pageColors?: SPColors.PageColors;
 }) {
   if (!categories || !categories.length) {
     return null;
   }
-  const contrast = pageColorData?.secondary?.contrast || 0;
+  const contrast = pageColors?.secondary?.contrast || 0;
   const themedClasses: string[] = [];
 
   if (themed) {

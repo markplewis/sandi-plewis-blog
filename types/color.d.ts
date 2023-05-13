@@ -3,7 +3,7 @@ import type Color from "colorjs.io";
 declare namespace SPColors {
   // A Sanity document's `pageColors` field
 
-  export interface PageColor {
+  interface SampledColor {
     r: number;
     g: number;
     b: number;
@@ -12,29 +12,29 @@ declare namespace SPColors {
     l: number;
   }
 
-  export interface PageColors {
-    primary: PageColor;
-    secondary: PageColor;
+  export interface SampledColors {
+    primary: SampledColor;
+    secondary: SampledColor;
   }
 
   // Page colors with added contrast values and generated complimentary colors
 
-  export interface PageColorWithContrast extends PageColor {
+  interface SampledColorWithContrast extends SampledColor {
     contrast: number;
   }
 
-  export interface PageColorsWithContrast {
-    primary: PageColorWithContrast;
-    secondary: PageColorWithContrast;
+  export interface PageColors {
+    primary: SampledColorWithContrast;
+    secondary: SampledColorWithContrast;
     // TODO: consider deleting these in the future
-    primaryOriginal: PageColorWithContrast;
-    secondaryAdjusted: PageColorWithContrast;
+    primaryOriginal: SampledColorWithContrast;
+    secondaryAdjusted: SampledColorWithContrast;
   }
 
   // Final page colors and CSS styles for the app to use
 
   export interface PageColorsAndStyles {
-    colors: PageColorsWithContrast;
+    colors: PageColors;
     styles: string;
   }
 
@@ -62,7 +62,7 @@ declare namespace SPColors {
 
   // Target font sizes for the APCA color contrast algorithm
 
-  export interface TargetFontSize {
+  interface TargetFontSize {
     weight: number;
     size: number;
   }

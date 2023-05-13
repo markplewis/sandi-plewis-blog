@@ -2,12 +2,14 @@
 
 import WritingPage from "~/components/pages/writing/WritingPage";
 import { usePreview } from "~/lib/sanity.preview";
-import { novelsQuery, shortStoriesQuery } from "~/utils/queries/writing";
+import { novelsQuery } from "~/utils/queries/novels";
+import { shortStoriesQuery } from "~/utils/queries/shortStories";
+import type { NovelsAndShortStories } from "~/utils/queries/shared";
 
-export default function WritingPagePreview({ token }) {
-  const data = {
-    novels: usePreview(token, novelsQuery),
-    shortStories: usePreview(token, shortStoriesQuery)
+export default function WritingPagePreview({ token }: { token: string }) {
+  const data: NovelsAndShortStories = {
+    novels: usePreview(token, novelsQuery.query),
+    shortStories: usePreview(token, shortStoriesQuery.query)
   };
   return <WritingPage data={data} />;
 }

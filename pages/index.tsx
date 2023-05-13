@@ -1,21 +1,23 @@
-import type { SPPages } from "~/types/pages.d";
-
 import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
+import util from "util";
 import HomePage from "~/components/pages/home/HomePage";
-import { client } from "~/lib/sanity.client";
-import { getPageColors } from "~/utils/color";
-import {
-  featuredNovelAndHomePageQuery,
-  featuredReviewsQuery,
-  recentPostsQuery,
-  authorBioQuery
-} from "~/utils/queries/homePage";
+import { runQuery } from "~/lib/sanity.client";
+import { getPageColorsAndStyles } from "~/utils/color";
+import { homePageItemsQuery, recentPostsQuery, type HomePageData } from "~/utils/queries/homePage";
 
 const HomePagePreview = lazy(() => import("~/components/pages/home/HomePagePreview"));
 
-export default function Home({ preview, previewData, data }: SPPages.DirectoryPage) {
+export default function Home({
+  preview = false,
+  previewData,
+  data
+}: {
+  preview: boolean;
+  previewData: string;
+  data: HomePageData;
+}) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <HomePagePreview token={previewData} />
@@ -39,23 +41,22 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
       }
     };
   }
-  const novelAndHomePage = await client.fetch(featuredNovelAndHomePageQuery);
-  const reviews = await client.fetch(featuredReviewsQuery);
-  const posts = await client.fetch(recentPostsQuery);
-  const author = await client.fetch(authorBioQuery);
-
-  const pageColors = getPageColors(novelAndHomePage?.novel);
+  const data = {
+    homePage: homePageItemsQuery.schema.parse(await runQuery(homePageItemsQuery)),
+    posts: recentPostsQuery.schema.parse(await runQuery(recentPostsQuery))
+  };
+  // Append adjusted page colors
+  if (data?.homePage?.novel?.image?.sampledColors) {
+    data.homePage.pageColorsAndStyles = getPageColorsAndStyles(
+      data.homePage.novel.image.sampledColors
+    );
+  }
+  console.log("homePageQuery", util.inspect(data, false, 5));
 
   return {
     props: {
       preview,
-      data: {
-        novelAndHomePage,
-        reviews,
-        posts,
-        author,
-        pageColors
-      }
+      data
     },
     revalidate: 10
   };

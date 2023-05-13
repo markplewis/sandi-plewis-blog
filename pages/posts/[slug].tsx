@@ -2,17 +2,27 @@ import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
+import util from "util";
 import PostPage from "~/components/pages/posts/PostPage";
-import { client } from "~/lib/sanity.client";
-import type { SPPages } from "~/types/pages.d";
-import { getPageColors } from "~/utils/color";
-import { postQuery } from "~/utils/queries/posts";
+import { client, runQuery } from "~/lib/sanity.client";
+import { getPageColorsAndStyles } from "~/utils/color";
+import { postQuery, type Post } from "~/utils/queries/posts";
 
 const PostPagePreview = lazy(() => import("~/components/pages/posts/PostPagePreview"));
 
 // See: https://www.sanity.io/guides/nextjs-live-preview
 
-export default function Post({ preview, previewData, slug, data }: SPPages.LeafPage) {
+export default function Post({
+  preview,
+  previewData,
+  slug,
+  data
+}: {
+  preview: boolean;
+  previewData: string;
+  slug: string;
+  data: Post;
+}) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <PostPagePreview token={previewData} slug={slug} />
@@ -50,13 +60,14 @@ export const getStaticProps: GetStaticProps = async ({
       }
     };
   }
-  const data = await client.fetch(postQuery, {
-    slug: params.slug
-  });
+  const data = postQuery.schema.parse(await runQuery(postQuery, { slug: params.slug }));
+
   // Append adjusted page colors
-  if (data) {
-    data.pageColors = getPageColors(data);
+  if (data?.image?.sampledColors) {
+    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
   }
+  console.log("post data", util.inspect(data, false, 5));
+
   return {
     props: {
       preview,

@@ -5,6 +5,7 @@ import MoreLink from "~/components/MoreLink";
 import InternalLink from "~/components/portableText/InternalLink";
 import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
+import { type AuthorFeatured } from "~/utils/queries/authors";
 
 import styles from "~/components/homePage/AuthorBio.module.css";
 
@@ -18,7 +19,7 @@ const portableTextComponents = {
 const imageWidth = 175;
 const imageHeight = imageWidth;
 
-export default function AuthorBio({ author }) {
+export default function AuthorBio({ author }: { author: AuthorFeatured }) {
   const { breakpoints } = designTokens;
   const image = author?.image;
 
@@ -46,7 +47,7 @@ export default function AuthorBio({ author }) {
                 ].join(",")}
                 alt={image?.alt || author?.name}
                 placeholder="blur"
-                blurDataURL={image?.lqip || imageBlurDataURL}
+                blurDataURL={image?.asset?.lqip || imageBlurDataURL}
               />
             </Link>
           </div>

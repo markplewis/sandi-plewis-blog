@@ -1,8 +1,10 @@
 import { q, type Selection, type TypeFromSelection } from "groqd";
+import { type Novel } from "~/utils/queries/novels";
+import { type ShortStory } from "~/utils/queries/shortStories";
 
 // Initial colors returned from Sanity
 
-const imageSampledColorSelection = {
+const sampledColorSelection = {
   r: q.number(),
   g: q.number(),
   b: q.number(),
@@ -11,16 +13,16 @@ const imageSampledColorSelection = {
   l: q.number()
 } satisfies Selection;
 
-export type ImageSampledColor = TypeFromSelection<typeof imageSampledColorSelection>;
+export type SampledColor = TypeFromSelection<typeof sampledColorSelection>;
 
 // ------------------ //
 
-export const imageSampledColorsSelection = {
-  primary: q.object(imageSampledColorSelection),
-  secondary: q.object(imageSampledColorSelection)
+const sampledColorsSelection = {
+  primary: q.object(sampledColorSelection),
+  secondary: q.object(sampledColorSelection)
 } satisfies Selection;
 
-export type ImageSampledColors = TypeFromSelection<typeof imageSampledColorsSelection>;
+export type SampledColors = TypeFromSelection<typeof sampledColorsSelection>;
 
 // ------------------ //
 
@@ -55,11 +57,10 @@ export const imageSelection = {
   alt: q.string().nullable(),
   caption: q.string().nullable(),
   alignment: q.string().nullable(),
-  // TODO: rename this field to `sampledColors` within the Sanity schema
-  pageColors: q.object(imageSampledColorsSelection).nullable()
+  sampledColors: q.object(sampledColorsSelection).nullable() // Appended post-query
 } satisfies Selection;
 
-export type Image = TypeFromSelection<typeof imageSelection>;
+export type ImageData = TypeFromSelection<typeof imageSelection>;
 
 // ------------------ //
 
@@ -106,24 +107,11 @@ export const contentBlockSelections = {
     _key: q.string(),
     ...imageSelection
   },
-  // Below is a model for if your portable text field includes other types other than blocks
-  // you could separate these out into "Selections" to provide to your components for types
-  // "_typeassetblockImageRow'": {
-  //   _type: q.literal("blockImageRow"),
-  //   images: q("images")
-  //     .filter()
-  //     .grab({
-  //       image: q.sanityImage("image", {
-  //         withAsset: ["base", "dimensions", "hasAlpha", "lqip"],
-  //         withHotspot: true,
-  //         withCrop: true,
-  //         additionalFields: {
-  //           alt: q.string().nullish()
-  //         }
-  //       }),
-  //       caption: q.string().nullish()
-  //     })
-  // },
+  "_type == 'break'": {
+    _type: q.literal("break"),
+    _key: q.string(),
+    style: q.string()
+  },
   default: contentBlockSelection
 };
 
@@ -156,9 +144,16 @@ export type PageColors = TypeFromSelection<typeof pageColorsSelection>;
 
 // ------------------ //
 
-const pageColorsAndStylesSelection = {
+export const pageColorsAndStylesSelection = {
   colors: q.object(pageColorsSelection),
   styles: q.string()
 } satisfies Selection;
 
 export type PageColorsAndStyles = TypeFromSelection<typeof pageColorsAndStylesSelection>;
+
+// ------------------ //
+
+export type NovelsAndShortStories = {
+  novels: Novel[];
+  shortStories: ShortStory[];
+};

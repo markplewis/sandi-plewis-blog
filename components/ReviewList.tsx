@@ -1,7 +1,15 @@
+import type { ElementType, HTMLAttributes, FC } from "react";
+import type { Review } from "~/utils/queries/reviews";
+
 import styles from "~/components/ReviewList.module.css";
 
-export default function ReviewList({ reviews, as = "h2" }) {
-  const HeadingTagName = as;
+// See: https://www.aleksandrhovhannisyan.com/blog/dynamic-tag-name-props-in-react/
+interface ReviewListProps extends HTMLAttributes<HTMLOrSVGElement> {
+  reviews: Review[];
+  as?: ElementType;
+}
+
+const ReviewList: FC<ReviewListProps> = ({ reviews = [], as: Tag = "h2" }) => {
   return (
     <ul className={styles.reviewList}>
       {reviews.map(review => (
@@ -9,9 +17,9 @@ export default function ReviewList({ reviews, as = "h2" }) {
           <figure className={styles.reviewFigure}>
             <blockquote className={styles.reviewQuote}>
               <div className={styles.reviewTitleWrapper}>
-                <HeadingTagName className={styles.reviewTitle}>{review?.title}</HeadingTagName>
+                <Tag className={styles.reviewTitle}>{review?.title}</Tag>
               </div>
-              <p>{review?.review}</p>
+              <p>{review?.text}</p>
             </blockquote>
             <figcaption className={styles.reviewCaption}>— {review?.author}</figcaption>
           </figure>
@@ -19,4 +27,6 @@ export default function ReviewList({ reviews, as = "h2" }) {
       ))}
     </ul>
   );
-}
+};
+
+export default ReviewList;

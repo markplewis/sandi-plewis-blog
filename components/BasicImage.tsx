@@ -1,8 +1,7 @@
-import type { ImageUrlBuilderOptionsWithAsset } from "@sanity/image-url/lib/types/types";
-
 import Image from "next/image";
 import { urlFor } from "~/lib/sanity";
 import { imageBlurDataURL } from "~/utils/images";
+import type { ImageData } from "~/utils/queries/shared";
 
 // https://www.sanity.io/docs/presenting-images
 // https://nextjs.org/docs/basic-features/image-optimization
@@ -16,7 +15,7 @@ export default function BasicImage({
   alt = "",
   blur = ""
 }: {
-  image: ImageUrlBuilderOptionsWithAsset;
+  image: ImageData;
   width: number;
   height: number;
   sizes: string;

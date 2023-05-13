@@ -6,6 +6,7 @@ import InternalLink from "~/components/portableText/InternalLink";
 import { PortableText, urlFor } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
+import { type NovelFeatured } from "~/utils/queries/novels";
 
 import styles from "~/components/homePage/FeaturedNovel.module.css";
 
@@ -15,11 +16,13 @@ const portableTextComponents = {
   }
 };
 
-export default function FeaturedNovel({ novel }) {
+export default function FeaturedNovel({ novel }: { novel: NovelFeatured }) {
   const { breakpoints } = designTokens;
   const image = novel?.image;
   const imageWidth = 280;
-  const imageHeight = image?.aspectRatio ? Math.round(imageWidth / image.aspectRatio) : imageWidth;
+  const imageHeight = image?.asset?.aspectRatio
+    ? Math.round(imageWidth / image?.asset?.aspectRatio)
+    : imageWidth;
 
   return (
     <div className={styles.featuredNovel}>
@@ -47,7 +50,7 @@ export default function FeaturedNovel({ novel }) {
               quality={90}
               alt={image?.alt || novel?.title}
               placeholder="blur"
-              blurDataURL={image?.lqip || imageBlurDataURL}
+              blurDataURL={image?.asset?.lqip || imageBlurDataURL}
               priority={true} // LCP image
             />
           </Link>

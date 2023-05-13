@@ -3,6 +3,7 @@ import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
 import PageBody from "~/components/PageBody";
 import type { Author } from "~/utils/queries/authors";
+import type { PageColorsAndStyles } from "~/utils/queries/shared";
 
 import styles from "~/components/pages/authors/AuthorPage.module.css";
 
@@ -11,10 +12,10 @@ const imageWidth = 376;
 const imageHeight = imageWidth;
 
 export default function AuthorPage({ data }: { data: Author }) {
-  const { name, description, biography, image, pageColors } = data;
-  const { styles: pageStyles } = pageColors;
+  const { name, description, biography, image, pageColorsAndStyles } = data;
+  const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
 
-  const pageColorsSecondary = pageColors?.colors?.secondary;
+  const pageColorsSecondary = pageColors?.secondary;
   const patternBlockFill = pageColorsSecondary
     ? `rgb(${pageColorsSecondary.r}% ${pageColorsSecondary.g}% ${pageColorsSecondary.b}%)`
     : "black";
@@ -25,15 +26,13 @@ export default function AuthorPage({ data }: { data: Author }) {
     <Layout
       title={name}
       description={description}
-      image={{ image, pageColors: pageColors?.colors, portrait: true, crop: true }}>
-      {pageStyles ? (
-        <style jsx global>
-          {`
-            ${pageStyles}
-          `}
-        </style>
-      ) : null}
-
+      pageColors={pageColors}
+      imageProps={{ image, portrait: true, crop: true }}>
+      <style jsx global>
+        {`
+          ${pageStyles}
+        `}
+      </style>
       <div className={styles.heroArea}>
         <div className={styles.patternBlock}>
           <div
@@ -48,7 +47,7 @@ export default function AuthorPage({ data }: { data: Author }) {
             width={imageWidth}
             height={imageHeight}
             alt={image?.alt || name}
-            blur={image?.lqip}
+            blur={image?.asset?.lqip}
           />
         </div>
       </div>

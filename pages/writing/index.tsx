@@ -1,15 +1,24 @@
-import type { SPPages } from "~/types/pages.d";
-
 import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
+import util from "util";
 import WritingPage from "~/components/pages/writing/WritingPage";
-import { client } from "~/lib/sanity.client";
-import { novelsQuery, shortStoriesQuery } from "~/utils/queries/writing";
+import { runQuery } from "~/lib/sanity.client";
+import { novelsQuery } from "~/utils/queries/novels";
+import { shortStoriesQuery } from "~/utils/queries/shortStories";
+import type { NovelsAndShortStories } from "~/utils/queries/shared";
 
 const WritingPagePreview = lazy(() => import("~/components/pages/writing/WritingPagePreview"));
 
-export default function Writing({ preview, previewData, data }: SPPages.DirectoryPage) {
+export default function Writing({
+  preview = false,
+  previewData,
+  data
+}: {
+  preview: boolean;
+  previewData: string;
+  data: NovelsAndShortStories;
+}) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <WritingPagePreview token={previewData} />
@@ -33,15 +42,16 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
       }
     };
   }
-  const novels = await client.fetch(novelsQuery);
-  const shortStories = await client.fetch(shortStoriesQuery);
+  const data = {
+    novels: novelsQuery.schema.parse(await runQuery(novelsQuery)),
+    shortStories: shortStoriesQuery.schema.parse(await runQuery(shortStoriesQuery))
+  };
+  console.log("writing data", util.inspect(data, false, 5));
+
   return {
     props: {
       preview,
-      data: {
-        novels,
-        shortStories
-      }
+      data
     },
     revalidate: 10
   };

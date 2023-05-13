@@ -3,6 +3,7 @@ import Link from "next/link";
 import { urlFor } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
+import { type PostTeaser } from "~/utils/queries/posts";
 
 import styles from "~/components/homePage/RecentPostList.module.css";
 
@@ -10,7 +11,7 @@ import styles from "~/components/homePage/RecentPostList.module.css";
 const imageWidth = 240;
 const imageHeight = 160;
 
-export default function RecentPostsList({ posts }) {
+export default function RecentPostList({ posts }: { posts: PostTeaser[] }) {
   const { breakpoints } = designTokens;
 
   return (
@@ -48,7 +49,7 @@ export default function RecentPostsList({ posts }) {
                   ].join(",")}
                   alt={image?.alt}
                   placeholder="blur"
-                  blurDataURL={image?.lqip || imageBlurDataURL}
+                  blurDataURL={image?.asset?.lqip || imageBlurDataURL}
                   className={styles.recentPostImage}
                 />
               ) : null}

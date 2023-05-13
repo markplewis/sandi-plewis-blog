@@ -1,5 +1,3 @@
-import type { SanityDocument } from "@sanity/client";
-
 import Image from "next/image";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
@@ -10,10 +8,12 @@ import { urlFor } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
 import { processCreditLine } from "~/utils/strings";
+import type { Post } from "~/utils/queries/posts";
+import type { PageColorsAndStyles } from "~/utils/queries/shared";
 
 import styles from "~/components/pages/posts/PostPage.module.css";
 
-export default function PostPage({ data }: { data: SanityDocument }) {
+export default function PostPage({ data }: { data: Post }) {
   const {
     title = "",
     body = [],
@@ -22,27 +22,29 @@ export default function PostPage({ data }: { data: SanityDocument }) {
     categories = [],
     author = {},
     image = {},
-    pageColors = {}
+    pageColorsAndStyles = {}
   } = data;
 
   const { breakpoints } = designTokens;
-  const { colors: pageColorData, styles: pageStyles } = pageColors;
-  const creditLine = processCreditLine(image?.creditLine);
+  const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
+  const creditLine = processCreditLine(image?.asset?.creditLine);
 
   // Fixed 5:2 aspect ratio
   const imageWidth = 1240;
   const imageHeight = 496;
 
   return (
-    <Layout title={title} description={description} image={{ image, portrait: false, crop: true }}>
+    <Layout
+      title={title}
+      description={description}
+      pageColors={pageColors}
+      imageProps={{ image, portrait: false, crop: true }}>
       {/* See: https://github.com/vercel/styled-jsx/issues/710 */}
-      {pageStyles ? (
-        <style jsx global>
-          {`
-            ${pageStyles}
-          `}
-        </style>
-      ) : null}
+      <style jsx global>
+        {`
+          ${pageStyles}
+        `}
+      </style>
 
       <article>
         <div className={styles.titleArea}>
@@ -86,7 +88,7 @@ export default function PostPage({ data }: { data: SanityDocument }) {
                   ].join(",")}
                   alt={image?.alt}
                   placeholder="blur"
-                  blurDataURL={image?.lqip || imageBlurDataURL}
+                  blurDataURL={image?.asset?.lqip || imageBlurDataURL}
                   className={styles.img}
                   priority={true} // LCP image
                 />
@@ -102,7 +104,7 @@ export default function PostPage({ data }: { data: SanityDocument }) {
               creditLine={creditLine}
               date={date}
               themed={true}
-              pageColorData={pageColorData}
+              pageColors={pageColors}
             />
           </div>
         </div>
@@ -116,7 +118,7 @@ export default function PostPage({ data }: { data: SanityDocument }) {
             creditLine={creditLine}
             date={date}
             themed={false}
-            pageColorData={pageColorData}
+            pageColors={pageColors}
           />
         </div>
 

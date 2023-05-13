@@ -1,17 +1,16 @@
 "use client";
 
-import type { SanityDocument } from "@sanity/client";
-
 import NovelPage from "~/components/pages/novels/NovelPage";
 import { usePreview } from "~/lib/sanity.preview";
-import { getPageColors } from "~/utils/color";
-import { novelQuery } from "~/utils/queries/novels";
+import { getPageColorsAndStyles } from "~/utils/color";
+import { novelQuery, type Novel } from "~/utils/queries/novels";
 
 export default function NovelPagePreview({ token, slug }: { token: string; slug: string }) {
-  const data: SanityDocument = usePreview(token, novelQuery, { slug });
+  const data: Novel = usePreview(token, novelQuery.query, { slug });
+
   // Append adjusted page colors
-  if (data) {
-    data.pageColors = getPageColors(data);
+  if (data?.image?.sampledColors) {
+    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
   }
   return <NovelPage data={data} />;
 }

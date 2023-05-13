@@ -1,9 +1,10 @@
 import MoreLink from "~/components/MoreLink";
 import RecentPostList from "~/components/homePage/RecentPostList";
+import { type PostTeaser } from "~/utils/queries/posts";
 
 import styles from "~/components/homePage/RecentPosts.module.css";
 
-export default function RecentPosts({ posts }) {
+export default function RecentPosts({ posts }: { posts: PostTeaser[] }) {
   return (
     <section className={styles.recentPosts}>
       <h2 className={styles.recentPostsHeading}>Recent posts</h2>

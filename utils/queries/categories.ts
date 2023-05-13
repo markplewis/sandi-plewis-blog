@@ -1,38 +1,45 @@
-import { q, type InferType } from "groqd";
+import { q, type Selection, type TypeFromSelection } from "groqd";
 import { imageSelection } from "~/utils/queries/shared";
+
+// Selections and types
+
+export const categorySelection = {
+  _id: q.string(),
+  title: q.string(),
+  slug: q.slug("slug")
+} satisfies Selection;
+
+export type Category = TypeFromSelection<typeof categorySelection>;
+
+export const categoryWithPostsSelection = {
+  ...categorySelection,
+  posts: q("*")
+    .filter("_type == 'post' && references(^._id)")
+    .grab({
+      _id: q.string(),
+      title: q.string(),
+      date: ["publishedAt", q.string()],
+      slug: q.slug("slug"),
+      description: q.string(),
+      image: q("image").grab(imageSelection)
+    })
+} satisfies Selection;
+
+export type CategoryWithPosts = TypeFromSelection<typeof categoryWithPostsSelection>;
+
+// Queries
 
 export const categoriesQuery = q("*")
   .filter("_type == 'category'")
   .order("title asc")
-  .grab({
-    _id: q.string(),
-    title: q.string(),
-    slug: q.slug("slug")
-  });
+  .grab(categorySelection);
 
-export type Categories = InferType<typeof categoriesQuery>;
-
-export const categoryQuery = q("*")
+export const categoryWithPostsQuery = q("*")
   .filter("_type == 'category' && slug.current == $slug")
   .slice(0)
-  .grab({
-    _id: q.string(),
-    title: q.string(),
-    slug: q.slug("slug"),
-    posts: q("*")
-      .filter("_type == 'post' && references(^._id)")
-      .grab({
-        _id: q.string(),
-        title: q.string(),
-        date: ["publishedAt", q.string()],
-        slug: q.slug("slug"),
-        description: q.string(),
-        image: q("image").grab(imageSelection)
-      })
-  });
+  .grab(categoryWithPostsSelection);
 
-export type Category = InferType<typeof categoryQuery>;
-
+// Old GROQ queries
 // The above GROQD schemas replace the following GROQ queries:
 
 // export const categoriesQuery = groq`

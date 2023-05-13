@@ -240,11 +240,11 @@ function adjustColorContrast(
  * @param {Array} targetFontSizes - Target font weights and sizes for APCA
  * @returns {Object} "primary" and "secondary" page colors plus a string of CSS `body` styles
  */
-export function getPageColors(
-  pageColors: SPColors.PageColors,
+export function getPageColorsAndStyles(
+  pageColors: SPColors.SampledColors,
   targetFontSizes = targetFontSizesDefault
 ): SPColors.PageColorsAndStyles | null {
-  // const pageColors: SPColors.PageColors = data?.image?.pageColors;
+  // const pageColors: SPColors.SampledColors = data?.image?.pageColors;
 
   if (!pageColors || !pageColors?.primary || !pageColors?.secondary) {
     return null; // TODO: return a default `PageColorsAndStyles` instead of `null`
@@ -260,7 +260,7 @@ export function getPageColors(
   const primaryAdjusted = adjustColorContrast(primaryOriginal, targetFontSizes);
   const secondaryAdjusted = adjustColorContrast(secondaryOriginal, targetFontSizes);
 
-  const pageColorsAdjusted: SPColors.PageColorsWithContrast = {
+  const pageColorsAdjusted: SPColors.PageColors = {
     primary: {
       // Convert colorjs.io RGB values into percentages
       r: primaryAdjusted.color.srgb.r * 100,

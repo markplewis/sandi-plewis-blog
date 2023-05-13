@@ -2,17 +2,27 @@ import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
+import util from "util";
 import ShortStoryPage from "~/components/pages/shortStories/ShortStoryPage";
-import { client } from "~/lib/sanity.client";
-import type { SPPages } from "~/types/pages.d";
-import { getPageColors } from "~/utils/color";
-import { shortStoryQuery } from "~/utils/queries/shortStories";
+import { client, runQuery } from "~/lib/sanity.client";
+import { getPageColorsAndStyles } from "~/utils/color";
+import { shortStoryQuery, type ShortStory } from "~/utils/queries/shortStories";
 
 const ShortStoryPagePreview = lazy(
   () => import("~/components/pages/shortStories/ShortStoryPagePreview")
 );
 
-export default function ShortStory({ preview, previewData, slug, data }: SPPages.LeafPage) {
+export default function ShortStory({
+  preview,
+  previewData,
+  slug,
+  data
+}: {
+  preview: boolean;
+  previewData: string;
+  slug: string;
+  data: ShortStory;
+}) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <ShortStoryPagePreview token={previewData} slug={slug} />
@@ -41,13 +51,14 @@ export const getStaticProps: GetStaticProps = async ({
       }
     };
   }
-  const data = await client.fetch(shortStoryQuery, {
-    slug: params.slug
-  });
+  const data = shortStoryQuery.schema.parse(await runQuery(shortStoryQuery, { slug: params.slug }));
+
   // Append adjusted page colors
-  if (data) {
-    data.pageColors = getPageColors(data);
+  if (data?.image?.sampledColors) {
+    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
   }
+  console.log("short story data", util.inspect(data, false, 5));
+
   return {
     props: {
       preview,

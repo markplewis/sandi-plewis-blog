@@ -2,9 +2,9 @@
 
 import AuthorsPage from "~/components/pages/authors/AuthorsPage";
 import { usePreview } from "~/lib/sanity.preview";
-import { authorsQuery, type Authors } from "~/utils/queries/authors";
+import { authorsQuery, type Author } from "~/utils/queries/authors";
 
 export default function AuthorsPagePreview({ token }: { token: string }) {
-  const data: Authors = usePreview(token, authorsQuery.query);
+  const data: Author[] = usePreview(token, authorsQuery.query);
   return <AuthorsPage data={data} />;
 }

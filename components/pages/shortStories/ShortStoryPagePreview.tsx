@@ -1,17 +1,16 @@
 "use client";
 
-import type { SanityDocument } from "@sanity/client";
-
 import ShortStoryPage from "~/components/pages/shortStories/ShortStoryPage";
 import { usePreview } from "~/lib/sanity.preview";
-import { getPageColors } from "~/utils/color";
-import { shortStoryQuery } from "~/utils/queries/shortStories";
+import { getPageColorsAndStyles } from "~/utils/color";
+import { shortStoryQuery, type ShortStory } from "~/utils/queries/shortStories";
 
 export default function ShortStoryPagePreview({ token, slug }: { token: string; slug: string }) {
-  const data: SanityDocument = usePreview(token, shortStoryQuery, { slug });
+  const data: ShortStory = usePreview(token, shortStoryQuery.query, { slug });
+
   // Append adjusted page colors
-  if (data) {
-    data.pageColors = getPageColors(data);
+  if (data?.image?.sampledColors) {
+    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
   }
   return <ShortStoryPage data={data} />;
 }

@@ -6,8 +6,8 @@ import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
 import styles from "~/components/CardList.module.css";
 
-import type { Authors } from "~/utils/queries/authors";
-import type { Categories } from "~/utils/queries/categories";
+import type { Author } from "~/utils/queries/authors";
+import type { Category } from "~/utils/queries/categories";
 
 // Fixed 2:3 aspect ratio
 const imageWidth = 240;
@@ -18,7 +18,7 @@ export default function CardList({
   path = "posts",
   showDate = true
 }: {
-  items: Authors | Categories;
+  items: Author[] | Category[];
   path: string;
   showDate: boolean;
 }) {
@@ -48,7 +48,7 @@ export default function CardList({
                     quality={90}
                     alt={image?.alt}
                     placeholder="blur"
-                    blurDataURL={image?.lqip || imageBlurDataURL}
+                    blurDataURL={image?.asset?.lqip || imageBlurDataURL}
                   />
                 </div>
               ) : null}

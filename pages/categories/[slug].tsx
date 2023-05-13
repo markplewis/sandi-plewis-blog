@@ -2,10 +2,10 @@ import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-// import util from "util";
+import util from "util";
 import CategoryPage from "~/components/pages/categories/CategoryPage";
 import { client, runQuery } from "~/lib/sanity.client";
-import { categoryQuery, type Category } from "~/utils/queries/categories";
+import { categoryWithPostsQuery, type CategoryWithPosts } from "~/utils/queries/categories";
 
 const CategoryPagePreview = lazy(() => import("~/components/pages/categories/CategoryPagePreview"));
 
@@ -18,7 +18,7 @@ export default function Category({
   preview: boolean;
   previewData: string;
   slug: string;
-  data: Category;
+  data: CategoryWithPosts;
 }) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
@@ -48,11 +48,11 @@ export const getStaticProps: GetStaticProps = async ({
       }
     };
   }
-  const data = categoryQuery.schema.parse(await runQuery(categoryQuery, { slug: params.slug }));
-  // console.log("categoryQuery", util.inspect(data, false, 5));
-  // const data = await client.fetch(categoryQuery, {
-  //   slug: params.slug
-  // });
+  const data = categoryWithPostsQuery.schema.parse(
+    await runQuery(categoryWithPostsQuery, { slug: params.slug })
+  );
+  console.log("category data", util.inspect(data, false, 5));
+
   return {
     props: {
       preview,

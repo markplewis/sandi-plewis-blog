@@ -2,10 +2,10 @@ import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next"; // NextPage
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-// import util from "util";
+import util from "util";
 import AuthorPage from "~/components/pages/authors/AuthorPage";
 import { client, runQuery } from "~/lib/sanity.client";
-import { getPageColors } from "~/utils/color";
+import { getPageColorsAndStyles } from "~/utils/color";
 import { authorQuery, type Author } from "~/utils/queries/authors";
 
 const AuthorPagePreview = lazy(() => import("~/components/pages/authors/AuthorPagePreview"));
@@ -50,13 +50,13 @@ export const getStaticProps: GetStaticProps = async ({
     };
   }
   const data = authorQuery.schema.parse(await runQuery(authorQuery, { slug: params.slug }));
-  // console.log("authorQuery", util.inspect(data, false, 5));
-  // const data = await client.fetch(authorQuery, {
-  //   slug: params.slug
-  // });
-  if (data?.image?.pageColors) {
-    data.pageColors = getPageColors(data.image.pageColors); // Append adjusted page colors
+
+  // Append adjusted page colors
+  if (data?.image?.sampledColors) {
+    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
   }
+  console.log("author data", util.inspect(data, false, 5));
+
   return {
     props: {
       preview,

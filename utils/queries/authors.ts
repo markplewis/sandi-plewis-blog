@@ -1,38 +1,53 @@
-import { q, type InferType } from "groqd";
+import { q, type Selection, type TypeFromSelection } from "groqd";
 import {
   contentBlockSelections,
   imageSelection,
-  imageSampledColorsSelection
+  pageColorsAndStylesSelection
 } from "~/utils/queries/shared";
+
+// Selections and types
+
+export const authorFeaturedSelection = {
+  _id: q.string(),
+  name: q.string(),
+  slug: q.slug("slug"),
+  image: q("image").grab(imageSelection),
+  shortBiography: q("shortBiography").filter().select(contentBlockSelections)
+} satisfies Selection;
+
+export type AuthorFeatured = TypeFromSelection<typeof authorFeaturedSelection>;
+
+export const authorTeaserSelection = {
+  _id: q.string(),
+  name: q.string(),
+  slug: q.slug("slug"),
+  image: q("image").grab(imageSelection),
+  description: q.string()
+} satisfies Selection;
+
+export type AuthorTeaser = TypeFromSelection<typeof authorTeaserSelection>;
+
+export const authorSelection = {
+  ...authorTeaserSelection,
+  biography: q("biography").filter().select(contentBlockSelections),
+  pageColorsAndStyles: q.object(pageColorsAndStylesSelection).nullable() // Appended post-query
+} satisfies Selection;
+
+export type Author = TypeFromSelection<typeof authorSelection>;
+
+// Queries
 
 export const authorsQuery = q("*")
   .filter("_type == 'author'")
   .order("name asc")
-  .grab({
-    _id: q.string(),
-    name: q.string(),
-    slug: q.slug("slug"),
-    description: q.string(),
-    image: q("image").grab(imageSelection)
-  });
-
-export type Authors = InferType<typeof authorsQuery>;
+  .grab(authorTeaserSelection);
 
 export const authorQuery = q("*")
   .filter("_type == 'author' && slug.current == $slug")
   .slice(0)
-  .grab({
-    _id: q.string(),
-    name: q.string(),
-    slug: q.slug("slug"),
-    description: q.string(),
-    image: q("image").grab(imageSelection),
-    biography: q("biography").filter().select(contentBlockSelections),
-    pageColors: q.object(imageSampledColorsSelection).nullable()
-  });
+  .grab(authorSelection);
 
-export type Author = InferType<typeof authorQuery>;
-
+// Old GROQ queries
 // The above GROQD schemas replace the following GROQ queries:
 
 // export const authorsQuery = groq`

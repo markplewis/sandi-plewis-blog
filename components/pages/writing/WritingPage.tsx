@@ -1,11 +1,10 @@
-import type { SanityDocument } from "@sanity/client";
-
 import CardList from "~/components/CardList";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
 import SubTitle from "~/components/SubTitle";
+import type { NovelsAndShortStories } from "~/utils/queries/shared";
 
-export default function WritingPage({ data }: { data: SanityDocument }) {
+export default function WritingPage({ data }: { data: NovelsAndShortStories }) {
   const { novels = [], shortStories = [] } = data;
   return (
     <Layout title="Writing" description="A listing of Sandi Plewis' novels and short stories">

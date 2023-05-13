@@ -1,17 +1,26 @@
-import type { SPPages } from "~/types/pages.d";
-
 import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
+import util from "util";
 import NovelPage from "~/components/pages/novels/NovelPage";
-import { client } from "~/lib/sanity.client";
-import { getPageColors } from "~/utils/color";
-import { novelQuery } from "~/utils/queries/novels";
+import { client, runQuery } from "~/lib/sanity.client";
+import { getPageColorsAndStyles } from "~/utils/color";
+import { novelQuery, type Novel } from "~/utils/queries/novels";
 
 const NovelPagePreview = lazy(() => import("~/components/pages/novels/NovelPagePreview"));
 
-export default function Novel({ preview, previewData, slug, data }: SPPages.LeafPage) {
+export default function Novel({
+  preview,
+  previewData,
+  slug,
+  data
+}: {
+  preview: boolean;
+  previewData: string;
+  slug: string;
+  data: Novel;
+}) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <NovelPagePreview token={previewData} slug={slug} />
@@ -40,14 +49,14 @@ export const getStaticProps: GetStaticProps = async ({
       }
     };
   }
+  const data = novelQuery.schema.parse(await runQuery(novelQuery, { slug: params.slug }));
 
-  const data = await client.fetch(novelQuery, {
-    slug: params.slug
-  });
   // Append adjusted page colors
-  if (data) {
-    data.pageColors = getPageColors(data);
+  if (data?.image?.sampledColors) {
+    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
   }
+  console.log("novel data", util.inspect(data, false, 5));
+
   return {
     props: {
       preview,

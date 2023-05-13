@@ -8,7 +8,7 @@ import PreviewMessage from "~/components/PreviewMessage";
 import SkipLink from "~/components/SkipLink";
 import { BASE_URL, DEFAULT_META_DESCRIPTION, env, envProd, SITE_TITLE } from "~/env/constants";
 import { urlFor } from "~/lib/sanity";
-import type { Image, PageColors } from "~/utils/queries/shared";
+import type { ImageData, PageColors } from "~/utils/queries/shared";
 
 import useDebug from "~/utils/useDebug";
 
@@ -59,25 +59,25 @@ const LayoutPropTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   title: PropTypes.string,
   description: PropTypes.string,
-  image: PropTypes.object
+  imageProps: PropTypes.object
 };
 
 function Layout({
-  children,
   title = "",
   description = DEFAULT_META_DESCRIPTION,
-  // pageColors
-  image = null
+  pageColors,
+  imageProps,
+  children
 }: {
-  children: JSX.Element | JSX.Element[];
   title: string;
   description: string;
-  pageColors: PageColors;
-  image: {
-    image: Image;
+  pageColors?: PageColors;
+  imageProps?: {
+    image: ImageData;
     portrait: boolean;
     crop: boolean;
-  } | null;
+  };
+  children?: JSX.Element | JSX.Element[];
 }) {
   const debug = useDebug();
   const router = useRouter();
@@ -89,25 +89,25 @@ function Layout({
   const fullTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
   const noIndex = !envProd || router.pathname === "/login";
 
+  const image = imageProps?.image;
+  const imagePortrait = imageProps?.portrait;
+  const imageCropped = imageProps?.crop;
+
   let imageAlt;
   let imageOrientation;
   let twitterImageURL;
   let facebookImageURL;
 
-  if (image?.image) {
-    imageAlt = image?.image?.alt;
+  if (image) {
+    imageAlt = image?.alt;
     imageOrientation =
-      image?.image && image?.portrait
-        ? "portrait"
-        : image?.image && !image?.portrait
-        ? "landscape"
-        : null;
+      image && imagePortrait ? "portrait" : image && !imagePortrait ? "landscape" : null;
 
     // Twitter
     if (imageOrientation === "portrait") {
-      if (image?.crop) {
+      if (imageCropped) {
         // Crop portrait images into a square shape
-        twitterImageURL = urlFor(image.image)
+        twitterImageURL = urlFor(image)
           .width(sizes.twitter.portrait.width)
           .height(sizes.twitter.portrait.height)
           .quality(90)
@@ -115,7 +115,7 @@ function Layout({
           .url();
       } else {
         // Fit portrait images into a square shape by filling in the background with a solid color
-        twitterImageURL = urlFor(image.image)
+        twitterImageURL = urlFor(image)
           .ignoreImageParams() // Workaround for https://github.com/sanity-io/sanity/issues/524
           .width(sizes.twitter.portrait.width)
           .height(sizes.twitter.portrait.height)
@@ -123,12 +123,11 @@ function Layout({
           .fit("fill")
           // TODO: add a `hex` property to `pageColors` (I guess?)
           .bg("666")
-          // .bg(image.image.pageColors?.primary.hex.replace("#", "") ?? "666"))
-          //.bg(image?.image?.palette?.vibrant?.background?.replace("#", "") ?? "666") // TODO: not working
+          // .bg(image.pageColors?.primary.hex.replace("#", "") ?? "666"))
           .url();
       }
     } else if (imageOrientation === "landscape") {
-      twitterImageURL = urlFor(image.image)
+      twitterImageURL = urlFor(image)
         .width(sizes.twitter.landscape.width)
         .height(sizes.twitter.landscape.height)
         .quality(90)
@@ -136,13 +135,13 @@ function Layout({
     }
     // Facebook
     if (imageOrientation === "portrait") {
-      facebookImageURL = urlFor(image.image)
+      facebookImageURL = urlFor(image)
         .width(sizes.facebook.portrait.width)
         .height(sizes.facebook.portrait.height)
         .quality(90)
         .url();
     } else if (imageOrientation === "landscape") {
-      facebookImageURL = urlFor(image.image)
+      facebookImageURL = urlFor(image)
         .width(sizes.facebook.landscape.width)
         .height(sizes.facebook.landscape.height)
         .quality(90)

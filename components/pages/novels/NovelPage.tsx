@@ -1,5 +1,3 @@
-import type { SanityDocument } from "@sanity/client";
-
 import BasicImage from "~/components/BasicImage";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
@@ -9,6 +7,8 @@ import ReviewList from "~/components/ReviewList";
 import ShareTools from "~/components/ShareTools";
 import { PortableText } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
+import type { PageColorsAndStyles } from "~/utils/queries/shared";
+import type { Novel } from "~/utils/queries/novels";
 
 import styles from "~/components/pages/novels/NovelPage.module.css";
 
@@ -18,18 +18,18 @@ const portableTextComponents = {
   }
 };
 
-export default function NovelPage({ data }: { data: SanityDocument }) {
+export default function NovelPage({ data }: { data: Novel }) {
   const {
     title = "",
     description = "",
     overview = [],
     body = [],
     image = {},
-    pageColors = {},
+    pageColorsAndStyles,
     reviews = []
   } = data;
 
-  const { styles: pageStyles } = pageColors;
+  const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
   const { breakpoints } = designTokens;
 
   const overviewText = overview ? (
@@ -44,17 +44,21 @@ export default function NovelPage({ data }: { data: SanityDocument }) {
   );
 
   const imageWidth = 300;
-  const imageHeight = image?.aspectRatio ? Math.round(imageWidth / image.aspectRatio) : imageWidth;
+  const imageHeight = image?.asset?.aspectRatio
+    ? Math.round(imageWidth / image.asset.aspectRatio)
+    : imageWidth;
 
   return (
-    <Layout title={title} description={description} image={{ image, portrait: true, crop: false }}>
-      {pageStyles ? (
-        <style jsx global>
-          {`
-            ${pageStyles}
-          `}
-        </style>
-      ) : null}
+    <Layout
+      title={title}
+      description={description}
+      pageColors={pageColors}
+      imageProps={{ image, portrait: true, crop: false }}>
+      <style jsx global>
+        {`
+          ${pageStyles}
+        `}
+      </style>
 
       <div className={styles.heroArea}>
         <div
@@ -71,7 +75,7 @@ export default function NovelPage({ data }: { data: SanityDocument }) {
               height={imageHeight}
               sizes={[`(min-width: ${breakpoints.w340.value}rem) 300px`, "90vw"].join(",")}
               alt={image?.alt}
-              blur={image?.lqip}
+              blur={image?.asset?.lqip}
             />
           </div>
 

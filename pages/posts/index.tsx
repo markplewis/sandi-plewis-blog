@@ -1,15 +1,22 @@
-import type { SPPages } from "~/types/pages.d";
-
 import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
+import util from "util";
 import PostsPage from "~/components/pages/posts/PostsPage";
-import { client } from "~/lib/sanity.client";
-import { postsQuery } from "~/utils/queries/posts";
+import { runQuery } from "~/lib/sanity.client";
+import { postsQuery, type Post } from "~/utils/queries/posts";
 
 const PostsPagePreview = lazy(() => import("~/components/pages/posts/PostsPagePreview"));
 
-export default function Posts({ preview, previewData, data }: SPPages.DirectoryPage) {
+export default function Posts({
+  preview = false,
+  previewData,
+  data
+}: {
+  preview: boolean;
+  previewData: string;
+  data: Post[];
+}) {
   return preview ? (
     <PreviewSuspense fallback="Loading...">
       <PostsPagePreview token={previewData} />
@@ -33,7 +40,9 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
       }
     };
   }
-  const data = await client.fetch(postsQuery);
+  const data = postsQuery.schema.parse(await runQuery(postsQuery));
+  console.log("posts data", util.inspect(data, false, 5));
+
   return {
     props: {
       preview,
