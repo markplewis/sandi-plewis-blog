@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { useClickAway, useKeyPressEvent, useMedia, useWindowSize } from "react-use";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -17,9 +17,9 @@ export default function Header() {
   const isMedium = useMedia(`(min-width: ${breakpoints.w820.value}rem)`);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuHidden, setMenuHidden] = useState(true);
-  const menuButtonRef = useRef(null);
+  const menuButtonRef: RefObject<HTMLButtonElement> | null = useRef(null);
   const menuRef = useRef(null);
-  const headerRef = useRef(null);
+  const headerRef: RefObject<HTMLElement> | null = useRef(null);
   const [headerHeight, setHeaderHeight] = useState(0);
 
   // Adjust menu height and position to accommodate header
@@ -30,8 +30,8 @@ export default function Header() {
 
   // Measure header height
   const adjustMenuHeight = useCallback(() => {
-    const header = headerRef.current;
-    header && setHeaderHeight(header.offsetHeight);
+    const height = headerRef?.current?.offsetHeight;
+    height && setHeaderHeight(height);
   }, []);
 
   const { width } = useWindowSize();
@@ -57,7 +57,7 @@ export default function Header() {
   };
 
   const closeMenu = useCallback(
-    e => {
+    (e?: Event) => {
       setMenuOpen(false);
       setContentHidden(false);
 
@@ -65,15 +65,14 @@ export default function Header() {
         // Don't focus button when user clicked/tapped outside of menu to close it
         return;
       }
-      const menuButton = menuButtonRef.current;
-      menuButton?.focus();
+      menuButtonRef?.current?.focus();
     },
     [setContentHidden]
   );
 
-  const handleMenuClickOutside = e => {
-    const menuButton = menuButtonRef.current;
-    if (e && menuButton?.contains(e.target)) {
+  const handleMenuClickOutside = (e?: Event) => {
+    const el = e?.target as Node;
+    if (el && menuButtonRef?.current?.contains(el)) {
       return;
     }
     closeMenu(e);

@@ -1,5 +1,5 @@
 // Param `dateString` - date in ISO 8601 format
-export function formatDate(dateString: string, timeZone: string) {
+export function formatDate(dateString: string, timeZone = "") {
   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const d = new Date(dateString);
   const tz = timeZone || userTimeZone;

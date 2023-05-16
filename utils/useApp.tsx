@@ -4,6 +4,7 @@ import {
   useEffect,
   useReducer,
   type Dispatch,
+  type PropsWithChildren,
   type RefObject
 } from "react";
 
@@ -73,9 +74,10 @@ function appReducer(state: AppState, action: AppActions) {
   }
 }
 
-// Provider
 // Defining `children` types: https://blog.logrocket.com/using-react-children-prop-with-typescript/
-export function AppProvider({ children }: { children: JSX.Element | JSX.Element[] }) {
+
+// Provider
+export function AppProvider({ children }: PropsWithChildren) {
   const [app, dispatchApp] = useReducer(appReducer, initialState);
 
   useEffect(() => {

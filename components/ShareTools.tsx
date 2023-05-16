@@ -3,14 +3,20 @@ import { useRouter } from "next/router";
 import styles from "~/components/ShareTools.module.css";
 import { BASE_URL } from "~/env/constants";
 
-function encodeUrlParams(params = {}) {
+// Allow bracket notation object property access
+// https://stackoverflow.com/questions/34727936/typescript-bracket-notation-property-access
+interface IndexableUrlParams {
+  [key: string]: string;
+}
+
+function encodeUrlParams(params: IndexableUrlParams = {}) {
   return Object.keys(params)
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
     .join("&");
 }
 
 export default function ShareTools({
-  text,
+  text = "",
   position = "",
   align = "",
   color = "primary",

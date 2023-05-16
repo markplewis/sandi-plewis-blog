@@ -3,9 +3,9 @@ import Link from "next/link";
 import styles from "~/components/MoreLink.module.css";
 
 export default function MoreLink({
-  as,
-  href,
-  text,
+  as = "",
+  href = "",
+  text = "",
   align = "start",
   fgColor = "--color-white",
   bgColor = "--color-dark-gray",

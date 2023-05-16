@@ -10,7 +10,7 @@ export default function LogInButton() {
     return <p>Hang on there...</p>;
   }
   if (status === "authenticated") {
-    const userEmail = session.user.email;
+    const userEmail = session?.user?.email || "";
     // See https://next-auth.js.org/getting-started/client#signout
     return (
       <>
