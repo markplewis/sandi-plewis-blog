@@ -1,12 +1,13 @@
-export default function ColorSwatches({ pageColors }) {
-  const { colors } = pageColors;
-  if (!colors) {
+import type { PageColors } from "~/utils/queries/shared";
+
+export default function ColorSwatches({ pageColors }: { pageColors: PageColors }) {
+  if (!pageColors) {
     return null;
   }
-  const pO = colors.primaryOriginal;
-  const p = colors.primary; // Adjusted
-  const s = colors.secondary; // Original
-  // const sX = colors.secondaryAdjusted;
+  const pO = pageColors.primaryOriginal;
+  const p = pageColors.primary; // Adjusted
+  const s = pageColors.secondary; // Original
+  // const sX = pageColors.secondaryAdjusted;
 
   return (
     <div style={{ clear: "both" }}>

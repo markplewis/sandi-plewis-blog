@@ -1,40 +1,26 @@
+import type { PortableTextBlock } from "@portabletext/types";
 import BasicImage from "~/components/BasicImage";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
-import InternalLink from "~/components/portableText/InternalLink";
 import PageBody from "~/components/PageBody";
 import ReviewList from "~/components/ReviewList";
 import ShareTools from "~/components/ShareTools";
 import { PortableText } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
-import type { PageColorsAndStyles } from "~/utils/queries/shared";
+import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
 import type { Novel } from "~/utils/queries/novels";
 
 import styles from "~/components/pages/novels/NovelPage.module.css";
 
-const portableTextComponents = {
-  marks: {
-    internalLink: ({ children, value }) => <InternalLink value={value}>{children}</InternalLink>
-  }
-};
-
 export default function NovelPage({ data }: { data: Novel }) {
-  const {
-    title = "",
-    description = "",
-    overview = [],
-    body = [],
-    image = {},
-    pageColorsAndStyles,
-    reviews = []
-  } = data;
+  const { title = "", description = "", overview = [], pageColorsAndStyles, reviews = [] } = data;
+  const body = data.body as PortableTextBlock[];
+  const image = data.image as ImageData;
 
   const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
   const { breakpoints } = designTokens;
 
-  const overviewText = overview ? (
-    <PortableText value={overview} components={portableTextComponents} />
-  ) : null;
+  const overviewText = overview ? <PortableText value={overview} /> : null;
 
   const overviewItems = (
     <>
@@ -53,7 +39,7 @@ export default function NovelPage({ data }: { data: Novel }) {
       title={title}
       description={description}
       pageColors={pageColors}
-      imageProps={{ image, portrait: true, crop: false }}>
+      imageProps={{ image, portrait: true, cropped: false }}>
       <style jsx global>
         {`
           ${pageStyles}
@@ -112,7 +98,7 @@ export default function NovelPage({ data }: { data: Novel }) {
           </div>
         </div>
 
-        {body ? <PageBody content={body} pageColors={pageColors} /> : null}
+        <PageBody content={body} pageColors={pageColors} />
 
         {reviews?.length ? (
           <div className={styles.reviews}>

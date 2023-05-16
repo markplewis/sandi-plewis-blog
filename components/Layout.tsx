@@ -75,7 +75,7 @@ function Layout({
   imageProps?: {
     image: ImageData;
     portrait: boolean;
-    crop: boolean;
+    cropped: boolean;
   };
   children?: JSX.Element | JSX.Element[];
 }) {
@@ -91,7 +91,7 @@ function Layout({
 
   const image = imageProps?.image;
   const imagePortrait = imageProps?.portrait;
-  const imageCropped = imageProps?.crop;
+  const imageCropped = imageProps?.cropped;
 
   let imageAlt;
   let imageOrientation;

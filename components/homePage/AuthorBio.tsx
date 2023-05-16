@@ -2,18 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText, urlFor } from "~/lib/sanity";
 import MoreLink from "~/components/MoreLink";
-import InternalLink from "~/components/portableText/InternalLink";
 import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
 import { type AuthorFeatured } from "~/utils/queries/authors";
 
 import styles from "~/components/homePage/AuthorBio.module.css";
-
-const portableTextComponents = {
-  marks: {
-    internalLink: ({ children, value }) => <InternalLink value={value}>{children}</InternalLink>
-  }
-};
 
 // Fixed 1:1 aspect ratio
 const imageWidth = 175;
@@ -22,6 +15,7 @@ const imageHeight = imageWidth;
 export default function AuthorBio({ author }: { author: AuthorFeatured }) {
   const { breakpoints } = designTokens;
   const image = author?.image;
+  const authorName = author?.title;
 
   return (
     <section className={styles.authorBio}>
@@ -45,7 +39,7 @@ export default function AuthorBio({ author }: { author: AuthorFeatured }) {
                   `(min-width: ${breakpoints.w1150.value}rem) and (max-width: ${breakpoints.w1279.value}rem) 140px`,
                   "175px"
                 ].join(",")}
-                alt={image?.alt || author?.name}
+                alt={image?.alt || authorName}
                 placeholder="blur"
                 blurDataURL={image?.asset?.lqip || imageBlurDataURL}
               />
@@ -54,16 +48,14 @@ export default function AuthorBio({ author }: { author: AuthorFeatured }) {
         </div>
       ) : null}
 
-      <h2 className={styles.authorBioHeading}>{author?.name}</h2>
+      <h2 className={styles.authorBioHeading}>{authorName}</h2>
 
-      {author?.shortBiography ? (
-        <PortableText value={author?.shortBiography} components={portableTextComponents} />
-      ) : null}
+      {author?.shortBiography ? <PortableText value={author?.shortBiography} /> : null}
 
       <MoreLink
         as={`/authors/${author?.slug}`}
         href="/authors/[slug]"
-        text={`More about ${author?.name?.split(" ")[0]}`}
+        text={`More about ${authorName?.split(" ")[0]}`}
         align="end"
       />
     </section>

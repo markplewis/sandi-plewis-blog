@@ -1,9 +1,8 @@
 import { q, type InferType } from "groqd";
 import { authorFeaturedSelection } from "~/utils/queries/authors";
 import { novelFeaturedSelection } from "~/utils/queries/novels";
-import { postTeaserSelection } from "~/utils/queries/posts";
 import { reviewSelection } from "~/utils/queries/reviews";
-import { pageColorsAndStylesSelection } from "~/utils/queries/shared";
+import { pageColorsAndStylesSelection, teaserSelection } from "~/utils/queries/shared";
 
 export const homePageItemsQuery = q("*")
   .filter("_type == 'homePage'")
@@ -12,8 +11,8 @@ export const homePageItemsQuery = q("*")
     description: q.string(),
     author: q("author").deref().grab(authorFeaturedSelection),
     novel: q("novel").deref().grab(novelFeaturedSelection),
-    reviews: q("reviews").filter().deref().grab(reviewSelection), // TODO: array?
-    pageColorsAndStyles: q.object(pageColorsAndStylesSelection).nullable()
+    reviews: q("reviews").filter().deref().grab(reviewSelection),
+    pageColorsAndStyles: q.object(pageColorsAndStylesSelection).nullable() // Appended post-query
   });
 
 export type HomePageItems = InferType<typeof homePageItemsQuery>;
@@ -22,7 +21,7 @@ export const recentPostsQuery = q("*")
   .filter("_type == 'post'")
   .order("publishedAt desc")
   .slice(0, 3)
-  .grab(postTeaserSelection);
+  .grab(teaserSelection);
 
 export type RecentPosts = InferType<typeof recentPostsQuery>;
 

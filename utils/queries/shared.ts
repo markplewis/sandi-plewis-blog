@@ -1,6 +1,6 @@
 import { q, type Selection, type TypeFromSelection } from "groqd";
-import { type Novel } from "~/utils/queries/novels";
-import { type ShortStory } from "~/utils/queries/shortStories";
+import type { Novel } from "~/utils/queries/novels";
+import type { ShortStory } from "~/utils/queries/shortStories";
 
 // Initial colors returned from Sanity
 
@@ -50,13 +50,13 @@ export const imageSelection = {
       height: ["metadata.dimensions.height", q.number()],
       aspectRatio: ["metadata.dimensions.aspectRatio", q.number()],
       lqip: ["metadata.lqip", q.string()],
-      url: q.string().nullable(),
-      creditLine: q.string().nullable(),
-      description: q.string().nullable() // TODO: is this used?
+      url: q.string().optional().default(""),
+      creditLine: q.string().optional().default(""),
+      description: q.string().optional().default("")
     }),
-  alt: q.string().nullable(),
-  caption: q.string().nullable(),
-  alignment: q.string().nullable(),
+  alt: q.string().optional().default(""),
+  caption: q.string().optional().default(""),
+  alignment: q.string().optional().default(""),
   sampledColors: q.object(sampledColorsSelection).nullable() // Appended post-query
 } satisfies Selection;
 
@@ -115,6 +115,9 @@ export const contentBlockSelections = {
   default: contentBlockSelection
 };
 
+// const contentBlockSelectionsQuery = q("*").filter().select(contentBlockSelections).nullable();
+// export type ContentBlocks = InferType<typeof contentBlockSelectionsQuery>;
+
 // ------------------ //
 
 // Final, transformed page colors and CSS styles
@@ -157,3 +160,16 @@ export type NovelsAndShortStories = {
   novels: Novel[];
   shortStories: ShortStory[];
 };
+
+// ------------------ //
+
+export const teaserSelection = {
+  _id: q.string(),
+  title: q.string(),
+  slug: q.slug("slug"),
+  date: ["publishedAt", q.string().optional()],
+  image: q("image").grab(imageSelection).nullable(),
+  description: q.string().optional().default("")
+} satisfies Selection;
+
+export type Teaser = TypeFromSelection<typeof teaserSelection>;

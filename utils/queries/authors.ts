@@ -1,35 +1,22 @@
 import { q, type Selection, type TypeFromSelection } from "groqd";
 import {
   contentBlockSelections,
-  imageSelection,
-  pageColorsAndStylesSelection
+  pageColorsAndStylesSelection,
+  teaserSelection
 } from "~/utils/queries/shared";
 
 // Selections and types
 
 export const authorFeaturedSelection = {
-  _id: q.string(),
-  name: q.string(),
-  slug: q.slug("slug"),
-  image: q("image").grab(imageSelection),
-  shortBiography: q("shortBiography").filter().select(contentBlockSelections)
+  ...teaserSelection,
+  shortBiography: q("shortBiography").filter().select(contentBlockSelections).nullable()
 } satisfies Selection;
 
 export type AuthorFeatured = TypeFromSelection<typeof authorFeaturedSelection>;
 
-export const authorTeaserSelection = {
-  _id: q.string(),
-  name: q.string(),
-  slug: q.slug("slug"),
-  image: q("image").grab(imageSelection),
-  description: q.string()
-} satisfies Selection;
-
-export type AuthorTeaser = TypeFromSelection<typeof authorTeaserSelection>;
-
 export const authorSelection = {
-  ...authorTeaserSelection,
-  biography: q("biography").filter().select(contentBlockSelections),
+  ...teaserSelection,
+  biography: q("biography").filter().select(contentBlockSelections).nullable(),
   pageColorsAndStyles: q.object(pageColorsAndStylesSelection).nullable() // Appended post-query
 } satisfies Selection;
 
@@ -40,7 +27,7 @@ export type Author = TypeFromSelection<typeof authorSelection>;
 export const authorsQuery = q("*")
   .filter("_type == 'author'")
   .order("name asc")
-  .grab(authorTeaserSelection);
+  .grab(teaserSelection);
 
 export const authorQuery = q("*")
   .filter("_type == 'author' && slug.current == $slug")

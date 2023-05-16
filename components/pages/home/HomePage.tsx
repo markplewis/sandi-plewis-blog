@@ -6,13 +6,14 @@ import FeaturedReviews from "~/components/homePage/FeaturedReviews";
 import RecentPosts from "~/components/homePage/RecentPosts";
 import type { HomePageData } from "~/utils/queries/homePage";
 import type { Review } from "~/utils/queries/reviews";
-import type { PageColorsAndStyles } from "~/utils/queries/shared";
+import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
 
 import styles from "~/components/pages/home/HomePage.module.css";
 
 export default function HomePage({ data }: { data: HomePageData }) {
   const { homePage, posts = [] } = data;
   const { author, novel, description, pageColorsAndStyles } = homePage;
+  const image = author?.image as ImageData;
   const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
   const reviews: Review[] = homePage?.reviews;
 
@@ -21,7 +22,7 @@ export default function HomePage({ data }: { data: HomePageData }) {
       title=""
       description={description}
       pageColors={pageColors}
-      imageProps={{ image: author?.image, portrait: true, crop: true }}>
+      imageProps={{ image, portrait: true, cropped: true }}>
       <style jsx global>
         {`
           ${pageStyles}

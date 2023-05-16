@@ -1,9 +1,10 @@
+import type { PortableTextBlock } from "@portabletext/types";
 import BasicImage from "~/components/BasicImage";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
 import PageBody from "~/components/PageBody";
 import type { Author } from "~/utils/queries/authors";
-import type { PageColorsAndStyles } from "~/utils/queries/shared";
+import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
 
 import styles from "~/components/pages/authors/AuthorPage.module.css";
 
@@ -12,7 +13,10 @@ const imageWidth = 376;
 const imageHeight = imageWidth;
 
 export default function AuthorPage({ data }: { data: Author }) {
-  const { name, description, biography, image, pageColorsAndStyles } = data;
+  const { description, pageColorsAndStyles } = data;
+  const authorName = data?.title;
+  const biography = data.biography as PortableTextBlock[];
+  const image = data.image as ImageData;
   const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
 
   const pageColorsSecondary = pageColors?.secondary;
@@ -24,10 +28,10 @@ export default function AuthorPage({ data }: { data: Author }) {
 
   return (
     <Layout
-      title={name}
+      title={authorName}
       description={description}
       pageColors={pageColors}
-      imageProps={{ image, portrait: true, crop: true }}>
+      imageProps={{ image, portrait: true, cropped: true }}>
       <style jsx global>
         {`
           ${pageStyles}
@@ -46,18 +50,18 @@ export default function AuthorPage({ data }: { data: Author }) {
             image={image}
             width={imageWidth}
             height={imageHeight}
-            alt={image?.alt || name}
+            alt={image?.alt || authorName}
             blur={image?.asset?.lqip}
           />
         </div>
       </div>
 
       <div className={styles.titleContainer}>
-        <PageTitle className={styles.title}>{name}</PageTitle>
+        <PageTitle className={styles.title}>{authorName}</PageTitle>
       </div>
 
       <div className={styles.bodyArea}>
-        {biography ? <PageBody content={biography} pageColors={pageColors} /> : null}
+        <PageBody content={biography} pageColors={pageColors} />
       </div>
     </Layout>
   );

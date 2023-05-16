@@ -4,10 +4,9 @@ import DisplayDate from "~/components/DisplayDate";
 import { urlFor } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
-import styles from "~/components/CardList.module.css";
+import type { Teaser } from "~/utils/queries/shared";
 
-import type { Author } from "~/utils/queries/authors";
-import type { Category } from "~/utils/queries/categories";
+import styles from "~/components/CardList.module.css";
 
 // Fixed 2:3 aspect ratio
 const imageWidth = 240;
@@ -18,10 +17,13 @@ export default function CardList({
   path = "posts",
   showDate = true
 }: {
-  items: Author[] | Category[];
+  items: Teaser[];
   path: string;
   showDate: boolean;
 }) {
+  if (!items?.length) {
+    return null;
+  }
   const { breakpoints } = designTokens;
 
   return (
@@ -54,7 +56,7 @@ export default function CardList({
               ) : null}
 
               <div className={styles.cardInfo}>
-                <h3 className={styles.cardTitle}>{item?.title || item?.name}</h3>
+                <h3 className={styles.cardTitle}>{item?.title}</h3>
                 {showDate && date ? (
                   <p>
                     <DisplayDate dateString={date} />

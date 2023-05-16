@@ -1,26 +1,16 @@
 import { q, type Selection, type TypeFromSelection } from "groqd";
 import {
   contentBlockSelections,
-  imageSelection,
-  pageColorsAndStylesSelection
+  pageColorsAndStylesSelection,
+  teaserSelection
 } from "~/utils/queries/shared";
 
 // Selections and types
 
-export const shortStoryTeaserSelection = {
-  _id: q.string(),
-  title: q.string(),
-  slug: q.slug("slug"),
-  image: q("image").grab(imageSelection),
-  description: q.string()
-} satisfies Selection;
-
-export type ShortStoryTeaser = TypeFromSelection<typeof shortStoryTeaserSelection>;
-
 export const shortStorySelection = {
-  ...shortStoryTeaserSelection,
-  overview: q("overview").filter().select(contentBlockSelections),
-  body: q("body").filter().select(contentBlockSelections),
+  ...teaserSelection,
+  overview: q("overview").filter().select(contentBlockSelections).nullable(),
+  body: q("body").filter().select(contentBlockSelections).nullable(),
   pageColorsAndStyles: q.object(pageColorsAndStylesSelection).nullable() // Appended post-query
 } satisfies Selection;
 
@@ -31,7 +21,7 @@ export type ShortStory = TypeFromSelection<typeof shortStorySelection>;
 export const shortStoriesQuery = q("*")
   .filter("_type == 'shortStory'")
   .order("publishedAt desc")
-  .grab(shortStoryTeaserSelection);
+  .grab(teaserSelection);
 
 export const shortStoryQuery = q("*")
   .filter("_type == 'shortStory' && slug.current == $slug")

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { SPColors } from "~/types/color.d";
 import type { Category } from "~/utils/queries/categories";
+import type { PageColors } from "~/utils/queries/shared";
 
 import styles from "~/components/CategoryList.module.css";
 
@@ -11,9 +11,9 @@ export default function CategoryList({
   pageColors
 }: {
   categories: Category[];
-  themed: boolean;
-  centered: boolean;
-  pageColors?: SPColors.PageColors;
+  themed?: boolean;
+  centered?: boolean;
+  pageColors?: PageColors;
 }) {
   if (!categories || !categories.length) {
     return null;

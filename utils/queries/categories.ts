@@ -1,5 +1,5 @@
 import { q, type Selection, type TypeFromSelection } from "groqd";
-import { imageSelection } from "~/utils/queries/shared";
+import { teaserSelection } from "~/utils/queries/shared";
 
 // Selections and types
 
@@ -13,16 +13,7 @@ export type Category = TypeFromSelection<typeof categorySelection>;
 
 export const categoryWithPostsSelection = {
   ...categorySelection,
-  posts: q("*")
-    .filter("_type == 'post' && references(^._id)")
-    .grab({
-      _id: q.string(),
-      title: q.string(),
-      date: ["publishedAt", q.string()],
-      slug: q.slug("slug"),
-      description: q.string(),
-      image: q("image").grab(imageSelection)
-    })
+  posts: q("*").filter("_type == 'post' && references(^._id)").grab(teaserSelection)
 } satisfies Selection;
 
 export type CategoryWithPosts = TypeFromSelection<typeof categoryWithPostsSelection>;

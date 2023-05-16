@@ -4,9 +4,9 @@ import { q, type Selection, type TypeFromSelection } from "groqd";
 
 export const reviewSelection = {
   _id: q.string(),
-  title: q.string(),
+  title: q.string().optional().default(""),
   text: q.string(),
-  author: q.string()
+  author: q.string().optional().default("")
 } satisfies Selection;
 
 export type Review = TypeFromSelection<typeof reviewSelection>;

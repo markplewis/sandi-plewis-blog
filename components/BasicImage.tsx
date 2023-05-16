@@ -18,7 +18,7 @@ export default function BasicImage({
   image: ImageData;
   width: number;
   height: number;
-  sizes: string;
+  sizes?: string;
   alt: string;
   blur: string;
 }) {

@@ -1,9 +1,9 @@
 import CardList from "~/components/CardList";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
-import type { Author } from "~/utils/queries/authors";
+import type { Teaser } from "~/utils/queries/shared";
 
-export default function AuthorsPage({ data }: { data: Author[] }) {
+export default function AuthorsPage({ data }: { data: Teaser[] }) {
   return (
     <Layout title="Authors" description="Authors">
       <PageTitle centered={true}>Authors</PageTitle>

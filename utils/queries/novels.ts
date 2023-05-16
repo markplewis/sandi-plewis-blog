@@ -1,42 +1,32 @@
 import { q, type Selection, type TypeFromSelection } from "groqd";
 import {
   contentBlockSelections,
-  imageSelection,
-  pageColorsAndStylesSelection
+  pageColorsAndStylesSelection,
+  teaserSelection
 } from "~/utils/queries/shared";
 
 // Selections and types
 
 export const novelFeaturedSelection = {
-  _id: q.string(),
-  title: q.string(),
-  slug: q.slug("slug"),
-  image: q("image").grab(imageSelection),
-  overview: q("overview").filter().select(contentBlockSelections)
+  ...teaserSelection,
+  overview: q("overview").filter().select(contentBlockSelections).nullable()
 } satisfies Selection;
 
 export type NovelFeatured = TypeFromSelection<typeof novelFeaturedSelection>;
 
-export const novelTeaserSelection = {
-  _id: q.string(),
-  title: q.string(),
-  slug: q.slug("slug"),
-  image: q("image").grab(imageSelection),
-  description: q.string()
-} satisfies Selection;
-
-export type NovelTeaser = TypeFromSelection<typeof novelTeaserSelection>;
-
 export const novelSelection = {
-  ...novelTeaserSelection,
-  overview: q("overview").filter().select(contentBlockSelections),
-  body: q("body").filter().select(contentBlockSelections),
-  reviews: q("*").filter("_type == 'review' && references(^._id)").order("_createdAt desc").grab({
-    _id: q.string(),
-    title: q.string(),
-    text: q.string(),
-    author: q.string()
-  }),
+  ...novelFeaturedSelection,
+  body: q("body").filter().select(contentBlockSelections).nullable(),
+  reviews: q("*")
+    .filter("_type == 'review' && references(^._id)")
+    .order("_createdAt desc")
+    .grab({
+      _id: q.string(),
+      title: q.string(),
+      text: q.string(),
+      author: q.string()
+    })
+    .nullable(),
   pageColorsAndStyles: q.object(pageColorsAndStylesSelection).nullable() // Appended post-query
 } satisfies Selection;
 
@@ -47,7 +37,7 @@ export type Novel = TypeFromSelection<typeof novelSelection>;
 export const novelsQuery = q("*")
   .filter("_type == 'novel'")
   .order("publishedAt desc")
-  .grab(novelTeaserSelection);
+  .grab(teaserSelection);
 
 export const novelQuery = q("*")
   .filter("_type == 'novel' && slug.current == $slug")

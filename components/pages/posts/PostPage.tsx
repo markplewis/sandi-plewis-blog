@@ -1,3 +1,4 @@
+import type { PortableTextBlock } from "@portabletext/types";
 import Image from "next/image";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
@@ -9,25 +10,17 @@ import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
 import { processCreditLine } from "~/utils/strings";
 import type { Post } from "~/utils/queries/posts";
-import type { PageColorsAndStyles } from "~/utils/queries/shared";
+import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
 
 import styles from "~/components/pages/posts/PostPage.module.css";
 
 export default function PostPage({ data }: { data: Post }) {
-  const {
-    title = "",
-    body = [],
-    description = "",
-    date = "",
-    categories = [],
-    author = {},
-    image = {},
-    pageColorsAndStyles = {}
-  } = data;
-
-  const { breakpoints } = designTokens;
+  const { title = "", description = "", pageColorsAndStyles = {} } = data;
+  const body = data.body as PortableTextBlock[];
+  const image = data.image as ImageData;
   const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
   const creditLine = processCreditLine(image?.asset?.creditLine);
+  const { breakpoints } = designTokens;
 
   // Fixed 5:2 aspect ratio
   const imageWidth = 1240;
@@ -38,7 +31,7 @@ export default function PostPage({ data }: { data: Post }) {
       title={title}
       description={description}
       pageColors={pageColors}
-      imageProps={{ image, portrait: false, crop: true }}>
+      imageProps={{ image, portrait: false, cropped: true }}>
       {/* See: https://github.com/vercel/styled-jsx/issues/710 */}
       <style jsx global>
         {`
@@ -98,31 +91,17 @@ export default function PostPage({ data }: { data: Post }) {
 
           {/* Hidden at some breakpoints */}
           <div className={styles.metaAbove}>
-            <PostMeta
-              author={author}
-              categories={categories}
-              creditLine={creditLine}
-              date={date}
-              themed={true}
-              pageColors={pageColors}
-            />
+            <PostMeta post={data} creditLine={creditLine} themed={true} />
           </div>
         </div>
 
         {/* Hidden at some breakpoints */}
         <div className={styles.shareToolsBelow}>{<ShareTools text={title} align="center" />}</div>
         <div className={styles.metaBelow}>
-          <PostMeta
-            author={author}
-            categories={categories}
-            creditLine={creditLine}
-            date={date}
-            themed={false}
-            pageColors={pageColors}
-          />
+          <PostMeta post={data} creditLine={creditLine} themed={false} />
         </div>
 
-        {body ? <PageBody content={body} pageColors={pageColors} /> : null}
+        <PageBody content={body} pageColors={pageColors} />
       </article>
     </Layout>
   );

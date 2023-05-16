@@ -1,40 +1,31 @@
 import { q, type Selection, type TypeFromSelection } from "groqd";
 import {
   contentBlockSelections,
-  imageSelection,
-  pageColorsAndStylesSelection
+  pageColorsAndStylesSelection,
+  teaserSelection
 } from "~/utils/queries/shared";
 
 // Selections and types
 
-export const postTeaserSelection = {
-  _id: q.string(),
-  title: q.string(),
-  date: ["publishedAt", q.string()],
-  slug: q.slug("slug"),
-  image: q("image").grab(imageSelection),
-  description: q.string()
-} satisfies Selection;
-
-export type PostTeaser = TypeFromSelection<typeof postTeaserSelection>;
-
 export const postSelection = {
-  ...postTeaserSelection,
+  ...teaserSelection,
   author: q("author")
     .deref()
     .grab({
-      name: q.string(),
+      _id: q.string(),
+      title: q.string(),
       slug: q.slug("slug")
     }),
   categories: q("categories")
     .filter()
     .deref()
     .grab({
+      _id: q.string(),
       title: q.string(),
       slug: q.slug("slug")
     })
     .nullable(),
-  body: q("body").filter().select(contentBlockSelections),
+  body: q("body").filter().select(contentBlockSelections).nullable(),
   pageColorsAndStyles: q.object(pageColorsAndStylesSelection).nullable() // Appended post-query
 } satisfies Selection;
 
@@ -45,7 +36,7 @@ export type Post = TypeFromSelection<typeof postSelection>;
 export const postsQuery = q("*")
   .filter("_type == 'post'")
   .order("publishedAt desc")
-  .grab(postTeaserSelection);
+  .grab(teaserSelection);
 
 export const postQuery = q("*")
   .filter("_type == 'post' && slug.current == $slug")

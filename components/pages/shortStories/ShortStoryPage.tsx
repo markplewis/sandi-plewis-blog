@@ -1,39 +1,26 @@
+import type { PortableTextBlock } from "@portabletext/types";
 import BasicImage from "~/components/BasicImage";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
-import InternalLink from "~/components/portableText/InternalLink";
 import PageBody from "~/components/PageBody";
 import ShareTools from "~/components/ShareTools";
 import { PortableText } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
-import type { PageColorsAndStyles } from "~/utils/queries/shared";
+import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
 import type { ShortStory } from "~/utils/queries/shortStories";
 
 // Shared styles
 import styles from "~/components/pages/novels/NovelPage.module.css";
 
-const portableTextComponents = {
-  marks: {
-    internalLink: ({ children, value }) => <InternalLink value={value}>{children}</InternalLink>
-  }
-};
-
 export default function ShortStoryPage({ data }: { data: ShortStory }) {
-  const {
-    title = "",
-    description = "",
-    overview = [],
-    body = [],
-    image = {},
-    pageColorsAndStyles = {}
-  } = data;
+  const { title = "", description = "", overview = [], pageColorsAndStyles = {} } = data;
+  const body = data.body as PortableTextBlock[];
+  const image = data.image as ImageData;
 
   const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
   const { breakpoints } = designTokens;
 
-  const overviewText = overview ? (
-    <PortableText value={overview} components={portableTextComponents} />
-  ) : null;
+  const overviewText = overview ? <PortableText value={overview} /> : null;
 
   const overviewItems = (
     <>
@@ -52,7 +39,7 @@ export default function ShortStoryPage({ data }: { data: ShortStory }) {
       title={title}
       description={description}
       pageColors={pageColors}
-      imageProps={{ image, portrait: true, crop: false }}>
+      imageProps={{ image, portrait: true, cropped: false }}>
       <style jsx global>
         {`
           ${pageStyles}
@@ -111,7 +98,7 @@ export default function ShortStoryPage({ data }: { data: ShortStory }) {
           </div>
         </div>
 
-        {body ? <PageBody content={body} pageColors={pageColors} /> : null}
+        <PageBody content={body} pageColors={pageColors} />
       </div>
     </Layout>
   );

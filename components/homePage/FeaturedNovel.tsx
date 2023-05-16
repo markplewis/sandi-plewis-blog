@@ -2,19 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import MoreLink from "~/components/MoreLink";
 import PageTitle from "~/components/PageTitle";
-import InternalLink from "~/components/portableText/InternalLink";
 import { PortableText, urlFor } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
 import { type NovelFeatured } from "~/utils/queries/novels";
 
 import styles from "~/components/homePage/FeaturedNovel.module.css";
-
-const portableTextComponents = {
-  marks: {
-    internalLink: ({ children, value }) => <InternalLink value={value}>{children}</InternalLink>
-  }
-};
 
 export default function FeaturedNovel({ novel }: { novel: NovelFeatured }) {
   const { breakpoints } = designTokens;
@@ -60,9 +53,7 @@ export default function FeaturedNovel({ novel }: { novel: NovelFeatured }) {
       <div className={styles.featuredNovelInfo}>
         <PageTitle>{novel?.title}</PageTitle>
 
-        {novel?.overview ? (
-          <PortableText value={novel?.overview} components={portableTextComponents} />
-        ) : null}
+        {novel?.overview ? <PortableText value={novel?.overview} /> : null}
 
         <div className={styles.featuredNoveMoreLink}>
           <MoreLink
