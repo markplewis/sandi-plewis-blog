@@ -2,6 +2,7 @@ import type { PropsWithChildren } from "react";
 
 import styles from "~/components/PageBody.module.css";
 
+// Defining `children` types
 // See: https://blog.logrocket.com/using-react-children-prop-with-typescript/
 
 export default function PageBodyStatic({ children = undefined }: PropsWithChildren) {

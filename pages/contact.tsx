@@ -9,7 +9,7 @@ export default function Contact() {
   const skipLinkTargetRef = app.skipLinkTargetRef;
   const [pageTitle, setPageTitle] = useState("Contact Sandi");
 
-  const onFormChange = state => {
+  const onFormChange = (state: string) => {
     switch (state) {
       case FORM_ERROR:
         setPageTitle("An error occurred");

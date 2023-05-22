@@ -1,13 +1,18 @@
+import type { PropsWithChildren, RefObject } from "react";
 // import styles from "~/components/portableText/InternalLink.module.css";
 
 // See: https://www.sanity.io/guides/portable-text-internal-and-external-links
 
-const InternalLink = ({ value, children }) => {
-  // console.log(value.slug);
-  // const { slug = {}, type } = value;
+type InternalLinkProps = {
+  value: { type: string; slug: RefObject<string> };
+};
+
+const InternalLink = (props: PropsWithChildren<InternalLinkProps>) => {
+  const { value, children } = props;
   const { type } = value;
   const slug = value?.slug?.current || value?.slug;
   let path;
+
   switch (type) {
     case "post":
       path = "posts";

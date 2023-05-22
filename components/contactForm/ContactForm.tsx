@@ -1,6 +1,6 @@
 import DOMPurify from "dompurify";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type FieldValues } from "react-hook-form";
 import { FaExclamationCircle } from "react-icons/fa";
 
 import FriendlyCaptcha from "~/components/contactForm/FriendlyCaptcha";
@@ -19,7 +19,7 @@ export const FORM_SUBMITTING = "submitting";
 export const FORM_SUBMITTED = "submitted";
 export const FORM_ERROR = "error";
 
-async function sendEmail(data) {
+async function sendEmail(data: string) {
   try {
     // See: https://nextjs.org/blog/next-9-4#improved-built-in-fetch-support
     const response = await fetch("/api/send-email", {
@@ -52,7 +52,7 @@ async function sendEmail(data) {
 // https://react-hook-form.com/api/useform
 // https://github.com/FriendlyCaptcha/friendly-challenge/issues/50
 
-export default function ContactForm({ onStateChange }) {
+export default function ContactForm({ onStateChange }: { onStateChange: (state: string) => void }) {
   const [state, setState] = useState(FORM_IDLE);
 
   const {
@@ -81,14 +81,14 @@ export default function ContactForm({ onStateChange }) {
     setState(FORM_ENABLED);
   };
 
-  const onCaptchaError = err => {
+  const onCaptchaError = (err: object) => {
     debug && console.log("Captcha could not be solved");
     debug && console.error(err);
     // Enable the form regardless, in order to provide a better user experience
     setState(FORM_ENABLED);
   };
 
-  const onSubmit = async data => {
+  const onSubmit = async (data: FieldValues) => {
     setState(FORM_SUBMITTING);
 
     try {
@@ -135,8 +135,8 @@ export default function ContactForm({ onStateChange }) {
                 type="text"
                 autoComplete="name"
                 aria-required="true"
-                aria-invalid={errors.name ? true : null}
-                aria-describedby={errors.name ? "name-error" : null}
+                aria-invalid={errors.name ? true : undefined}
+                aria-describedby={errors.name ? "name-error" : undefined}
                 id="name"
               />
               {errors.name && (
@@ -159,8 +159,8 @@ export default function ContactForm({ onStateChange }) {
                 type="email"
                 autoComplete="email"
                 aria-required="true"
-                aria-invalid={errors.email ? true : null}
-                aria-describedby={errors.email ? "email-error" : null}
+                aria-invalid={errors.email ? true : undefined}
+                aria-describedby={errors.email ? "email-error" : undefined}
                 id="email"
               />
               {errors.email && (
@@ -178,8 +178,8 @@ export default function ContactForm({ onStateChange }) {
               <textarea
                 {...register("message", { required: "Message is required" })}
                 aria-required="true"
-                aria-invalid={errors.message ? true : null}
-                aria-describedby={errors.message ? "message-error" : null}
+                aria-invalid={errors.message ? true : undefined}
+                aria-describedby={errors.message ? "message-error" : undefined}
                 id="message"
                 rows={8}></textarea>
               {errors.message && (

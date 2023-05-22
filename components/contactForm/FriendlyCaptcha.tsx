@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 
 // See: https://docs.friendlycaptcha.com/#/widget_api?id=full-example-in-react-with-react-hooks
 
 const FriendlyCaptcha = ({ onStarted, onReady, onSuccess, onError }) => {
-  const container = useRef();
+  const container: RefObject<HTMLDivElement> | null = useRef(null);
   const widget = useRef();
   const [widgetModule, setWidgetModule] = useState(null);
 

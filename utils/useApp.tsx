@@ -74,7 +74,8 @@ function appReducer(state: AppState, action: AppActions) {
   }
 }
 
-// Defining `children` types: https://blog.logrocket.com/using-react-children-prop-with-typescript/
+// Defining `children` types
+// See: https://blog.logrocket.com/using-react-children-prop-with-typescript/
 
 // Provider
 export function AppProvider({ children }: PropsWithChildren) {

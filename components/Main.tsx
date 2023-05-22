@@ -2,7 +2,8 @@ import type { PropsWithChildren } from "react";
 
 import styles from "~/components/Main.module.css";
 
-// Defining `children` types: https://blog.logrocket.com/using-react-children-prop-with-typescript/
+// Defining `children` types
+// See: https://blog.logrocket.com/using-react-children-prop-with-typescript/
 
 export default function Main({ children }: PropsWithChildren) {
   return (

@@ -3,10 +3,11 @@ import { urlFor } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
 import { processCreditLine } from "~/utils/strings";
+import type { ImageData } from "~/utils/queries/shared";
 
 import styles from "~/components/portableText/PageBodyImage.module.css";
 
-const PageBodyImage = ({ value }) => {
+const PageBodyImage = ({ value }: { value: ImageData }) => {
   const { breakpoints } = designTokens;
   const creditLine = processCreditLine(value?.asset?.creditLine);
   // const width = value?.asset?.metadata?.dimensions?.width ?? 0;
@@ -29,7 +30,7 @@ const PageBodyImage = ({ value }) => {
   }
   const imageHeight = Math.round(imageWidth / aspectRatio);
 
-  let sizes = [];
+  let sizes: string[] = [];
 
   if (orientation === "square" || orientation === "portrait") {
     if (alignment === "left" || alignment === "right") {
@@ -67,7 +68,7 @@ const PageBodyImage = ({ value }) => {
           sizes={sizes.join(",")}
           alt={value?.alt}
           placeholder="blur"
-          blurDataURL={value?.asset?.metadata?.lqip || imageBlurDataURL}
+          blurDataURL={value?.asset?.lqip || imageBlurDataURL}
         />
       ) : null}
 

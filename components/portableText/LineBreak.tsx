@@ -1,6 +1,6 @@
 import styles from "~/components/portableText/LineBreak.module.css";
 
-const LineBreak = ({ value }) => {
+const LineBreak = ({ value }: { value: { style: string } }) => {
   const { style } = value;
   return <hr className={`${styles.lineBreak} ${style === "thick" ? styles.lineBreakThick : ""}`} />;
 };
