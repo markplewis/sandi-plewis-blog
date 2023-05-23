@@ -60,7 +60,7 @@ export default function NovelPage({ data }: { data: Novel }) {
               width={imageWidth}
               height={imageHeight}
               sizes={[`(min-width: ${breakpoints.w340.value}rem) 300px`, "90vw"].join(",")}
-              alt={image?.alt}
+              alt={image?.alt || ""}
               blur={image?.asset?.lqip}
             />
           </div>

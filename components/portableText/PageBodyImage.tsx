@@ -9,7 +9,7 @@ import styles from "~/components/portableText/PageBodyImage.module.css";
 
 const PageBodyImage = ({ value }: { value: ImageData }) => {
   const { breakpoints } = designTokens;
-  const creditLine = processCreditLine(value?.asset?.creditLine);
+  const creditLine = processCreditLine(value?.asset?.creditLine || "");
   // const width = value?.asset?.metadata?.dimensions?.width ?? 0;
   // const height = value?.asset?.metadata?.dimensions?.height ?? 0;
   // const aspectRatio = value?.asset?.metadata?.dimensions?.aspectRatio ?? 1;
@@ -66,7 +66,7 @@ const PageBodyImage = ({ value }: { value: ImageData }) => {
           height={imageHeight}
           quality={90}
           sizes={sizes.join(",")}
-          alt={value?.alt}
+          alt={value?.alt || ""}
           placeholder="blur"
           blurDataURL={value?.asset?.lqip || imageBlurDataURL}
         />

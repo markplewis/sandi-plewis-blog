@@ -48,7 +48,7 @@ export default function CardList({
                     height={imageHeight}
                     sizes={[`(min-width: ${breakpoints.w480.value}rem) 160px`, "90vw"].join(",")}
                     quality={90}
-                    alt={image?.alt}
+                    alt={image?.alt || ""}
                     placeholder="blur"
                     blurDataURL={image?.asset?.lqip || imageBlurDataURL}
                   />

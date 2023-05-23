@@ -19,7 +19,7 @@ export default function PostMeta({
 
   return (
     <div className={`${styles.meta} ${themed && styles.metaThemed}`}>
-      <DisplayDate className={styles.date} dateString={date} />
+      <DisplayDate className={styles.date} dateString={date || ""} />
       <p>
         <Link className={styles.author} as={`/authors/${author?.slug}`} href="/authors/[slug]">
           {author?.title}

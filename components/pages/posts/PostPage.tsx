@@ -19,7 +19,7 @@ export default function PostPage({ data }: { data: Post }) {
   const body = data.body as PortableTextBlock[];
   const image = data.image as ImageData;
   const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
-  const creditLine = processCreditLine(image?.asset?.creditLine);
+  const creditLine = processCreditLine(image?.asset?.creditLine || "");
   const { breakpoints } = designTokens;
 
   // Fixed 5:2 aspect ratio
@@ -79,7 +79,7 @@ export default function PostPage({ data }: { data: Post }) {
                     `(min-width: ${breakpoints.w768.value}rem) 40vw`,
                     "90vw"
                   ].join(",")}
-                  alt={image?.alt}
+                  alt={image?.alt || ""}
                   placeholder="blur"
                   blurDataURL={image?.asset?.lqip || imageBlurDataURL}
                   className={styles.img}

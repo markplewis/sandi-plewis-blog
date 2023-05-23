@@ -60,7 +60,7 @@ export default function ShortStoryPage({ data }: { data: ShortStory }) {
               width={imageWidth}
               height={imageHeight}
               sizes={[`(min-width: ${breakpoints.w340.value}rem) 300px`, "90vw"].join(",")}
-              alt={image?.alt}
+              alt={image?.alt || ""}
               blur={image?.asset?.lqip}
             />
           </div>

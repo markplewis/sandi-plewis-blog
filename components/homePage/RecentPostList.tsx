@@ -47,7 +47,7 @@ export default function RecentPostList({ posts }: { posts: Teaser[] }) {
                     `(min-width: ${breakpoints.w480.value}rem) 83px`,
                     "240px"
                   ].join(",")}
-                  alt={image?.alt}
+                  alt={image?.alt || ""}
                   placeholder="blur"
                   blurDataURL={image?.asset?.lqip || imageBlurDataURL}
                   className={styles.recentPostImage}
