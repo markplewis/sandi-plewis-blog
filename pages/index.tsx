@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import util from "util";
+// import util from "util";
 import HomePage from "~/components/pages/home/HomePage";
 import { runQuery } from "~/lib/sanity.client";
 import { getPageColorsAndStyles } from "~/utils/color";
@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
       data.homePage.novel.image.sampledColors
     );
   }
-  console.log("homePageQuery", util.inspect(data, false, 5));
+  // console.log("homePageQuery", util.inspect(data, false, 5));
 
   return {
     props: {

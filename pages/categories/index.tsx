@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import util from "util";
+// import util from "util";
 import CategoriesPage from "~/components/pages/categories/CategoriesPage";
 import { runQuery } from "~/lib/sanity.client";
 import { categoriesQuery, type Category } from "~/utils/queries/categories";
@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
     };
   }
   const data = categoriesQuery.schema.parse(await runQuery(categoriesQuery));
-  console.log("categories data", util.inspect(data, false, 5));
+  // console.log("categories data", util.inspect(data, false, 5));
 
   return {
     props: {

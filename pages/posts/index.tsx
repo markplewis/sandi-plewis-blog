@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import util from "util";
+// import util from "util";
 import PostsPage from "~/components/pages/posts/PostsPage";
 import { runQuery } from "~/lib/sanity.client";
 import { postsQuery, type Post } from "~/utils/queries/posts";
@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps = async ({ preview = false, previewD
     };
   }
   const data = postsQuery.schema.parse(await runQuery(postsQuery));
-  console.log("posts data", util.inspect(data, false, 5));
+  // console.log("posts data", util.inspect(data, false, 5));
 
   return {
     props: {

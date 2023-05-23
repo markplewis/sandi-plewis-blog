@@ -2,7 +2,7 @@ import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import util from "util";
+// import util from "util";
 import CategoryPage from "~/components/pages/categories/CategoryPage";
 import { client, runQuery } from "~/lib/sanity.client";
 import { categoryWithPostsQuery, type CategoryWithPosts } from "~/utils/queries/categories";
@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async ({
   const data = categoryWithPostsQuery.schema.parse(
     await runQuery(categoryWithPostsQuery, { slug: params.slug })
   );
-  console.log("category data", util.inspect(data, false, 5));
+  // console.log("category data", util.inspect(data, false, 5));
 
   return {
     props: {

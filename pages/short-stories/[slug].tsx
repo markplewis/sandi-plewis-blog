@@ -2,7 +2,7 @@ import groq from "groq";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { PreviewSuspense } from "next-sanity/preview";
 import { lazy } from "react";
-import util from "util";
+// import util from "util";
 import ShortStoryPage from "~/components/pages/shortStories/ShortStoryPage";
 import { client, runQuery } from "~/lib/sanity.client";
 import { getPageColorsAndStyles } from "~/utils/color";
@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps = async ({
   if (data?.image?.sampledColors) {
     data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
   }
-  console.log("short story data", util.inspect(data, false, 5));
+  // console.log("short story data", util.inspect(data, false, 5));
 
   return {
     props: {

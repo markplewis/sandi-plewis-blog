@@ -5,6 +5,7 @@ import PageTitle from "~/components/PageTitle";
 import PageBody from "~/components/PageBody";
 import type { Author } from "~/utils/queries/authors";
 import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
+import useDebug from "~/utils/useDebug";
 
 import styles from "~/components/pages/authors/AuthorPage.module.css";
 
@@ -18,13 +19,14 @@ export default function AuthorPage({ data }: { data: Author }) {
   const biography = data.biography as PortableTextBlock[];
   const image = data.image as ImageData;
   const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
+  const debug = useDebug();
 
   const pageColorsSecondary = pageColors?.secondary;
   const patternBlockFill = pageColorsSecondary
     ? `rgb(${pageColorsSecondary.r}% ${pageColorsSecondary.g}% ${pageColorsSecondary.b}%)`
     : "black";
 
-  console.log("AuthorPage:image", image);
+  debug && console.log("AuthorPage:image", image);
 
   return (
     <Layout
