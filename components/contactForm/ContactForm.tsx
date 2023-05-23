@@ -11,6 +11,8 @@ import useDebug from "~/utils/useDebug";
 
 import styles from "~/components/contactForm/ContactForm.module.css";
 
+// TODO: Make the form work when JavaScript is disabled and the Captcha doesn't load!
+
 // Lifecycle types (in order of occurance)
 export const FORM_IDLE = "idle";
 export const FORM_VERIFYING = "verifying";

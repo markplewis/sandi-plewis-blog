@@ -51,12 +51,13 @@ export const imageSelection = {
       aspectRatio: ["metadata.dimensions.aspectRatio", q.number()],
       lqip: ["metadata.lqip", q.string()],
       url: q.string().optional().default(""),
-      creditLine: q.string().optional().default(""),
-      description: q.string().optional().default("")
+      // creditLine: q.string().optional().default(""),
+      creditLine: q.string().nullable(),
+      description: q.string().nullable()
     }),
-  alt: q.string().optional().default(""),
-  caption: q.string().optional().default(""),
-  alignment: q.string().optional().default(""),
+  alt: q.string().nullable(),
+  caption: q.string().nullable(),
+  alignment: q.string().nullable(),
   sampledColors: q.object(sampledColorsSelection).nullable() // Appended post-query
 } satisfies Selection;
 
@@ -167,7 +168,8 @@ export const teaserSelection = {
   _id: q.string(),
   title: q.string(),
   slug: q.slug("slug"),
-  date: ["publishedAt", q.string().optional()],
+  // date: ["publishedAt", q.string().optional()],
+  date: ["publishedAt", q.string().nullable()],
   image: q("image").grab(imageSelection).nullable(),
   description: q.string().optional().default("")
 } satisfies Selection;

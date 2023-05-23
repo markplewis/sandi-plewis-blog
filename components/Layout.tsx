@@ -1,6 +1,7 @@
-import PropTypes from "prop-types";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import { useMemo } from "react";
 import Footer from "~/components/Footer";
 import Header from "~/components/Header";
 import Main from "~/components/Main";
@@ -149,7 +150,7 @@ function Layout({
     }
   }
 
-  debug && console.log(`env: ${env}`);
+  useMemo(() => debug && console.log(`env: ${env}`), [debug]);
 
   return (
     <>
