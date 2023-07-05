@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import Footer from "~/components/Footer";
 
 describe("Footer", () => {
@@ -7,5 +7,8 @@ describe("Footer", () => {
     render(<Footer />);
     const link = screen.getByText(/Privacy policy/i);
     expect(link).toBeInTheDocument();
+    // Temporary bug fix. See:
+    // https://github.com/testing-library/react-testing-library/issues/1216#issuecomment-1595684566
+    cleanup();
   });
 });
