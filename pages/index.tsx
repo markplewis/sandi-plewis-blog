@@ -1,63 +1,51 @@
 import { GetStaticProps } from "next";
-import { PreviewSuspense } from "next-sanity/preview";
-import { lazy } from "react";
-// import util from "util";
+import dynamic from "next/dynamic";
 import HomePage from "~/components/pages/home/HomePage";
+import PreviewProvider from "~/components/PreviewProvider";
 import { runQuery } from "~/lib/sanity.client";
-import { getPageColorsAndStyles } from "~/utils/color";
+import { getPreviewModeData } from "~/utils/previewMode";
 import { homePageItemsQuery, recentPostsQuery, type HomePageData } from "~/utils/queries/homePage";
 
-const HomePagePreview = lazy(() => import("~/components/pages/home/HomePagePreview"));
-
-export default function Home({
-  preview = false,
-  previewData,
-  data
-}: {
-  preview: boolean;
-  previewData: string;
-  data: HomePageData;
-}) {
-  return preview ? (
-    <PreviewSuspense fallback="Loading...">
-      <HomePagePreview token={previewData} />
-    </PreviewSuspense>
-  ) : (
-    <HomePage data={data} />
-  );
-}
+const HomePagePreview = dynamic(() => import("~/components/pages/home/HomePagePreview"));
 
 /**
  * @see https://nextjs.org/docs/api-reference/data-fetching/get-static-props
  * @param {Object} context
  * @returns {Promise<Object>}
  */
-export const getStaticProps: GetStaticProps = async ({ preview = false, previewData = {} }) => {
-  if (preview && previewData) {
-    return {
-      props: {
-        preview,
-        previewData
-      }
-    };
-  }
+export const getStaticProps: GetStaticProps = async context => {
+  const { previewMode, previewToken, preview } = getPreviewModeData(context);
   const data = {
-    homePage: homePageItemsQuery.schema.parse(await runQuery(homePageItemsQuery)),
-    posts: recentPostsQuery.schema.parse(await runQuery(recentPostsQuery))
+    homePage: homePageItemsQuery.schema.parse(
+      await runQuery(homePageItemsQuery, context.params, preview)
+    ),
+    posts: recentPostsQuery.schema.parse(await runQuery(recentPostsQuery, context.params, preview))
   };
-  // Append adjusted page colors
-  if (data?.homePage?.novel?.image?.sampledColors) {
-    data.homePage.pageColorsAndStyles = getPageColorsAndStyles(
-      data.homePage.novel.image.sampledColors
-    );
-  }
-  // console.log("homePageQuery", util.inspect(data, false, 5));
-
+  // console.log("home page data", util.inspect(data, false, 5));
   return {
     props: {
-      preview,
-      data
+      data,
+      previewMode,
+      previewToken
     },
     revalidate: 10
   };
 };
+
+export default function Home({
+  data,
+  previewMode,
+  previewToken
+}: {
+  data: HomePageData;
+  previewMode: boolean;
+  previewToken?: string;
+}) {
+  return previewMode && previewToken ? (
+    <PreviewProvider token={previewToken}>
+      <HomePagePreview data={data} />
+    </PreviewProvider>
+  ) : (
+    <HomePage data={data} />
+  );
+}

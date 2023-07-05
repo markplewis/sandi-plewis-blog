@@ -1,16 +1,18 @@
 "use client";
 
+import { useRouter } from "next/router";
+import { useLiveQuery } from "next-sanity/preview";
 import NovelPage from "~/components/pages/novels/NovelPage";
-import { usePreview } from "~/lib/sanity.preview";
-import { getPageColorsAndStyles } from "~/utils/color";
+import PreviewLoadingMessage from "~/components/PreviewLoadingMessage";
 import { novelQuery, type Novel } from "~/utils/queries/novels";
 
-export default function NovelPagePreview({ token, slug }: { token: string; slug: string }) {
-  const data: Novel = usePreview(token, novelQuery.query, { slug });
-
-  // Append adjusted page colors
-  if (data?.image?.sampledColors) {
-    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
-  }
-  return <NovelPage data={data} />;
+export default function NovelPagePreview({ data: initialData }: { data: Novel }) {
+  const params = useRouter().query;
+  const [data, loading] = useLiveQuery(initialData, novelQuery.query, params);
+  return (
+    <>
+      {loading ? <PreviewLoadingMessage /> : null}
+      <NovelPage data={data} />
+    </>
+  );
 }

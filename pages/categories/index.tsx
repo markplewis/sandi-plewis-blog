@@ -1,55 +1,50 @@
 import { GetStaticProps } from "next";
-import { PreviewSuspense } from "next-sanity/preview";
-import { lazy } from "react";
-// import util from "util";
+import dynamic from "next/dynamic";
 import CategoriesPage from "~/components/pages/categories/CategoriesPage";
+import PreviewProvider from "~/components/PreviewProvider";
 import { runQuery } from "~/lib/sanity.client";
+import { getPreviewModeData } from "~/utils/previewMode";
 import { categoriesQuery, type Category } from "~/utils/queries/categories";
 
-const CategoriesPagePreview = lazy(
+const CategoriesPagePreview = dynamic(
   () => import("~/components/pages/categories/CategoriesPagePreview")
 );
-
-export default function Categories({
-  preview = false,
-  previewData,
-  data
-}: {
-  preview: boolean;
-  previewData: string;
-  data: Category[];
-}) {
-  return preview ? (
-    <PreviewSuspense fallback="Loading...">
-      <CategoriesPagePreview token={previewData} />
-    </PreviewSuspense>
-  ) : (
-    <CategoriesPage data={data} />
-  );
-}
 
 /**
  * @see https://nextjs.org/docs/api-reference/data-fetching/get-static-props
  * @param {Object} context
  * @returns {Promise<Object>}
  */
-export const getStaticProps: GetStaticProps = async ({ preview = false, previewData = {} }) => {
-  if (preview && previewData) {
-    return {
-      props: {
-        preview,
-        previewData
-      }
-    };
-  }
-  const data = categoriesQuery.schema.parse(await runQuery(categoriesQuery));
+export const getStaticProps: GetStaticProps = async context => {
+  const { previewMode, previewToken, preview } = getPreviewModeData(context);
+  const data = categoriesQuery.schema.parse(
+    await runQuery(categoriesQuery, context.params, preview)
+  );
   // console.log("categories data", util.inspect(data, false, 5));
-
   return {
     props: {
-      preview,
-      data
+      data,
+      previewMode,
+      previewToken
     },
     revalidate: 10
   };
 };
+
+export default function Categories({
+  data,
+  previewMode,
+  previewToken
+}: {
+  data: Category[];
+  previewMode: boolean;
+  previewToken?: string;
+}) {
+  return previewMode && previewToken ? (
+    <PreviewProvider token={previewToken}>
+      <CategoriesPagePreview data={data} />
+    </PreviewProvider>
+  ) : (
+    <CategoriesPage data={data} />
+  );
+}

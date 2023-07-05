@@ -1,10 +1,18 @@
 "use client";
 
+import { useRouter } from "next/router";
+import { useLiveQuery } from "next-sanity/preview";
 import CategoriesPage from "~/components/pages/categories/CategoriesPage";
-import { usePreview } from "~/lib/sanity.preview";
+import PreviewLoadingMessage from "~/components/PreviewLoadingMessage";
 import { categoriesQuery, type Category } from "~/utils/queries/categories";
 
-export default function CategoriesPagePreview({ token }: { token: string }) {
-  const data: Category[] = usePreview(token, categoriesQuery.query);
-  return <CategoriesPage data={data} />;
+export default function CategoriesPagePreview({ data: initialData }: { data: Category[] }) {
+  const params = useRouter().query;
+  const [data, loading] = useLiveQuery(initialData, categoriesQuery.query, params);
+  return (
+    <>
+      {loading ? <PreviewLoadingMessage /> : null}
+      <CategoriesPage data={data} />
+    </>
+  );
 }

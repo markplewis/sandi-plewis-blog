@@ -3,6 +3,7 @@ import BasicImage from "~/components/BasicImage";
 import Layout from "~/components/Layout";
 import PageTitle from "~/components/PageTitle";
 import PageBody from "~/components/PageBody";
+import { getPageColorsAndStyles } from "~/utils/color";
 import type { Author } from "~/utils/queries/authors";
 import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
 import useDebug from "~/utils/useDebug";
@@ -14,6 +15,11 @@ const imageWidth = 376;
 const imageHeight = imageWidth;
 
 export default function AuthorPage({ data }: { data: Author }) {
+  // Append adjusted page colors
+  if (data?.image?.sampledColors) {
+    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
+  }
+  // console.log("author data", util.inspect(data, false, 5));
   const { description, pageColorsAndStyles } = data;
   const authorName = data?.title;
   const biography = data.biography as PortableTextBlock[];

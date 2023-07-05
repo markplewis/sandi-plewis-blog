@@ -4,6 +4,7 @@ import AuthorBio from "~/components/homePage/AuthorBio";
 import FeaturedNovel from "~/components/homePage/FeaturedNovel";
 import FeaturedReviews from "~/components/homePage/FeaturedReviews";
 import RecentPosts from "~/components/homePage/RecentPosts";
+import { getPageColorsAndStyles } from "~/utils/color";
 import type { HomePageData } from "~/utils/queries/homePage";
 import type { Review } from "~/utils/queries/reviews";
 import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
@@ -11,6 +12,12 @@ import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
 import styles from "~/components/pages/home/HomePage.module.css";
 
 export default function HomePage({ data }: { data: HomePageData }) {
+  // Append adjusted page colors
+  if (data?.homePage?.novel?.image?.sampledColors) {
+    data.homePage.pageColorsAndStyles = getPageColorsAndStyles(
+      data.homePage.novel.image.sampledColors
+    );
+  }
   const { homePage, posts = [] } = data;
   const { author, novel, description, pageColorsAndStyles } = homePage;
   const image = author?.image as ImageData;

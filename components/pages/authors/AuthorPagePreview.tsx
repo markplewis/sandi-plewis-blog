@@ -1,16 +1,18 @@
 "use client";
 
+import { useRouter } from "next/router";
+import { useLiveQuery } from "next-sanity/preview";
 import AuthorPage from "~/components/pages/authors/AuthorPage";
-import { usePreview } from "~/lib/sanity.preview";
-import { getPageColorsAndStyles } from "~/utils/color";
+import PreviewLoadingMessage from "~/components/PreviewLoadingMessage";
 import { authorQuery, type Author } from "~/utils/queries/authors";
 
-export default function AuthorPagePreview({ token, slug }: { token: string; slug: string }) {
-  const data: Author = usePreview(token, authorQuery.query, { slug });
-
-  // Append adjusted page colors
-  if (data?.image?.sampledColors) {
-    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
-  }
-  return <AuthorPage data={data} />;
+export default function AuthorPagePreview({ data: initialData }: { data: Author }) {
+  const params = useRouter().query;
+  const [data, loading] = useLiveQuery(initialData, authorQuery.query, params);
+  return (
+    <>
+      {loading ? <PreviewLoadingMessage /> : null}
+      <AuthorPage data={data} />
+    </>
+  );
 }

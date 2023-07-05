@@ -1,15 +1,30 @@
 "use client";
 
+import { useRouter } from "next/router";
+import { useLiveQuery } from "next-sanity/preview";
 import WritingPage from "~/components/pages/writing/WritingPage";
-import { usePreview } from "~/lib/sanity.preview";
+import PreviewLoadingMessage from "~/components/PreviewLoadingMessage";
 import { novelsQuery } from "~/utils/queries/novels";
 import { shortStoriesQuery } from "~/utils/queries/shortStories";
 import type { NovelsAndShortStories } from "~/utils/queries/shared";
 
-export default function WritingPagePreview({ token }: { token: string }) {
-  const data: NovelsAndShortStories = {
-    novels: usePreview(token, novelsQuery.query),
-    shortStories: usePreview(token, shortStoriesQuery.query)
+export default function WritingPagePreview({ data: initialData }: { data: NovelsAndShortStories }) {
+  const params = useRouter().query;
+  const { novels, shortStories } = initialData;
+  const [novelsData, novelsLoading] = useLiveQuery(novels, novelsQuery.query, params);
+  const [shortStoriesData, shortStoriesLoading] = useLiveQuery(
+    shortStories,
+    shortStoriesQuery.query,
+    params
+  );
+  const data = {
+    novels: novelsData,
+    shortStories: shortStoriesData
   };
-  return <WritingPage data={data} />;
+  return (
+    <>
+      {novelsLoading || shortStoriesLoading ? <PreviewLoadingMessage /> : null}
+      <WritingPage data={data} />
+    </>
+  );
 }

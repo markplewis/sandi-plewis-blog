@@ -7,6 +7,7 @@ import PostMeta from "~/components/PostMeta";
 import ShareTools from "~/components/ShareTools";
 import { urlFor } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
+import { getPageColorsAndStyles } from "~/utils/color";
 import { imageBlurDataURL } from "~/utils/images";
 import { processCreditLine } from "~/utils/strings";
 import type { Post } from "~/utils/queries/posts";
@@ -15,6 +16,11 @@ import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
 import styles from "~/components/pages/posts/PostPage.module.css";
 
 export default function PostPage({ data }: { data: Post }) {
+  // Append adjusted page colors
+  if (data?.image?.sampledColors) {
+    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
+  }
+  // console.log("post data", util.inspect(data, false, 5));
   const { title = "", description = "", pageColorsAndStyles = {} } = data;
   const body = data.body as PortableTextBlock[];
   const image = data.image as ImageData;

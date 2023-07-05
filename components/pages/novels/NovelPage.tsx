@@ -7,12 +7,18 @@ import ReviewList from "~/components/ReviewList";
 import ShareTools from "~/components/ShareTools";
 import { PortableText } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
+import { getPageColorsAndStyles } from "~/utils/color";
 import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
 import type { Novel } from "~/utils/queries/novels";
 
 import styles from "~/components/pages/novels/NovelPage.module.css";
 
 export default function NovelPage({ data }: { data: Novel }) {
+  // Append adjusted page colors
+  if (data?.image?.sampledColors) {
+    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
+  }
+  // console.log("novel data", util.inspect(data, false, 5));
   const { title = "", description = "", overview = [], pageColorsAndStyles, reviews = [] } = data;
   const body = data.body as PortableTextBlock[];
   const image = data.image as ImageData;

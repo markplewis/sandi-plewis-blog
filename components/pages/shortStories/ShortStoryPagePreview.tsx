@@ -1,16 +1,18 @@
 "use client";
 
+import { useRouter } from "next/router";
+import { useLiveQuery } from "next-sanity/preview";
 import ShortStoryPage from "~/components/pages/shortStories/ShortStoryPage";
-import { usePreview } from "~/lib/sanity.preview";
-import { getPageColorsAndStyles } from "~/utils/color";
+import PreviewLoadingMessage from "~/components/PreviewLoadingMessage";
 import { shortStoryQuery, type ShortStory } from "~/utils/queries/shortStories";
 
-export default function ShortStoryPagePreview({ token, slug }: { token: string; slug: string }) {
-  const data: ShortStory = usePreview(token, shortStoryQuery.query, { slug });
-
-  // Append adjusted page colors
-  if (data?.image?.sampledColors) {
-    data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
-  }
-  return <ShortStoryPage data={data} />;
+export default function ShortStoryPagePreview({ data: initialData }: { data: ShortStory }) {
+  const params = useRouter().query;
+  const [data, loading] = useLiveQuery(initialData, shortStoryQuery.query, params);
+  return (
+    <>
+      {loading ? <PreviewLoadingMessage /> : null}
+      <ShortStoryPage data={data} />
+    </>
+  );
 }
