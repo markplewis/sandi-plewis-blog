@@ -66,6 +66,7 @@ const LayoutPropTypes = {
 function Layout({
   title = "",
   description = DEFAULT_META_DESCRIPTION,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   pageColors,
   imageProps,
   children
