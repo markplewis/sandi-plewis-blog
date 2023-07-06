@@ -28,10 +28,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
  */
 export const getStaticProps: GetStaticProps = async context => {
   const { previewMode, previewToken, preview } = getPreviewModeData(context);
-  const data = categoryWithPostsQuery.schema.parse(
-    await runQuery(categoryWithPostsQuery, context.params, preview)
-  );
-  // console.log("category data", util.inspect(data, false, 5));
+  let data;
+  try {
+    data = categoryWithPostsQuery.schema.parse(
+      await runQuery(categoryWithPostsQuery, context.params, preview)
+    );
+    // console.log("category data", util.inspect(data, false, 5));
+  } catch (e) {
+    console.error(e);
+  }
   return {
     props: {
       data,

@@ -26,8 +26,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
  */
 export const getStaticProps: GetStaticProps = async context => {
   const { previewMode, previewToken, preview } = getPreviewModeData(context);
-  const data = authorQuery.schema.parse(await runQuery(authorQuery, context.params, preview));
-  // console.log("author data", util.inspect(data, false, 5));
+  let data;
+  try {
+    data = authorQuery.schema.parse(await runQuery(authorQuery, context.params, preview));
+    // console.log("author data", util.inspect(data, false, 5));
+  } catch (e) {
+    console.error(e);
+  }
   return {
     props: {
       data,

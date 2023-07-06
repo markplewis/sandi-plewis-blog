@@ -14,7 +14,7 @@ export default function Header() {
   const router = useRouter();
   const pathName = router.pathname;
   const active = styles.navItemActive;
-  const isMedium = useMedia(`(min-width: ${breakpoints.w820.value}rem)`);
+  const isMedium = useMedia(`(min-width: ${breakpoints.w820.value}rem)`, false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuHidden, setMenuHidden] = useState(true);
   const menuButtonRef: RefObject<HTMLButtonElement> | null = useRef(null);

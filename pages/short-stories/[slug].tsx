@@ -28,10 +28,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
  */
 export const getStaticProps: GetStaticProps = async context => {
   const { previewMode, previewToken, preview } = getPreviewModeData(context);
-  const data = shortStoryQuery.schema.parse(
-    await runQuery(shortStoryQuery, context.params, preview)
-  );
-  // console.log("short stories data", util.inspect(data, false, 5));
+  let data;
+  try {
+    data = shortStoryQuery.schema.parse(await runQuery(shortStoryQuery, context.params, preview));
+    // console.log("short story data", util.inspect(data, false, 5));
+  } catch (e) {
+    console.error(e);
+  }
   return {
     props: {
       data,

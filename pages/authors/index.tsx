@@ -15,8 +15,13 @@ const AuthorsPagePreview = dynamic(() => import("~/components/pages/authors/Auth
  */
 export const getStaticProps: GetStaticProps = async context => {
   const { previewMode, previewToken, preview } = getPreviewModeData(context);
-  const data = authorsQuery.schema.parse(await runQuery(authorsQuery, context.params, preview));
-  // console.log("authors data", util.inspect(data, false, 5));
+  let data;
+  try {
+    data = authorsQuery.schema.parse(await runQuery(authorsQuery, context.params, preview));
+    // console.log("authors data", util.inspect(data, false, 5));
+  } catch (e) {
+    console.error(e);
+  }
   return {
     props: {
       data,

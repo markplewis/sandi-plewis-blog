@@ -15,13 +15,20 @@ const HomePagePreview = dynamic(() => import("~/components/pages/home/HomePagePr
  */
 export const getStaticProps: GetStaticProps = async context => {
   const { previewMode, previewToken, preview } = getPreviewModeData(context);
-  const data = {
-    homePage: homePageItemsQuery.schema.parse(
-      await runQuery(homePageItemsQuery, context.params, preview)
-    ),
-    posts: recentPostsQuery.schema.parse(await runQuery(recentPostsQuery, context.params, preview))
-  };
-  // console.log("home page data", util.inspect(data, false, 5));
+  let data;
+  try {
+    data = {
+      homePage: homePageItemsQuery.schema.parse(
+        await runQuery(homePageItemsQuery, context.params, preview)
+      ),
+      posts: recentPostsQuery.schema.parse(
+        await runQuery(recentPostsQuery, context.params, preview)
+      )
+    };
+    // console.log("home page data", util.inspect(data, false, 5));
+  } catch (e) {
+    console.error(e);
+  }
   return {
     props: {
       data,

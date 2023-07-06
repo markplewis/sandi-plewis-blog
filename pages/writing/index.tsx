@@ -17,13 +17,18 @@ const WritingPagePreview = dynamic(() => import("~/components/pages/writing/Writ
  */
 export const getStaticProps: GetStaticProps = async context => {
   const { previewMode, previewToken, preview } = getPreviewModeData(context);
-  const data = {
-    novels: novelsQuery.schema.parse(await runQuery(novelsQuery, context.params, preview)),
-    shortStories: shortStoriesQuery.schema.parse(
-      await runQuery(shortStoriesQuery, context.params, preview)
-    )
-  };
-  // console.log("writing data", util.inspect(data, false, 5));
+  let data;
+  try {
+    data = {
+      novels: novelsQuery.schema.parse(await runQuery(novelsQuery, context.params, preview)),
+      shortStories: shortStoriesQuery.schema.parse(
+        await runQuery(shortStoriesQuery, context.params, preview)
+      )
+    };
+    // console.log("writing data", util.inspect(data, false, 5));
+  } catch (e) {
+    console.error(e);
+  }
   return {
     props: {
       data,

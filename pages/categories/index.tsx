@@ -17,10 +17,13 @@ const CategoriesPagePreview = dynamic(
  */
 export const getStaticProps: GetStaticProps = async context => {
   const { previewMode, previewToken, preview } = getPreviewModeData(context);
-  const data = categoriesQuery.schema.parse(
-    await runQuery(categoriesQuery, context.params, preview)
-  );
-  // console.log("categories data", util.inspect(data, false, 5));
+  let data;
+  try {
+    data = categoriesQuery.schema.parse(await runQuery(categoriesQuery, context.params, preview));
+    // console.log("categories data", util.inspect(data, false, 5));
+  } catch (e) {
+    console.error(e);
+  }
   return {
     props: {
       data,

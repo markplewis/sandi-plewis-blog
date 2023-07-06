@@ -15,8 +15,13 @@ const PostsPagePreview = dynamic(() => import("~/components/pages/posts/PostsPag
  */
 export const getStaticProps: GetStaticProps = async context => {
   const { previewMode, previewToken, preview } = getPreviewModeData(context);
-  const data = postsQuery.schema.parse(await runQuery(postsQuery, context.params, preview));
-  // console.log("posts data", util.inspect(data, false, 5));
+  let data;
+  try {
+    data = postsQuery.schema.parse(await runQuery(postsQuery, context.params, preview));
+    // console.log("posts data", util.inspect(data, false, 5));
+  } catch (e) {
+    console.error(e);
+  }
   return {
     props: {
       data,
