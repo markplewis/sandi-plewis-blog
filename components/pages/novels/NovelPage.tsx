@@ -23,7 +23,9 @@ export default function NovelPage({ data }: { data: Novel }) {
   const body = data.body as PortableTextBlock[];
   const image = data.image as ImageData;
 
-  const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
+  const { colors: pageColors = undefined, styles: pageStyles = undefined } =
+    (pageColorsAndStyles as PageColorsAndStyles) || {};
+
   const { breakpoints } = designTokens;
 
   const overviewText = overview ? <PortableText value={overview} /> : null;

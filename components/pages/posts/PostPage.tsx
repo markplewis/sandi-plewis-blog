@@ -24,7 +24,10 @@ export default function PostPage({ data }: { data: Post }) {
   const { title = "", description = "", pageColorsAndStyles = {} } = data;
   const body = data.body as PortableTextBlock[];
   const image = data.image as ImageData;
-  const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
+
+  const { colors: pageColors = undefined, styles: pageStyles = undefined } =
+    (pageColorsAndStyles as PageColorsAndStyles) || {};
+
   const creditLine = processCreditLine(image?.asset?.creditLine || "");
   const { breakpoints } = designTokens;
 

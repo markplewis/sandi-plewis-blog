@@ -1,6 +1,6 @@
 import type { PageColors } from "~/utils/queries/shared";
 
-export default function ColorSwatches({ pageColors }: { pageColors: PageColors }) {
+export default function ColorSwatches({ pageColors }: { pageColors: PageColors | undefined }) {
   if (!pageColors) {
     return null;
   }

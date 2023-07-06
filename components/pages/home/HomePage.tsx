@@ -21,7 +21,10 @@ export default function HomePage({ data }: { data: HomePageData }) {
   const { homePage, posts = [] } = data;
   const { author, novel, description, pageColorsAndStyles } = homePage;
   const image = author?.image as ImageData;
-  const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
+
+  const { colors: pageColors = undefined, styles: pageStyles = undefined } =
+    (pageColorsAndStyles as PageColorsAndStyles) || {};
+
   const reviews: Review[] = homePage?.reviews;
 
   return (

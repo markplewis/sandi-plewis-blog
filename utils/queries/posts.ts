@@ -15,7 +15,8 @@ export const postSelection = {
       _id: q.string(),
       title: q.string(),
       slug: q.slug("slug")
-    }),
+    })
+    .nullable(),
   categories: q("categories")
     .filter()
     .deref()

@@ -11,7 +11,7 @@ export default function PageBody({
   pageColors
 }: {
   content: PortableTextBlock[];
-  pageColors: PageColors;
+  pageColors: PageColors | undefined;
 }) {
   const debug = useDebug();
 

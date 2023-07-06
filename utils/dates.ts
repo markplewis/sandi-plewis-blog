@@ -4,23 +4,28 @@ export function formatDate(dateString: string, timeZone = "") {
   const d = new Date(dateString);
   const tz = timeZone || userTimeZone;
 
-  const date = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: tz
-  }).format(d);
+  try {
+    const dateValue = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: tz
+    });
 
-  const timeZoneFormat = new Intl.DateTimeFormat("en", {
-    timeZoneName: "short",
-    timeZone: tz
-  });
+    const date = dateValue.format(d);
 
-  const timeZoneFormatted = timeZoneFormat
-    .formatToParts(d)
-    .find(x => x.type === "timeZoneName")?.value;
+    const timeZoneFormat = new Intl.DateTimeFormat("en", {
+      timeZoneName: "short",
+      timeZone: tz
+    });
 
-  // Print the time zone when it's explicitly provided (i.e. on the server side) and omit it
-  // otherwise (i.e. on the client side), so that it's clear to users without JavaScript enabled
-  return timeZone && timeZoneFormatted ? `${date} (${timeZoneFormatted})` : date;
+    const timeZoneFormatted = timeZoneFormat.formatToParts(d).find(x => x.type === "timeZoneName")
+      ?.value;
+
+    // Print the time zone when it's explicitly provided (i.e. on the server side) and omit it
+    // otherwise (i.e. on the client side), so that it's clear to users without JavaScript enabled
+    return timeZone && timeZoneFormatted ? `${date} (${timeZoneFormatted})` : date;
+  } catch (e) {
+    return "";
+  }
 }

@@ -24,7 +24,10 @@ export default function AuthorPage({ data }: { data: Author }) {
   const authorName = data?.title;
   const biography = data.biography as PortableTextBlock[];
   const image = data.image as ImageData;
-  const { colors: pageColors, styles: pageStyles } = pageColorsAndStyles as PageColorsAndStyles;
+
+  const { colors: pageColors = undefined, styles: pageStyles = undefined } =
+    (pageColorsAndStyles as PageColorsAndStyles) || {};
+
   const debug = useDebug();
 
   const pageColorsSecondary = pageColors?.secondary;
