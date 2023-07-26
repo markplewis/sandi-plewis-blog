@@ -62,7 +62,7 @@ export default function AuthorPage({ data }: { data: Author }) {
             width={imageWidth}
             height={imageHeight}
             alt={image?.alt || authorName}
-            blur={image?.asset?.lqip}
+            blur={image?.asset?.lqip || ""}
           />
         </div>
       </div>

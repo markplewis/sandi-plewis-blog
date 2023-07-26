@@ -54,7 +54,8 @@ export const imageSelection = {
       // creditLine: q.string().optional().default(""),
       creditLine: q.string().nullable(),
       description: q.string().nullable()
-    }),
+    })
+    .nullable(),
   alt: q.string().nullable(),
   caption: q.string().nullable(),
   alignment: q.string().nullable(),

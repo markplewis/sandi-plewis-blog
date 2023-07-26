@@ -100,10 +100,9 @@ function Layout({
   let twitterImageURL;
   let facebookImageURL;
 
-  if (image) {
+  if (image?.asset) {
     imageAlt = image?.alt;
-    imageOrientation =
-      image && imagePortrait ? "portrait" : image && !imagePortrait ? "landscape" : null;
+    imageOrientation = imagePortrait ? "portrait" : "landscape";
 
     // Twitter
     if (imageOrientation === "portrait") {
