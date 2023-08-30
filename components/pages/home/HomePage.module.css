@@ -32,7 +32,7 @@
 .shareToolsHorizontal {
   display: none;
 }
-.shareToolsFeaturedNovel {
+.shareToolsFeaturedItem {
   margin-top: 24px;
 }
 
@@ -47,7 +47,7 @@
   .shareToolsHorizontal {
     display: block;
   }
-  .shareToolsFeaturedNovel {
+  .shareToolsFeaturedItem {
     display: none;
   }
 }

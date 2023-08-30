@@ -1,6 +1,6 @@
 @design-tokens url("../../styles/design-tokens.json") format("style-dictionary3");
 
-.featuredNovel {
+.featuredItem {
   color: var(--page-color-primary-text);
   margin-top: 24px;
   padding: 24px;
@@ -11,53 +11,53 @@
   gap: 24px;
   background-color: var(--page-color-primary);
 }
-.featuredNovel ul,
-.featuredNovel ol {
+.featuredItem ul,
+.featuredItem ol {
   line-height: 1.8;
 }
-.featuredNovel a,
-.featuredNovel a:visited,
-.featuredNovel a:hover,
-.featuredNovel a:focus,
-.featuredNovel a:active {
+.featuredItem a,
+.featuredItem a:visited,
+.featuredItem a:hover,
+.featuredItem a:focus,
+.featuredItem a:active {
   color: var(--page-color-primary-text);
 }
-.featuredNovel :focus,
-.featuredNovel :hover:focus {
+.featuredItem :focus,
+.featuredItem :hover:focus {
   outline-color: var(--page-color-primary-text);
 }
-.featuredNovelImage {
+.featuredItemImage {
   width: 100%;
   max-width: 280px;
   margin-top: -48px;
   box-shadow: var(--box-shadow-strong);
 }
-.featuredNovelImageLink {
+.featuredItemImageLink {
   display: block;
 }
-.featuredNovelInfo {
+.featuredItemInfo {
   flex: 1 1;
 }
-.featuredNovelInfo h1 {
+.featuredItemInfo h1 {
   margin-top: 0;
 }
-.featuredNoveMoreLink {
+.featuredItemMoreLink {
   margin-top: 36px;
 }
 
 @media (min-width: token("breakpoints.w400" to rem)) {
-  .featuredNovel {
+  .featuredItem {
     margin: 24px 0 0 0;
     box-shadow: var(--box-shadow);
   }
 }
 
 @media (min-width: token("breakpoints.w600" to rem)) {
-  .featuredNovel {
+  .featuredItem {
     flex-direction: row;
     align-items: flex-start;
   }
-  .featuredNovelImage {
+  .featuredItemImage {
     width: 38%;
     margin-bottom: -48px;
   }

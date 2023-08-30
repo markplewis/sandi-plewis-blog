@@ -1,7 +1,7 @@
 import Layout from "~/components/Layout";
 import ShareTools from "~/components/ShareTools";
 import AuthorBio from "~/components/homePage/AuthorBio";
-import FeaturedNovel from "~/components/homePage/FeaturedNovel";
+import FeaturedItem from "~/components/homePage/FeaturedItem";
 import FeaturedReviews from "~/components/homePage/FeaturedReviews";
 import RecentPosts from "~/components/homePage/RecentPosts";
 import { getPageColorsAndStyles } from "~/utils/color";
@@ -13,13 +13,13 @@ import styles from "~/components/pages/home/HomePage.module.css";
 
 export default function HomePage({ data }: { data: HomePageData }) {
   // Append adjusted page colors
-  if (data?.homePage?.novel?.image?.sampledColors) {
+  if (data?.homePage?.featuredItem?.image?.sampledColors) {
     data.homePage.pageColorsAndStyles = getPageColorsAndStyles(
-      data.homePage.novel.image.sampledColors
+      data.homePage.featuredItem.image.sampledColors
     );
   }
   const { homePage, posts = [] } = data;
-  const { author, novel, description, pageColorsAndStyles } = homePage;
+  const { author, featuredItem, description, pageColorsAndStyles } = homePage;
   const image = author?.image as ImageData;
 
   const { colors: pageColors = undefined, styles: pageStyles = undefined } =
@@ -50,10 +50,10 @@ export default function HomePage({ data }: { data: HomePageData }) {
         </div>
 
         <section className={styles.row1}>
-          {novel ? (
+          {featuredItem ? (
             <div>
-              <FeaturedNovel novel={novel} />
-              <div className={styles.shareToolsFeaturedNovel}>
+              <FeaturedItem item={featuredItem} />
+              <div className={styles.shareToolsFeaturedItem}>
                 <ShareTools text="Sandi Plewis, Author/Editor" align="center" />
               </div>
             </div>

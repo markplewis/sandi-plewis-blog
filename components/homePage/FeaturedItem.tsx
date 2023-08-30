@@ -5,26 +5,38 @@ import PageTitle from "~/components/PageTitle";
 import { PortableText, urlFor } from "~/lib/sanity";
 import designTokens from "~/styles/design-tokens";
 import { imageBlurDataURL } from "~/utils/images";
-import { type NovelFeatured } from "~/utils/queries/novels";
+import { type FeaturedItem } from "~/utils/queries/homePage";
 
-import styles from "~/components/homePage/FeaturedNovel.module.css";
+import styles from "~/components/homePage/FeaturedItem.module.css";
 
-export default function FeaturedNovel({ novel }: { novel: NovelFeatured }) {
+export default function FeaturedItem({ item }: { item: FeaturedItem }) {
   const { breakpoints } = designTokens;
-  const image = novel?.image;
+  const image = item?.image;
   const imageWidth = 280;
   const imageHeight = image?.asset?.aspectRatio
     ? Math.round(imageWidth / image?.asset?.aspectRatio)
     : imageWidth;
 
+  let urlPath;
+
+  switch (item._type) {
+    case "newsItem":
+      urlPath = "news";
+      break;
+    case "novel":
+    default:
+      urlPath = "novels";
+      break;
+  }
+
   return (
-    <div className={styles.featuredNovel}>
+    <div className={styles.featuredItem}>
       {image?.asset ? (
-        <div className={styles.featuredNovelImage}>
+        <div className={styles.featuredItemImage}>
           <Link
-            className={styles.featuredNovelImageLink}
-            as={`/novels/${novel?.slug}`}
-            href="/novels/[slug]">
+            className={styles.featuredItemImageLink}
+            as={`/${urlPath}/${item?.slug}`}
+            href={`/${urlPath}/[slug]`}>
             <Image
               src={urlFor(image)
                 .width(imageWidth * 2)
@@ -41,7 +53,7 @@ export default function FeaturedNovel({ novel }: { novel: NovelFeatured }) {
                 "90vw"
               ].join(",")}
               quality={90}
-              alt={image?.alt || novel?.title}
+              alt={image?.alt || item?.title}
               placeholder="blur"
               blurDataURL={image?.asset?.lqip || imageBlurDataURL}
               priority={true} // LCP image
@@ -50,15 +62,15 @@ export default function FeaturedNovel({ novel }: { novel: NovelFeatured }) {
         </div>
       ) : null}
 
-      <div className={styles.featuredNovelInfo}>
-        <PageTitle>{novel?.title}</PageTitle>
+      <div className={styles.featuredItemInfo}>
+        <PageTitle>{item?.title}</PageTitle>
 
-        {novel?.overview ? <PortableText value={novel?.overview} /> : null}
+        {item?.overview ? <PortableText value={item?.overview} /> : null}
 
-        <div className={styles.featuredNoveMoreLink}>
+        <div className={styles.featuredItemMoreLink}>
           <MoreLink
-            as={`/novels/${novel?.slug}`}
-            href="/novels/[slug]"
+            as={`/${urlPath}/${item?.slug}`}
+            href={`/${urlPath}/[slug]`}
             text="More information"
             // TODO: generate a secondary color that has sufficient contrast against the primary
             // color and also when the primary color is applied to text on top of it

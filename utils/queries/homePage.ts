@@ -1,8 +1,23 @@
-import { q, type InferType } from "groqd";
+import { q, type InferType, type Selection, type TypeFromSelection } from "groqd";
 import { authorFeaturedSelection } from "~/utils/queries/authors";
-import { novelFeaturedSelection } from "~/utils/queries/novels";
 import { reviewSelection } from "~/utils/queries/reviews";
-import { pageColorsAndStylesSelection, teaserSelection } from "~/utils/queries/shared";
+import {
+  contentBlockSelections,
+  pageColorsAndStylesSelection,
+  teaserSelection
+} from "~/utils/queries/shared";
+
+// Selections and types
+
+export const featuredItemSelection = {
+  ...teaserSelection,
+  _type: q.string(),
+  overview: q("overview").filter().select(contentBlockSelections).nullable()
+} satisfies Selection;
+
+export type FeaturedItem = TypeFromSelection<typeof featuredItemSelection>;
+
+// Queries
 
 export const homePageItemsQuery = q("*")
   .filter("_type == 'homePage'")
@@ -10,7 +25,7 @@ export const homePageItemsQuery = q("*")
   .grab({
     description: q.string(),
     author: q("author").deref().grab(authorFeaturedSelection),
-    novel: q("novel").deref().grab(novelFeaturedSelection),
+    featuredItem: q("featuredItem").deref().grab(featuredItemSelection),
     reviews: q("reviews").filter().deref().grab(reviewSelection),
     pageColorsAndStyles: q.object(pageColorsAndStylesSelection).nullable() // Appended post-query
   });
