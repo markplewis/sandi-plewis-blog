@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/router";
 import { useLiveQuery } from "next-sanity/preview";
-import NewsItemPage from "~/components/pages/news/NewsItemPage";
+import NewsItemPage from "~/components/pages/newsItems/NewsItemPage";
 import PreviewLoadingMessage from "~/components/PreviewLoadingMessage";
 import { newsItemQuery, type NewsItem } from "~/utils/queries/newsItems";
 

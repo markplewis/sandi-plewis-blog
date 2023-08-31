@@ -35,6 +35,11 @@
 .shareToolsFeaturedItem {
   margin-top: 24px;
 }
+.reviewedNovel {
+  max-width: 686px;
+  margin: 0 auto 48px auto;
+  text-align: center;
+}
 
 @media (min-width: token("breakpoints.w600" to rem)) {
   .patternBlock {
@@ -49,6 +54,9 @@
   }
   .shareToolsFeaturedItem {
     display: none;
+  }
+  .reviewedNovel {
+    text-align: left;
   }
 }
 
@@ -70,6 +78,9 @@
     grid-template-columns: 0.9fr 1fr;
     column-gap: 24px;
     justify-items: center;
+  }
+  .reviewedNovel {
+    margin: 48px 0;
   }
 }
 

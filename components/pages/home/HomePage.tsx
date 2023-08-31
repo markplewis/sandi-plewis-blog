@@ -26,6 +26,7 @@ export default function HomePage({ data }: { data: HomePageData }) {
     (pageColorsAndStyles as PageColorsAndStyles) || {};
 
   const reviews: Review[] = homePage?.reviews;
+  const reviewedNovel = reviews?.[0]?.novel?.title;
 
   return (
     <Layout
@@ -59,7 +60,14 @@ export default function HomePage({ data }: { data: HomePageData }) {
             </div>
           ) : null}
 
-          {reviews.length ? <FeaturedReviews reviews={reviews} /> : null}
+          {reviews.length ? (
+            <div>
+              <h2 className={styles.reviewedNovel}>
+                <em>{reviewedNovel}</em> reviews
+              </h2>
+              <FeaturedReviews reviews={reviews} as="h3" />
+            </div>
+          ) : null}
 
           <div className={styles.shareToolsVertical}>
             <ShareTools text="Sandi Plewis, Author/Editor" position="vertical" />

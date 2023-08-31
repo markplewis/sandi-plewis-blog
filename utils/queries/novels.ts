@@ -1,4 +1,5 @@
 import { q, type Selection, type TypeFromSelection } from "groqd";
+import { reviewSelection } from "~/utils/queries/reviews";
 import {
   contentBlockSelections,
   pageColorsAndStylesSelection,
@@ -20,12 +21,7 @@ export const novelSelection = {
   reviews: q("*")
     .filter("_type == 'review' && references(^._id)")
     .order("_createdAt desc")
-    .grab({
-      _id: q.string(),
-      title: q.string(),
-      text: q.string(),
-      author: q.string()
-    })
+    .grab(reviewSelection)
     .nullable(),
   pageColorsAndStyles: q.object(pageColorsAndStylesSelection).nullable() // Appended post-query
 } satisfies Selection;

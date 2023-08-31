@@ -7,10 +7,8 @@
 
 @media (min-width: token("breakpoints.w1150" to rem)) {
   .featuredReviews {
-    margin-top: 32px;
     margin-left: 0;
     margin-right: 0;
-    padding: 24px 0;
     display: flex;
     align-items: center;
   }

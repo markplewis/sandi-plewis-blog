@@ -10,14 +10,15 @@ import { getPageColorsAndStyles } from "~/utils/color";
 import type { ImageData, PageColorsAndStyles } from "~/utils/queries/shared";
 import type { NewsItem } from "~/utils/queries/newsItems";
 
-import styles from "~/components/pages/novels/NewsItemPage.module.css";
+// import styles from "~/components/pages/newsItems/NewsItemPage.module.css";
+import styles from "~/components/pages/novels/NovelPage.module.css";
 
 export default function NewsItemPage({ data }: { data: NewsItem }) {
   // Append adjusted page colors
   if (data?.image?.sampledColors) {
     data.pageColorsAndStyles = getPageColorsAndStyles(data.image.sampledColors);
   }
-  // console.log("newsItem data", util.inspect(data, false, 5));
+  // console.log("novel data", util.inspect(data, false, 5));
   const { title = "", description = "", overview = [], pageColorsAndStyles } = data;
   const body = data.body as PortableTextBlock[];
   const image = data.image as ImageData;
