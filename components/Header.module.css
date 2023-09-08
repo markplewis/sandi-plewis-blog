@@ -21,7 +21,7 @@
   flex-wrap: wrap;
   grid-column: 1 / 2;
 }
-@media (min-width: token("breakpoints.w820" to rem)) {
+@media (min-width: token("breakpoints.w900" to rem)) {
   .inner {
     padding-bottom: 32px;
     align-items: baseline;
@@ -80,7 +80,7 @@
 .navLinkTwitterTextDesktop {
   display: none;
 }
-@media (min-width: token("breakpoints.w820" to rem)) {
+@media (min-width: token("breakpoints.w900" to rem)) {
   .navLinkTwitterTextMobile {
     display: none;
   }
@@ -236,7 +236,7 @@
 
 /* Toggle mobile vs desktop navs */
 
-@media (min-width: token("breakpoints.w820" to rem)) {
+@media (min-width: token("breakpoints.w900" to rem)) {
   .navMobileButton,
   .navMobile {
     display: none;

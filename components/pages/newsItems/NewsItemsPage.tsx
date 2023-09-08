@@ -35,7 +35,7 @@ export default function NewsItemsPage({ data }: { data: Teaser[] }) {
       )}
       {pastNews.length ? (
         <>
-          <SubTitle as="h2">Past</SubTitle>
+          <SubTitle as="h2">Recent</SubTitle>
           <CardList items={pastNews} path="news" showDate={true} />
         </>
       ) : (

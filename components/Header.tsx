@@ -99,6 +99,11 @@ export default function Header() {
           Home
         </Link>
       </li>
+      <li className={`${styles.navItem} ${pathName.startsWith("/news") ? active : ""}`}>
+        <Link className={styles.navLink} href="/news">
+          News
+        </Link>
+      </li>
       <li
         className={`${styles.navItem} ${
           pathName.startsWith("/writing") ||
