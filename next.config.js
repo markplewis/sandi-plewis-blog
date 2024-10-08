@@ -1,5 +1,3 @@
-const { withPlausibleProxy } = require("next-plausible");
-
 // TODO: the following `import `doesn't seem to work, even when I rename this file to
 // `next.config.mjs` and add `"type": "module"` to `package.json`, so I've copied the
 // `envProd` variable into this file.
@@ -52,5 +50,4 @@ const nextConfig = {
   }
 };
 
-// See: https://github.com/4lejandrito/next-plausible#proxy-the-analytics-script
-module.exports = withPlausibleProxy()(nextConfig);
+module.exports = nextConfig;

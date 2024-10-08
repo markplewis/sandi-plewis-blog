@@ -3,10 +3,8 @@ import type { AppProps } from "next/app";
 import { Dancing_Script, Literata, Open_Sans } from "next/font/google";
 import Router from "next/router";
 import { SessionProvider } from "next-auth/react";
-import PlausibleProvider from "next-plausible";
 import NProgress from "nprogress";
 import { AppProvider } from "~/utils/useApp";
-import { BASE_URL, envProd } from "~/env/constants";
 
 import "modern-normalize/modern-normalize.css";
 import "nprogress/nprogress.css";
@@ -31,7 +29,6 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const domain = BASE_URL.split("//").pop() || "";
   return (
     <>
       <style jsx global>{`
@@ -44,15 +41,12 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
         }
       `}</style>
 
-      {/* See: https://github.com/4lejandrito/next-plausible */}
-      <PlausibleProvider domain={domain} enabled={envProd}>
-        <AppProvider>
-          {/* See: https://authjs.dev/getting-started/oauth-tutorial#exposing-the-session-via-provider */}
-          <SessionProvider session={session}>
-            <Component {...pageProps} />
-          </SessionProvider>
-        </AppProvider>
-      </PlausibleProvider>
+      <AppProvider>
+        {/* See: https://authjs.dev/getting-started/oauth-tutorial#exposing-the-session-via-provider */}
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </AppProvider>
     </>
   );
 }
