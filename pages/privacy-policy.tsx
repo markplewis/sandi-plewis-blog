@@ -16,13 +16,7 @@ export default function PrivacyPolicy() {
     <Layout title="Privacy policy" description="Privacy policy">
       <PageBodyStatic>
         <PageTitle>Privacy Policy</PageTitle>
-        <p>Last updated: November 1, 2021</p>
-        <p>
-          This website uses a privacy-friendly Google Analytics alternative called{" "}
-          <a href="https://plausible.io/">Plausible</a> to collect anonymized traffic data, in order
-          to help us better understand which pages are receiving the most views, etc. This website
-          does not collect any personally identifiable information (PII) about its users.
-        </p>
+        <p>Last updated: October 7, 2024</p>
         <p>
           The social media share buttons on this website are simple, direct links to their
           respective platforms (i.e. Twitter and Facebook). Consequently, no third-party tracking
