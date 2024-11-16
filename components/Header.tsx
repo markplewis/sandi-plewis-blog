@@ -129,20 +129,6 @@ export default function Header() {
           Contact
         </Link>
       </li>
-      <li className={styles.navItem}>
-        <Link
-          className={styles.navLinkTwitter}
-          href="https://twitter.com/SandiPlewis"
-          aria-label="Follow Sandi on Twitter"
-          target="_blank"
-          rel="noopener noreferrer">
-          <span className={styles.navLinkTwitterTextDesktop}>Follow</span>
-          <svg role="img" aria-hidden={true} focusable={false} pointerEvents="none">
-            <use xlinkHref="#icon-twitter" />
-          </svg>
-          <span className={styles.navLinkTwitterTextMobile}>Follow Sandi on Twitter</span>
-        </Link>
-      </li>
     </ul>
   );
 

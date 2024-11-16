@@ -52,43 +52,6 @@
   font-family: var(--font-family-base);
 }
 
-/* Twitter nav link */
-
-.navLinkTwitter {
-  font-size: var(--font-size-20);
-  color: var(--color-font-base);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.navLinkTwitter:hover,
-.navLinkTwitter:focus {
-  text-decoration-line: underline;
-}
-.navLinkTwitter svg {
-  width: 30px;
-  height: 30px;
-  margin: 0;
-  padding: 0;
-  fill: var(--color-font-base);
-  flex-shrink: 0;
-}
-
-/* Twitter nav link text */
-
-.navLinkTwitterTextDesktop {
-  display: none;
-}
-@media (min-width: token("breakpoints.w900" to rem)) {
-  .navLinkTwitterTextMobile {
-    display: none;
-  }
-  .navLinkTwitterTextDesktop {
-    display: block;
-  }
-}
-
 /* Mobile nav menu button */
 
 .navMobileButton {
@@ -181,24 +144,6 @@
 .navMobile .navLink:focus {
   text-decoration-line: underline;
   background-color: var(--color-darkest-gray);
-}
-
-/* Mobile nav Twitter link */
-
-.navMobile .navLinkTwitter {
-  width: 100%;
-  height: 70px; /* TODO: how to achieve this with padding instead? */
-  padding-left: var(--column-margin-left);
-  padding-right: var(--column-margin-right);
-  color: var(--color-white);
-  transform: none;
-}
-.navMobile .navLinkTwitter:hover,
-.navMobile .navLinkTwitter:focus {
-  background-color: var(--color-darkest-gray);
-}
-.navMobile .navLinkTwitter svg {
-  fill: var(--color-white);
 }
 
 /* Desktop nav */

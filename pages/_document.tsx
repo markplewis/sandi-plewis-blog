@@ -1,24 +1,10 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import Script from "next/script";
 
-const polyfillFeatures = [
-  "default",
-  "es2015",
-  "es2016",
-  "es2017",
-  "MediaQueryList.prototype.addEventListener",
-  "MediaQueryList.prototype.removeEventListener"
-].join("%2C");
-
-const polyfillService = `https://polyfill.io/v3/polyfill.min.js?features=${polyfillFeatures}&flags=gated`;
-
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* https://nextjs.org/docs/basic-features/supported-browsers-features#polyfills */}
-        <link rel="preconnect dns-prefetch" href="https://polyfill.io" />
-        <Script src={polyfillService} strategy="beforeInteractive" />
         <Script src="https://cdn.jsdelivr.net/npm/container-query-polyfill@1/dist/container-query-polyfill.modern.js" />
       </Head>
       <body>

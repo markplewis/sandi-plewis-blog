@@ -3,18 +3,6 @@ import { useRouter } from "next/router";
 import styles from "~/components/ShareTools.module.css";
 import { BASE_URL } from "~/env/constants";
 
-// Allow bracket notation object property access
-// https://stackoverflow.com/questions/34727936/typescript-bracket-notation-property-access
-interface IndexableUrlParams {
-  [key: string]: string;
-}
-
-function encodeUrlParams(params: IndexableUrlParams = {}) {
-  return Object.keys(params)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-    .join("&");
-}
-
 export default function ShareTools({
   text = "",
   position = "",
@@ -43,23 +31,12 @@ export default function ShareTools({
   const borderClass = border ? styles.shareToolsWithBorder : null;
 
   // Inspiration: https://www.tunnelbear.com/blog/why-we-created-our-own-social-media-buttons-on-our-website/
-  const twitterURL = `https://twitter.com/share?${encodeUrlParams({ url, text })}`;
   const facebookURL = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
   const emailURL = `mailto:?body=${text} - ${url}`;
 
   return (
     <div
       className={`${styles.shareTools} ${positionClass} ${alignmentClass} ${colorClass} ${borderClass}`}>
-      <Link
-        className={styles.shareTool}
-        href={twitterURL}
-        aria-label="Share on Twitter"
-        target="_blank"
-        rel="noopener noreferrer">
-        <svg role="img" aria-hidden={true} focusable={false} pointerEvents="none">
-          <use xlinkHref="#icon-twitter" />
-        </svg>
-      </Link>
       <Link
         className={styles.shareTool}
         href={facebookURL}

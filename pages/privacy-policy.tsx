@@ -19,8 +19,8 @@ export default function PrivacyPolicy() {
         <p>Last updated: October 7, 2024</p>
         <p>
           The social media share buttons on this website are simple, direct links to their
-          respective platforms (i.e. Twitter and Facebook). Consequently, no third-party tracking
-          code is added to the page by these companies or their affiliates.
+          respective platforms. Consequently, no third-party tracking code is added to the page by
+          these companies or their affiliates.
         </p>
         <p>
           This website’s contact form sends an email immediately upon submission and the submitted
